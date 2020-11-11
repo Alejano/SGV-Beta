@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Combustible</title>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+	<link href="favicon.html" rel="icon">
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+	<header>
+	<div>
+		<div class="heades" >
+			<img th:src="@{/images/pgj.png}" class="logopgj">
+			<div class="dropdown menuGen" >
+				  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <i class="fas fa-user-cog"></i>
+				  </a>
+				
+				  <div class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+		  			<form th:action="@{/logout}" method="post" id="loggout" style="margin-bottom: 3px; margin-left: 5px;">
+				        <button class="btn btn-outline-success" onclick="document.getElementById('loggout').submit()" type="submit" style="color:green !important">Cerrar sesion</button>
+				    	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				    </form>	
+				    <form  th:action="@{/perfil}" style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Perfil</button>					    	
+						    </form>
+				    <form th:action="@{/Adscripciones}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Adscripciones</button>					    	
+					</form>
+					<form th:action="@{/Seguridad}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Seguridad</button>					    	
+					</form>
+				  </div>
+			</div>			
+		</div>
+		
+							
+        <div class="TituloCon"></div>
+		
+		<div class="form-group last col-sm-12 nav-listado">
+		
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}' style="width: 48px; height: 34px; float: right; margin-right: 1%;margin-top: 5px;"><i class="fas fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%;"></i></a>
+			<div id="button" class="form-group last col-sm-4" style="margin-bottom: 5px;margin-top: 5px;"> 
+				<div class="container" style="width: 314px;">
+  							 				 					 			
+	 				<div class="dropdown col-sm-4"  >
+						  
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
+						  MENU
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>						    
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						 
+						   		
+						  </div>
+					</div>			
+ 				</div>
+ 			</div> 			
+		</div>
+		<div class="titulocontainer">
+			<h1 class="item-title text-right StituloCon">Combustible</h1>
+		</div>
+	</div>
+	</header>
+
+	
+	<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 fondolistado">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12" >
+	                            <div class="item-wrap">
+	                                <div class="row" style="text-align: center;">
+	                               	 <div class=" col-md-10">
+	                                			<div class="col-md-5" > <p style="text-align: right;">Buscar</p></div> 
+	                                        	<form class="col-md-5">											       											       
+											         <input id="searchTerm" class="form-control col-md-5"  type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" />											
+											    </form>
+											       <div id="coincidencias" class="col-md-8"></div>
+									</div>
+	                                    <div class="col-md-12">
+	                                        <h2 th:text="${titulo}"  style="text-align: center; color:#19A40B; font-weight: 600;  "  ></h2>
+										<table class="table fixed_header fixed_Comb" id="combustibleT" style="height: 250px !important;">
+											<thead class="table-success">
+												<tr>													
+													<th>Presupuesto</th>													
+													<th>Numero de Tarjeta</th>
+													<th>Kilometraje</th>  
+													<th>Fecha de Inicio</th>
+													<th>Fecha de Fin</th>  												
+													<th th:if="${usuario} == 'ROLE_ADMIN' ">Opciones</th>
+													<!-- <th>Eliminar</th>
+													<th>Asignacion</th>
+													<th>Numero unico de Adscripcion</th>-->													
+												</tr>
+											</thead>
+											<tbody style="height: 250px !important;">
+												<tr th:each="combustiblesql: ${combustible}" >																									
+													<td th:text="${combustiblesql.presupuesto_ord}"></td>
+													<td th:text="${combustiblesql.no_tarjeta}"></td>
+													<td th:text="${combustiblesql.kilometraje_ord}"></td>
+													<td th:text="${combustiblesql.fecha_ini_ord}"></td>	
+													<td th:text="${combustiblesql.fecha_fin_ord}"></td>																									
+													<td th:if="${usuario} == 'ROLE_ADMIN' ">
+													<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/formComb/}+${combustiblesql.id_asignacion}" th:text="editar" style="width: 100px;"></a>
+													<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/elimComb/}+${combustiblesql.id_asignacion}+'/'+ ${id_vehiculo}" onclick="return confirm('Seguro que desea eliminar?');" th:text="eliminar" style="width: 100px;"></a>
+													<a class="btn btn-primary btn-xs btn-stilo" th:if="${existeAsignacion}" th:href="@{/Addext/}+${combustiblesql.id_asignacion}"  th:text="'Asignar Extemporaneo'" style="width: 200px;"></a>													
+													</td>
+												</tr>
+												<tr><td colspan="3" th:text="'Asignaciones Extraordinarias'"></td></tr>
+												<tr th:each="combustiblesql: ${combustibleext}" >																									
+													<td th:text="${combustiblesql.presupuesto_ext}"></td>
+													<td th:text="${combustiblesql.asigCombustible.no_tarjeta}"></td>
+													<td th:text="${combustiblesql.kilometraje_ext}"></td>
+													<td th:text="${combustiblesql.fecha_ini_ext}"></td>	
+													<td th:text="${combustiblesql.fecha_fin_ext}"></td>																									
+													<td th:if="${usuario} == 'ROLE_ADMIN' ">
+													<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/Addext/}+${combustiblesql.id_asignacion}" th:text="editar" style="width: 100px;"></a>
+													<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/elimCombext/}+${combustiblesql.id_asignacion}+'/'+ ${id_vehiculo}" onclick="return confirm('Seguro que desea eliminar?');" th:text="eliminar" style="width: 100px;"></a>																									
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										
+										<div class="form-group last col-sm-12">
+										<a class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:if="!${existeAsignacion}"  th:href="@{/formComb/Ag/} + ${id_vehiculo}"  style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>
+										
+										</div>
+	                                    </div>
+	                                    
+	                                    <div class="col-md-12">
+	                                        <h2 th:text="${titulo2}"  style="text-align: center; color:#19A40B; font-weight: 600;  "  ></h2>
+										<table class="table fixed_header fixed_Comb" id="combustibleT" >
+											<thead class="table-success">
+												<tr>													
+													<th>Presupuesto</th>													
+													<th>Numero de Tarjeta</th>
+													<th>Kilometraje</th>  
+													<th>Fecha de Inicio</th>
+													<th>Fecha de Fin</th>  																																																	
+												</tr>
+											</thead>
+											<tbody >
+												<tr th:each="combustiblesql: ${combustibleHisto}" >																									
+													<td th:text="${combustiblesql.presupuesto_ord}"></td>
+													<td th:text="${combustiblesql.no_tarjeta}"></td>
+													<td th:text="${combustiblesql.kilometraje_ord}"></td>
+													<td th:text="${combustiblesql.fecha_ini_ord}"></td>	
+													<td th:text="${combustiblesql.fecha_fin_ord}"></td>																																																			
+												</tr>
+											</tbody>
+										</table>
+																				
+	                                    </div>
+	                                    
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<script type="text/javascript"  th:inline="javascript">
+	function doSearch()
+
+    {
+
+        const tableReg = document.getElementById('combustibleT');
+
+        const searchText = document.getElementById('searchTerm').value.toLowerCase();
+
+        let total = 0;
+
+        // Recorremos todas las filas con contenido de la tabla
+       
+
+	        for (let i = 1; i < tableReg.rows.length; i++) {
+	
+	            // Si el td tiene la clase "noSearch" no se busca en su cntenido
+	
+	            if (tableReg.rows[i].classList.contains("noSearch")) {
+	                continue;
+	            }
+	
+	            let found = false;
+	
+	            const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+	
+	            // Recorremos todas las celdas
+	
+	            for (let j = 0; j < cellsOfRow.length && !found; j++) {
+	
+	                const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+	
+	                // Buscamos el texto en el contenido de la celda
+	
+	                if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+	
+	                    found = true;
+	
+	                    total++;
+	                }
+	            }
+	
+	            if (found) {
+	
+	                tableReg.rows[i].style.display = '';
+	
+	            } else {
+	
+	                // si no ha encontrado ninguna coincidencia, esconde la
+	
+	                // fila de la tabla
+	
+	                tableReg.rows[i].style.display = 'none';
+	           }
+	        }
+	
+	        // mostramos las coincidencias
+	
+	        const lastTR=tableReg.rows[tableReg.rows.length-1];
+	
+	        const td=lastTR.querySelector("td");
+	
+	        lastTR.classList.remove("hide", "red");
+	
+	        if (searchText == "") {
+	
+	            //lastTR.classList.add("hide");
+	            $('#coincidencias').html("");
+	        } else if (total) {
+	        	$('#coincidencias').html("Se ha encontrado "+total+" coincidencia"+((total>1)?"s":""));
+	           // td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
+	
+	        } else {
+	
+	            lastTR.classList.add("red");
+	            $('#coincidencias').html("No se han encontrado coincidencias")
+	            //td.innerHTML="No se han encontrado coincidencias";
+	        }
+        
+    }
+    
+    function pulsar(e) {
+    	  tecla = (document.all) ? e.keyCode :e.which;
+    	  return (tecla!=13);
+    	} 
+    
+    function string Mes(){		
+		var month = d.getMonth()+1;
+		
+		var output = ((month<10 ? '0' : '') + month);
+		return output;
+	}
+    </script>
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+ 
+
+</body>
+</html>

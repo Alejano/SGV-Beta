@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Baja Vehiculos</title>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+	<link href="favicon.html" rel="icon">
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>	
+</head>
+<body>
+	<header>
+		<div class="heades">
+			<img th:src="@{/images/pgj.png}" style="width: 20%">			
+		</div>
+                <div class="TituloCon">
+                </div>
+		<div class="form-group last col-sm-12 form-nav" >		    		
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
+			
+			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
+				<div class="container col-sm-4">
+  							 				 					 			
+	 				<div class="dropdown col-sm-4"  >
+						  
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
+						  MENU
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>						    
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						 
+						   		
+						  </div>
+					</div>			
+ 				</div>
+ 			</div> 			
+		</div>
+		<h1 class="item-title text-right StituloCon">Baja de Vehiculos</h1>
+	</header>
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 formfondo">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                        <form th:action="@{/formBaja}" th:object="${bajavehiculo}" enctype="multipart/form-data" method="post" id="formulario"  name="visitas" data-toggle="validator" class="popup-form">
+	                                            <div class="row">	                                            		
+														
+	                                            <!--Numero de placa-->
+													<div class="form-group col-sm-4">
+														<div class="help-block with-errors" style="width: 261px;"></div>
+														<input th:field="${vehiculo.placa}" name="fname" id="N_Placa" placeholder="Placa" class="form-control soloLetras" type="text" required data-error="Ingrese El Numero de Placa" disabled>
+														<div class="input-group-icon"><i class="fa fa-user"></i></div>
+													</div>
+
+													<!--kilometros-->
+													<div class="form-group col-sm-2">
+														<div class="help-block with-errors" style="width: 261px;"></div>
+														<input th:field="${vehiculo.kilometraje_inicial}" id="D_re" class="form-control signos" type="number" min="1" max="100000000000000" data-error="Ingrese La Distancia Recorrida" disabled>
+														<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>
+													</div>
+													<div class="form-group col-sm-2">
+														
+														<input placeholder="Kilometros" class="form-control" disabled>
+														
+													</div>
+													
+													</br>
+													</br>
+														
+														<div class="form-group col-sm-2">
+														<div class="help-block with-errors" style="width: 261px;"></div>
+														<input th:field="*{fecha_baja}" type="date" id="fecha" name="fecha" class="form-control signos"/>														
+														<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>
+													</div>
+													<div class="form-group col-sm-2">
+														
+														<input placeholder="Fecha de Baja " class="form-control" disabled>
+														
+													</div>
+													
+														
+													
+														 <!--Adjuntar documento -->
+														<div class="form-group col-sm-12">
+															<label for="file1" class="col-sm-2 col-form-label">Acta FNQ</label>
+															<div class="col-sm-4">
+																<div class="help-block with-errors"></div>
+																<input id="doc1" type="file" name="file1" class="form-control" accept="application/pdf" required data-error="Ingresa el documento PDF menor a 10 MB."/>
+															</div>
+														</div>
+														
+														<div class="form-group col-sm-12">
+															<label for="file2" class="col-sm-2 col-form-label">Oficio Baja</label>
+															<div class="col-sm-4">
+																<div class="help-block with-errors"></div>
+																<input id="doc2" type="file" name="file2" class="form-control" accept="application/pdf" required data-error="Ingresa el documento PDF menor a 10 MB."/>
+															</div>
+														</div>
+														
+														<div class="form-group col-sm-12">
+															<label for="file3" class="col-sm-2 col-form-label">Dictamen</label>
+															<div class="col-sm-4">
+																<div class="help-block with-errors"></div>
+																<input id="doc3" type="file" name="file3" class="form-control" accept="application/pdf" required data-error="Ingresa el documento PDF menor a 10 MB."/>
+															</div>
+														</div>
+	                                                    
+	                                                    
+	                                                    <input th:field="*{url_acta_fnq}" type="hidden"/>
+	                                                    <input th:field="*{url_oficio_baja}" type="hidden"/>
+	                                                    <input th:field="*{url_dictamen}" type="hidden"/>
+	                                                    <input type="hidden" th:field="*{id_baja_vehiculo}"/>										
+											
+													
+													<!--Boton de guardar-->													
+
+													<div  class="text-center form-group col-sm-12">
+														<button type="submit" id="guardar"  class="btn btn-custom btn-stilo" style="float:right"><i class='fa fa-envelope'></i> Guardar</button>
+													<div class="clearfix"></div>
+													<br>
+												    </div>
+	                                            		
+	                                            	
+	                                            </div>
+	                                        </form>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<script>
+$( document ).ready(function() {
+
+    var now = new Date();
+
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+    $("#fecha").val(today);
+    
+    
+    $("#doc1").change(function(){
+    	var fileName = this.files[0].name;
+    	var fileSize = this.files[0].size;
+
+    	if(fileSize > 3000000){
+    		swal("", "El archivo no debe superar los 3MB", "error");
+    		this.value = '';
+    		this.files[0].name = '';
+    	}else{
+    		// recuperamos la extensión del archivo
+    		var ext = fileName.split('.').pop();
+    		
+    		// Convertimos en minúscula porque 
+    		// la extensión del archivo puede estar en mayúscula
+    		ext = ext.toLowerCase();
+        
+    		// console.log(ext);
+    		switch (ext) {
+    			case 'jpg':
+    			case 'jpeg':
+    			case 'png':
+    			case 'pdf': break;
+    			default:
+    				swal("", "El archivo no tiene la extensión adecuada", "error");
+    				this.value = ''; // reset del valor
+    				this.files[0].name = '';
+    		}
+    	}
+    	
+    });
+    
+  $("#doc2").change(function(){
+	  var fileName = this.files[0].name;
+		var fileSize = this.files[0].size;
+
+		if(fileSize > 3000000){
+			swal("", "El archivo no debe superar los 3MB", "error");
+			this.value = '';
+			this.files[0].name = '';
+		}else{
+			// recuperamos la extensión del archivo
+			var ext = fileName.split('.').pop();
+			
+			// Convertimos en minúscula porque 
+			// la extensión del archivo puede estar en mayúscula
+			ext = ext.toLowerCase();
+	    
+			// console.log(ext);
+			switch (ext) {
+				case 'jpg':
+				case 'jpeg':
+				case 'png':
+				case 'pdf': break;
+				default:
+					swal("", "El archivo no tiene la extensión adecuada", "error");
+					this.value = ''; // reset del valor
+					this.files[0].name = '';
+			}
+		}
+    	
+    });
+  
+  $("#doc3").change(function(){
+	  var fileName = this.files[0].name;
+		var fileSize = this.files[0].size;
+
+		if(fileSize > 3000000){
+			swal("", "El archivo no debe superar los 3MB", "error");
+			this.value = '';
+			this.files[0].name = '';
+		}else{
+			// recuperamos la extensión del archivo
+			var ext = fileName.split('.').pop();
+			
+			// Convertimos en minúscula porque 
+			// la extensión del archivo puede estar en mayúscula
+			ext = ext.toLowerCase();
+	    
+			// console.log(ext);
+			switch (ext) {
+				case 'jpg':
+				case 'jpeg':
+				case 'png':
+				case 'pdf': break;
+				default:
+					swal("", "El archivo no tiene la extensión adecuada", "error");
+					this.value = ''; // reset del valor
+					this.files[0].name = '';
+			}
+		}
+  	
+  });
+    
+});
+</script>
+	<script src="/assets/js/CambiosEstado.js"></script>
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+<script src="/assets/js/contact-form.js"></script>
+	
+
+ 
+</body>
+</html>

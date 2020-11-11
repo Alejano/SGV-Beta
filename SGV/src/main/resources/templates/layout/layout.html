@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+	<link href="favicon.html" rel="icon">
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">	
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>	
+</head>
+<body>
+	<header th:fragment="header">
+		<div>
+		<div class="heades" >
+			<img th:src="@{images/pgj.png}" class="logopgj">
+			<div class="dropdown menuGen">
+				  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <i class="fas fa-user-cog"></i>
+				  </a>
+				
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+		  			<form th:action="@{/logout}" method="post" id="loggout" style="margin-bottom: 3px; margin-left: 5px;">
+				        <button class="btn btn-outline-success " onclick="document.getElementById('loggout').submit()" type="submit" style="color:green !important">Cerrar sesion</button>
+				    	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				    </form>	
+				    <form  th:action="@{/perfil}" style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Perfil</button>					    	
+						    </form>
+				     <form th:action="@{/Adscripciones}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Adscripciones</button>					    	
+					</form>
+				  </div>
+			</div>			
+		</div>
+		
+	
+                <div class="TituloCon"></div>
+		<div class="form-group last col-sm-12 nav-listado">
+		<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
+			<div id="button" class="form-group last col-sm-4"> 				 			
+	 				<div class="dropdown" style=" margin-top: 5%; margin-right: 10%" >
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						   Menu
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	<form th:action="@{/home}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Inicio</button>					    	
+						    </form>						  
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>
+				    		  <form th:action="@{/Usuarios}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Usuarios</button>					    	
+				    		</form>							    
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						    
+						    <form th:action="@{/Adscripciones}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Adscripciones</button>					    	
+						    </form>							 
+						   		
+						  </div>
+					</div>			
+ 				
+ 			</div> 			
+		</div>
+		<div class="titulocontainer">
+			<div class="titulocontainer"></div>
+		</div>
+</div>
+	</header>
+
+	
+	<section>
+	 
+	</section>
+	
+<footer th:fragment ="footer">
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+ </footer>
+</body>
+</html>

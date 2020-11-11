@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Adscripcion</title>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+	<link href="favicon.html" rel="icon">
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/fontawesome/css/fontawesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+	<link rel="stylesheet" th:href="@{/assets/SweetAlert2/sweetalert2.css}">
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="/assets/fontawesome/js/all.js"></script>	
+</head>
+<body>
+	<header>
+		<div class="heades">
+			<img th:src="@{/images/pgj.png}" style="width: 20%">			
+		</div>
+                <div class="TituloCon">                   
+                </div>
+		<div class="form-group last col-sm-12 form-nav">		
+		    <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;font-size:14 px;"><i class="fas fa-home fa-2x" style="margin-top: -36%;margin-left:-150%;"></i></a>
+		    <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Adscripciones}' style="width: 48px; height: 34px; float: right; margin-right: 5%;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: -36%;margin-left: -119%;"></i></a>
+		        					
+			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
+				<div class="container col-sm-4">
+  							 				 					 			
+	 				<div class="dropdown col-sm-4"  >
+						  
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
+						  MENU
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">						  							 
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>
+				    		  <form th:action="@{/Usuarios}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Usuarios</button>					    	
+				    		</form>							    
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						    
+						    <form th:action="@{/Adscripciones}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Adscripciones</button>					    	
+						    </form>							 
+						   		
+						  </div>
+					</div>			
+ 				</div>
+ 			</div> 			
+		</div>
+		<h1 class="item-title text-right StituloCon">Adscripcion</h1>
+	</header>
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 formfondo" >
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                        <form th:action="@{/formAds}" th:object="${adscripcion}" method="post" id="formulario"  name="visitas" data-toggle="validator" class="popup-form">
+	                                            <div class="row">
+	                                            
+	                                    
+	                                                    <!--nombre Adscripcion-->
+	                                                    <div class="form-group col-sm-9">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{nombre_adscripcion}" max=50 id="Nom_Ads" placeholder="Nombre de Adscripcion"  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese el nombre de la Adscripcion"/>
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                    <!--Calle-->
+	
+	                                                    <div class="form-group col-sm-9">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{calle}"  id="Calle" placeholder="Calle" max=30  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese su Calle"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-map-marker-alt"></i></div>
+	                                                    </div>
+	
+	                                                    <!--Numero-->
+	                                                    <div class="form-group col-sm-9">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{numero}"  id="Num" placeholder="Numero" class="form-control signos" type="number" required data-error="Ingrese un Numero Valido"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-hashtag"></i></div>
+	                                                    </div>
+	
+	                                                    <!--Alcaldia-->
+	                                                    <div class="form-group col-sm-9">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{alcaldia}"  id="Alc" placeholder="Alcaldia"  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese Alcaldia Correspondiente"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-thumbtack"></i></div>
+	                                                    </div>
+	
+	                                                    <!--Codigo Postal-->
+	                                                    <div class="form-group col-sm-9">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{codigo_postal}" min=1 max=99999 onchange="codigo()" id="Co_po" placeholder="Codigo Postal" class="form-control signos" type="number" required data-error="Ingrese Codigo Postal Valido"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-hashtag"></i>	</div>
+	                                                    </div>
+	
+	
+	                                                    <!--Entidad -->
+	                                                    <div class="form-group col-sm-9">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{entidad}"  id="Enti" placeholder="Ingrese Entidad"  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese Entidad Valida"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-atlas"></i></div>
+	                                                    </div>
+	                                                    	    
+	                                                    	    
+	                                                <input type="hidden" th:field="*{id_adscripcion}" />
+	                                                    	                                                    	                                                    													    													    	                                                    									
+	                                                    <!--Boton Guardar-->
+	                                                    <div class="form-group last col-sm-12">
+	                                                            <button type="submit" id="guardar" class="btn btn-custom"><i class='fa fa-envelope'></i> Guardar</button>
+	                                                    </div>
+	                                                    <div class="clearfix"></div>
+	                                            </div>
+	                                        </form>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>
+	<script type="text/javascript">
+		
+	function IDADS(){
+		ID = document.getElementById("Id_Ads").value;
+		if(ID.length<1 ||ID.length>10){
+			$(".with-errors").show();
+		}
+	}
+	
+	function codigo(){
+		CP = document.getElementById("Co_po").value;
+		if(CP.length<5 ||CP.length>5){
+			$(".with-errors").show();
+		}
+	}
+	
+	
+	</script>
+	<script src="/assets/js/CambiosEstado.js"></script>	
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+    <script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
+ 
+</body>
+</html>

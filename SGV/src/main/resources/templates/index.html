@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang=”es” xmlns:th=http://www.thymeleaf.org>
+<head>                
+		    <title>SCV</title>
+		    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		    <meta name="description" content="">
+		    <meta name="author" content="">
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+                    
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+                    
+                    <link rel="stylesheet" type="text/css" href="CSS/main.css">                                 
+                
+</head>
+		<body>
+		    <header >
+		    <img th:src="@{/images/Logo_pgj.png}" alt="Logotipo de HTML5" class="Logologgin" >
+                    
+                    <div>
+                        <h1 class ="tituloSCV">SISTEMA DE GESTION VEHICULAR</h1>
+                        <h3 class ="subtituSCV">Login</h3>
+                    </div>
+		    </header>
+		    
+		 <div id="Contenedor">
+		 
+                     		 
+                 
+        <div class="ContentForm">
+        	<p th:if="${loginError}" class="error">contraseña o usuario incorrectos</p>
+        	
+		 	<form th:action="@{/index}" method="post">
+		 		<div class="input-group input-group-lg">
+				  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-envelope"></i></span>
+                       <input id="username" type="text" class="form-control" placeholder="usuario" name="username" aria-describedby="sizing-addon1" autofocus="autofocus" required>
+				</div>
+				<br>                                                                				
+                <div class="input-group input-group-lg">
+				  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-lock"></i></span>
+				  <input type="password" id="password" name="password" class="form-control" placeholder="*******" aria-describedby="sizing-addon1" required>
+				</div>
+				<br>				
+				<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Sing In">Entrar</button>
+				
+		 	</form>
+		 </div>	
+		 </div>
+</body>
+ 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ 
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+
+</html>
+
+
+
+
+
+
+
+
+

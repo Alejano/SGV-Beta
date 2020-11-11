@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Siniestros</title>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+	<link href="favicon.html" rel="icon">
+    <link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/fontawesome/css/fontawesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}"/>
+	
+</head>
+<body>
+	<header>
+		<div>
+		<div class="heades" >
+			<img th:src="@{/images/pgj.png}" class="logopgj">
+			<div class="dropdown menuGen">
+				  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <i class="fas fa-user-cog"></i>
+				  </a>
+				
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+		  			<form th:action="@{/logout}" method="post" id="loggout" style="margin-bottom: 3px; margin-left: 5px;">
+				        <button class="btn btn-outline-success" onclick="document.getElementById('loggout').submit()" type="submit" style="color:green !important">Cerrar sesion</button>
+				    	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				    </form>	
+				    <form  th:action="@{/perfil}" style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Perfil</button>					    	
+				   </form>
+				    <form th:action="@{/Adscripciones}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Adscripciones</button>					    	
+					</form>
+				  </div>
+			</div>			
+		</div>
+		
+                <div class="TituloCon"></div>
+		<div class="form-group last col-sm-12 nav-listado">
+		    <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;font-size:14 px;"><i class="fas fa-home fa-2x" style="font-size:14 px;margin-left:-26%;"></i></a>
+ 			<div id="button" class="form-group last col-sm-4" style="margin-bottom: 5px;margin-top: 5px;"> 
+				<div class="container" style="width: 314px;">
+  							 				 					 			
+	 				<div class="dropdown col-sm-4"  >
+						  
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
+						  MENU
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>						    
+				    		<form th:action="@{/Usuarios}" th:if="${usuario} == 'ROLE_ADMIN'" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Usuarios</button>					    	
+				    		</form>
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						 
+						   		
+						  </div>
+					</div>			
+ 				</div>
+ 			</div> 			
+		</div>
+		<div class="titulocontainer">
+			<h1 class="item-title text-right StituloCon">Siniestros</h1>
+		</div>
+		</div>
+	</header>
+
+	
+	<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 fondolistado">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row" style="text-align: center;" >
+	                                       
+	                                        <div class=" col-md-12" id="Contenedorbuscar" >
+	                                        	
+	                                        	<form id="Busqueda" class="col-md-12"  th:if="${auxiliar} == true" th:action="@{/formSinBuscarPv}">		   
+	                                        	    <div class="col-sm-1 enlinea"><p>Buscar</p></div>							       											       
+											        <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style="display:inline-block;"/>													         										           
+                                                    <button type="submit" class="btn btn-primary btn-xs col-sm-1 btn-stilo" style="margin-left: 1%;margin-right: -11%;font-size: 14px;">Buscar</button>
+											        
+											        <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href="@{/ListarSiniestros/}+${id_vehiculo}" style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
+											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}'  style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>	
+											    </form>
+											    
+											    
+	                                        	<form id="Busqueda" class="col-md-12"  th:if="${auxiliar} == false" th:action="@{/formSinBuscar}">		   
+	                                        	    <div class="col-sm-1 enlinea"><p>Buscar</p></div>							       											       
+											        <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style="display:inline-block;"/>													         										           
+                                                    <button type="submit" class="btn btn-primary btn-xs col-sm-1 btn-stilo" style="margin-left: 1%;margin-right: -11%;font-size: 14px;">Buscar</button>
+											        
+											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href="@{/Siniestros}" style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
+											    </form>
+	
+	
+											    <div id="coincidencias" class="col-md-8"></div>
+											    
+											</div>
+		  
+	                                    <div class="col-md-12">	                                    		
+	                                        <h2 id="titulo" class="titulotabla" th:text="${titulo}"></h2>
+										<table class="table table-striped table-bordered fixed_header " id="siniestrosT" style="font-size: 14px;">
+											<thead class="table-success">
+												<tr>
+													<th class="celda">Placa</th>
+													<th class="celda">No Siniestro </th>
+													<th class="celda">Fecha Siniestro</th>
+													<th class="celda">Nombre Conductor</th>
+													<th class="celda">Primer Apellido</th>
+													<th class="celda">Segundo Apellido</th>
+													<th class="celda">Fecha Ingreso Taller</th>
+													<th class="celda">Fecha Salida Taller</th>
+													<th class="celda"  style="width:250px">Opciones</th>													
+													<th style="width: 1.4%" id="tamano" th:if="${tamano} == 'mostrar'"></th>									
+												</tr>
+											</thead>
+											<tbody>											
+												    <tr th:each="siniestrosql: ${siniestros}">
+												    <td class="celda" th:text="${siniestrosql.vehiculo.placa}"></td>
+													<td class="celda" th:text="${siniestrosql.numero_siniestro}"></td>
+													<td class="celda" th:text="${siniestrosql.fecha_siniestro}"></td>
+													<td class="celda" th:text="${siniestrosql.nombre_conductor}"></td>
+													<td class="celda" th:text="${siniestrosql.apellido1_conductor}"></td>
+													<td class="celda" th:text="${siniestrosql.apellido2_conductor}"></td>
+													<td class="celda" th:text="${siniestrosql.fecha_ingreso_taller}"></td>
+													<td class="celda" th:text="${siniestrosql.fecha_salida_taller}"></td>
+													<td class="celda" style="width:250px">
+														<!-- <a class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/formSeg/} +${segurosql.id_seguro}" th:text="informacion" ></a> -->
+													     <a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SINIESTRO'}" style="font-size:smaller;" th:href="@{/formSin/} +${siniestrosql.id_siniestro}" th:text="editar" ></a> 
+													     <a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario == 'ROLE_USER'}" style="font-size:smaller;" th:href="@{/formSin/} +${siniestrosql.id_siniestro}" th:text="INFORMACION" ></a> 
+													     
+													     <!--<a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario} == 'ROLE_ADMIN'" style="font-size:smaller;" th:href="@{/elimSin/}+${siniestrosql.id_siniestro}+'/'+${siniestrosql.url_identificacion_fgjcdmx}+'/'+${siniestrosql.url_ine}+'/'+
+													     ${siniestrosql.url_licencia}+'/'+${siniestrosql.url_declaracion_universal}+'/'+${siniestrosql.url_constancia_ingreso_taller}+'/'+${siniestrosql.url_constancia_salida_taller}" 
+													     onclick="return confirm('Seguro que desea eliminar el registro?');" th:text="eliminar"></a> --> 
+													</td>
+												</tr>
+											</tbody>										
+										</table>
+
+										<div class="col-sm-1 enlinea"><nav th:replace="paginator-nav :: paginator"></nav></div>
+										
+							            <div class="form-group last col-sm-12" th:if="${auxiliar == true and (usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SINIESTRO')}">
+									    <a class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/formSin/Ag/} + ${id_vehiculo}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>							
+										</div>
+	                                    </div>
+	                                </div>	                                	                              
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+		</div>
+	</section>
+	
+	
+	<script type="text/javascript"  th:inline="javascript">
+	
+  
+    
+	function doSearch()
+    {	
+        
+        const tableReg = document.getElementById('siniestrosT');
+        const searchText = document.getElementById('searchTerm').value.toLowerCase();
+        let total = 0;
+        // Recorremos todas las filas con contenido de la tabla
+	        for (let i = 1; i < tableReg.rows.length; i++) {
+	            // Si el td tiene la clase "noSearch" no se busca en su cntenido
+	            if (tableReg.rows[i].classList.contains("noSearch")) {
+	                continue;
+	            }
+	            let found = false;	
+	            const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+	            // Recorremos todas las celdas
+	            for (let j = 0; j < cellsOfRow.length && !found; j++) {	
+	                const compareWith = cellsOfRow[j].innerHTML.toLowerCase();	
+	                // Buscamos el texto en el contenido de la celda	
+	                if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {	
+	                    found = true;	
+	                    total++;
+	                }
+	            }	
+	            if (found) {	
+	                tableReg.rows[i].style.display = '';	
+	            } else {	
+	                // si no ha encontrado ninguna coincidencia, esconde la	
+	                // fila de la tabla	
+	                tableReg.rows[i].style.display = 'none';
+	           }
+	        }	
+	        // mostramos las coincidencias	
+	        const lastTR=tableReg.rows[tableReg.rows.length-1];	
+	        const td=lastTR.querySelector("td");	
+	        lastTR.classList.remove("hide", "red");	
+	        if (searchText == "") {	
+	            //lastTR.classList.add("hide");
+	            $('#coincidencias').html("")
+	        } else if (total) {
+	        	$('#coincidencias').html("Se ha encontrado "+total+" coincidencia"+((total>1)?"s":""));
+	        	if(total<5){$("#tamano").hide();}else{$("#tamano").show();}
+	            //td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");	
+	        } else {	
+	            lastTR.classList.add("red");
+	            $('#coincidencias').html("No se han encontrado coincidencias")
+	            $('#tamano').show();	            
+	            //td.innerHTML="No se han encontrado coincidencias";
+	        }   
+	        
+    }    
+	
+	  function pulsar(e) {
+    	  tecla = (document.all) ? e.keyCode :e.which;
+    	  return (tecla!=13);
+    	} 
+    
+	    </script>
+	    <!-- Fontawesome -->
+	    <script th:src="@{/assets/fontawesome/js/all.js}"></script>
+		<!-- jQuery Library -->
+		<script src="/assets/js/jquery-3.4.1.min.js"></script>
+		<!-- Popper js -->
+		<script src="/assets/js/popper.min.js"></script>
+		<!-- Bootstrap Js -->
+		<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+		<!-- Form Validator -->
+		<script src="/assets/js/validator.min.js"></script>
+		<!-- Contact Form Js -->
+		<script src="/assets/js/contact-form.js"></script>
+
+</body>
+</html>

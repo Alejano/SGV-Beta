@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+
+<html 
+	xmlns:th= "http://www.thymeleaf.org" >	
+	
+	<head th:fragment = "head">
+		<title>SGV</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="CSS/home.css" />
+		<link rel="stylesheet" href="/SGV/assets/css/font-awesome.min.css">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+		<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
+		 <script src="/webjars/stomp-websocket/stomp.min.js"></script>		
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">		
+				
+   
+                
+	</head>
+	<body onload="connect()" class="is-preload" style="background: #F5F5DC;">
+	
+	<div class="loader" style="display:none">
+		<div class="preloader" ></div>
+	</div>
+	<!--  
+	   <div style="    position: absolute;width: 50%;height: 560px;">
+			<div style="position: relative;display: block;" >
+				<button class="btn-minimize" style="background: repeating-linear-gradient(186deg, #2e4e4f, transparent 172px); box-shadow: none;">Entra A Hablar con nosotros</button>
+			</div>
+			<div id="VC" style="display: block;position: relative;z-index: 5;height: 560px; display: none;">
+			 <iframe allow="camera; microphone; display-capture" src="https://conferencia.fgjcdmx.gob.mx/Pruebaallowfullscreen=true" style="height: 100%; width: 100%; border: 0px;"></iframe>	
+			</div>			
+	   </div>-->
+		<!-- Wrapper -->
+	<div id="wrapper">
+	
+	
+
+				<!-- Header -->
+	<header id="header" class="alt" >
+	
+       
+       <div class=" logo" >
+		  <div class="row no-gutters">
+		    <div class="col-md-8">
+		      <img th:src="@{images/pgj.png}" class="card-img" >
+		    </div>
+		    <div class="col-md-4">
+		      <div class="card-body">
+		        <ul>
+	                  <li style="color:white;"><!-- <p class="textvien">Bienvenido: [[${#httpServletRequest.remoteUser}]]!</p> -->
+	                  			 <p th:inline="text">Bienvenido: <span th:text="${Online}"></span></p> 
+	                  </li>
+	                  
+	                  <li class="dropdown show">
+					  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: #CD5C5D;">
+					    <i class="fas fa-user-cog"></i>
+					  </a>					
+					  <div class="dropdown-menu btn-stilo" aria-labelledby="dropdownMenuLink" >
+						    <form th:action="@{/index}" method="post" id="loggout" style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" onclick="document.getElementById('loggout').submit()" type="submit" style="color:green !important">Cerrar sesion</button>
+						    	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+						    </form>
+						    
+						    <form  th:action="@{/perfil}" style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Perfil</button>					    	
+						    </form>
+						    					  					   
+						    <form th:action="@{/Adscripciones}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Adscripciones</button>					    	
+						    </form>
+						    
+						    <!-- <form th:action="@{/Dashboard}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Dashboard</button>					    	
+						    </form> -->
+						    
+						     <form th:action="@{/Seguridad}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Seguridad</button>					    	
+						    </form>
+					  </div>
+					</li>								 	
+			   </ul>		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
+       
+       
+	</header>
+
+					<nav id="nav" style="padding: unset;height: 50px;margin-top: 18px;">
+
+            <div class="">
+              <p style="font-weight: bold; margin-top: 14px; color:white;">SISTEMA GESTOR DE VEHICULOS</p>
+            </div>
+           
+					</nav>
+
+				<!-- Main -->
+		<div id="main">					
+					<!-- Seccion con bootstrap -->
+					
+		<section id="intro" class="main">
+
+				   <!-- ADMINISTRADOR / USUARIO -->
+            <div   class="card-group card-background" style="display:inline;">
+					<div class="card-deck" style="margin-top: -41px;">
+							<!-- Viajes -->
+						  <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER'}" class="card-image">
+							     <form th:action="@{/Viajes}" class="F" name="salir">		 		
+	                                  <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="IngresoLog" type="submit" value="enviar" >
+							          <img src="images/itinerario.png" class="card-img-top imgboton" alt="..." style="border-radius: inherit; width: 180px; left: -11px; top:-5px;">
+							         </button>
+	                           </form>	
+	                           			 <!--<a href="#" onclick="sendName()" class="badge badge-danger" style="float: right;">prueba</a>	-->	    
+						    <div class="card-footer">
+						      <p class="card-title" style="text-align: center;">VIAJES</p>
+						    </div>
+						 </div>
+						 
+						 <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER' or usuario== 'ROLE_SINIESTRO' or usuario== 'ROLE_SEGURO'}" class="card-image">
+							   <form th:action="@{/Vehiculos}"  class="F" name="salir">		 		
+	                                  <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="IngresoLog" type="submit" value="enviar" >
+							          <img src="images/vehiculos.png" class="card-img-top imgboton" alt="..." style="border-radius: inherit; width: 180px; left: -11px; top:-5px;">
+							         </button>
+	                           </form>						    
+						    <div class="card-footer">
+						      <p class="card-title" style="text-align: center;">VEHICULOS</p>
+						    </div>
+						    
+						 </div>
+						 
+						 
+						 <div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" class="card-image">
+							   <form th:action="@{/Conductores}" class="F" name="salir">		 		
+	                                  <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="IngresoLog" type="submit" value="enviar" >
+							          <img src="images/conductor.png" class="card-img-top imgboton" alt="..." style="border-radius: inherit; width: 180px; left: -11px; top:-5px;">
+							         </button>
+	                           </form>						    
+						    <div class="card-footer">
+						      <p class="card-title" style="text-align: center;">CONDUCTORES</p>
+						    </div>
+						 </div>
+						 
+						 <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER' or usuario== 'ROLE_SEGURO'}" class="card-image">
+							   <form th:action="@{/Seguros}" class="F" name="salir">		 		
+	                                  <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="IngresoLog" type="submit" value="enviar" >
+							          <img src="images/documento.png" class="card-img-top imgboton" alt="..." style="border-radius: inherit; width: 180px; left: -11px; top:-5px;">
+							         </button>
+	                           </form>						    
+						    <div class="card-footer">
+						      <p class="card-title" style="text-align: center;">SEGUROS</p>
+						    </div>
+						 </div>
+		
+						 <div th:if="${usuario == 'ROLE_ADMIN'}" class="card-image" >						 
+							   <form th:action="@{/Usuarios}" class="F" name="salir" id="SA">		 		
+	                                  <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="IngresoLog" type="submit" value="enviar" >
+							          <img src="images/equipo.png" class="card-img-top imgboton" alt="..." style="border-radius: inherit; width: 180px; left: -11px; top:-5px;">
+							         </button>
+	                           </form>					    
+						    <div class="card-footer">
+						      <p class="card-title" style="text-align: center;">USUARIOS</p>
+						    </div>						  
+						 </div>
+								
+						 
+						 <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER' or usuario== 'ROLE_TALLER'}" class="card-image">
+							   <form th:action="@{/Mantenimientos}" class="F" name="salir">		 		
+	                                  <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="IngresoLog" type="submit" value="enviar" >
+							          <img src="images/mecanico.png" class="card-img-top imgboton" alt="..." style="border-radius: inherit; width: 180px; left: -11px; top:-5px;">
+							         </button>
+	                           </form>						    
+						    <div class="card-footer">
+						      <p class="card-title" style="text-align: center;">MANTENIMIENTO</p>
+						    </div>
+						 </div>
+						 
+						 
+						   <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER' or usuario == 'ROLE_SINIESTRO'}" class="card-image">
+							   <form th:action="@{/Siniestros}" class="F" name="salir">		 		
+	                                  <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="IngresoLog" type="submit" value="enviar" >
+							          <img src="images/siniestro.png" class="card-img-top imgboton" alt="..." style="border-radius: inherit; width: 180px; left: -11px; top:-5px;">
+							         </button>
+	                           </form>						    
+						    <div class="card-footer">
+						      <p class="card-title" style="text-align: center;">SINIESTROS</p>
+						    </div>
+						 </div>
+						 						 						 						 					
+					</div>			
+				</div>
+		
+		</section>		
+		</div>
+</div>
+
+<div th:if="${usuario} == 'ROLE_ADMIN'" id="Notify" style="word-wrap: break-word;position: fixed;z-index: 2;bottom: 18px;background: white;width: 50px;float: right;">       
+    <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>
+                    <a href="#" id="cerrar" onclick="cerraer()" class="badge badge-danger" style="float: right; display:none;">X</a>
+                    <a href="#" id="abrir" onclick="abrir()" class="badge badge-danger" style="float: right; "><i class="fas fa-bell fa-2x"></i></a>
+                    <div id="MantRegistros" class="notifytext" style="display:none; color: black;">
+                    <br>
+                    	<!--  <h6>Mantenimientos: </h6>
+                    	<h6>Altas: <span th:text="${EntroMant}"></span> </h6>
+                    	<h6>Salidas: <span th:text="${SalioMant}"></span> </h6>
+                    	-->
+                    </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="greetings">
+                </tbody>                
+            </table>            
+</div>
+
+<script type="text/javascript">
+
+function setConnected(connected) {
+    $("#connect").prop("disabled", connected);
+    $("#disconnect").prop("disabled", !connected);
+    if (connected) {
+        $("#conversation").show();
+    }
+    else {
+        $("#conversation").hide();
+    }
+    $("#greetings").html("");
+}
+
+function connect() {
+    var socket = new SockJS('/SGV/gs-guide-websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        setConnected(true);
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/SGV/topic/greetings', function (greeting) {
+            showGreeting(JSON.parse(greeting.body).content);
+        });
+        stompClient.subscribe('/SGV/topic/MantTimeReal', function (greeting) {
+            showMantRegistros(JSON.parse(greeting.body).content);
+        });
+    });
+    
+  
+}
+
+function disconnect() {
+    if (stompClient !== null) {
+        stompClient.disconnect();
+    }
+    setConnected(false);
+    console.log("Disconnected");
+}
+
+function sendName2() {
+	//alert("Mande la peticion al server ");
+    stompClient.send("/SGV/app/TimeReal", {}, JSON.stringify({'name': '110690'}));
+}
+
+function sendName() {
+	sendName2();
+    stompClient.send("/SGV/app/hello", {}, JSON.stringify({'name': '110690'}));
+}
+
+function showMantRegistros(message2) {
+	//alert("Recibi el menaje del servidor: "+ message2);
+    $("#Notify").show();
+	$("#MantRegistros").append("<div class='mensaje2'>" + message2 + "</div>");
+	$("#Notify").css("width"," 200px");
+	$("#abrir").hide();	
+	$("#cerrar").show();
+	$(".notifytext").show();
+}
+
+function showGreeting(message) {
+	 $(".mensaje").remove();
+   $("#Notify").show();
+	$("#greetings").append("<tr><td class='mensaje'>" + message + "</td></tr>");
+	$("#Notify").css("width"," 200px");
+	$("#abrir").hide();	
+	$("#cerrar").show();
+	$(".notifytext").show();
+}
+function cerraer(){
+	 $(".mensaje2").remove();
+	  $(".mensaje").hide();	
+	  $("#cerrar").hide();	
+	  $("#abrir").show();
+	  $("#Notify").css("width"," 50px");
+	  $(".notifytext").hide();
+}
+function abrir(){
+		sendName2();
+	 $(".mensaje").show();	
+	  $("#abrir").hide();	
+	  $("#cerrar").show();
+	  $("#Notify").css("width"," 200px");
+	  $(".notifytext").show();
+}
+
+$(".F").submit(function(e){
+	var self = this;
+	event.preventDefault();
+	
+	$(".loader").show();
+	self.submit();
+	return false;
+});
+
+$(".btn-minimize").click(function(){
+    $(this).toggleClass('btn-plus');
+    $("#VC").slideToggle();
+  });
+
+</script>
+	
+		<!-- Scripts -->
+			<script src="/assets/js/sockjs.js"></script>
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+                       
+                           
+	</body>
+</html>
