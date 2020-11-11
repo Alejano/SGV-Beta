@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Conductores</title>	
+	<head th:replace="/layout/layoutHead :: head"></head>
+<body th:onload="'Scrol(\''+${Corddocu}+'\',\'' +${Cordtabla}+'\');'">
+	<header th:replace="/layout/layoutHead :: header"></header>
+
+	
+	<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 fondolistado">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row" style="text-align: center;">
+	                                	<div class=" col-md-12" id="Contenedorbuscar" >	                                				                                		
+	                                       	<form id="Busqueda" class="col-md-8" th:action="@{/formCondBuscar}" style="display: inline-block;">	
+	                                       		<div class="col-md-4 enlinea" > <p style="text-align: right;">Buscar</p></div> 										       											       
+										         <div class="col-md-5 enlinea">
+										         	<input id="searchTerm" th:value=*{elemento} class="form-control " name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required"/>												           											          											           									
+										    	 </div>	
+										    	 <div class="col-md-2 enlinea">											           
+										           <button type="submit" class="btn btn-primary btn-xs btn-stilo" style="width: 100%">Buscar</button>																					    		
+										   		 </div>	
+										    </form>
+										    
+										    <a class="btn btn-primary btn-xs col-sm-1 btn-stilo" th:href="@{/BajasCond}" ><i class="fas fa-user-times fa-1x" style="margin-top: 10%;"></i></a>
+										    <a class="btn btn-primary btn-xs col-sm-1 btn-stilo" th:href='@{/Conductores}' ><i class="fas fa-sync-alt fa-1x" style="margin-top: 10%;"></i></a>
+										    
+						
+									        <div id="coincidencias" class="col-md-8"></div>
+										</div>
+											
+	                                    <div class="col-md-12">
+	                                        <h2 th:text="${titulo_conductores}"  class="titulotabla"  ></h2>
+										<table class="table table-striped table-bordered fixed_header" id="conductoresT">
+											<thead class="table-success">
+												<tr>
+													<th class="celda">Numero de empleado</th>
+													<th class="celda">Nombre</th>
+													<th class="celda">Apellido 1</th>
+													<th class="celda">Apellido 2</th>
+													<th class="celda" style="width:300px">Adscripcion</th>
+													<th class="celda">No INE</th>
+													<th class="celda">Vig INE</th>
+													<th class="celda">No Lic</th>
+													<th class="celda">Vig Lic</th>
+													<th class="celda">Estado</th>
+													<th th:if="${usuario} == 'ROLE_ADMIN'" class="celda">Opciones</th>
+												    <th th:if="${usuario} == 'ROLE_USER'" class="celda">Opcion</th>
+													
+													<th style="width:10px" id="tamano" th:if="${tamano} == 'mostrar'"></th>													
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="conductoressql: ${conductores}" >
+													<td th:text="${conductoressql.no_empleado}" class="celda"></td>
+													<td th:text="${conductoressql.nombre}" class="celda"></td>
+													<td th:text="${conductoressql.apellido1}" class="celda"></td>
+													<td th:text="${conductoressql.apellido2}" class="celda"></td>											
+													<td th:text="${conductoressql.adscripcion.nombre_adscripcion}" style="width:300px" class="celda"></td>	
+													<td th:text="${conductoressql.no_ine}" class="celda"></td>
+													<td th:text="${conductoressql.vig_ine}" class="celda"></td>
+													<td th:text="${conductoressql.no_licencia}" class="celda"></td>
+													<td th:text="${conductoressql.vig_licencia}" class="celda"></td>																																																
+													<td class="celda">
+													
+															<div th:if="${usuario} == 'ROLE_ADMIN'">
+																<a th:id="estCon+${conductoressql.no_empleado}"  th:if="${conductoressql.enabled} == true" class="btn btn-success btn-xs sel" th:href="@{/estadoCond/} +${conductoressql.no_empleado}+'/'+${conductoressql.enabled}" onclick="scroller(this.id,'Inactivo');" th:text="Activo" ></a>
+																<a th:id="estCon+${conductoressql.no_empleado}" th:if="${conductoressql.enabled} == false" class="btn btn-danger btn-xs sel" th:href="@{/estadoCond/} +${conductoressql.no_empleado}+'/'+${conductoressql.enabled}" onclick="scroller(this.id,'Activo');" th:text="'Inactivo'" ></a>
+															</div>													
+																													
+															<div th:if="${usuario} == 'ROLE_USER'">
+																<h6  th:if="${conductoressql.enabled} == true" class="celda">Activo</h6>
+																<h6  th:if="${conductoressql.enabled} == false" class="celda">Inactivo</h6>
+															</div>	
+													</td>
+													
+													<td th:if="${usuario} == 'ROLE_ADMIN' " class="celda">
+															<a class="btn btn-primary btn-xs btn-stilo sel" th:href="@{/FormCond/} +${conductoressql.no_empleado}" ><i class="fas fa-pencil-alt fa-2x"></i></a>															
+															<a class="btn btn-primary btn-xs btn-stilo sel" th:href="@{/elimCond/} +${conductoressql.no_empleado}" onclick="return confirm('Seguro que desea dar de baja al conductor?');"><i class="fas fa-trash-alt fa-2x"></i></a>													
+													
+													</td>
+													
+													<td th:if="${usuario} == 'ROLE_USER' " class="celda">
+															<a class="btn btn-primary btn-xs btn-stilo sel" th:href="@{/FormCond/} +${conductoressql.no_empleado}" th:text="datos" ></a>													
+													</td>
+												</tr>																							
+												
+											</tbody>										
+										</table>
+										<nav th:replace="paginator-nav :: paginator"></nav>
+										
+										<div class="form-group last col-sm-12"  th:if="${usuario} == 'ROLE_ADMIN'">
+										<a class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/FormCond}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>										
+										</div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<script type="text/javascript"  th:inline="javascript">
+	function doSearch()
+    {
+		    const tableReg = document.getElementById('conductoresT');
+		
+        const searchText = document.getElementById('searchTerm').value.toLowerCase();
+
+        let total = 0;
+    
+        // Recorremos todas las filas con contenido de la tabla      
+
+	        for (let i = 1; i < tableReg.rows.length; i++) {
+	
+	            // Si el td tiene la clase "noSearch" no se busca en su cntenido
+	
+	            if (tableReg.rows[i].classList.contains("noSearch")) {
+	                continue;
+	            }
+	
+	            let found = false;
+	
+	            const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+	
+	            // Recorremos todas las celdas
+	
+	            for (let j = 0; j < cellsOfRow.length && !found; j++) {
+	
+	                const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+	
+	                // Buscamos el texto en el contenido de la celda
+	
+	                if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+	
+	                    found = true;
+	
+	                    total++;
+	                }
+	            }
+	
+	            if (found) {
+	
+	                tableReg.rows[i].style.display = '';
+	
+	            } else {
+	
+	                // si no ha encontrado ninguna coincidencia, esconde la
+	
+	                // fila de la tabla
+	
+	                tableReg.rows[i].style.display = 'none';
+	           }
+	        }
+	
+	        // mostramos las coincidencias
+	
+	        const lastTR=tableReg.rows[tableReg.rows.length-1];
+	
+	        const td=lastTR.querySelector("td");
+	
+	        lastTR.classList.remove("hide", "red");
+	
+	        if (searchText == "") {
+	            //lastTR.classList.add("hide");
+	            $('#coincidencias').html("");
+	        } else if (total) {
+	        	$('#coincidencias').html("Se ha encontrado "+total+" coincidencia"+((total>1)?"s":""));
+	        	if(total<5){$("#tamano").hide();}else{$("#tamano").show();}
+	           // td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
+	
+	        } else {
+	
+	            lastTR.classList.add("red");
+	            $('#coincidencias').html("No se han encontrado coincidencias")
+	            $('#tamano').show();
+	            //td.innerHTML="No se han encontrado coincidencias";
+	        }
+	        
+    }
+    
+    function pulsar(e) {
+    	  tecla = (document.all) ? e.keyCode :e.which;
+    	  return (tecla!=13);
+    	} 
+    
+    $('.sel').click(function(event) {
+        event.preventDefault();
+     });
+	   
+	   
+    </script>
+	<script src="/assets/js/CambiosEstado.js"></script>
+	<!-- jQuery Library -->
+	 <!-- api nice-select -->
+    <script src="/assets/js/jquery.js"></script> 
+	<script src="/assets/js/jquery.nice-select.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+ 
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Formulario de Aseguradora</title>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+    <link href="favicon.html" rel="icon"> 
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}"> 
+    <link rel="stylesheet" th:href="@{/assets/fontawesome/css/fontawesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/SweetAlert2/sweetalert2.css}">
+    <script th:src="@{/SGV/assets/js/jquery-3.4.1.min.js}"></script>
+	
+</head>
+<body >
+	<header>
+		<div class="heades">
+			<img th:src="@{/images/pgj.png}" style="width: 20%">			
+		</div>
+                <div class="TituloCon"></div>
+                
+		<div class="form-group last col-sm-12 form-nav" >	
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;font-size:14 px;"><i class="fas fa-home fa-2x" style="font-size:14 px;margin-left:-24%;"></i></a>  
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Aseguradoras}' style="width: 48px; height: 34px; float: right; margin-right: 5%;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: -10%;margin-left: -12%;"></i></a>
+			
+			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
+				<div class="container col-sm-4">
+  							 				 					 			
+	 				<div class="dropdown col-sm-4"  >
+						  
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
+						  MENU
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>						    
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						 
+						   		
+						  </div>
+					</div>			
+ 				</div>
+ 			</div> 			
+		</div>
+		<h1 class="item-title text-right StituloCon">Aseguradora</h1>
+	</header>
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 formfondo" >
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                        <form th:action="@{/formAseg}" th:object="${aseguradora}" method="post" id="formulario"  name="aseguradoras" data-toggle="validator" class="popup-form">
+	                                            
+												<div class="row">
+					       					       		 
+					       					       		  <h3 style="margin-left:1%;margin-top:.3%;">Datos</h3>	
+					       					       		  
+					       					       		  <div class="form-group col-sm-12"></div>
+
+               		                                      <!--Nombre Aseguradora-->
+	                                                   
+	                                                      <div class="form-group col-sm-3">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{nombre_aseguradora}"  id="nombre_aseg" placeholder="Nombre Aseguradora" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese El Nombre de la Aseguradora"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-file-contract"></i></div>
+	                                                      </div>
+	                                                    
+	                                                      <div class="form-group col-sm-7"></div>
+	                                                             
+	                                                      <!--Poliza-->
+	                                                    
+	                                                    <div class="form-group col-sm-3">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{no_poliza_padre}"  id="No_po" placeholder="Numero de Poliza Padre" class="form-control signos" type="text" required data-error="Ingrese El Numero De Poliza"/>
+	                                                            <div class="input-group-icon"><i class="far fa-newspaper"></i></div>
+	                                                    </div>
+	                                                    
+	                                                    <div class="form-group col-sm-7"></div>
+	                                                                                                
+	                                                     <!--No Contrato-->
+	                                                    
+	                                                     <div class="form-group col-sm-3">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{no_contrato}"  id="No_contrato" placeholder="Numero de Contrato" class="form-control Contrato" type="text" required data-error="Ingrese El Numero de Contrato"/>
+	                                                            <div class="input-group-icon"><i class="far fa-newspaper"></i></div>
+	                                                     </div>
+	                                                    
+	                                                     <div class="form-group col-sm-7"></div>
+	                                                     
+	                                                         
+	                                                   <!--RFC Contratante-->
+	                                                   
+	                                                    <div class="form-group col-sm-3">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{rfc_aseguradora}"  id="rfc_aseg" placeholder="RFC Aseguradora" class="form-control Letrasnum" type="text" required data-error="Ingrese El RFC de la Aseguradora"/>
+	                                                            <div class="input-group-icon"><i class="far fa-newspaper"></i></div>
+	                                                    </div>
+	                                                    
+	                                                    <div class="form-group col-sm-7"></div>
+	                                                    
+	                                                    <!--Fecha inicio-->
+
+	                                                    <div class="form-group col-sm-3">
+															    <div class="help-block with-errors"></div>	
+																	<input th:field="*{fecha_inicio}" name="H_ini" id="H_ini"   onchange="validarFini()" placeholder="Fecha de inicio" class="form-control" type="date" required data-error="Ingrese Fecha inicio del Registro"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">													
+							   								    <div class="input-group-icon"><i class="far fa-calendar-alt"></i></div>
+														</div>
+		
+														<div class="form-group col-sm-3" style=" width:40%; padding-left: 3px;">
+																<input  type="text" readonly="readonly"  placeholder="Fecha Inicio" class="form-control" disabled>
+														</div>
+																
+														<!--Fecha fin-->
+
+	                                                    <div class="form-group col-sm-3">
+															    <div class="help-block with-errors"></div>	
+																	<input th:field="*{fecha_fin}" name="H_fin" id="H_fin"   onchange="validarFfin()" placeholder="Fecha de fin" class="form-control" type="date" required data-error="Ingrese Fecha final del Registro"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">													
+							   								    <div class="input-group-icon"><i class="far fa-calendar-alt"></i></div>
+														</div>
+		
+														<div class="form-group col-sm-3" style=" width:40%; padding-left: 3px;">
+																<input  type="text" readonly="readonly"  placeholder="Fecha Final" class="form-control" disabled>
+														</div> 
+														
+														 <!--Estado-->
+													    <div class="form-group col-sm-4">
+														  <div class="help-block with-errors"></div>														
+														    <select th:field="*{enabled}" id="estado" class="form-control" style="height: 38px;" required data-error="Ingrese el estado de la Aseguradora">																												
+														      <option value=false>-Inactivo</option>
+														      <option value=true>-Activo</option>
+														    </select>	
+														  <div class="input-group-icon"><i class="fa fa-user-tag"></i></div>
+													   </div>
+													  
+													    <div class="form-group col-sm-8"></div> 
+													    
+														<!--Teléfono-->
+	                                                    
+	                                                    <div class="form-group col-sm-3">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{tel_aseguradora}"  id="No_tel" placeholder="Numero de Teléfono" class="form-control signos" type="text" required data-error="Ingrese El Numero de Teléfono"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-phone"></i></div>
+	                                                    </div>
+	                                                    
+	                                                    <div class="form-group col-sm-8"></div> 
+	                                                    
+														<h3 style="margin-left:1%;margin-top:.3%;">Dirección</h3>
+	                                                    
+	                                                    <div class="form-group col-sm-12"></div>
+	                                                    
+	                                                    <!--Calle-->
+	                                                   
+	                                                    <div class="form-group col-sm-5">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{calle_domicilio}"  id="calle_aseg" placeholder="Calle Aseguradora" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese la Calle"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
+	                                                    </div>
+	                                                    
+	                                                    
+	                                                     <!--Número-->
+	                                                   
+	                                                    <div class="form-group col-sm-3">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{numero_domicilio}"  id="num_aseg" placeholder="Número Aseguradora" class="form-control signos" type="text" required data-error="Ingrese el número"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
+	                                                    </div>
+	                                                    
+	                                                      <!--Colonia-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{colonia_domicilio}"  id="colonia_aseg" placeholder="Colonia Aseguradora" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese la colonia"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
+	                                                    </div>
+	                                                    
+ 	                                                    <!--Codigo postaL-->
+	                                                   
+	                                                    <div class="form-group col-sm-2">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{codigopos_domicilio}"  id="cp_aseg" placeholder="Código Postal" class="form-control signos" type="text" required data-error="Ingrese el codigo postal"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
+	                                                    </div>
+	                                                    
+	                                                   <!--Alcaldia-->
+	                                                   
+	                                                    <div class="form-group col-sm-5">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{alcaldia_domicilio}"  id="alcaldia_aseg" placeholder="Alcaldia Aseguradora" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese la Alcaldia"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
+	                                                    </div>
+	                                                    
+	                                                     <div class="form-group col-sm-12"></div>
+	                                                     
+
+											        <input type="hidden" th:field="*{id_aseguradora}"/>                													
+													
+														 <div class="form-group col-sm-12 has-error has-danger" style="text-align: center;">																																	
+														 <div class="form-group last col-sm-12" th:if="${editar} == false">
+															<button type="submit" id="guardar" class="btn btn-custom btn-stilo"><i class='fa fa-envelope' th:if="${error == 'F'}"></i> Guardar</button>
+														 </div>
+														<div class="clearfix"></div>
+													    </div>  
+   
+											   </div>
+	                                        </form>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<script type="text/javascript"  th:inline="javascript">		
+	
+	 var fechaanterior = document.getElementById("H_ini").value;
+	 console.log("fechaanterior: "+fechaanterior);
+	 
+	 function validarFini()
+	 {
+		 
+		 var fechainicial = document.getElementById("H_ini").value;
+		 var fechafinal = document.getElementById("H_fin").value;
+		 console.log("fechainicial: "+fechainicial);
+	
+           if(Date.parse(fechainicial) > Date.parse(fechafinal)) {
+        	   document.getElementById("H_ini").value = fechaanterior;   
+        	   swal("Error", "La fecha de inicio debe ser menor a la fecha de fin", "error");
+        	   };
+		  
+		   if(Date.parse(fechainicial) < Date.parse(fechaanterior)) {
+			   document.getElementById("H_ini").value = fechaanterior;   
+			   swal("Error", "La fecha de inicio debe ser mayor al periodo anterior registrado", "error");
+			   };
+			  
+	 }
+	
+	 
+	function validarFfin()
+	{
+		
+	   var fechainicial = document.getElementById("H_ini").value;
+	   var fechafinal = document.getElementById("H_fin").value;
+
+	   if(Date.parse(fechafinal) < Date.parse(fechainicial)) {
+		   document.getElementById("H_fin").value = fechaanterior;
+		   swal("Error", "La fecha fin debe ser mayor a la fecha de inicio", "error");
+		};
+		
+	}
+	
+	</script>	
+
+	<script src="/SGV/assets/js/CambiosEstado.js"></script>
+	<!-- jQuery Library -->
+	<script src="/SGV/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/SGV/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/SGV/assets/bootstrap/js/bootstrap.min.js"></script>	
+	<!-- Form Validator -->
+	<script src="/SGV/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/SGV/assets/js/contact-form.js"></script>
+	<!-- SweetAlert-->
+	<script src="/SGV/assets/SweetAlert2/sweetalert2.min.js"></script>
+	<!-- fontawesome -->
+	<script th:src="@{/assets/fontawesome/js/all.js}"></script>	
+ 
+</body>
+</html>

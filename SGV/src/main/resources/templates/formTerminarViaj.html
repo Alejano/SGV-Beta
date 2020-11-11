@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Adscripcion</title>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+	<link href="favicon.html" rel="icon">
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>	
+</head>
+<body >
+	<header>
+		<div class="heades">
+			<img th:src="@{/images/pgj.png}" style="width: 20%">			
+		</div>
+                <div class="TituloCon"></div>
+                
+		<div class="form-group last col-sm-12 form-nav" >		    		
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
+			
+			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
+				<div class="container col-sm-4">
+  							 				 					 			
+	 				<div class="dropdown col-sm-4"  >
+						  
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
+						  MENU
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>						    
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						 
+						   		
+						  </div>
+					</div>			
+ 				</div>
+ 			</div> 			
+		</div>
+		<h1 class="item-title text-right StituloCon">Viajes</h1>
+	</header>
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 formfondo" >
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                        <form th:action="@{/formViaj}" th:object="${viaje}" method="post" id="formulario"  name="visitas" data-toggle="validator" class="popup-form">
+	                                            
+												<div class="row" style="    margin-right: -10px; margin-left: -10px;">
+
+													<!--Numero de Empleado-->
+													<div>
+														<div class="form-group col-sm-12" style="height: 34px;" >
+															<div class="help-block with-errors" style=" width: 393px;"></div>
+																<div style=" width:900px;" class="form-group col-sm-6">
+																	<input  th:placeholder="${viaje.conductor.nombre}+' '+${viaje.conductor.apellido1}+' '+${viaje.conductor.apellido2}"  class="form-control" type="text" disabled>																	
+											                    </div>
+															
+										                    <div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>													
+													</div>
+													<div class="row">
+													<div class="col-sm-13">
+													<!--Fecha de Registro-->
+													
+														<div class="form-group col-sm-6" style="padding: unset;">
+															<div class="help-block with-errors"></div>	
+															<div class="form-group col-sm-6">
+																<input th:field="*{fecha_salida}" name="H_re" id="H_re" onchange="validarFRe()"   placeholder="Fecha de Registro" class="form-control" type="date" required data-error="Ingrese Fecha de Registro"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" disabled>
+																	
+						   										<div class="input-group-icon"> 
+																	<i class="far fa-calendar-alt"> </i>
+																</div>
+															</div>
+	
+															<div class="form-group col-sm-5">
+																<input  type="text" readonly="readonly"  placeholder="Fecha de Salida" class="form-control" disabled>
+															</div>
+														</div>
+													<!--Fecha de Salida-->
+
+														<div class="form-group col-sm-6" style="padding: unset;">
+															<div class="help-block with-errors"></div>
+	
+															<div class="form-group col-sm-6">
+																<input th:field="*{fecha_regreso}" name="H_fin" onchange="validarFfin()"  id="H_fin" placeholder="Hora de Regreso" class="form-control" type="date" required data-error="Ingrese Fecha de Registro"  pattern="[0-9]{2}-[0-9]{2}-[0-9]{4} !important">
+																<div class="input-group-icon"><i class="far fa-calendar-alt"></i></div>
+															</div>
+	
+															<div class="form-group col-sm-5" style="padding-left: unset;">
+																
+																<input  type="text" readonly="readonly" placeholder="Fecha de Regreso" class="form-control" disabled>
+															</div>
+														</div>
+													</div>
+														<!--Placas-->
+
+													<div class="form-group col-sm-6" style="    height: 45px;">
+														<div class="form-group col-sm-12" style="padding: unset;" >
+															<div class="help-block with-errors" style=" width: 393px;"></div>
+																<div style=" width:40%;" class="form-group col-sm-6">
+																	<input th:field="*{vehiculo.placa}"  name="placa" id="placa" class="form-control" type="text" disabled>																	
+											                    </div>
+											                    <div class="form-group col-sm-6">
+																	<input  type="text" readonly="readonly"  placeholder="Placa" class="form-control" disabled>
+																</div>
+										                    <div class="input-group-icon" style="height: 35px;"><i class="fas fa-car-side"></i></div>
+														</div>
+													</div>
+														
+													
+													<!--Kilometra Final-->
+
+													<div class="form-group col-sm-12 " style="height: 35px;">
+													   
+															<div class="help-block with-errors"></div>
+														    <div class="col-sm-2" style="padding-right: 3px;">
+																<input th:field="*{kilometraje_final}" name="K_fin" onchange="kilometerfinal()"  id="K_fin" class="form-control signos" th:min="${Kmin}+0.1" type="number" pattern="[0-9]{10}"  step="0.1" required data-error="Ingrese El kilometraje final ">																
+															</div>
+													 															
+														<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>
+														
+														<div style=" width:40%;     padding-left: 2px;" class="col-sm-3">
+															<input  type="text" readonly="readonly"  placeholder="Kilometraje Final" class="form-control">
+														</div>
+														
+														<div class="help-block with-errors"></div>
+														    <div class="col-sm-2" style="padding-right: 3px;">
+																<input th:field="*{kilometraje_inicial}" id="KActual" onchange="kilometerInicial()" class="form-control" disabled>																
+															</div>															
+														<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>
+														
+														<div class="col-sm-3" style=" width:40%; padding-left: 3px;">
+															<input  type="text" readonly="readonly"  placeholder="Kilometraje Actual" class="form-control" disabled>
+														</div>
+														
+													</div>																									
+
+												
+
+													<div class="form-group col-sm-12">
+														<div class="help-block with-errors"></div>
+														<textarea th:field="*{destino}" rows="3" name="message" id="Com" placeholder="Ingresa tu destino aquí" class="form-control soloLetras" required data-error="Ingrese un Comentario"></textarea>
+														<div class="textarea input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
+													</div>
+												
+													<input type="hidden" th:field="*{id_viaje}"/>
+													<input type="hidden" th:field="*{fecha_salida}"/>
+													<input type="hidden" th:field="*{vehiculo}"/>			
+													<input type="hidden" th:field="*{conductor}"/>																																		
+													<input type="hidden" th:field="*{distancia_recorrida}"/>
+													
+
+													<!--Boton Guardar-->
+													<div class="form-group last col-sm-12 ">
+														<button type="submit" id="guardar" class="btn btn-custom btn-stilo"><i class='fa fa-envelope'></i> Terminar Viaje</button>
+													</div>
+													<div class="clearfix"></div>
+												    </div>
+											   </div>
+	                                        </form>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>
+	<script type="text/javascript"  th:inline="javascript">		
+			
+			var kilometrajeT="";
+	function validarFfin()
+		{
+		   var fechainicial = document.getElementById("H_re").value;
+		   var fechafinal = document.getElementById("H_fin").value;
+	
+		   if(Date.parse(fechafinal) < Date.parse(fechainicial)) {
+			   document.getElementById("H_fin").value = fechainicial; 
+		   alert("La fecha de salida debe ser mayor a la fecha de regreso");
+			};
+		}
+	
+	function validarFRe()
+	{
+	   var fechainicial = document.getElementById("H_re").value;
+	   var fechafinal = document.getElementById("H_fin").value;
+
+	   if(Date.parse(fechafinal) < Date.parse(fechainicial)) {
+		   document.getElementById("H_re").value = fechafinal; 
+	   alert("La fecha de salida debe ser mayor a la fecha de regreso");
+		};
+	}
+	
+	function kilometerInicial(){
+		
+		var kilometrajeI = document.getElementById("KActual").value;		
+		var kilometrajeF = document.getElementById("K_fin").value;	
+		if(kilometrajeI <= kilometrajeF ){
+			alert("El kilimetraje inicial debe ser mayor al final");
+			document.getElementById("KActual").value = "";
+		}
+	}
+	
+function kilometerfinal(){
+		var kilometrajeI = document.getElementById("KActual").value;
+		var kilometrajeF = document.getElementById("K_fin").value;		
+		if(kilometrajeF <= kilometrajeI ){
+			alert("El kilimetraje inicial debe ser mayor al final");
+			document.getElementById("K_fin").value = "";
+		}
+		
+	}
+	
+	
+	
+	
+	
+	</script>
+	
+	<script src="/assets/js/CambiosEstado.js"></script>
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+ 
+</body>
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Mantenimiento</title>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+	<link href="favicon.html" rel="icon">
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+	<link rel="stylesheet" th:href="@{/assets/css/jquery-ui.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/SweetAlert2/sweetalert2.css}">
+	<link rel="stylesheet" th:href="@{/assets/SweetAlert2/sweetalert2.css}">
+	<script th:src="@{/assets/js/jquery-3.4.1.min.js}"></script>
+	<script th:src="@{/assets/fontawesome/js/all.js}"></script>
+	<link th:href="@{/assets/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>		
+</head>
+<body onload="Cargar();">
+	<header>
+				<div class="heades">
+					<img th:src="@{/images/pgj.png}" style="width: 20%">			
+				</div>
+                <div class="TituloCon"></div>
+		<div class="form-group last col-sm-12 form-nav" style="height: 50px; padding: 3px;">		    		
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 58px; height: 48px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
+			<a th:if="not ${placa}" class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Mantenimientos}' style="width: 58px; height: 48px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
+			<a th:if="${placa}" class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Mantenimientos/}+${mantenimiento.vehiculo.id_vehiculo}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
+			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
+				<div class="container col-sm-4">
+  							 				 					 			
+	 				<div class="dropdown col-sm-4"  >
+						  
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
+						  MENU
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>						    
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						     <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						 
+						   		
+						  </div>
+					</div>			
+ 				</div>
+ 			</div> 			
+		</div>
+		<h1 class="item-title text-right StituloCon">Mantenimiento</h1>
+	</header>
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 formfondo">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                        <form th:action="@{/formMant}" th:object="${mantenimiento}" enctype="multipart/form-data" method="post" id="formulario" data-toggle="validator" class="popup-form">
+	                                            <div class="row">
+	                                            
+	                                            <!--Kilometraje final-->
+													<div class="form-group col-sm-4" style="height: 35px;">
+														<div class="form-group col-sm-5 enlinea">
+															<div class="help-block with-errors"></div>
+															<input th:field="*{vehiculo.kilometraje_inicial}" name="kilo" id="kilo" placeholder="Kilometraje" class="form-control" type="number" required data-error="Ingrese El Kilometraje final" disabled>
+															<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>																													
+														</div>
+														<div class="form-group col-sm-6 enlinea">
+																<input type="text" readonly="readonly" placeholder="Kilometraje del Vehiculo" class="form-control mant-text">																
+														</div>
+													</div>																																													
+													
+													<!--  Placa  -->
+													<div class="form-group col-sm-6" style="height: 35px;">
+														<div class="form-group col-sm-5 enlinea">
+															<div class="help-block with-errors"></div>
+															<input th:field="*{vehiculo.placa}" name="Placa" id="Placa" placeholder="Placa" class="form-control" type="text" required data-error="Ingrese El Kilometraje final" disabled>
+															<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>																													
+														</div>
+														<div class="form-group col-sm-5 enlinea">
+																<input type="text" readonly="readonly" placeholder="Placa" class="form-control mant-text">																
+															</div>
+													</div>		
+	                                            
+	                                            <!--Fecha de solicitud-->
+	                                            	<div class="form-group col-sm-4" style="height: 39px;">
+														<div class="help-block with-errors"></div>
+														
+														<div style=" width:50%;display: inline-block;">
+															<input autocomplete="off" th:field="*{fecha_solicitud}" onchange="validarFsol()" name="F_sol" id="F_sol" placeholder="dia / mes / año" class="form-control" type="text" required data-error="Ingrese Fecha de Ingreso">
+														    <div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
+														</div>
+														<div style=" width:40%;display: inline-block;">
+															<input type="text" readonly="readonly" placeholder="Fecha de Solicitud" class="form-control mant-text">
+															
+														</div>
+
+														
+													</div>
+													<!--Fecha de diagnostico-->
+
+													<div class="form-group col-sm-4" style="height: 39px;">
+														<div class="help-block with-errors"></div>
+														<div style=" width:55%;display: inline-block;">
+															<input autocomplete="off" th:field="*{fecha_diagnostico}" name="F_dia" id="F_dia" onchange="validarFdia()" placeholder="dia / mes / año" class="form-control" type="text" required data-error="Ingrese Fecha de Entrega">
+															<div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
+														</div>
+
+														<div style=" width:40%;display: inline-block;">
+															<input type="text" readonly="readonly" placeholder="Fecha de diagnostico" class="form-control mant-text">															
+														</div>
+
+														
+													</div>
+													
+													<!--Fecha de orden-->
+
+													<div class="form-group col-sm-4">
+														<div class="help-block with-errors"></div>
+														<div style=" width:55%;display: inline-block;">
+															<input autocomplete="off" th:field="*{fecha_orden}" name="F_ord" id="F_ord" onchange="validarFord()" placeholder="dia / mes / año" class="form-control" type="text" required data-error="Ingrese Fecha de Entrega">
+															<div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
+														</div>
+
+														<div style=" width:40%;display: inline-block;">
+															<input type="text" readonly="readonly" placeholder="Fecha de Orden" class="form-control mant-text">															
+														</div>
+
+														
+													</div>
+													
+													<!--Fecha de ingreso taller-->
+	                                            	<div class="form-group col-sm-4" style="height: 39px;">
+														<div class="help-block with-errors"></div>
+														
+														<div style=" width:50%;display: inline-block;">
+															<input autocomplete="off" th:field="*{fecha_ingreso}" onchange="validarFing()" name="F_ing" id="F_ing" placeholder="dia / mes / año" class="form-control" type="text" required data-error="Ingrese Fecha de Ingreso" disabled>
+														    <div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
+														</div>
+														<div style=" width:40%;display: inline-block;">
+															<input type="text" readonly="readonly" placeholder="Fecha de ingreso" class="form-control mant-text">
+															
+														</div>
+
+														
+													</div>
+													<!--Fecha de promesa entrega-->
+
+													<div class="form-group col-sm-4">
+														<div class="help-block with-errors"></div>
+														<div style=" width:52%;display: inline-block;">
+															<input autocomplete="off" th:field="*{fecha_promesa_entrega}" name="F_pro" id="F_pro" onchange="validarFpro()" placeholder="dia / mes / año" class="form-control" type="text" required data-error="Ingrese Fecha de Entrega" disabled>
+															<div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
+														</div>
+
+														<div style=" width:40%;display: inline-block;">
+															<input type="text" readonly="readonly" placeholder="Promesa de entrega" class="form-control mant-text">															
+														</div>
+
+														
+													</div>
+													
+													<!--Fecha de salida-->
+	                                            	<div class="form-group col-sm-4">
+														<div class="help-block with-errors"></div>
+														
+														<div style=" width:52%;display: inline-block;">
+															<input autocomplete="off" th:field="*{fecha_entrega}" onchange="validarFent()" name="F_ent" id="F_ent" placeholder="dia / mes / año" class="form-control" type="text" required data-error="Ingrese Fecha de Entrega" disabled>
+														    <div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
+														</div>
+														<div style=" width:40%;display: inline-block;">
+															<input type="text" readonly="readonly" placeholder="Fecha de entrega" class="form-control mant-text">
+															
+														</div>
+
+														
+													</div>																																																		
+													<!--  No_orden  -->
+
+													<div class="form-group col-sm-12" style="    height: 35px;">
+														<div class="form-group col-sm-2 enlinea" >
+															<div class="help-block with-errors" style=" width: 393px;"></div>
+																<input th:field="*{no_orden}"  name="orden" id="orden" class="form-control" type="text" required data-error="Ingrese El Numero de la Orden">
+										                    <div class="input-group-icon"><i class="fas fa-car-side"></i></div>
+														</div>
+														<div class="form-group col-sm-2 enlinea">
+															<input type="text" readonly="readonly" placeholder="Numero de Orden" class="form-control mant-text">
+															
+														</div>
+													</div>
+													
+													
+													<!--Fecha de oficio-->
+	                                            	<div class="form-group col-sm-4">
+														<div class="help-block with-errors"></div>
+														
+														<div style=" width:50%;display: inline-block;">
+															<input autocomplete="off" th:field="*{fecha_oficio}" onchange="validarFRe()" name="F_of" id="F_of" placeholder="dia / mes / año" class="form-control" type="text" required data-error="Ingrese Fecha de Oficio">
+														    <div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
+														</div>
+														<div style=" width:40%;display: inline-block;">
+															<input type="text" readonly="readonly" placeholder="Fecha de Oficio" class="form-control mant-text">
+															
+														</div>
+														
+													</div>
+													
+													<!--  No_oficio  -->
+
+													<div class="form-group col-sm-4" style="    height: 35px;">
+														<div class="form-group col-sm-5 enlinea" >
+															<div class="help-block with-errors" style=" width: 393px;"></div>
+																<input th:field="*{no_oficio}"  name="nofi" id="nofi" class="form-control" type="text" required data-error="Ingrese El Numero de Oficio">
+										                    <div class="input-group-icon"><i class="fas fa-car-side"></i></div>
+														</div>
+														<div class="form-group col-sm-6 enlinea">
+															<input type="text" readonly="readonly" placeholder="Numero de Oficio" class="form-control mant-text">
+															
+														</div>
+													</div>
+													
+													<!--  concepto reparacion  -->
+
+													<div class="form-group col-sm-4" style="    height: 35px;">
+														<div class="form-group col-sm-5 enlinea" >
+															<div class="help-block with-errors" style=" width: 393px;"></div>
+																<input th:field="*{concepto_reparacion}"  name="con_re" id="con_re" class="form-control" type="text" required data-error="Ingrese El Concepto de reparacion">
+										                    <div class="input-group-icon"><i class="fas fa-car-side"></i></div>
+														</div>
+														<div class="form-group col-sm-6 enlinea">
+															<input type="text" readonly="readonly" placeholder="Concepto Reparacion" class="form-control mant-text">
+															
+														</div>
+													</div>
+													
+														<!--  tiempo de reparacion  
+
+													<div class="form-group col-sm-4" style="    height: 35px;">
+														<div class="form-group col-sm-5 enlinea" >
+															<div class="help-block with-errors" style=" width: 393px;"></div>
+																<input th:field="*{tiempo_reparacion}"  name="tim_rep" id="tim_rep" class="form-control" type="text" required disabled>
+										                    <div class="input-group-icon"><i class="fas fa-car-side"></i></div>
+														</div>
+														<div class="form-group col-sm-6 enlinea">
+															<input type="text" readonly="readonly" placeholder="Tiempo de reparacion" class="form-control mant-text">
+															
+														</div>
+													</div>-->
+													
+													<!--  dias_permanencia  -->
+
+													<div class="form-group col-sm-4" style="    height: 35px;">
+														<div class="form-group col-sm-5 enlinea" >
+															<div class="help-block with-errors" style=" width: 393px;"></div>
+																<input id="d_p" class="form-control" type="number" readonly>
+										                    <div class="input-group-icon"><i class="fas fa-car-side"></i></div>
+														</div>
+														<div class="form-group col-sm-6 enlinea">
+															<input type="text" readonly="readonly" placeholder="Dias de Permanencia" class="form-control mant-text">
+															
+														</div>
+													</div>
+													
+													<!--  dias_Retardo  -->
+
+													<div class="form-group col-sm-4" style="    height: 35px;">
+														<div class="form-group col-sm-5 enlinea" >
+															<div class="help-block with-errors" style=" width: 393px;"></div>
+																<input  id="d_re" class="form-control" type="number" readonly>
+										                    <div class="input-group-icon"><i class="fas fa-car-side"></i></div>
+														</div>
+														<div class="form-group col-sm-6 enlinea">
+															<input type="text" readonly="readonly" placeholder="Tiempo de Retardo" class="form-control mant-text">
+															
+														</div>
+													</div>
+													
+																										
+													<!--  *{tipo_mantenimiento} -->
+													<div class="form-group col-sm-4" style="height: 35px;">
+																<div class="help-block with-errors"></div>
+																<div class="form-group col-sm-12">
+																	<select th:field="*{tipo_mantenimiento}" class="form-control" style=" height: 34px;" required data-error="Elija el tipo de Mantenimiento">
+												                         <option value=""> Seleccione el tipo de Mantenimiento </option>
+												                         <option value="Correctivo">Correctivo</option>
+												                         <option value="Preventivo">Preventivo</option>											                         
+												                    	</select>
+																	
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													
+													
+													<!--Costo de Mantenimiento-->
+
+													<div class="form-group col-sm-4" style="height: 38px;">
+														<div class="help-block with-errors"></div>
+														<input th:field="*{costo_mantenimiento}" onchange="deuda()" name="costo" id="costo" onkeypress="deuda()" placeholder="Costo de Mantenimiento" class="form-control signos" type="number" required data-error="Ingrese Costo de Mantenimiento" disabled>
+														<div class="input-group-icon"><i class="fas fa-ad"></i></div>
+													</div>
+													
+													<!--Sancion-->
+
+													<div class="form-group col-sm-4">
+														<div class="form-group col-sm-6 enlinea">
+															<div class="help-block with-errors"></div>
+															<input id="sancion"  placeholder="Sancion" class="form-control signos" type="number" data-error="Ingrese la Sancion" readonly>
+															<div class="input-group-icon"><i class="fas fa-ad"></i></div>
+														</div>
+														<div class="form-group col-sm-4 enlinea">
+															<input type="text" readonly="readonly" placeholder="-3% x Dia" class="form-control mant-text">															
+														</div>														
+													</div>
+													
+													<!--motivo-->
+
+													<div class="form-group col-sm-4">
+														<div class="help-block with-errors"></div>
+														<textarea th:field="*{motivo}" name="motivo" id="motivo" placeholder="Motivo" class="form-control" data-error="Ingrese el Motivo"></textarea>
+														<div class="input-group-icon"><i class="fas fa-ad"></i></div>
+													</div>
+													
+													<!--Adjuntar documento -->
+														<div class="form-group col-sm-12" th:if="${Editar} == false">																																																											  
+															<div class="col-sm-6" id="Ndocumento">
+																<div class="help-block with-errors"></div>
+																<input type="file" name="file" class="form-control" accept="application/pdf" required data-error="Ingresa el documento PDF menor a 10 MB."/>
+															</div>															
+														</div>
+													
+														<div class="form-group col-sm-12" th:if="${Editar} == true">																														
+															<div id="aBtnGroup" class="btn-group">
+															    <button type="button" value="D" class="btn btn-default">Documento</button>
+															    <button type="button" value="N" class="btn btn-default">Nuevo Documento</button>															    
+															  </div>
+															  
+															<div class="col-sm-6" id="Ndocumento"  style="display:none;">
+																<div class="help-block with-errors"></div>
+																<input type="file" name="file" class="form-control" accept="application/pdf" data-error="Ingresa el documento PDF menor a 10 MB."/>
+															</div>															
+														
+														
+														<div id="Mdocumento" class="card-body justify-content-center col-sm-12">
+															<div class="card-body d-flex justify-content-center col-sm-12" >
+																	<embed th:src="@{'/upload/' + ${mantenimiento.url_documentacion}}" type="application/pdf" class="col-sm-12" style="height:715px;"/>
+															</div>
+														</div>
+														</div>																																					
+													
+													<!--observaciones-->
+
+													<div class="form-group col-sm-8" style="margin-right: 20%; margin-left: 20%;">
+														<div class="help-block with-errors"></div>
+														<textarea th:field="*{observaciones}" rows="3" name="message" id="Com" placeholder="Ingresa el destino del percanse, o su razon" class="form-control soloLetras" required data-error="observaciones"></textarea>
+														<div class="textarea input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
+													</div>	
+													
+													<!--Talleres-->
+
+													<div class="form-group col-sm-12">
+														<select th:field="*{talleres}" class="form-control" style=" height: 34px;" required data-error="Ingrese la Adscripcion">
+										                         <option value="" th:if="${Editar} == false"> Seleccione un Taller </option>
+										                         <option th:value="${mantenimiento.talleres.id_taller}" th:text="${mantenimiento.talleres.nombre}" th:if="${Editar} == true"></option>
+										                         <option th:each="adss : ${taller} "
+										                            th:value="${adss.id_taller}"
+										                            th:utext="${adss.nombre}" />
+										                    </select>
+										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
+													</div>																										
+													
+													<input type="hidden" id="dp" th:field="*{dias_permanencia}" />
+													<input type="hidden" id="dr" th:field="*{dias_retardo}" />
+													<input type="hidden" id="s" th:field="*{sancion}" />
+													<input type="hidden" th:field="*{id_mantenimiento}" />
+													<input type="hidden" th:field="*{vehiculo}" />
+													<input type="hidden" th:field="*{url_documentacion}" />
+
+													<!--Boton de guardar-->
+
+													<div  class="text-center">
+														<button type="submit" id="guardar"  class="btn btn-custom btn-stilo"><i class='fa fa-envelope'></i> Guardar</button>
+													<div class="clearfix"></div>
+													<br>
+												    </div>
+	                                            
+	                                            
+	                                             
+	                                            </div>
+	                                        </form>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>			
+		</div>
+	</section>
+	<script type="text/javascript">
+	
+	$(function() {
+		   $('#F_sol').datepicker({ 
+		       beforeShowDay: $.datepicker.noWeekends, 	
+		       dateFormat: "dd-mm-yy"
+		   });		   
+	});
+	$(function() {
+		   $('#F_dia').datepicker({ 
+		       beforeShowDay: $.datepicker.noWeekends, 	
+		       dateFormat: "dd-mm-yy" 	       
+		   });
+	});
+	$(function() {
+		   $('#F_ord').datepicker({ 
+		       beforeShowDay: $.datepicker.noWeekends, 	
+		       dateFormat: "dd-mm-yy"	    
+		   });
+	});
+	$(function() {
+		   $('#F_ing').datepicker({ 
+		       beforeShowDay: $.datepicker.noWeekends, 	
+		       dateFormat: "dd-mm-yy" 
+		       
+		   });
+	});
+	$(function() {
+		   $('#F_pro').datepicker({ 
+		       beforeShowDay: $.datepicker.noWeekends, 	
+		       dateFormat: "dd-mm-yy" 
+		       
+		   });
+	});
+	$(function() {
+		   $('#F_ent').datepicker({ 
+		       beforeShowDay: $.datepicker.noWeekends, 	
+		       dateFormat: "dd-mm-yy" 
+		       
+		   });
+	});
+	$(function() {
+		   $('#F_of').datepicker({ 
+		       beforeShowDay: $.datepicker.noWeekends, 	
+		       dateFormat: "dd-mm-yy" 
+		      
+		   });
+	});
+	
+	function habilitarFechas()
+	{var fechasol = document.getElementById("F_sol").value;
+	var fechadia = document.getElementById("F_dia").value;
+	var fechaord = document.getElementById("F_ord").value;
+		
+		if(fechasol != "" && fechadia != "" && fechaord != ""){
+			$("#F_ing").prop("disabled",false);
+			$("#F_pro").prop("disabled",false);
+			$("#F_ent").prop("disabled",false);
+		}
+	}
+
+	
+	function validarFsol()
+	{		
+		habilitarFechas();
+	}
+	function validarFRe()
+	{
+	   
+	}
+
+	function validarFdia()
+	{
+	  
+		habilitarFechas();
+	}
+	function validarFing()
+	{
+		var dias = 0;
+		var solicitud = document.getElementById("F_sol").value;		
+		var diagnostico = document.getElementById("F_dia").value;
+		var Orden = document.getElementById("F_ord").value;
+		var ingreso = document.getElementById("F_ing").value;
+		var entrega = document.getElementById("F_ent").value;
+		
+		var fechasolicitud = solicitud.split("-");
+		var fechadiagnostico = diagnostico.split("-");
+		var fechaOrden = Orden.split("-");
+		var fechaingreso = ingreso.split("-");
+		var fechaentrega = entrega.split("-");
+		
+		var fsolicitud = fechasolicitud[2]+"-"+fechasolicitud[1]+"-"+fechasolicitud[0];
+		var fdiagnostico = fechadiagnostico[2]+"-"+fechadiagnostico[1]+"-"+fechadiagnostico[0];
+		var fOrden = fechaOrden[2]+"-"+fechaOrden[1]+"-"+fechaOrden[0];
+		var fingreso = fechaingreso[2]+"-"+fechaingreso[1]+"-"+fechaingreso[0];
+		var fentrega = fechaentrega[2]+"-"+fechaentrega[1]+"-"+fechaentrega[0];
+		
+		if(Date.parse(fingreso) < Date.parse(fsolicitud) || Date.parse(fingreso) < Date.parse(fsolicitud) || Date.parse(fingreso) < Date.parse(fsolicitud)) {
+			 document.getElementById("F_ent").value = ingreso; 
+			  swal("Error", "Favor de validar las fechas", "error");				 
+		}else{
+						
+			if(Date.parse(fingreso) != "" && Date.parse(fentrega) != ""){
+				
+				if(Date.parse(fentrega) < Date.parse(fingreso)) {
+					 document.getElementById("F_ent").value = ingreso; 
+					 swal("Error", "La fecha de Entrega debe ser mayor a la fecha de Ingreso", "error");		 
+				}else{			    
+							
+						 var startDate = new Date(fingreso);
+						 var endDate = new Date(fentrega);
+						  dias = getBusinessDatesCount(startDate,endDate);	
+						 
+						   $("#d_p").val(dias);
+						   $("#dp").val($("#d_p").val());							
+				}
+		   }			
+		}
+			
+	}
+	function validarFpro()
+	{
+		var fechapromesa = document.getElementById("F_pro").value;
+		var fechaentrega = document.getElementById("F_ent").value;
+		var fechaingreso = document.getElementById("F_ing").value;
+		
+		var ingreso = fechaingreso.split("-");
+		var promesa = fechapromesa.split("-");
+		var entrega = fechaentrega.split("-");
+		
+		var Fpromesa = promesa[2]+"-"+promesa[1]+"-"+promesa[0];
+		var Fentrega = entrega[2]+"-"+entrega[1]+"-"+entrega[0];
+		var Fingreso = ingreso[2]+"-"+ingreso[1]+"-"+ingreso[0];	
+		
+		var dias = 0;
+		if(Date.parse(Fpromesa) != "" && Date.parse(Fentrega) != ""){		  		 
+		  	$("#costo").prop("disabled",false);	
+		  	
+		  	if(Date.parse(Fpromesa) < Date.parse(Fingreso)){
+				 swal("Error", "La fecha de Promesa debe ser mayor a la fecha de Ingreso", "error");						 
+				 $("#F_pro").val("");				
+			}else{				
+				if(Date.parse(Fpromesa) < Date.parse(Fentrega)){
+					
+					 var startDate = new Date(Fpromesa);
+					 var endDate = new Date(Fentrega);
+					 dias = getBusinessDatesCount(startDate,endDate);	
+					 $("#d_re").val(dias);					
+					 $("#dr").val($("#d_re").val()); 					  
+				
+				}else{
+					$("#d_re").val(0);					
+					$("#dr").val($("#d_re").val()); 					 
+				}
+			}
+				
+		}
+		
+	}
+	function validarFent()
+	{	var dias = 0;
+		var fechapromesa = document.getElementById("F_pro").value;
+		var fechaentrega = document.getElementById("F_ent").value;
+		var fechaingreso = document.getElementById("F_ing").value;	
+		
+		var promesa = fechapromesa.split("-");
+		var entrega = fechaentrega.split("-");
+		var ingreso = fechaingreso.split("-");	
+		
+		var Fpromesa = promesa[2]+"-"+promesa[1]+"-"+promesa[0];
+		var Fentrega = entrega[2]+"-"+entrega[1]+"-"+entrega[0];
+		var Fingreso = ingreso[2]+"-"+ingreso[1]+"-"+ingreso[0];	
+		
+		if(fechaingreso != "" && fechaentrega != ""){	
+			
+		   if(Date.parse(Fentrega) < Date.parse(Fingreso)) {
+			   $("#F_ent").val(fechaingreso); 
+			   swal("Error", "La fecha de Entrega debe ser mayor a la fecha de Ingreso", "error");		 
+			}else{				
+				  var startDate = new Date(Fingreso);
+				  var endDate = new Date(Fentrega);
+				  var dias = getBusinessDatesCount(startDate,endDate);	
+				  $("#d_p").val(dias);
+				  $("#dp").val($("#d_p").val());
+				 
+				  if(fechapromesa != ""){		  		 
+					  	$("#costo").prop("disabled",false);	
+						if(Date.parse(Fpromesa) < Date.parse(Fentrega)){
+							 var startDate = new Date(Fpromesa);
+							 var endDate = new Date(Fentrega);
+							  dias = getBusinessDatesCount(startDate,endDate);								  
+							 $("#d_re").val(dias-1);													
+							 $("#dr").val($("#d_re").val()); 							
+						}else{
+							$("#d_re").val(0);							
+							$("#dr").val($("#d_re").val()); 							
+						}
+				  }
+			}			
+		}
+			
+	}
+	function validarFord()
+	{
+	   
+		habilitarFechas();
+	}
+	
+	function setConnected(connected) {
+	    $("#connect").prop("disabled", connected);
+	    $("#disconnect").prop("disabled", !connected);
+	    if (connected) {
+	        $("#conversation").show();
+	    }
+	    else {
+	        $("#conversation").hide();
+	    }
+	    $("#greetings").html("");
+	}
+	
+	function connect() {
+	    var socket = new SockJS('/gs-guide-websocket');
+	    stompClient = Stomp.over(socket);
+	    stompClient.connect({}, function (frame) {
+	        setConnected(true);
+	        console.log('Connected: ' + frame);
+	        stompClient.subscribe('/topic/greetings', function (greeting) {
+	            showGreeting(JSON.parse(greeting.body).content);
+	        });
+	        stompClient.subscribe('/topic/MantTimeReal', function (greeting) {
+	            showMantRegistros(JSON.parse(greeting.body).content);
+	        });
+	    });
+	    
+	  
+	}
+	
+	function disconnect() {
+	    if (stompClient !== null) {
+	        stompClient.disconnect();
+	    }
+	    setConnected(false);
+	    console.log("Disconnected");
+	}
+	
+	function sendName() {
+	    stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#placa").val()}));
+	    disconnect();
+	}
+	
+	function getBusinessDatesCount(startDate, endDate) {
+	       var count = 0;
+	       var curDate = startDate;
+	       while (curDate <= endDate) {
+	           var dayOfWeek = curDate.getDay();
+	           if(!((dayOfWeek == 6) || (dayOfWeek == 0)))
+	              count++;
+	           curDate.setDate(curDate.getDate() + 1);
+	       }
+	       return count;
+	}
+	
+	function deuda(){
+		var fechapromesa = document.getElementById("F_pro").value;
+		var fechaentrega = document.getElementById("F_ent").value;		
+		var resultado=0;
+		if(fechapromesa != "" && fechaentrega != ""){		  		 
+			var diasR = document.getElementById("d_re").value;
+			var costo = document.getElementById("costo").value;	
+			var descuento = costo*0.03;
+			resultado = descuento*diasR;
+			$("#sancion").val(resultado);			
+			$("#s").val($("#sancion").val());
+		}
+	}
+		
+		function Cargar(){
+			var dias = 0;
+			var fechapromesa = document.getElementById("F_pro").value;
+			var fechaentrega = document.getElementById("F_ent").value;
+			var fechaingreso = document.getElementById("F_ing").value;	
+			
+			var promesa = fechapromesa.split("-");
+			var entrega = fechaentrega.split("-");
+			var ingreso = fechaingreso.split("-");	
+			
+			var Fpromesa = promesa[2]+"-"+promesa[1]+"-"+promesa[0];
+			var Fentrega = entrega[2]+"-"+entrega[1]+"-"+entrega[0];
+			var Fingreso = ingreso[2]+"-"+ingreso[1]+"-"+ingreso[0];	
+			
+			if(fechaingreso != "" && fechaentrega != "" && fechapromesa != ""){	
+							  		
+					  var startDate = new Date(Fingreso);
+					  var endDate = new Date(Fentrega);
+					  var dias = getBusinessDatesCount(startDate,endDate);	
+					  $("#d_p").val(dias);					  
+							  		 
+					  $("#costo").prop("disabled",false);								
+					  var startDate = new Date(Fpromesa);
+					  var endDate = new Date(Fentrega);
+					  dias = getBusinessDatesCount(startDate,endDate);								  
+					  $("#d_re").val(dias-1);
+					  deuda();
+					  $("#F_ing").prop("disabled",false);
+					  $("#F_pro").prop("disabled",false);
+					  $("#F_ent").prop("disabled",false);
+					  $("#dp").val($("#d_p").val());
+					  $("#dr").val($("#d_re").val()); 
+					  $("#s").val($("#sancion").val());
+					  
+				}
+			
+			}
+		
+		$('#aBtnGroup button').on('click', function() {
+			var thisBtn = $(this);
+			var btnText = thisBtn.text();
+			var btnValue = thisBtn.val();
+			//console.log(btnText +" "+ btnValue);
+			thisBtn.addClass('active').siblings().removeClass('active');
+		    if(btnValue == "D"){ 
+		    	
+		    	$("#Mdocumento").show();
+		    	$("#Ndocumento").hide();
+		    
+		    }else{
+			    if(btnValue == "N"){ 
+			    	
+			    	$("#Mdocumento").hide();
+			    	$("#Ndocumento").show();
+			    
+			    };
+		    }
+		});
+	</script>		
+	
+	<script src="/assets/js/CambiosEstado.js"></script>
+	<!-- <script src="/assets/js/sockjs.js"></script>
+	jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+	<!-- SweetAlert -->
+	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
+ 
+</body>
+</html>

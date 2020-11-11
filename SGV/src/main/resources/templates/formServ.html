@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Seguros</title>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+	<link href="favicon.html" rel="icon">
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>	
+	<script src="/assets/js/popper.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>	
+	
+</head>
+<body>
+	<header>
+		<div class="heades">
+			<img th:src="@{/images/pgj.png}" style="width: 20%">			
+		</div>
+                <div class="TituloCon">
+                </div>
+		<div class="form-group last col-sm-12 form-nav" >		    		
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Servicios}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
+			
+			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
+				<div class="container col-sm-4">
+  							 				 					 			
+	 				<div class="dropdown col-sm-4"  >
+						  
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
+						  MENU
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>						    
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						 
+						   		
+						  </div>
+					</div>			
+ 				</div>
+ 			</div> 			
+		</div>
+		<h1 class="item-title text-right StituloCon">Servicios</h1>
+	</header>
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 formfondo">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                        <form th:action="@{/formServ}" th:object="${catalogo}" enctype="multipart/form-data" method="post" id="formulario"  name="visitas" data-toggle="validator" class="popup-form">
+	                                            <div class="row">
+	                                            
+	                                            <!--Servicios-->
+	                                                    <div class="form-group col-sm-12">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{servicio}"  id="Nom_Ads" placeholder="Servicio" class="form-control soloLetras" type="text" required data-error="Ingrese El Servicio"/>
+	                                                            <div class="input-group-icon"><i class="fa fa-pencil-alt"></i></div>
+	                                                    </div>
+	                                            	                                          
+													<!--Tipo de vehiculo-->
+													
+														<div class="form-group col-sm-3 contenedorCboxmargen">
+																	
+																	<div class="col-sm-12">
+                                                                        <h4>Selecciona el tipo de automovil: </h4><h4>
+                                                                    </h4></div>
+                                                                    <div class="col-sm-12">				
+																	<label class="Cboxcontainer">Automovil
+																	  <input type="checkbox" th:value="*{auto}" th:field="*{auto}">
+																	  <span class="checkmark"></span>
+																	</label>
+																	<label class="Cboxcontainer">Motocicleta
+																	  <input type="checkbox" th:value="*{motocicleta}" th:field="*{motocicleta}">
+																	  <span class="checkmark"></span>
+																	</label>
+																	<label class="Cboxcontainer">Automovil Blindado
+																	  <input type="checkbox" th:value="*{blindado}" th:field="*{blindado}">
+																	  <span class="checkmark"></span>
+																	</label>
+																	</div>
+														</div>																																		
+											                   
+	                                                    <!--Cilindros-->
+	                                                    
+	                                                    <div class="form-group col-sm-5 contenedorCboxmargen">
+	                                                    			<div class="col-sm-12">
+                                                                        <h4>Selecciona el numero de cilindros compatibles: </h4><h4>
+                                                                    </h4></div>
+                                                                 <div class="col-sm-6">
+	                                                    			<label class="Cboxcontainer">1 Cilindro
+																	  <input type="checkbox" th:value="*{un_cilindro}" th:field="*{un_cilindro}">
+																	  <span class="checkmark"></span>
+																	</label>
+																	<label class="Cboxcontainer">2 Cilindros
+																	  <input type="checkbox" th:value="*{dos_cilindros}" th:field="*{dos_cilindros}">
+																	  <span class="checkmark"></span>
+																	</label>
+																	<label class="Cboxcontainer">3 Cilindros
+																	  <input type="checkbox" th:value="*{tres_cilindros}" th:field="*{tres_cilindros}">
+																	  <span class="checkmark"></span>
+																	</label>	
+																	 <label class="Cboxcontainer">4 Cilindros
+																	  <input type="checkbox" th:value="*{cuatro_cilindros}" th:field="*{cuatro_cilindros}">
+																	  <span class="checkmark"></span>
+																	</label>																																
+																	
+																</div>
+																		                                                            	
+	                                                  			<div class="col-sm-6">
+	                                                   			   
+																	<label class="Cboxcontainer">5 Cilindros
+																	  <input type="checkbox" th:value="*{cinco_cilindros}" th:field="*{cinco_cilindros}">
+																	  <span class="checkmark"></span>
+																	</label>
+																	<label class="Cboxcontainer">6 Cilindros
+																	  <input type="checkbox" th:value="*{seis_cilindros}" th:field="*{seis_cilindros}">
+																	  <span class="checkmark"></span>
+																	  </label>
+																	  <label class="Cboxcontainer">8 Cilindros
+																	  <input type="checkbox" th:value="*{ocho_cilindros}" th:field="*{ocho_cilindros}">
+																	  <span class="checkmark"></span>
+																	  </label>
+																	  <label class="Cboxcontainer">10 Cilindros
+																	  <input type="checkbox" th:value="*{dies_cilindros}" th:field="*{dies_cilindros}">
+																	  <span class="checkmark"></span>
+																	</label>
+																</div>
+	                                                    </div>	                                                    
+	                                                    
+	                                                    <!--combustible-->
+	
+	                                                    <div class="form-group col-sm-2 contenedorCboxmargen">
+	                                                    			<div class="col-sm-12">
+                                                                        <h4>Selecciona el tipo de combustible:</h4><h4>
+                                                                    </h4></div>
+                                                                    <div class="col-sm-12">
+		                                                    			<label class="Cboxcontainer">Gasolina
+																		  <input type="checkbox" th:value="*{gasolina}" th:field="*{gasolina}">
+																		  <span class="checkmark"></span>
+																		</label>
+																		<label class="Cboxcontainer">Diesel
+																		  <input type="checkbox" th:value="*{diesel}" th:field="*{diesel}">
+																		  <span class="checkmark"></span>
+																		</label>
+																		<label class="Cboxcontainer">Gas
+																		  <input type="checkbox" th:value="*{gas}" th:field="*{gas}">
+																		  <span class="checkmark"></span>
+																		</label>	
+																	</div>                                                            
+	                                                    </div>
+														
+	                                                    <!--categoria-->
+	                                                    <div class="form-group col-sm-12">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{categoria}" id="Num" placeholder="Categoria" class="form-control soloLetras" type="text" required data-error="Ingrese La Categoria"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-globe-americas"></i></div>
+	                                                    </div>
+	                                                    			                                              											
+	                                                    
+	                                                    	                                                   
+	                                                    <input type="hidden" th:field="*{id}"/>
+														<!--Boton Guardar-->
+	
+	                                                    <div class="form-group last col-sm-12">
+	                                                            <button type="submit" id="guardar" class="btn btn-custom btn-stilo"><i class='fa fa-envelope'></i> Guardar</button>
+	                                                    </div>
+	                                                    <div class="clearfix"></div>
+	                                                    
+	                                                   
+	                                            </div>
+	                                        </form>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<script src="/assets/js/CambiosEstado.js"></script>
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+ 
+</body>
+</html>

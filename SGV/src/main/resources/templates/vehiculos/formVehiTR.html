@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Vehiculos</title>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+	<meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
+	<link href="favicon.html" rel="icon">
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>	
+</head>
+<body>
+	<header>
+		<div class="heades">
+			<img th:src="@{../images/pgj.png}" style="width: 20%">			
+		</div>
+                <div class="TituloCon">
+                </div>
+		<div class="form-group last col-sm-12 form-nav" >		    		
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
+			
+			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
+				<div class="container col-sm-4">
+  							 				 					 			
+	 				<div class="dropdown col-sm-4"  >
+						  
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
+						  MENU
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>						    
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						 
+						   		
+						  </div>
+					</div>			
+ 				</div>
+ 			</div> 			
+		</div>
+		<h1 class="item-title text-right StituloCon">Vehiculos</h1>
+	</header>
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 formfondo">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                    <form th:action="@{/formVehiTResguardante}" th:object="${Tresguardante}" method="post" id="formulario" data-toggle="validator" class="popup-form">
+	                                        <div class="col-sm-12">
+                                           		<h1>Selecciona el Resguardante del vehiculo</h1>
+                                           	</div>	
+                                           	
+                                           	<div class="Paso1 col-sm-12" >
+                                           		<h3>Tercer Resguardante</h3>
+                                           		
+                                           		
+		                                            <div class="row rowresguardantes" >
+															
+														<!--Nombre-->
+														<div class="form-group col-sm-4">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input onchange="limpiarTR()" th:field="${Tresguardante.nombre}" th:value="${Tresguardante.nombre}" name="nombre3" id="Nombre3" placeholder="Nombre" class="form-control Letras" type="text" data-error="Ingrese El Nombre">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<!--Apellido1-->
+														<div class="form-group col-sm-4">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input onchange="limpiarTR()" th:field="${Tresguardante.apellido1}" th:value="${Tresguardante.apellido1}" name="apellidoP2" id="A_pa3" placeholder="Apellido Paterno" class="form-control Letras" type="text" data-error="Ingrese El primer Apellido">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<!--Apellido2-->
+														<div class="form-group col-sm-4">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input onchange="limpiarTR()" th:field="${Tresguardante.apellido2}" th:value="${Tresguardante.apellido2}" name="apellidoM2" id="A_ma3"  placeholder="Apellido Materno" class="form-control Letras" type="text" data-error="Ingrese El segundo Apellido">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<!--Cargo-->
+														<div class="form-group col-sm-12">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input onchange="limpiarTR()" th:field="${Tresguardante.cargo}" th:value="${Tresguardante.cargo}" name="cargo3" id="cargo3"  placeholder="Cargo" class="form-control Letras" type="text" data-error="Ingrese El cargo">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														
+													</div>
+												
+                                           		
+                                           	</div>	
+                                           	<div class="Paso1 col-sm-6" >
+                                           		<h3>Datos de Usuarios</h3>
+                                           		
+                                           		<div class=" col-md-12" id="Contenedorbuscar" >
+                               						<div class="col-md-2" > <p style="text-align: right;">Buscar</p></div> 	                                				                                        
+									    			<div id="Busqueda" class="col-md-6">											       											       
+												         <input id="searchTerm" class="form-control col-md-5" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)"/>												           												           
+												    </div>
+									        		<div id="coincidencias" class="col-md-6"></div>
+												</div>
+                                           		
+                                           		<table class="table table-striped table-bordered fixed_header " id="UsuariosT">
+													<thead class="table-success">
+														<tr>
+															<th style="width:30px"></th>
+															<th><div class="celda">Numero de Empleado</div></th>
+															<th><div class="celda">Nombre</div></th>
+															<th><div class="celda">Primer Apellido</div></th>
+															<th><div class="celda">Segundo Apellido</div></th>
+															<th style="width:10px" id="cuadrito"></th>																																
+														</tr>
+													</thead>
+													<tbody>
+													
+														<tr th:each="usuariosql: ${usuarios}" th:if="${usuariosql.enabled} == true">
+															<th style="width:30px"><input class="check" type="radio" name="SelUsu" th:id="${usuariosql.nombre}+' '+${usuariosql.apellido1}+' '+${usuariosql.apellido2}" th:value="${usuariosql.no_empleado}"></th>															
+															<td th:text="${usuariosql.no_empleado}" class="celda"></td>
+															<td th:text="${usuariosql.nombre}" class="celda"></td>
+															<td th:text="${usuariosql.apellido1}" class="celda"></td>
+															<td th:text="${usuariosql.apellido2}" class="celda"></td>																																																
+														</tr>
+																									
+														
+													</tbody>
+												</table>
+                                           		
+                                           	</div>	                                           	                                           	
+                                           	<div class="Paso2 col-sm-6">
+                                           		<h3>Datos de Conductores</h3>
+                                           		
+                                           		<div class=" col-md-12" id="Contenedorbuscar2" >
+                               						<div class="col-md-2" > <p style="text-align: right;">Buscar</p></div> 	                                				                                        
+									    			<div id="Busqueda2" class="col-md-6">											       											       
+												         <input id="searchTerm2" class="form-control col-md-5" name="elemento" type="text" onkeyup="doSearch2()" onkeypress="return pulsar(event)"/>												           												           
+												    </div>
+									        		<div id="coincidencias2" class="col-md-6"></div>
+												</div>
+                                           		
+                                           		<table class="table table-striped table-bordered fixed_header " id="ConductoresT">
+													<thead class="table-success">
+														<tr>
+															<th style="width:30px"></th>
+															<th><div class="celda">Numero de Empleado</div></th>
+															<th><div class="celda">Nombre</div></th>
+															<th><div class="celda">Primer Apellido</div></th>
+															<th><div class="celda">Segundo Apellido</div></th>
+															<th style="width:10px" id="cuadrito2"></th>																																
+														</tr>
+													</thead>
+													<tbody>
+													
+														<tr th:each="conductoresql: ${conductores}" th:if="${conductoresql.enabled} == true">
+															<th style="width:30px"><input class="check2" type="radio" th:id="${conductoresql.nombre}+' '+${conductoresql.apellido1}+' '+${conductoresql.apellido2}" th:value="${conductoresql.no_empleado}"></th>															
+															<td th:text="${conductoresql.no_empleado}" class="celda"></td>
+															<td th:text="${conductoresql.nombre}" class="celda"></td>
+															<td th:text="${conductoresql.apellido1}" class="celda"></td>
+															<td th:text="${conductoresql.apellido2}" class="celda"></td>																																																
+														</tr>
+																									
+														
+													</tbody>
+												</table>
+                                           		
+                                           	</div>	
+                                           	<div class="col-sm-12" >
+	                                       
+	                                        <input type="hidden" th:field="${Presguardante}" th:value="${Presguardante}"/>
+	                                        <input type="hidden" th:field="${Sresguardante}" th:value="${Sresguardante}"/>
+													
+	                                        
+	                                                                                
+	                                        <button id="finishP1" type="submit" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;">Guardar</button>
+	                                        </div>
+	                                    </form>
+	                                       	                                        
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>	
+	
+	<script type="text/javascript"  th:inline="javascript">
+	
+	function doSearch()
+    {
+        const tableReg = document.getElementById('UsuariosT');
+        const searchText = document.getElementById('searchTerm').value.toLowerCase();
+        let total = 0;
+
+        // Recorremos todas las filas con contenido de la tabla
+	        for (let i = 1; i < tableReg.rows.length; i++) {
+	
+	            // Si el td tiene la clase "noSearch" no se busca en su cntenido
+	
+	            if (tableReg.rows[i].classList.contains("noSearch")) {
+	                continue;
+	            }
+	
+	            let found = false;
+	
+	            const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+	
+	            // Recorremos todas las celdas
+	
+	            for (let j = 0; j < cellsOfRow.length && !found; j++) {
+	                const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+	                // Buscamos el texto en el contenido de la celda
+	                if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+	                    found = true;
+	                    total++;
+	                }
+	            }
+	            if (found) {
+	                tableReg.rows[i].style.display = '';
+	            } else {
+	                tableReg.rows[i].style.display = 'none';
+	           }
+	        }
+	        // mostramos las coincidencias
+	
+	        const lastTR=tableReg.rows[tableReg.rows.length-1];
+	
+	        const td=lastTR.querySelector("td");
+	
+	        lastTR.classList.remove("hide", "red");
+	
+	        if (searchText == "") {
+	            //lastTR.classList.add("hide");
+	            $('#coincidencias').html("");
+	        } else if (total) {
+	        	$('#coincidencias').html("Se ha encontrado "+total+" coincidencia"+((total>1)?"s":""));
+	        	if(total<10){$("#cuadrito").hide();}else{$("#cuadrito").show();}
+	           // td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
+	        } else {
+	            lastTR.classList.add("red");
+	            $('#coincidencias').html("No se han encontrado coincidencias")
+	            $("#cuadrito").show();
+	            //td.innerHTML="No se han encontrado coincidencias";
+	        }
+    }
+	
+	function doSearch2()
+    {
+        const tableReg = document.getElementById('ConductoresT');
+        const searchText = document.getElementById('searchTerm2').value.toLowerCase();
+        let total = 0;
+
+        // Recorremos todas las filas con contenido de la tabla
+	        for (let i = 1; i < tableReg.rows.length; i++) {
+	
+	            // Si el td tiene la clase "noSearch" no se busca en su cntenido
+	
+	            if (tableReg.rows[i].classList.contains("noSearch2")) {
+	                continue;
+	            }
+	
+	            let found = false;
+	
+	            const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+	
+	            // Recorremos todas las celdas
+	
+	            for (let j = 0; j < cellsOfRow.length && !found; j++) {
+	                const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+	                // Buscamos el texto en el contenido de la celda
+	                if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+	                    found = true;
+	                    total++;
+	                }
+	            }
+	            if (found) {
+	                tableReg.rows[i].style.display = '';
+	            } else {
+	                tableReg.rows[i].style.display = 'none';
+	           }
+	        }
+	        // mostramos las coincidencias
+	
+	        const lastTR=tableReg.rows[tableReg.rows.length-1];
+	
+	        const td=lastTR.querySelector("td");
+	
+	        lastTR.classList.remove("hide", "red");
+	
+	        if (searchText == "") {
+	            //lastTR.classList.add("hide");
+	            $('#coincidencias2').html("");
+	        } else if (total) {
+	        	$('#coincidencias2').html("Se ha encontrado "+total+" coincidencia"+((total>1)?"s":""));
+	        	if(total<10){$("#cuadrito2").hide();}else{$("#cuadrito2").show();}
+	           // td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
+	        } else {
+	            lastTR.classList.add("red");
+	            $('#coincidencias2').html("No se han encontrado coincidencias")
+	            $("#cuadrito2").show();
+	            //td.innerHTML="No se han encontrado coincidencias";
+	        }
+    }
+    
+    function pulsar(e) {
+    	  tecla = (document.all) ? e.keyCode :e.which;
+    	  return (tecla!=13);
+    	} 
+    
+    	
+    $(document).ready(function()
+    {
+    	$(".check").click(function () {	 
+    		     		
+    			var seleccion = $(this).attr('id');
+          		
+          		var datos = seleccion.split(" ");
+          		var nombre = seleccion.split(" ")[0];
+          		var A1 = seleccion.split(" ")[1];
+          		var A2 = seleccion.split(" ")[2];          		          	
+          		$(".check2").prop("checked",false);
+          		$("#Nombre3").val(nombre);
+          		$("#A_pa3").val(A1);
+          		$("#A_ma3").val(A2);    		    	
+    			$("#clean3").show();
+    			limpiarTR();
+    	});
+    });
+    
+    $(document).ready(function()
+    	    {
+    	    	$(".check2").click(function () {	 
+    	    		$(".check").prop("checked",false); 		
+    	    			var seleccion = $(this).attr('id');
+    	          	
+    	          		var datos = seleccion.split(" ");
+    	          		var nombre = seleccion.split(" ")[0];
+    	          		var A1 = seleccion.split(" ")[1];
+    	          		var A2 = seleccion.split(" ")[2];          		          	
+    	          		
+    	          		$("#Nombre3").val(nombre);
+    	          		$("#A_pa3").val(A1);
+    	          		$("#A_ma3").val(A2);    		    	
+    	    			$("#clean3").show();    	    			
+    	    			limpiarTR();
+    	    	});
+    	    });
+              
+    function limpiarTR()
+    {
+		
+		if($("#Nombre3").val() != "" && $("#A_pa3").val() != "" && $("#A_ma3").val() != "" && $("#cargo3").val() != "" ){						
+			
+			$("#finishP1").show();
+		};
+    }
+    
+    $("#Nombre3").change(function(){
+    	limpiarTR();
+    	
+    });
+    
+    $("#A_pa3").change(function(){
+    	limpiarTR();
+    	
+    });
+    
+    $("#A_ma3").change(function(){
+    	limpiarTR();
+    	
+    });
+    
+    $("#cargo3").change(function(){
+    	limpiarTR();
+    	
+    });
+
+    </script>
+	
+	
+	<script src="/assets/js/CambiosEstado.js"></script>
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+	
+	
+ 
+</body>
+</html>

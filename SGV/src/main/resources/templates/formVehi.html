@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Vehiculos</title>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+	<meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
+	<link href="favicon.html" rel="icon">
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+	<link rel="stylesheet" th:href="@{/assets/SweetAlert2/sweetalert2.css}">
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>	
+</head>
+<body>
+	<header>
+		<div class="heades">
+			<img th:src="@{/images/pgj.png}" style="width: 20%">			
+		</div>
+                <div class="TituloCon">
+                </div>
+		<div class="form-group last col-sm-12 form-nav" >		    		
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
+			
+			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
+				<div class="container col-sm-4">
+  							 				 					 			
+	 				<div class="dropdown col-sm-4"  >
+						  
+						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
+						  MENU
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	
+						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
+						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
+				    		</form>						    
+						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
+						    </form>
+						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
+						    </form>
+						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
+						    </form>	
+						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
+								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
+						    </form>						 
+						   		
+						  </div>
+					</div>			
+ 				</div>
+ 			</div> 			
+		</div>
+		<h1 class="item-title text-right StituloCon">Vehiculos</h1>
+	</header>
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 formfondo">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                        <form th:action="@{/formVehi}" th:object="${vehiculo}" enctype="multipart/form-data" method="post" id="formulario"  data-toggle="validator" class="popup-form">
+	                                            <div class="row">	                                            		
+														<div class="border col-sm-12">
+			                                            <!--Numero de placa-->
+															<div class="form-group col-sm-3">
+																<div class="help-block with-errors" style="width: 261px;"></div>									
+																<input th:field="*{placa}" name="fname" id="N_Placa" placeholder="Placa" class="form-control soloLetras" type="text" required data-error="Ingrese El Numero de Placa">
+																<div class="input-group-icon"><i class="fa fa-user"></i></div>														
+															</div>
+															<div class="form-group col-sm-3">													
+																<input placeholder="Placa" class="form-control" disabled>														
+															</div>
+															
+															<div class="form-group col-sm-12"></div>	
+															
+															<!--kilometros
+															<div class="form-group col-sm-3">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<input th:field="*{kilometraje}" id="D_re" class="form-control signos" type="number" min="0.0" max="100000000000000" required data-error="Ingrese La Distancia Recorrida">
+																<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>
+															</div>
+															<div class="form-group col-sm-3">													
+																<input placeholder="Kilometros" class="form-control" disabled>														
+															</div>																																														
+															-->					
+															<!--Numero de serie-->
+		
+															<div class="form-group col-sm-3">
+																<div class="help-block with-errors"></div>
+																<input th:field="*{no_serie}"  id="N_serie" placeholder="Numero de Serie" class="form-control signos" type="text" required data-error="Ingrese El Numero de Serie">
+																<div class="input-group-icon"><i class="fas fa-ad"></i></div>
+															</div>	
+															<div class="form-group col-sm-3">													
+																<input placeholder="Numero de serie" class="form-control" disabled>														
+															</div>
+															
+															<!--Numero de inventario-->
+		
+															<div class="form-group col-sm-3">
+																<div class="help-block with-errors"></div>
+																<input th:field="*{no_inventario}"  id="N_serie" placeholder="Numero de Inventario" class="form-control signos" type="text" required data-error="Ingrese El Numero de Inventario">
+																<div class="input-group-icon"><i class="fas fa-ad"></i></div>
+															</div>	
+															<div class="form-group col-sm-3">													
+																<input placeholder="Numero de Inventario" class="form-control" disabled>														
+															</div>
+																													
+															<div class="form-group col-sm-12"></div>	
+															
+															<!--Vale-->
+		
+															<div class="form-group col-sm-3">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">
+																<input th:field="*{vale}"  id="vale" class="form-control soloLetras" type="text" required data-error="Ingrese El Vale">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+															</div>
+															<div class="form-group col-sm-3">													
+																<input placeholder="Vale" class="form-control" disabled>														
+															</div>
+															
+															<!--Fecha de tarjeta-->
+		
+															<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">
+																<input th:field="*{fecha_tarjeta}"  id="fecha_tarjeta" min = 01/01/1900 max = 01/01/2090 class="form-control signos" type="date" required data-error="Ingrese la fecha de tarjeta">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+															</div>
+															<div class="form-group col-sm-4">													
+																<input placeholder="Fecha de Tarjeta" class="form-control" disabled>														
+															</div>
+															
+														</div>		
+														
+														<div class="form-group col-sm-12" th:if="${editando} == 'no'"><h3>Busqueda del vehiculo</h3>														
+														
+														</div>
+														<div class="form-group col-sm-12" th:if="${editando} == 'si'"><h3>Datos No editables</h3>														
+														
+														</div>																																						
+													
+														
+														<div class="border col-sm-12" th:if="${editando} == 'no'">														
+														<!--Marcas-->
+															<div class="form-group col-sm-6" id="marca1">		
+																<div class="help-block with-errors" style="width: 261px;"></div>																											
+																<select id="marca" th:field="*{vehiculo_marca.nombre_marca}" name="marca" class="form-control" style=" height: 34px;" required data-error="Ingrese El Nombre de la Marca">															    
+																    <option value="">Elegir Marca</option>
+																    <option th:each="marca : ${marcas}" 
+																    th:value="${marca}" 
+																    th:text="${marca}"></option>
+																</select>		
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>															
+															</div>
+														<div class="form-group col-sm-6">													
+																<input placeholder="Marca" class="form-control" disabled>														
+														</div>
+													
+														
+														<!--Submarca-->
+													
+														<div class="form-group col-sm-6 marca2"   >
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																	<select id="Submarca" name="Submarca" th:field="*{vehiculo_marca.nombre_submarca}" class="form-control" style=" height: 34px;" required data-error="Ingrese El nombre de la sub marca" disabled>																    
+																    <option value ="">Elegir Submarca</option>
+																    <option  id="submarcas"
+																    th:each="items : ${itemList}" 
+																    th:value="${items}" 
+																    th:text="${items}"></option>
+																	</select>																													
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+														</div>
+														<div class="form-group col-sm-6 marca2" >													
+																<input placeholder="SubMarca" class="form-control" disabled>														
+														</div>
+														
+														<div class="form-group col-sm-6 marca2"   >
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																	<select id="Modelo" name="Modelo" th:field="*{vehiculo_marca.modelo}" class="form-control" style=" height: 34px;" required data-error="Ingrese el Modelo" disabled>																    
+																    <option value ="">Elegir Modelo</option>
+																    <option  id="modelos"
+																    th:each="items : ${modelo}" 
+																    th:value="${items}" 
+																    th:text="${items}"></option>
+																	</select>																													
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+														</div>
+														<div class="form-group col-sm-6 marca2" >													
+																<input placeholder="Modelo" class="form-control" disabled>														
+														</div>
+														
+														<div class="form-group col-sm-6 marca2"   >
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																	<select id="Tipo" name="Tipo" th:field="*{vehiculo_marca.tipo}" class="form-control" style=" height: 34px;" required data-error="Ingrese el Tipo" disabled>																    
+																    <option value ="">Elegir El Tipo</option>
+																    <option  id="tipos"
+																    th:each="items : ${tipo}" 
+																    th:value="${items}" 
+																    th:text="${items}"></option>
+																	</select>																													
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+														</div>
+														<div class="form-group col-sm-6 marca2" >													
+																<input placeholder="Tipo" class="form-control" disabled>														
+														</div>
+														
+														<div class="form-group col-sm-6 marca2"   >
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																	<select id="Clase" name="Clase" th:field="*{vehiculo_marca.tipo}" class="form-control" style=" height: 34px;" required data-error="Ingrese la Clase" disabled>																    
+																    <option value ="">Elegir La Clase</option>
+																    <option  id="clase"
+																    th:each="items : ${clase}" 
+																    th:value="${items}" 
+																    th:text="${items}"></option>
+																	</select>																													
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+														</div>
+														<div class="form-group col-sm-6 marca2" >													
+																<input placeholder="Clase" class="form-control" disabled>														
+														</div>
+																																																																			
+													</div>						
+													
+													<div class="border col-sm-12" th:if="${editando} == 'si'">													
+														<div class="form-group col-sm-3">																														
+																<div style="display: inline-block;">
+																<input th:value="${vehiculo.vehiculo_marca.nombre_marca}"  id="modelo" class="form-control signos" type="text" disabled>
+																</div>																																													
+														</div>
+														<div class="form-group col-sm-3">													
+																<input placeholder="Marca" class="form-control" disabled>														
+														</div>
+														<div class="form-group col-sm-3">	
+																															
+																<div style="display: inline-block;">
+																<input th:value="${vehiculo.vehiculo_marca.nombre_submarca}"  id="modelo" class="form-control signos" type="text" disabled>
+																</div>																																													
+														</div>
+														<div class="form-group col-sm-3">													
+																<input placeholder="SubMarca" class="form-control" disabled>														
+																</div>
+														<div class="form-group col-sm-3">	
+																															
+																<div style="display: inline-block;">
+																<input th:value="${vehiculo.vehiculo_marca.modelo}"  id="modelo" class="form-control signos" type="text" disabled>
+																</div>																																													
+														</div>
+														<div class="form-group col-sm-3">													
+																<input placeholder="Modelo" class="form-control" disabled>														
+																</div>
+																												
+														<div class="form-group col-sm-3">
+																	
+																<div style="display: inline-block;">
+																<input th:value="${vehiculo.vehiculo_marca.clase}"  id="clase" class="form-control soloLetras" type="text"  disabled>
+																</div>																											
+																
+														</div>
+														<div class="form-group col-sm-3">													
+																<input placeholder="Clase" class="form-control" disabled>														
+																</div>														
+														
+														<div class="form-group col-sm-3">
+																
+																<div style="display: inline-block;">
+																<input th:value="${vehiculo.vehiculo_marca.tipo}"  id="tipo" class="form-control soloLetras" type="text" disabled>
+																</div>		
+																																										
+														</div>
+														<div class="form-group col-sm-3">													
+																<input placeholder="Tipo" class="form-control" disabled>														
+														</div>
+														
+														
+																																								
+													
+													</div>		
+													<div class="form-group col-sm-12"></div>	
+													
+													
+												    <div class="form-group col-sm-3">
+														<select th:field="*{vehiculo_transmision}" class="form-control" style=" height: 34px;" required data-error="Ingrese la Transmision del vehiculo">
+										                         <option value="" th:if="${editando} == 'no'"> Seleccione la Transmision </option>
+										                         <option th:value="${vehiculo.vehiculo_transmision != null}? ${vehiculo.vehiculo_transmision.id_transmision}" th:text="${vehiculo.vehiculo_transmision != null}? ${vehiculo.vehiculo_transmision.nombre_transmision}" th:if="${editando} == 'si'"></option>
+										                         <option th:each="trans : ${transmisiones} "
+										                            th:value="${trans.id_transmision}"
+										                            th:utext="${trans.nombre_transmision}" />
+										                    </select>
+										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
+													</div>
+														
+													<div class="form-group col-sm-3">													
+																<input placeholder="Transmision del vehiculo" class="form-control" disabled>														
+													</div>
+													
+													
+													<div class="form-group col-sm-3">
+														<select th:field="*{vehiculo_funcion}" class="form-control" style=" height: 34px;" required data-error="Ingrese la Funsion del vehiculo">										                         
+										                         <option value="" th:if="${editando} == 'no'"> Seleccione una funcion</option>
+										                          <option th:value="${vehiculo.vehiculo_funcion.id_funcion}" th:text="${vehiculo.vehiculo_funcion.nombre_funcion}" th:if="${editando} == 'si'"></option>
+										                         <option th:each="fun : ${funciones} "
+										                            th:value="${fun.id_funcion}"
+										                            th:utext="${fun.nombre_funcion}" />
+										                    </select>
+										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
+													</div>
+													<div class="form-group col-sm-3">													
+																<input placeholder="Funcion a desempeñar" class="form-control" disabled>														
+													</div>
+													
+													<div class="form-group col-sm-12"><h3>Caracteristicas del vehiculo</h3></div>			
+													
+													<div class="border col-sm-12">
+													
+													<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">
+																<input th:field="*{vehiculo_detalle.rin}"  id="rin" class="form-control soloLetras" type="text" required data-error="Ingrese el tamaño de Rin">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Tamaño del Rin" class="form-control" disabled>														
+													</div>
+													
+													<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="float: right;">
+																<!--  
+																	<select th:field="*{vehiculo_detalle.color}" class="form-control" style=" height: 34px;" required data-error="Elija el cojor del vehiculo">
+											                         <option value=""> Seleccione un color </option>
+											                         <option value=""></option>
+											                    	</select>
+											                    	-->
+											                    	<input type="color" value="*{vehiculo_detalle.color}">
+																</div>																														
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Color" th:field="*{vehiculo_detalle.color}" class="form-control" disabled>														
+													</div>
+													
+													<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">
+																<input th:field="*{vehiculo_detalle.no_cilindros}"  id="no_cilindros" min = 1 max = 30 class="form-control signos" type="number" required data-error="Ingrese la fecha de tarjeta">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Numero de Clilindros" class="form-control" disabled>														
+													</div>
+													<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">
+																<input th:field="*{vehiculo_detalle.no_personas}"  id="no_personas" min = 1 max = 20 class="form-control signos" type="number" required data-error="Ingrese la fecha de tarjeta">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Personas" class="form-control" disabled>														
+													</div>
+													<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">
+																<input th:field="*{vehiculo_detalle.no_puertas}"  id="no_puertas" min = 0 max = 8 class="form-control signos" type="number" required data-error="Ingrese la fecha de tarjeta">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Puertas" class="form-control" disabled>														
+													</div>
+													<div class="form-group col-sm-2" style="height: 17%;">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;   float: right;">	
+																
+																<div class="form-check form-check-inline">
+																  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.balisado}" name="inlineRadioOptions" id="inlineRadio1" value="1">
+																  <label class="form-check-label" for="inlineRadio1" th:text="SI"></label>
+																</div>
+																
+																<div class="form-check form-check-inline">
+																  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.balisado}" name="inlineRadioOptions" id="inlineRadio2" value="0">
+																  <label class="form-check-label" for="inlineRadio1" th:text="NO"></label>
+																</div>																																											
+																																  
+																</div>														
+																
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Balisado" class="form-control" disabled>														
+													</div>
+													<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block; float:right">
+																<div class="form-check form-check-inline">
+																  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.blindaje}" name="inlineRadioOptions" id="inlineRadio3" value="1">
+																  <label class="form-check-label" for="inlineRadio3" th:text="SI"></label>
+																</div>
+																
+																<div class="form-check form-check-inline">
+																  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.blindaje}" name="inlineRadioOptions" id="inlineRadio4" value="0">
+																  <label class="form-check-label" for="inlineRadio4" th:text="NO"></label>
+																</div>	
+																</div>														
+																
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="¿tiene blindaje?" class="form-control" disabled>														
+													</div>
+													
+													
+													</div>		
+													
+													<div class="border col-sm-12">
+													
+													<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">
+																<input th:field="*{vehiculo_detalle.no_motor}"  id="no_motor"  class="form-control soloLetras" type="text" required data-error="Ingrese el numero de motor">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Numero de Motor" class="form-control" disabled>														
+													</div>
+													<div class="form-group col-sm-3">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">
+																<input th:field="*{vehiculo_detalle.no_economico}"  id="no_economico"  class="form-control signos" type="text" required data-error="Ingrese el numero economico">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-3">													
+																<input placeholder="Numero Economico" class="form-control" disabled>														
+													</div>
+													</div>
+													<div class="border col-sm-12">
+													
+													<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">																
+																<input th:field="*{vehiculo_detalle.fecha_compra}"  id="fecha_compra" min = 01-01-1900 max = 01-01-2090 class="form-control signos" type="date" required data-error="Ingrese la fecha de compra">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Fecha de compra" class="form-control" disabled>														
+													</div>
+													<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">
+																<input th:field="*{vehiculo_detalle.valor_compra}" step="any" id="valor_compra" min = 0.0 max = 1000000.0 class="form-control signos" type="number" required data-error="Ingrese el valor de la compra">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Valor de la compra" class="form-control" disabled>														
+													</div>
+													
+													<div class="form-group col-sm-4">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																<div style="display: inline-block;">
+																<select th:field="*{vehiculo_detalle.tipo_combustible}" class="form-control" style=" height: 34px;" required data-error="Elija el cojor del vehiculo">
+											                         <option value=""> Seleccione el tipo de combustible </option>
+											                         <option value="GASOLINA">GASOLINA</option>
+											                         <option value="GAS">GAS</option>
+											                         <option value="DIESEL">DIESEL</option>
+											                    	</select>
+																
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Tipo de Combustible" class="form-control" disabled>														
+													</div>
+													
+													
+													<div class="form-group col-sm-12" th:if="${documento} == 'noexiste'">
+															<label for="file1" class="col-sm-2 col-form-label">Tarjeta de Circulacion</label>
+															<div class="col-sm-4">
+																<div class="help-block with-errors"></div>
+																<input id="doc1" type="file" name="file" class="form-control" accept="application/pdf" required data-error="Ingresa el documento PDF menor a 10 MB."/>
+															</div>
+													</div>	
+													</div>		
+													<div class="col-sm-12" th:if="${editando}=='si'">
+														<div th:if="${documento} == 'existe'" class= "col-sm-12" >
+															  <h3 style="wodth:100%">Documento existente</h3>															  														
+															 
+															 <div id="aBtnGroup" class="btn-group">
+															    <button type="button" value="D" class="btn btn-default">Documento</button>
+															    <button type="button" value="N" class="btn btn-default">Nuevo Documento</button>															    
+															  </div>
+															 	
+															 <div id="Mdocumento" >
+															 	<embed th:src="@{'/upload/' + *{vehiculo_detalle.tarjeta_circulacion}}" type="application/pdf" class="col-sm-12" style="height:715px;"/>
+															 </div>
+															 <div id="Ndocumento" style="display:none; margin-top: 30px; margin-bottom: 20px; height: 49px;" >
+															 	<label for="file1" class="col-sm-2 col-form-label">Tarjeta de Circulacion</label>
+																<div class="col-sm-4">
+																	<div class="help-block with-errors"></div>
+																	<input id="doc2" type="file" name="file" class="form-control" accept="application/pdf" data-error="Ingresa el documento PDF menor a 10 MB."/>
+																</div>
+															 </div>														  
+															  																
+														</div>
+														<div th:if="${documento} == 'noexiste'" class="card-body d-flex justify-content-center col-sm-12" >
+																<h1>El Documento no existe en la base de datos</h1>
+														</div>
+													</div>
+													
+													<div class="form-group col-sm-2">
+																<div class="help-block with-errors" style="width: 450px;"></div>
+																<div style="display: inline-block;">
+																<input th:field="*{vehiculo_detalle.vigencia_circulacion}"  id="vigencia_circulacion" min = 01/01/1900 max = 01/01/2090 class="form-control signos" type="date" required data-error="Ingrese la fecha de vigencia de circulacion">
+																</div>														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-2">													
+																<input placeholder="Vegencia de circulacion" class="form-control" disabled>														
+													</div>																								
+
+												<!--Adscripción-->
+
+													<div class="form-group col-sm-12" th:if="${usuario} == 'ROLE_ADMIN'">
+														<select th:field="*{adscripcion}" class="form-control" style=" height: 34px;" required data-error="Ingrese la Adscripcion">
+										                         <option value=""> Seleccione una adscripcion </option>
+										                         <option th:each="adss : ${adslist} "
+										                            th:value="${adss.id_adscripcion}"
+										                            th:utext="${adss.nombre_adscripcion}" />
+										                    </select>
+										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
+													</div>		
+													
+												  	<input type="hidden" th:field="*{id_vehiculo}"/>												  	
+												  	<input type="hidden" th:field="*{vehiculo_estado.id_estado}"/>
+												  	<div id="marcaid">
+												  		<input type="hidden" th:field="*{vehiculo_marca.id_marca}"/>
+												  	</div>
+												  	<input type="hidden" th:field="*{vehiculo_funcion}"/>
+												  	<input type="hidden" th:field="*{vehiculo_transmision}"/>
+												  	<input type="hidden" th:field="*{vehiculo_detalle}"/>
+												    <input type="hidden" th:field="*{placa_anterior}"/>	
+												    <input type="hidden" th:field="*{adscripcion}"/>	
+												    <input type="hidden" th:field="*{motivo}"/>																								
+
+													<!--Boton de guardar-->													
+
+													<div  class="text-center form-group col-sm-12">
+														<button type="submit" id="guardar"  class="btn btn-custom btn-stilo" style="float:right"><i class='fa fa-envelope'></i> Guardar</button>
+													<div class="clearfix"></div>
+													<br>
+												    </div>
+	                                            		
+	                                            	
+	                                            </div>
+	                                            	                                           
+	                                        	</form>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>	
+	
+	<script type="text/javascript"  th:inline="javascript">		
+	
+	
+	$( '#marca' ).change(function() {
+			$('#Submarca').load('refreshSubMarca',"nombre_marca="+$('#marca').val());
+			$('#Submarca').prop("disabled",false);
+		});
+	
+
+	$( '#Submarca' ).change(function() {
+			$('#Modelo').load('refreshModelo',"nombre_marca="+$('#marca').val()+"&nombre_submarca="+$('#Submarca').val());
+			$('#Modelo').prop("disabled",false);
+		});
+	
+	$( '#Modelo' ).change(function() {
+		$('#Tipo').load('refreshTipo',"nombre_marca="+$('#marca').val()+"&nombre_submarca="+$('#Submarca').val()+"&modelo="+$('#Modelo').val());
+		$('#Tipo').prop("disabled",false);
+	});
+	
+	$( '#Tipo' ).change(function() {
+		$('#Clase').load('refreshClase',"nombre_marca="+$('#marca').val()+"&nombre_submarca="+$('#Submarca').val()+"&modelo="+$('#Modelo').val()+"&tipo="+$('#Tipo').val());		
+		$('#Clase').prop("disabled",false);
+	});
+	
+	$( '#Clase' ).change(function() {		
+		$('#marcaid').load('refreshID',"nombre_marca="+$('#marca').val()+"&nombre_submarca="+$('#Submarca').val()+"&modelo="+$('#Modelo').val()+"&tipo="+$('#Tipo').val()+"&clase="+$('#Clase').val());		
+	});
+		
+	
+	$('#aBtnGroup button').on('click', function() {
+		var thisBtn = $(this);
+		var btnText = thisBtn.text();
+		var btnValue = thisBtn.val();
+		thisBtn.addClass('active').siblings().removeClass('active');
+	    if(btnValue == "D"){ 
+	    	
+	    	$("#Mdocumento").show();
+	    	$("#Ndocumento").hide();
+	    
+	    };
+	    if(btnValue == "N"){ 
+	    	$("#Mdocumento").hide();
+	    	$("#Ndocumento").show();
+	    
+	    };
+	});
+	
+	 $("#doc1").change(function(){
+		
+			var fileSize = this.files[0].size;
+
+			if(fileSize > 3000000){
+				swal("", "El archivo no debe superar los 3MB", "error");
+				this.value = '';
+				this.files[0].name = '';
+			}else{
+				  var fileName = this.files[0].name;
+				// recuperamos la extensión del archivo
+				var ext = fileName.split('.').pop();
+				
+				// Convertimos en minúscula porque 
+				// la extensión del archivo puede estar en mayúscula
+				ext = ext.toLowerCase();
+		    
+				// console.log(ext);
+				switch (ext) {
+					case 'jpg':
+					case 'jpeg':
+					case 'png':
+					case 'pdf': break;
+					default:
+						swal("", "El archivo no tiene la extensión adecuada", "error");
+						this.value = ''; // reset del valor
+						this.files[0].name = '';
+				}
+				this.files[0].name = 'TC';
+				console.log(this.files[0].name);
+			}
+	  	
+	  });
+	 
+	 $("#doc2").change(function(){
+		 
+			var fileSize = this.files[0].size;
+
+			if(fileSize > 3000000){
+				swal("", "El archivo no debe superar los 3MB", "error");
+				this.value = '';
+				this.files[0].name = '';
+			}else{
+				 var fileName = this.files[0].name;
+				// recuperamos la extensión del archivo
+				var ext = fileName.split('.').pop();
+				
+				// Convertimos en minúscula porque 
+				// la extensión del archivo puede estar en mayúscula
+				ext = ext.toLowerCase();
+		    
+				// console.log(ext);
+				switch (ext) {
+					case 'jpg':
+					case 'jpeg':
+					case 'png':
+					case 'pdf': break;
+					default:
+						swal("", "El archivo no tiene la extensión adecuada", "error");
+						this.value = ''; // reset del valor
+						this.files[0].name = '';
+				}
+				this.files[0].name = 'TC';
+				console.log(this.files[0].name);
+			}
+	  	
+	  });
+		
+	
+	</script>
+	
+	<script src="/assets/js/CambiosEstado.js"></script>
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+	 <!-- SweetAlert -->
+	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
+	
+ 
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Seguros</title>
+	<head th:replace="/layout/layoutHead :: head"></head>
+<body>
+	<header th:replace="/layout/layoutHead :: header"></header>
+
+	
+	<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 fondolistado">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row" style="text-align: center;" >
+	                                       
+	                                        <div class=" col-md-12" id="Contenedorbuscar" >
+	                                        	
+	                                        	<form id="Busqueda" class="col-md-12"  th:if="${auxiliar} == true" th:action="@{/formSegBuscarPv}">		   
+	                                        	    <div class="col-sm-1 enlinea"><p>Buscar</p></div>							       											       
+											        <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style=display:inline-block;/>													         										           
+                                                    <button type="submit" class="btn btn-primary btn-xs col-sm-1 btn-stilo" style="margin-left: 1%;margin-right: -11%;font-size: 14px;">Buscar</button>
+											        
+											        <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href="@{/ListarSeguros/}+${id_vehiculo}" style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
+											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Aseguradoras}'  style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-file-contract fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>		
+											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}'  style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>	
+											    </form>
+											    
+											    
+	                                        	<form id="Busqueda" class="col-md-12"  th:if="${auxiliar} == false" th:action="@{/formSegBuscar}">		   
+	                                        	    <div class="col-sm-1 enlinea"><p>Buscar</p></div>							       											       
+											        <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style=display:inline-block;/>													         										           
+                                                    <button type="submit" class="btn btn-primary btn-xs col-sm-1 btn-stilo" style="margin-left: 1%;margin-right: -11%;font-size: 14px;">Buscar</button>
+											        
+											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href="@{/Seguros}" style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
+											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Aseguradoras}'  style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-file-contract fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>		
+											    </form>
+	
+	
+											    <div id="coincidencias" class="col-md-8"></div>
+											    
+											</div>
+		  
+	                                    <div class="col-md-12">	                                    		
+	                                        <h2 id="titulo" class="titulotabla" th:text="${titulo}"></h2>
+										<table class="table table-striped table-bordered fixed_header " id="segurosT" style="font-size: 14px;">
+											<thead class="table-success">
+												<tr>
+													<th class="celda">Placa</th>
+													<th class="celda">Poliza Padre </th>
+													<th class="celda">Aseguradora</th>
+													<th class="celda">Poliza Hijo </th>
+													<th class="celda">Nombre del Contratante</th>
+													<th class="celda">RFC del Contratante</th>
+													<th class="celda">Código del Cliente</th>
+													<th class="celda"  style="width:250px">Opciones</th>													
+													<th style="width: 10px" id="tamano" th:if="${tamano} == 'mostrar'"></th>									
+												</tr>
+											</thead>
+											<tbody>											
+												    <tr th:each="segurosql: ${seguros}">
+												    <td class="celda" th:text="${segurosql.vehiculo.placa}"></td>
+													<td class="celda" th:text="${segurosql.aseguradora.no_poliza_padre}"></td>
+													<td class="celda" th:text="${segurosql.aseguradora.nombre_aseguradora}"></td>
+													<td class="celda" th:text="${segurosql.no_poliza_hijo}"></td>
+													<td class="celda" th:text="${segurosql.nombre_contratante}"></td>
+													<td class="celda" th:text="${segurosql.rfc_contratante}"></td>
+													<td class="celda" th:text="${segurosql.codigo_cliente}"></td>
+													<td class="celda" style="width:250px">
+														<a class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/formSeg/} +${segurosql.id_seguro}" ><i class="far fa-question-circle fa-2x"></i></a>
+													    <!-- <a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SEGURO'}" style="font-size:smaller;" th:href="@{/formSeg/} +${segurosql.id_seguro}" th:text="editar" ></a> --> 
+													    <!-- <a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario} == 'ROLE_ADMIN'"style="font-size:smaller;" th:href="@{/elimSeg/} +${segurosql.id_seguro}+'/'+${segurosql.url_poliza}" onclick="return confirm('Seguro que desea eliminar el registro?');" th:text="eliminar"></a> -->  
+														<a class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/verSeguro/} +${segurosql.id_seguro}"> <i class="far fa-eye fa-2x"></i></a> 
+													</td>
+												</tr>
+											</tbody>										
+										</table>
+
+										<nav th:replace="paginator-nav :: paginator"></nav>
+										
+							            <div class="form-group last col-sm-12" th:if="${auxiliar == true and (usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SEGURO')}">
+										<a class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/formSeg/Ag/} + ${id_vehiculo}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>							
+										</div>
+	                                    </div>
+	                                </div>	                                	                              
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+		</div>
+	</section>
+	
+	
+	<script type="text/javascript"  th:inline="javascript">
+	
+  
+    
+	function doSearch()
+    {	
+        
+        const tableReg = document.getElementById('segurosT');
+        const searchText = document.getElementById('searchTerm').value.toLowerCase();
+        let total = 0;
+        // Recorremos todas las filas con contenido de la tabla
+	        for (let i = 1; i < tableReg.rows.length; i++) {
+	            // Si el td tiene la clase "noSearch" no se busca en su cntenido
+	            if (tableReg.rows[i].classList.contains("noSearch")) {
+	                continue;
+	            }
+	            let found = false;	
+	            const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+	            // Recorremos todas las celdas
+	            for (let j = 0; j < cellsOfRow.length && !found; j++) {	
+	                const compareWith = cellsOfRow[j].innerHTML.toLowerCase();	
+	                // Buscamos el texto en el contenido de la celda	
+	                if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {	
+	                    found = true;	
+	                    total++;
+	                }
+	            }	
+	            if (found) {	
+	                tableReg.rows[i].style.display = '';	
+	            } else {	
+	                // si no ha encontrado ninguna coincidencia, esconde la	
+	                // fila de la tabla	
+	                tableReg.rows[i].style.display = 'none';
+	           }
+	        }	
+	        // mostramos las coincidencias	
+	        const lastTR=tableReg.rows[tableReg.rows.length-1];	
+	        const td=lastTR.querySelector("td");	
+	        lastTR.classList.remove("hide", "red");	
+	        if (searchText == "") {	
+	            //lastTR.classList.add("hide");
+	            $('#coincidencias').html("")
+	        } else if (total) {
+	        	$('#coincidencias').html("Se ha encontrado "+total+" coincidencia"+((total>1)?"s":""));
+	        	if(total<5){$("#tamano").hide();}else{$("#tamano").show();}
+	            //td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");	
+	        } else {	
+	            lastTR.classList.add("red");
+	            $('#coincidencias').html("No se han encontrado coincidencias")
+	            $('#tamano').show();	            
+	            //td.innerHTML="No se han encontrado coincidencias";
+	        }   
+	        
+    }    
+	
+	  function pulsar(e) {
+    	  tecla = (document.all) ? e.keyCode :e.which;
+    	  return (tecla!=13);
+    	} 
+    
+	    </script>
+	    <script src="/assets/js/CambiosEstado.js"></script>
+		<!-- jQuery Library -->
+		 <!-- api nice-select -->
+	    <script src="/assets/js/jquery.js"></script> 
+		<script src="/assets/js/jquery.nice-select.js"></script>
+		<!-- Popper js -->
+		<script src="/assets/js/popper.min.js"></script>
+		<!-- Bootstrap Js -->
+		<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+		<!-- Form Validator -->
+		<script src="/assets/js/validator.min.js"></script>
+		<!-- Contact Form Js -->
+		<script src="/assets/js/contact-form.js"></script>
+
+</body>
+</html>
