@@ -99,5 +99,17 @@ public class IViajeServiceImpl implements IViajeService {
 		// TODO Auto-generated method stub
 		return viajeDao.fechamax(id_vehiculo);
 	}	
+	
+	@Override
+	public  Page<Viaje> FindviajeVehi(Long id_vehiculo,Pageable pageable) {
+		// TODO Auto-generated method stub
+		return viajeDao.FindviajeVehi(id_vehiculo,pageable); 
+	}
+	
+	@Override
+	public  Page<Viaje> ViajeElemVehiPage(Long id_vehiculo,String elemento,Pageable pageable){
+		// TODO Auto-generated method stub
+		return viajeDao.ViajeElemVehiPage(id_vehiculo,elemento,pageable);
+	}
 
 }

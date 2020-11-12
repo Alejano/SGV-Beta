@@ -19,5 +19,6 @@ public List<Taller> findAll();
 	
 	public Page<Taller> FindTallerElemPageL(String elemento, Pageable page);
 	
+	public Long totalTalleres();
 	
 }

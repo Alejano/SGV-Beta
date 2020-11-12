@@ -16,4 +16,6 @@ public interface IAseguradoraService {
 	  
 	  public String fechamax ();
 	  
+	  public Long aseguradorastotales();
+	  
 }

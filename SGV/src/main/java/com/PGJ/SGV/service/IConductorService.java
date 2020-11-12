@@ -40,8 +40,20 @@ public interface IConductorService {
 	
 	public Long totalConductores();	
 	
-	public Long totalConductoresBajas();	
-
+	public Long totalConductoresBajas();
+	
+	public Long totalConductorArea(Long id_adscripcion); 
+		
+	public Long totalConductorAreaBajas(Long id_adscripcion);
+	
+	public Long totalfindCondElemnPage(String elemento);
+	
+	public Long totalfindCondBajaElemnPage(String elemento);
+	
+	public Long totalfindCondElemnAreaPage(Long id_adscripcion,String elemento);
+	
+	public Long totalfindCondBajaElemnAreaPage(Long id_adscripcion,String elemento);
+	
 	public List<Conductor> findConductorAreaEstado(Long id_adscripcion);
 	
 	public List<Conductor> findConductorEstado();

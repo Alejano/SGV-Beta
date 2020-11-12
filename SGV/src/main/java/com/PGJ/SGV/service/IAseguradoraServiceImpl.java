@@ -49,4 +49,9 @@ public class IAseguradoraServiceImpl implements IAseguradoraService {
 		return aseguraDao.fechamax();
 	}
 	
+
+	@Override
+	public Long aseguradorastotales() {
+		return aseguraDao.aseguradorastotales();
+	}
 }

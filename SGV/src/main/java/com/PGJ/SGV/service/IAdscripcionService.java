@@ -13,6 +13,6 @@ public interface IAdscripcionService {
 	
 	public void delete(Long id_adscripcion);
 	
+	public Long adscripcionestotales();
 	
-
 }

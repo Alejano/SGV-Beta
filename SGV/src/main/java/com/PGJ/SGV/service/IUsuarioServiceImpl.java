@@ -103,6 +103,16 @@ public class IUsuarioServiceImpl implements IUsuarioService {
 		return usuarioDao.totalUsuariosBajas();
 	}
 
+	public Long totalfinUsuElemnt(String elemento){
+		// TODO Auto-generated method stub
+		return usuarioDao.totalfinUsuElemnt(elemento);
+	}
+	
+	public Long totalfinUsuElemntBajas(String elemento){
+		// TODO Auto-generated method stub
+		return usuarioDao.totalfinUsuElemntBajas(elemento);
+	}
+
 }
 
 

@@ -43,9 +43,9 @@ public class IAdscripcionServiceImpl implements IAdscripcionService {
 		adscripcionDao.deleteById(id_adscripcion);
 		
 	}
-
 	
-
-	
-
+	@Override
+	public Long adscripcionestotales() {
+		return adscripcionDao.adscripcionestotales();
+	}
 }

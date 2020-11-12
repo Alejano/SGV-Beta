@@ -34,5 +34,9 @@ public interface IViajeService {
 	public Long totalViajesElemArea(Long id_adscripcion,String elemento);
 	
 	public String fechamax(Long id_vehiculo);
+	
+	public Page<Viaje> FindviajeVehi(Long id_vehiculo,Pageable pageable);
+
+	public Page<Viaje> ViajeElemVehiPage(Long id_vehiculo,String elemento,Pageable pageable); 
 
 }

@@ -11,8 +11,8 @@ public class SystemDate {
 		   
 		fecha = Integer.toString(calen.get(Calendar.YEAR));
 	   
-	     if(calen.get(Calendar.MONTH)<10){
-	         fecha = fecha + "-" + "0" + (Integer.toString((calen.get(Calendar.MONTH))+1));
+	     if(calen.get(Calendar.MONTH)<9){
+	         fecha = fecha + "-" + "0" + Integer.toString(calen.get(Calendar.MONTH)+1);
 	     }else
 	         fecha = fecha + "-" + Integer.toString(calen.get(Calendar.MONTH)+1);
 	   

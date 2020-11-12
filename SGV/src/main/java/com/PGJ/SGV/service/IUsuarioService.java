@@ -37,5 +37,8 @@ public interface IUsuarioService {
 	
 	public Long totalUsuariosBajas();
 	
+	public Long totalfinUsuElemnt(String elemento);
+	
+	public Long totalfinUsuElemntBajas(String elemento);
 	
 }

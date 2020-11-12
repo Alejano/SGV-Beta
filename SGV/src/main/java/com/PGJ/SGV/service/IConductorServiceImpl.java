@@ -37,14 +37,12 @@ public class IConductorServiceImpl implements IConductorService {
 		return conductorDao.findById(no_empleado).orElse(null);
 	}
 
-	
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public void delete(String no_empleado) {
 	//TODO Auto-generated method stub
 		conductorDao.deleteById(no_empleado);
 	}
-
 
 	@Override
 	public List<Conductor> findConductorArea(Long id_adscripcion) {
@@ -58,7 +56,6 @@ public class IConductorServiceImpl implements IConductorService {
 		return conductorDao.findAll(pageable);
 	}
 
-	
 	@Override
 	public Page<Conductor> findConductorAreaPage(Long id_adscripcion, Pageable pageable) {
 		// TODO Auto-generated method stub
@@ -100,14 +97,12 @@ public class IConductorServiceImpl implements IConductorService {
 		// TODO Auto-generated method stub
 		return conductorDao.findByCNl(pageable);
 	}
-	
-	
+		
 	@Override
 	public Page<Conductor> findByCNn(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return conductorDao.findByCNn(pageable);
 	}
-	
 	
 	@Override
 	public Long totalConductores() {
@@ -115,14 +110,48 @@ public class IConductorServiceImpl implements IConductorService {
 		return conductorDao.totalConductor();
 	}
 
-	
 	@Override
 	public Long totalConductoresBajas() {
 		// TODO Auto-generated method stub
 		return conductorDao.totalConductorBajas();
 	}
 	
+	@Override
+	public Long totalConductorArea(Long id_adscripcion) {
+		// TODO Auto-generated method stub
+		return conductorDao.totalConductorArea(id_adscripcion);
+	}
 
+	@Override
+	public Long totalConductorAreaBajas(Long id_adscripcion) {
+		// TODO Auto-generated method stub
+		return conductorDao.totalConductorAreaBajas(id_adscripcion);
+	}
+	
+	@Override
+	public Long totalfindCondElemnPage(String elemento) {
+		// TODO Auto-generated method stub
+		return conductorDao.totalfindCondElemnPage(elemento);
+	}
+		
+	@Override
+	public Long totalfindCondBajaElemnPage(String elemento) {
+		// TODO Auto-generated method stub
+		return conductorDao.totalfindCondBajaElemnPage(elemento);
+	}
+
+	@Override
+	public Long totalfindCondElemnAreaPage(Long id_adscripcion,String elemento) {
+		// TODO Auto-generated method stub
+		return conductorDao.totalfindCondElemnAreaPage(id_adscripcion,elemento);
+	}
+	
+	@Override
+	public Long totalfindCondBajaElemnAreaPage(Long id_adscripcion,String elemento) {
+		// TODO Auto-generated method stub
+		return conductorDao.totalfindCondBajaElemnAreaPage(id_adscripcion,elemento);
+	}
+	
 	@Override
 	public List<Conductor> findConductorAreaEstado(Long id_adscripcion) {
 		// TODO Auto-generated method stub
