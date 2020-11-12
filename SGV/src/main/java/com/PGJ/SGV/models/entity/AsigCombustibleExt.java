@@ -78,5 +78,10 @@ public class AsigCombustibleExt implements Serializable {
 		return serialVersionUID;
 	}
 	
-
+	@Override
+	public String toString() {
+		return "ID_ASIGNACION:"+id_asignacion+ " ; " +"PRESUPUESTO:" + presupuesto_ext + " ; " + "FECHA INICIO:"+ fecha_ini_ext + " ; " + 
+	           "FECHA FINAL:"+ fecha_fin_ext + " ; " + "KILOMETRAJE:"+ kilometraje_ext ;
+	}
+	
 }

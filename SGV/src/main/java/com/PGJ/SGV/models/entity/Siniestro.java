@@ -157,4 +157,11 @@ import javax.persistence.Table;
 		this.apellido2_conductor = apellido2_conductor;
 	}
 	
+	@Override
+	public String toString() {
+		return "ID SINIESTRO:"+id_siniestro+ " ; " +"NO SINIESTRO:" + numero_siniestro + " ; " + "FECHA SINIESTRO:" + fecha_siniestro + " ; " +
+				"NOMBRE:"+ nombre_conductor + " " + apellido1_conductor + " " + apellido2_conductor + " ; " +
+				 "FECHA INGRESO:"+fecha_ingreso_taller + " ; " + "FECHA SALIDA:"+ fecha_salida_taller;
+	}
+	
 }

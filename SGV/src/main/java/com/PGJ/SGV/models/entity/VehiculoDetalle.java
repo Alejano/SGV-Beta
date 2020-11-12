@@ -173,8 +173,11 @@ public class VehiculoDetalle implements Serializable {
 		this.tarjeta_circulacion = tarjeta_circulacion;
 	}
 	
-	
-
-	
+	@Override
+	public String toString() {
+		return "ID DETALLE:" +id_detalle+ " " + "RIN:" + rin + " " + "MOTOR:"+ no_motor + " " +"NO ECONOMICO:"+no_economico+ " "+
+				"CILINDROS:"+ no_cilindros + " " +  "PERS:" + no_personas + " " + "PUERTAS:" + no_puertas + " " + "COMBUS:" + tipo_combustible + " " +
+			     "COLOR:" + color;
+	}
 	
 }

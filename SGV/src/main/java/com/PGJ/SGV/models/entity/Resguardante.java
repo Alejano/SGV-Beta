@@ -135,4 +135,11 @@ public class Resguardante implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Override
+	public String toString() {
+		return "ID RESG:" +id_resguardante+ " " + "ID VEHI:" + vehiculo.getId_vehiculo() + " " + "TIPO RESG:"+ tipo_resguardante.getId() + " " +
+	           "NOMBRE:"+nombre+ " "+apellido1+" "+apellido2 + " "+
+				"FECHA INI:"+ fecha_inicio + " " + "ENABLED:" + activo + " ";
+	}
+	
 }

@@ -148,4 +148,13 @@ public class Seguro implements Serializable {
 		this.url_poliza = url_poliza;
 	}
 	
+
+	@Override
+	public String toString() {
+		return "ID SEGURO:"+id_seguro+ " ; " +"NOMBRE CONTRATANTE:" + nombre_contratante + " ; " + "POLIZA HIJA:" + no_poliza_hijo + " ; " +
+				"RFC:"+ rfc_contratante + " ; "  + "CODIGO CLIENTE:"+ codigo_cliente + " ; "  +
+				"DIRECCION:"+ calle_contratante + ", " + numero_contratante + ", " + colonia_contratante + ", " + codigopos_contratante + ", " +
+				alcaldia_contratante;
+	}
+	
 }

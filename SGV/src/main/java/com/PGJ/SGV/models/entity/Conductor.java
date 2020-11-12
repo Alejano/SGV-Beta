@@ -30,13 +30,6 @@ public class Conductor implements Serializable {
 	private String no_licencia;
 	private String vig_licencia;
 
-	//@OneToMany(mappedBy = "conductor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//private List<Viaje> viajes;
-	
-	//public Conductor() {
-	//	viajes = new ArrayList<Viaje>();
-	//}
-
 	public Adscripcion getAdscripcion() {
 		return adscripcion;
 	}
@@ -84,17 +77,6 @@ public class Conductor implements Serializable {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	
-	/*public List<Viaje> getViajes() {
-		return viajes;
-	}
-
-	public void setViajes(List<Viaje> viajes) {
-		this.viajes = viajes;
-	}
-	public void adViaje(Viaje viaje) {
-		viajes.add(viaje);
-	}*/
 
 	public String getFecha_alta() {
 		return fecha_alta;
@@ -146,6 +128,13 @@ public class Conductor implements Serializable {
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	@Override
+	public String toString() {
+		return "NO EMPLEADO:"+no_empleado+ " ; " + "NOMBRE:" + nombre + " " + apellido1 + " " + apellido2 + " ; " + "ENABLED:" + enabled + " ; " +
+				"FECHA ALTA:"+ fecha_alta + " ; " + "FECHA BAJA:"+ fecha_baja + " ; " + "NO INE:"+ no_ine + " ; " + "VIG INE:"+ vig_ine + " ; " + 
+				"NO LICENCIA:"+ no_licencia + " ; " + "VIG LICENCIA: "+ vig_licencia ;
 	}
 	
 }

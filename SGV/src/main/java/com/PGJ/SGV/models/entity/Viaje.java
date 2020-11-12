@@ -88,4 +88,11 @@ public class Viaje implements Serializable {
 		this.vehiculo = vehiculo;
 	}
 	
+	@Override
+	public String toString() {
+		return "ID_VIAJE:"+id_viaje+ " ; " +"DISTANCIA_MENSUAL:" + distancia_mensual + " ; " + "KILOMETRAJE INICIAL:" + kilometraje_inicial + " ; " +
+				"KILOMETRAJE FINAL:"+ kilometraje_final + " ; " + "FECHA INICIAL:"+ finicial_registro + " ; " +
+				"FECHA FINAL:"+ ffinal_registro ;
+	}
+	
 }

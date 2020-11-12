@@ -98,4 +98,10 @@ public class Usuario implements Serializable {
 		return serialVersionUID;
 	}
 	
+	@Override
+	public String toString() {
+		return "NO EMPLEADO:"+no_empleado+ ";" +"NOMBRE:" + nombre + " " + apellido1 + " " + apellido2 + ";"  +
+	           "ENABLED:" + enabled + ";" + "FECHA ALTA:"+ fecha_alta + ";" + "FECHA BAJA:"+ fecha_baja;
+	}
+	
 }

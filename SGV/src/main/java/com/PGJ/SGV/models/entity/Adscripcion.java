@@ -7,8 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,7 +18,9 @@ import javax.persistence.Table;
 public class Adscripcion implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_adscripcion;
+	
 	private String nombre_adscripcion;
 	private String calle;
 	private String numero;
@@ -150,4 +152,10 @@ public class Adscripcion implements Serializable {
 	}
 
 	private static final long serialVersionUID = 1L;
+	
+	@Override
+	public String toString() {
+		return "ID_ADSCRIPCION:"+id_adscripcion+ ";" +"NOMBRE:" + nombre_adscripcion + ";" + 
+	           "DIRECCION: " + calle + ", " + numero + ", " + alcaldia + ", " + codigo_postal + ", " + entidad;
+	}
 }
