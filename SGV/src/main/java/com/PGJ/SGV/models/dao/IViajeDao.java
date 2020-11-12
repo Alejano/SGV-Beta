@@ -33,4 +33,11 @@ public interface IViajeDao extends PagingAndSortingRepository<Viaje, Long> {
 	@Query("select max(v.ffinal_registro) from Viaje v inner join Vehiculo l on v.vehiculo.id_vehiculo = l.id_vehiculo where l.id_vehiculo = ?1")
 	public String fechamax (Long id_vehiculo);
 	
+	@Query("select v from Viaje v inner join Vehiculo l on v.vehiculo.id_vehiculo = l.id_vehiculo where l.id_vehiculo = ?1")
+	public Page<Viaje> FindviajeVehi(Long id_vehiculo,Pageable pageable);
+	
+	@Query("select v from Viaje v inner join Vehiculo l on v.vehiculo.id_vehiculo = l.id_vehiculo inner join Adscripcion a on l.adscripcion.id_adscripcion=a.id_adscripcion where l.id_vehiculo = ?1 and (l.placa like %?2% or v.finicial_registro like %?2% or v.ffinal_registro like %?2% or cast(v.kilometraje_inicial AS string) like %?2% or cast(v.kilometraje_final AS string) like %?2% or cast(v.distancia_mensual AS string) like %?2% )")
+	public Page<Viaje> ViajeElemVehiPage(Long id_vehiculo,String elemento,Pageable pageable);
+
+	
 }
