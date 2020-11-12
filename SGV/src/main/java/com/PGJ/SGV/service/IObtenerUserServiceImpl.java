@@ -35,9 +35,22 @@ public class IObtenerUserServiceImpl implements IObtenerUserService  {
 				}
 			}	
 		}
+	
 	System.err.println(user);
 	return user;
 	}
+	
+	
+	public String obtenEmpl() {
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication auth = context.getAuthentication();
+		
+		String no_empleado ="";
+	    no_empleado=auth.getName();	
+		System.err.println(no_empleado);
+		return no_empleado;
+		}
 	
 	public boolean hasRole (String role) {
 		SecurityContext context = SecurityContextHolder.getContext();
