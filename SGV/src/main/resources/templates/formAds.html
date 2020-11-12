@@ -6,13 +6,13 @@
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
 	<link href="favicon.html" rel="icon">
-	<link rel="stylesheet" href="/assets/css/estilos.css">
-	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/assets/css/contact-form.css" type="text/css">
-		<script src="/assets/js/jquery-3.4.1.min.js"></script>
-	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/fontawesome/css/fontawesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+	<link rel="stylesheet" th:href="@{/assets/SweetAlert2/sweetalert2.css}">
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="/assets/fontawesome/js/all.js"></script>	
 </head>
 <body>
 	<header>
@@ -21,10 +21,10 @@
 		</div>
                 <div class="TituloCon">                   
                 </div>
-		<div class="form-group last col-sm-12 form-nav">		    		
-			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
-			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Adscripciones}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
-			
+		<div class="form-group last col-sm-12 form-nav">		
+		    <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;font-size:14 px;"><i class="fas fa-home fa-2x" style="margin-top: -36%;margin-left:-150%;"></i></a>
+		    <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Adscripciones}' style="width: 48px; height: 34px; float: right; margin-right: 5%;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: -36%;margin-left: -119%;"></i></a>
+		        					
 			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
 				<div class="container col-sm-4">
   							 				 					 			
@@ -76,24 +76,18 @@
 	                                        <form th:action="@{/formAds}" th:object="${adscripcion}" method="post" id="formulario"  name="visitas" data-toggle="validator" class="popup-form">
 	                                            <div class="row">
 	                                            
-	                                            <!--Id adscripcion-->
-	                                                    <div class="form-group col-sm-9">
-	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{id_adscripcion}" id="Id_Ads" placeholder="Numero unico de Adscripcion" class="form-control signos" type="number" required data-error="Ingrese su Adscripcion"/>
-	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
-	                                                    </div>
-	
+	                                    
 	                                                    <!--nombre Adscripcion-->
 	                                                    <div class="form-group col-sm-9">
 	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{nombre_adscripcion}" max=50 id="Nom_Ads" placeholder="Nombre de Adscripcion" class="form-control soloLetras" type="text" required data-error="Ingrese el nombre de la Adscripcion"/>
+	                                                            <input th:field="*{nombre_adscripcion}" max=50 id="Nom_Ads" placeholder="Nombre de Adscripcion"  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese el nombre de la Adscripcion"/>
 	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
 	                                                    </div>
 	                                                    <!--Calle-->
 	
 	                                                    <div class="form-group col-sm-9">
 	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{calle}"  id="Calle" placeholder="Calle" max=30 class="form-control soloLetras" type="text" required data-error="Ingrese su Calle"/>
+	                                                            <input th:field="*{calle}"  id="Calle" placeholder="Calle" max=30  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese su Calle"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marker-alt"></i></div>
 	                                                    </div>
 	
@@ -107,7 +101,7 @@
 	                                                    <!--Alcaldia-->
 	                                                    <div class="form-group col-sm-9">
 	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{alcaldia}"  id="Alc" placeholder="Alcaldia" class="form-control soloLetras" type="text" required data-error="Ingrese Alcaldia Correspondiente"/>
+	                                                            <input th:field="*{alcaldia}"  id="Alc" placeholder="Alcaldia"  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese Alcaldia Correspondiente"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-thumbtack"></i></div>
 	                                                    </div>
 	
@@ -122,9 +116,12 @@
 	                                                    <!--Entidad -->
 	                                                    <div class="form-group col-sm-9">
 	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{entidad}"  id="Enti" placeholder="Ingrese Entidad" class="form-control soloLetras" type="text" required data-error="Ingrese Entidad Valida"/>
+	                                                            <input th:field="*{entidad}"  id="Enti" placeholder="Ingrese Entidad"  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese Entidad Valida"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-atlas"></i></div>
 	                                                    </div>
+	                                                    	    
+	                                                    	    
+	                                                <input type="hidden" th:field="*{id_adscripcion}" />
 	                                                    	                                                    	                                                    													    													    	                                                    									
 	                                                    <!--Boton Guardar-->
 	                                                    <div class="form-group last col-sm-12">
@@ -161,17 +158,19 @@
 	
 	
 	</script>
-	<script src="/assets/js/CambiosEstado.js"></script> 
+	<script src="/assets/js/CambiosEstado.js"></script>	
 	<!-- jQuery Library -->
 	<script src="/assets/js/jquery-3.4.1.min.js"></script>
 	<!-- Popper js -->
 	<script src="/assets/js/popper.min.js"></script>
 	<!-- Bootstrap Js -->
-	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 	<!-- Form Validator -->
 	<script src="/assets/js/validator.min.js"></script>
 	<!-- Contact Form Js -->
 	<script src="/assets/js/contact-form.js"></script>
+    <script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
  
 </body>
 </html>
+

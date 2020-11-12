@@ -19,22 +19,22 @@
 	                                        	
 	                                        	<form id="Busqueda" class="col-md-12"  th:if="${auxiliar} == true" th:action="@{/formSegBuscarPv}">		   
 	                                        	    <div class="col-sm-1 enlinea"><p>Buscar</p></div>							       											       
-											        <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style=display:inline-block;/>													         										           
+											        <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style="display:inline-block;"/>													         										           
                                                     <button type="submit" class="btn btn-primary btn-xs col-sm-1 btn-stilo" style="margin-left: 1%;margin-right: -11%;font-size: 14px;">Buscar</button>
 											        
 											        <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href="@{/ListarSeguros/}+${id_vehiculo}" style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
-											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Aseguradoras}'  style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-file-contract fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>		
+											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo"  th:if="${usuario} == 'ROLE_ADMIN'"  th:href='@{/Aseguradoras}'  style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-file-contract fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>		
 											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}'  style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>	
 											    </form>
 											    
 											    
 	                                        	<form id="Busqueda" class="col-md-12"  th:if="${auxiliar} == false" th:action="@{/formSegBuscar}">		   
 	                                        	    <div class="col-sm-1 enlinea"><p>Buscar</p></div>							       											       
-											        <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style=display:inline-block;/>													         										           
+											        <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style="display:inline-block";/>													         										           
                                                     <button type="submit" class="btn btn-primary btn-xs col-sm-1 btn-stilo" style="margin-left: 1%;margin-right: -11%;font-size: 14px;">Buscar</button>
 											        
 											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href="@{/Seguros}" style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
-											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Aseguradoras}'  style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-file-contract fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>		
+											    	<a class="btn btn-primary btn-xs col-sm-4 btn-stilo"  th:if="${usuario} == 'ROLE_ADMIN'" th:href='@{/Aseguradoras}'  style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-file-contract fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>		
 											    </form>
 	
 	
@@ -155,10 +155,10 @@
     
 	    </script>
 	    <script src="/assets/js/CambiosEstado.js"></script>
+		 <!-- Fontawesome -->
+	    <script th:src="@{/assets/fontawesome/js/all.js}"></script>
 		<!-- jQuery Library -->
-		 <!-- api nice-select -->
-	    <script src="/assets/js/jquery.js"></script> 
-		<script src="/assets/js/jquery.nice-select.js"></script>
+		<script src="/assets/js/jquery-3.4.1.min.js"></script>
 		<!-- Popper js -->
 		<script src="/assets/js/popper.min.js"></script>
 		<!-- Bootstrap Js -->

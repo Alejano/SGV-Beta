@@ -7,14 +7,12 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
 	<link href="favicon.html" rel="icon">
 	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/fontawesome/css/fontawesome.min.css}">
 	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}"/>
 	<link rel="stylesheet" th:href="@{/assets/SweetAlert2/sweetalert2.css}">
 	<script src="/assets/js/jquery-3.4.1.min.js"></script>
-	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-
+	<script th:src="@{/assets/fontawesome/js/all.js}"></script>	
 </head>
 <body>
 	<header>
@@ -24,8 +22,8 @@
                 <div class="TituloCon">              
                 </div>
 		<div class="form-group last col-sm-12 form-nav" >		    		
-			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
-			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Conductores}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;font-size:14 px;"><i class="fas fa-home fa-2x" style="font-size:14 px;margin-left:-24%;"></i></a>
+			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Conductores}' style="width: 48px; height: 34px; float: right; margin-right: 5%;font-size:14 px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: -10%;margin-left: -12%;"></i></a>
 			
 			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
 				<div class="container col-sm-4">
@@ -223,7 +221,7 @@
 	<!-- Popper js -->
 	<script src="/assets/js/popper.min.js"></script>
 	<!-- Bootstrap Js -->
-	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>	
 	<!-- Form Validator -->
 	<script src="/assets/js/validator.min.js"></script>
 	<!-- Contact Form Js -->

@@ -37,6 +37,9 @@
 				    <form th:action="@{/Adscripciones}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
 						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Adscripciones</button>					    	
 					</form>
+					<form th:action="@{/Seguridad}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
+						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Seguridad</button>					    	
+				    </form>
 				  </div>
 			</div>			
 		</div>
@@ -151,7 +154,7 @@
 										</table>
 										<nav th:replace="paginator-nav :: paginator"></nav>
 										
-											<div class="form-group last col-sm-12">
+											<div class="form-group last col-sm-12" th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}">
 											<a class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/AddResguardo/}+${Placa}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>											
 											</div>
 	                                    </div>

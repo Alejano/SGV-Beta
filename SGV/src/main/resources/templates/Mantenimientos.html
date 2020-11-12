@@ -67,8 +67,8 @@
 										</table>
 										<nav th:replace="paginator-nav :: paginator"></nav>
 										
-										<div class="form-group last col-sm-12">	
-										<a th:if="${id_vehiculo}" class="btn btn-primary btn-xs col-sm-2 btn-stilo sel" th:href="@{/VehiMant/} +${id_vehiculo}" >Agregar</a>																			
+									 	<div class="form-group last col-sm-12" >	
+										<a th:if="${id_vehiculo}  and ${usuario} == 'ROLE_ADMIN'" class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/VehiMant/} +${id_vehiculo}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>																			
 										</div>
 	                                    </div>
 	                                </div>
@@ -172,7 +172,7 @@
     </script>
 	<!-- jQuery Library -->
 	 <!-- api nice-select -->
-    <script src="/assets/js/jquery.js"></script> 
+ 	 <script src="/assets/js/jquery-3.4.1.min.js"></script>
 	<script src="/assets/js/jquery.nice-select.js"></script>
 	<!-- Popper js -->
 	<script src="/assets/js/popper.min.js"></script>

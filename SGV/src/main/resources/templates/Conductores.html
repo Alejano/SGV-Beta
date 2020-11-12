@@ -50,7 +50,7 @@
 													<th th:if="${usuario} == 'ROLE_ADMIN'" class="celda">Opciones</th>
 												    <th th:if="${usuario} == 'ROLE_USER'" class="celda">Opcion</th>
 													
-													<th style="width:10px" id="tamano" th:if="${tamano} == 'mostrar'"></th>													
+													<th style="width:1.4%" id="tamano" th:if="${tamano} == 'mostrar'"></th>													
 												</tr>
 											</thead>
 											<tbody>
@@ -66,9 +66,10 @@
 													<td th:text="${conductoressql.vig_licencia}" class="celda"></td>																																																
 													<td class="celda">
 													
-															<div th:if="${usuario} == 'ROLE_ADMIN'">
-																<a th:id="estCon+${conductoressql.no_empleado}"  th:if="${conductoressql.enabled} == true" class="btn btn-success btn-xs sel" th:href="@{/estadoCond/} +${conductoressql.no_empleado}+'/'+${conductoressql.enabled}" onclick="scroller(this.id,'Inactivo');" th:text="Activo" ></a>
-																<a th:id="estCon+${conductoressql.no_empleado}" th:if="${conductoressql.enabled} == false" class="btn btn-danger btn-xs sel" th:href="@{/estadoCond/} +${conductoressql.no_empleado}+'/'+${conductoressql.enabled}" onclick="scroller(this.id,'Activo');" th:text="'Inactivo'" ></a>
+															<div th:if="${usuario} == 'ROLE_ADMIN'" th:switch="${conductoressql.enabled} == true">															
+															<a th:id="estCon+${conductoressql.no_empleado}" th:case="true" class="btn btn-success btn-xs sel" th:href="@{/estadoCond/} +${conductoressql.no_empleado}+'/'+${conductoressql.enabled}" onclick="scrolleruc(this.id,'Inactivo');" th:text="Activo" style="width: 100px;font-size:smaller;"></a>
+															<a th:id="estCon+${conductoressql.no_empleado}" th:case="false" class="btn btn-danger btn-xs sel" th:href="@{/estadoCond/} +${conductoressql.no_empleado}+'/'+${conductoressql.enabled}" onclick="scrolleruc(this.id,'Activo');" th:text="Inactivo" style="width: 100px;font-size:smaller;"></a>																								
+																											 
 															</div>													
 																													
 															<div th:if="${usuario} == 'ROLE_USER'">
@@ -198,8 +199,8 @@
     </script>
 	<script src="/assets/js/CambiosEstado.js"></script>
 	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
 	 <!-- api nice-select -->
-    <script src="/assets/js/jquery.js"></script> 
 	<script src="/assets/js/jquery.nice-select.js"></script>
 	<!-- Popper js -->
 	<script src="/assets/js/popper.min.js"></script>
