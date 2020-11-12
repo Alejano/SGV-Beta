@@ -10,4 +10,7 @@ public interface IAseguraDao extends CrudRepository<Aseguradora, Long>{
 	@Query("select max(a.fecha_fin) from Aseguradora a")
 	public String fechamax ();
 	
+	@Query("select count(a) from Aseguradora a")
+	public Long aseguradorastotales();
+	
 }

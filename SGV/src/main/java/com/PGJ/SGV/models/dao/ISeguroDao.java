@@ -44,4 +44,5 @@ public interface ISeguroDao extends PagingAndSortingRepository<Seguro, Long> {
 	@Query("select s from Seguro s inner join Vehiculo v on s.vehiculo.id_vehiculo = v.id_vehiculo inner join Aseguradora p on s.aseguradora.id_aseguradora=p.id_aseguradora where v.placa like %?1% or cast(p.no_poliza_padre AS string) like %?1% or p.nombre_aseguradora like %?1% or cast(s.no_poliza_hijo AS string) like %?1% or s.nombre_contratante like %?1% or s.rfc_contratante like %?1% or s.codigo_cliente like %?1%")
 	public Page<Seguro> FindSegElemenPage(String elemento,Pageable pageable);
 
+
 }

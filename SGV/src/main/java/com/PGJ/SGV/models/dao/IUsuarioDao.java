@@ -27,16 +27,19 @@ public interface IUsuarioDao extends PagingAndSortingRepository<Usuario, String>
 	@Query("select count(u) from Usuario u where fecha_baja is not null")
 	public Long totalUsuariosBajas();
 	
-	@Query("select p from Usuario p where fecha_alta is not null")
-	public Page<Usuario> findByReg(Pageable pageable);
+	@Query("select count(u) from Usuario u inner join Adscripcion a on u.adscripcion.id_adscripcion = a.id_adscripcion where u.fecha_baja is null and (u.no_empleado like %?1% or u.nombre like %?1% or u.apellido1 like %?1% or u.apellido2 like %?1% or a.nombre_adscripcion like %?1%)")
+	public Long totalfinUsuElemnt(String elemento);
+	
+	@Query("select count(u) from Usuario u inner join Adscripcion a on u.adscripcion.id_adscripcion = a.id_adscripcion where u.fecha_baja is not null and (u.no_empleado like %?1% or u.nombre like %?1% or u.apellido1 like %?1% or u.apellido2 like %?1% or a.nombre_adscripcion like %?1%)")
+	public Long totalfinUsuElemntBajas(String elemento);
 	
 	@Query("select p from Usuario p where fecha_baja is null")
 	public Page<Usuario> findByNl(Pageable pageable);
 	
 	@Query("select p from Usuario p where fecha_baja is not null")
 	public Page<Usuario> findByNn(Pageable pageable);
-
-
 	
+	@Query("select p from Usuario p where fecha_alta is not null")
+	public Page<Usuario> findByReg(Pageable pageable);
 	
 }
