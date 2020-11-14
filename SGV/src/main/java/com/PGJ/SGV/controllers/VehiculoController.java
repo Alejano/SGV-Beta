@@ -136,6 +136,7 @@ public class VehiculoController {
 			model.addAttribute("vehiculos",vehiculoPageAra);		
 			model.addAttribute("page",pageRender);
 			model.addAttribute("PageTitulo", "Vehiculos");
+			model.addAttribute("titulo","Listado de Vehiculos");
 			return "Vehiculos";
 		}
 		
@@ -210,6 +211,8 @@ public class VehiculoController {
 			model.addAttribute("vehiculos",vehiculoPageAra);		
 			model.addAttribute("page",pageRender);
 			model.addAttribute("PageTitulo", "Vehiculos");
+			model.addAttribute("titulo","Listado de Vehiculos ::"+ Clase);
+			
 			return "Vehiculos";
 		}
 		
@@ -230,7 +233,7 @@ public class VehiculoController {
 		model.addAttribute("marca",clase);
 		model.addAttribute("Cordtabla",Cordtabla);
 		model.addAttribute("thisurl","Vehiculos");
-		model.addAttribute("titulo","Listado de Vehiculos");
+		model.addAttribute("titulo","Listado de Vehiculos ::"+ Clase);
 		model.addAttribute("vehiculos",vehiculopage);
 		model.addAttribute("page",pageRender);
 		model.addAttribute("Clase",Clase);
@@ -262,7 +265,7 @@ public class VehiculoController {
 		model.put("tiposResguardoS", tiposResguardoS);
 		model.put("conductores", conductoresdb);
 		model.put("usuarios",usuariosdb);
-		
+		model.put("titulo","Resguardantes");
 		return "vehiculos/formVehiP1";
 	}
 	
@@ -351,7 +354,7 @@ public class VehiculoController {
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);
 		model.put("Tresguardante", Tresguardante);		
-				
+		model.put("documento", "noexiste");		
 		
 		return "/formVehi";
 	}
@@ -423,6 +426,7 @@ public class VehiculoController {
 		model.put("Tresguardante", Tresguardante);
 		model.put("conductores", conductoresactualizada);
 		model.put("usuarios",usuariosactualizada);
+		model.put("titulo","Tercer Resguardante");
 		return "vehiculos/formVehiTR";
 	}
 	
@@ -553,7 +557,7 @@ public class VehiculoController {
 		model.put("vehiculo",vehiculo);		
 		model.put("detalle",detalle);	
 		model.put("marcas",marca);				
-		model.put("titulo", "Editar cliente");	
+		model.put("titulo", "Editar Vehiculo");	
 		
 		return "formVehi";
 	}
@@ -865,12 +869,10 @@ public class VehiculoController {
 	}	
 	
 	@RequestMapping(value="/info/{id_vehiculo}")
-	public String info(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {		
-		adscripcionlist = adscripService.findAll();
+	public String info(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {				
 		Vehiculo vehiculo = null;
 		VehiculoDetalle detalle = null;
-		
-		List<String> marca = new ArrayList<String>();
+				
 		String documento = "";								
 		
 		var user="";			
@@ -885,10 +887,7 @@ public class VehiculoController {
 		}
 				
 		if(id_vehiculo != null) {
-			vehiculo = vehiculoService.findOne(id_vehiculo);				
-			marca = vehiculoService.findAllMarcaUnica();		
-			transmision = vehiculoService.findAllTransmision();
-			funcion = vehiculoService.findAllFuncion();
+			vehiculo = vehiculoService.findOne(id_vehiculo);													
 			detalle = vehiculoService.findDetalle(id_vehiculo);
 			documento = vehiculoService.findTCDetalle(id_vehiculo);
 			
@@ -900,17 +899,13 @@ public class VehiculoController {
 			return "redirect:/Vehiculos";
 		}
 		
-
-		model.put("transmisiones", transmision);
-		model.put("funciones", funcion);
-		model.put("editando", "si");
+		model.put("color", vehiculo.getVehiculo_detalle().getColor());			
 		model.put("documento", documento);
 		model.put("seguroslist", seguros);
 		model.put("adslist",adscripcionlist );		
 		model.put("vehiculo",vehiculo);
-		model.put("detalle",detalle);
-		model.put("marcas",marca);				
-		model.put("titulo", "Editar cliente");	
+		model.put("detalle",detalle);				
+		model.put("titulo", "Informacion del Vehiculo");	
 		return "infoVehi";
 	}	
 	

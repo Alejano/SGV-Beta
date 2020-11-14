@@ -1,65 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <title>Vehiculos</title>
-<head>
-	<meta charset="utf-8">
-	<meta content="IE=edge" http-equiv="X-UA-Compatible">
-	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
-	<meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
-	<link href="favicon.html" rel="icon">
-	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
-	<script src="/assets/js/jquery-3.4.1.min.js"></script>
-	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>	
-</head>
+<meta charset="utf-8">
+	<head th:replace="/layout/layoutHead :: head"></head>
 <body>
-	<header>
-		<div class="heades">
-			<img th:src="@{../images/pgj.png}" style="width: 20%">			
-		</div>
-                <div class="TituloCon">
-                </div>
-		<div class="form-group last col-sm-12 form-nav" >		    		
-			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
-			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/infoResguardante/}+${placa}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
-			
-			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
-				<div class="container col-sm-4">
-  							 				 					 			
-	 				<div class="dropdown col-sm-4"  >
-						  
-						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
-						  MENU
-						  </a>
-						
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						  	
-						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
-						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
-				    		</form>						    
-						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
-						    </form>
-						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
-						    </form>
-						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
-						    </form>	
-						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
-						    </form>						 
-						   		
-						  </div>
-					</div>			
- 				</div>
- 			</div> 			
-		</div>
-		<h1 class="item-title text-right StituloCon">Vehiculos</h1>
-	</header>
+	<header th:replace="/layout/layoutHead :: header"></header>
 <section>
 	 <div class="tab-content">
 	      <div class="form-group last col-sm-12 formfondo">
@@ -70,54 +15,55 @@
 	                                <div class="row">
 	                                    <div class="col-md-12">
 	                                    <form th:action="@{/AddResguardo/}+${placa}" method="post" id="formulario" data-toggle="validator" class="popup-form">
-	                                        <div class="col-sm-12">
+	                                        <div class="col-sm-12 enlinea" style=" text-align: center;">
                                            		<h1>Selecciona el Resguardante del vehiculo</h1>
                                            	</div>	
                                            	
-                                           	<div class="Paso1 col-sm-6" th:object="${Presguardante}">
-                                           		<h3>Primer Resguardante</h3>
-                                           		
-                                           		
+                                           	<div class="Paso1 col-sm-12 enlinea" th:object="${Presguardante}" style="text-align: center;">
+                                           	  <div class="col-sm-5 enlinea">
+                                           		<h3>Primer Resguardante</h3>                                           		                                           
 		                                            <div class="row rowresguardantes">
 															
 														<!--Nombre-->
-														<div class="form-group col-sm-4">
+														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
 															<input th:field="${Presguardante.nombre}" th:value="${Presguardante.nombre}" name="nombre1" id="Nombre" onchange="limpiarPR()" placeholder="Nombre" class="form-control Letras" type="text" required data-error="Ingrese El Nombre">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Apellido1-->
-														<div class="form-group col-sm-4">
+														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
 															<input th:field="${Presguardante.apellido1}" th:value="${Presguardante.apellido1}" name="apellidoP1" id="A_pa" onchange="limpiarPR()" placeholder="Apellido Paterno" class="form-control Letras" type="text" required data-error="Ingrese El primer Apellido">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Apellido2-->
-														<div class="form-group col-sm-4">
+														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
 															<input th:field="${Presguardante.apellido2}" th:value="${Presguardante.apellido2}" name="apellidoM1" id="A_ma" onchange="limpiarPR()" placeholder="Apellido Materno" class="form-control Letras" type="text" required data-error="Ingrese El segundo Apellido">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Cargo-->
-														<div class="form-group col-sm-12">
+														<div class="form-group col-sm-6 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
 															<input th:field="${Presguardante.cargo}" th:value="${Presguardante.cargo}" name="cargo1" id="cargo" onchange="limpiarPR()" placeholder="Cargo" class="form-control Letras" type="text" required data-error="Ingrese El cargo">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
-														
+														<div class="form-group col-sm-6 enlineaform">	
+															<button id="clean" class="btn btn-primary btn-xs btn-stilo" style="display:none;">Limpiar</button>
+														</div>		
 													</div>
-												<button id="clean" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;">Limpiar</button>
+												
                                            		
                                            	</div>	
-                                           	<div class="Paso1 col-sm-6" >
+                                           	<div class="Paso1 col-sm-6 enlineaform" >
                                            		<h3>Datos de Usuarios</h3>
                                            		
-                                           		<div class=" col-md-12" id="Contenedorbuscar" >
-                               						<div class="col-md-2" > <p style="text-align: right;">Buscar</p></div> 	                                				                                        
-									    			<div id="Busqueda" class="col-md-6">											       											       
-												         <input id="searchTerm" th:value=*{elemento} class="form-control col-md-5" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)"/>												           												           
+                                           		<div class=" col-md-12 enlineaform" id="Contenedorbuscar" >
+                               						<div class="col-md-2 enlineaform" > <p style="text-align: right;">Buscar</p></div> 	                                				                                        
+									    			<div id="Busqueda" class="col-md-6 enlineaform">											       											       
+												         <input id="searchTerm" class="form-control" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)"/>												           												           
 												    </div>
-									        		<div id="coincidencias" class="col-md-6"></div>
+									        		<div id="coincidencias" class="col-md-6 enlineaform"></div>
 												</div>
                                            		
                                            		<table class="table table-striped table-bordered fixed_header " id="UsuariosT">
@@ -145,54 +91,58 @@
 													</tbody>
 												</table>
                                            		
-                                           	</div>	
-                                           	
-                                           	<div class="Paso2 col-sm-6" style="display:none" >
+                                           	 </div>	
+                                           </div>
+                                           
+                                           <div class="Paso2 col-sm-12 enlinea" style="display:none" >
+                                           	<div class="col-sm-5 enlinea" style=" text-align: center;"  >
                                            		<h3>Segundo Resguardante</h3>
                                            		
                                            		<div class="row rowresguardantes" th:object="${Sresguardante}">
 															
 														<!--Nombre-->
-														<div class="form-group col-sm-4">
+														<div class="form-group col-sm-4  enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
 															<input th:field="${Sresguardante.nombre}" th:value="${Sresguardante.nombre}" name="nombre2" id="Nombre2" onchange="limpiarSR()" placeholder="Nombre" class="form-control Letras" type="text" required data-error="Ingrese El Nombre">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Apellido1-->
-														<div class="form-group col-sm-4">
+														<div class="form-group col-sm-4  enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
 															<input th:field="${Sresguardante.apellido1}" th:value="${Sresguardante.apellido1}" name="apellidoP2" id="A_pa2" onchange="limpiarSR()" placeholder="Apellido Paterno" class="form-control Letras" type="text" required data-error="Ingrese El primer Apellido">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Apellido2-->
-														<div class="form-group col-sm-4">
+														<div class="form-group col-sm-4  enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
 															<input th:field="${Sresguardante.apellido2}" th:value="${Sresguardante.apellido2}" name="apellidoM2" id="A_ma2" onchange="limpiarSR()" placeholder="Apellido Materno" class="form-control Letras" type="text" required data-error="Ingrese El segundo Apellido">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														
 														<!--Cargo-->
-														<div class="form-group col-sm-12">
+														<div class="form-group col-sm-6  enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
 															<input th:field="${Sresguardante.cargo}" th:value="${Sresguardante.cargo}" name="cargo2" id="cargo2" onchange="limpiarSR()" placeholder="Cargo" class="form-control Letras" type="text" required data-error="Ingrese El cargo">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
-													</div>
-												<div class="form-group col-sm-12">	
-												<button id="clean2" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;margin: 5px;">Limpiar</button>
+														
+														<div class="form-group col-sm-12  enlineaform">	
+															<button id="clean2" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;margin: 5px;">Limpiar</button>
 																								
-												</div>		
+														</div>
+													</div>
+														
 																						
                                            	</div>	
-                                           	<div class="Paso2 col-sm-6" style="display:none">
+                                           	<div class="Paso2 col-sm-6  enlineaform" style="display:none">
                                            		<h3>Datos de Conductores</h3>
                                            		
-                                           		<div class=" col-md-12" id="Contenedorbuscar2" >
-                               						<div class="col-md-2" > <p style="text-align: right;">Buscar</p></div> 	                                				                                        
-									    			<div id="Busqueda2" class="col-md-6">											       											       
-												         <input id="searchTerm2" class="form-control col-md-5" name="elemento" type="text" onkeyup="doSearch2()" onkeypress="return pulsar(event)"/>												           												           
+                                           		<div class=" col-md-12  enlineaform" id="Contenedorbuscar2" >
+                               						<div class="col-md-2 enlineaform" > <p style="text-align: right;">Buscar</p></div> 	                                				                                        
+									    			<div id="Busqueda2" class="col-md-6 enlineaform">											       											       
+												         <input id="searchTerm2" class="form-control" name="elemento" type="text" onkeyup="doSearch2()" onkeypress="return pulsar(event)"/>												           												           
 												    </div>
-									        		<div id="coincidencias2" class="col-md-6"></div>
+									        		<div id="coincidencias2" class="col-md-6 enlineaform"></div>
 												</div>
                                            		
                                            		<table class="table table-striped table-bordered fixed_header " id="ConductoresT">
@@ -220,8 +170,9 @@
 													</tbody>
 												</table>
                                            		
-                                           	</div>	
-                                           	<div class="col-sm-12" >
+                                           	</div>
+                                           </div>	
+                                           	<div class="col-sm-12  enlineaform" >
 	                                        
 	                                        <input type="hidden" th:field="${Presguardante.id_resguardante}" th:value="${Presguardante.id_resguardante}"/>
 	                                        <input type="hidden" th:field="${Sresguardante.id_resguardante}" th:value="${Sresguardante.id_resguardante}"/>	                                       

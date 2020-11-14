@@ -1,83 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <title>Aseguradoras</title>
-<head>
-	<meta charset="utf-8">
-	<meta content="IE=edge" http-equiv="X-UA-Compatible">
-	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
-	<link href="favicon.html" rel="icon">
-    <link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
-	<link rel="stylesheet" th:href="@{/assets/fontawesome/css/fontawesome.min.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
-	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}"/>
-	
-</head>
+<meta charset="utf-8">
+	<head th:replace="/layout/layoutHead :: head"></head>
 <body>
-	<header>
-		<div>
-		<div class="heades" >
-			<img th:src="@{/images/pgj.png}" class="logopgj">
-			<div class="dropdown menuGen">
-				  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    <i class="fas fa-user-cog"></i>
-				  </a>
-				
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		  			<form th:action="@{/logout}" method="post" id="loggout" style="margin-bottom: 3px; margin-left: 5px;">
-				        <button class="btn btn-outline-success" onclick="document.getElementById('loggout').submit()" type="submit" style="color:green !important">Cerrar sesion</button>
-				    	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-				    </form>	
-				    <form  th:action="@{/perfil}" style="margin-bottom: 3px; margin-left: 5px;">
-						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Perfil</button>					    	
-				   </form>
-				    <form th:action="@{/Adscripciones}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
-						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Adscripciones</button>					    	
-					</form>
-				  </div>
-			</div>			
-		</div>
-		
-                <div class="TituloCon"></div>
-		<div class="form-group last col-sm-12 nav-listado">
-		    <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;font-size:14 px;"><i class="fas fa-home fa-2x" style="font-size:14 px;margin-left:-26%;"></i></a>
- 			<div id="button" class="form-group last col-sm-4" style="margin-bottom: 5px;margin-top: 5px;"> 
-				<div class="container" style="width: 314px;">
-  							 				 					 			
-	 				<div class="dropdown col-sm-4"  >
-						  
-						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
-						  MENU
-						  </a>
-						
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						  	
-						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
-						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
-				    		</form>						    
-				    		<form th:action="@{/Usuarios}" th:if="${usuario} == 'ROLE_ADMIN'" style="margin-bottom: 3px; margin-left: 5px;" >
-						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Usuarios</button>					    	
-				    		</form>
-						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
-						    </form>
-						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
-						    </form>
-						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
-						    </form>	
-						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
-						    </form>						 
-						   		
-						  </div>
-					</div>			
- 				</div>
- 			</div> 			
-		</div>
-			<h1 class="item-title text-right StituloCon">Aseguradoras</h1>
-		</div>
-	</header>
+	<header th:replace="/layout/layoutHead :: header"></header>
 
 	
 	<section>

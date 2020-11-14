@@ -1,66 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <title>Vehiculos</title>
-<head>
 	<meta charset="utf-8">
-	<meta content="IE=edge" http-equiv="X-UA-Compatible">
-	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
-	<meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
-	<link href="favicon.html" rel="icon">
-	<link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
-	<script src="/assets/js/jquery-3.4.1.min.js"></script>
-	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-</head>
+	<head th:replace="/layout/layoutHead :: head"></head>
+
 <body>
-	<header>
-		<div class="heades">
-			<img th:src="@{/images/pgj.png}" style="width: 20%">
-		</div>
-                <div class="TituloCon">
-                </div>
-		<div class="form-group last col-sm-12 form-nav" >
-			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
-			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%"></i></a>
-
-			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;">
-				<div class="container col-sm-4">
-
-	 				<div class="dropdown col-sm-4"  >
-
-						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">
-						  MENU
-						  </a>
-
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-
-						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
-						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>
-				    		</form>
-						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>
-						    </form>
-						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>
-						    </form>
-						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>
-						    </form>
-						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>
-						    </form>
-
-						  </div>
-					</div>
- 				</div>
- 			</div>
-		</div>
-		<h1 class="item-title text-right StituloCon">Vehiculos</h1>
-	</header>
-<section>
+	<header th:replace="/layout/layoutHead :: header"></header>
+	<section>
 	 <div class="tab-content">
 	      <div class="form-group last col-sm-12 formfondo">
 	                <div class="row">
@@ -69,14 +15,14 @@
 	                            <div class="item-wrap">
 	                                <div class="row">
 	                                    <div class="col-md-12">
-	                                        <form th:action="@{/formVehi}" enctype="multipart/form-data" method="post" id="formulario"  data-toggle="validator" class="popup-form">
+	                                        <form th:action="@{/formVehi}" th:object="${vehiculo}" enctype="multipart/form-data" method="post" id="formulario"  data-toggle="validator" class="popup-form">
 	                                            <div class="row">
 														<div class="border col-sm-12">
 														
 														<!--Adscripción-->
 
-													<div class="form-group col-sm-12" th:if="${usuario} == 'ROLE_ADMIN'">
-														<select th:field="${vehiculo.adscripcion}" class="form-control" style=" height: 34px;" disabled>
+													<div class="form-group col-sm-12 enlineaform" th:if="${usuario} == 'ROLE_ADMIN'">
+														<select th:field="*{adscripcion}" class="form-control" style=" height: 34px;" disabled>
 										                         <option value=""> Seleccione una adscripcion </option>
 										                         <option th:each="adss : ${adslist} "
 										                            th:value="${adss.id_adscripcion}"
@@ -86,131 +32,128 @@
 													</div>
 													
 			                                            <!--Numero de placa-->
-															<div class="form-group col-sm-3">
+															<div class="form-group col-sm-3 enlineaform">
 
-																<input th:field="${vehiculo.placa}" name="fname" id="N_Placa" placeholder="Placa" class="form-control soloLetras" type="text" disabled>
+																<input th:field="*{placa}" name="fname" id="N_Placa" placeholder="Placa" class="form-control soloLetras" type="text" disabled>
 																<div class="input-group-icon"><i class="fa fa-user"></i></div>
 															</div>
-															<div class="form-group col-sm-3">
+															<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Placa" class="form-control" disabled>
 															</div>
+												
 
-															<div class="form-group col-sm-12"></div>
-
-															<!--kilometros
-															<div class="form-group col-sm-3">
+															<!--kilometros-->
+															<div class="form-group col-sm-3 enlineaform">
 																<div class="help-block with-errors" style="width: 261px;"></div>
-																<input th:field="*{kilometraje}" id="D_re" class="form-control signos" type="number" min="0.0" max="100000000000000" required data-error="Ingrese La Distancia Recorrida">
+																<input th:field="*{kilometraje_inicial}" id="D_re" class="form-control signos" type="number" min="0.0" max="100000000000000" required data-error="Ingrese La Distancia Recorrida" disabled>
 																<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>
 															</div>
-															<div class="form-group col-sm-3">
+															<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Kilometros" class="form-control" disabled>
 															</div>
-															-->
+															
 															<!--Numero de serie-->
 
-															<div class="form-group col-sm-3">
+															<div class="form-group col-sm-3 enlineaform">
 
-																<input th:field="${vehiculo.no_serie}"  id="N_serie" placeholder="Numero de Serie" class="form-control signos" type="text" disabled>
+																<input th:field="*{no_serie}"  id="N_serie" placeholder="Numero de Serie" class="form-control signos" type="text" disabled>
 																<div class="input-group-icon"><i class="fas fa-ad"></i></div>
 															</div>
-															<div class="form-group col-sm-3">
+															<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Numero de serie" class="form-control" disabled>
 															</div>
 
 															<!--Numero de inventario-->
 
-															<div class="form-group col-sm-3">
+															<div class="form-group col-sm-3 enlineaform">
 
-																<input th:field="${vehiculo.no_inventario}"  id="N_serie" placeholder="Numero de Inventario" class="form-control signos" type="text"  disabled>
+																<input th:field="*{no_inventario}"  id="N_serie" placeholder="Numero de Inventario" class="form-control signos" type="text"  disabled>
 																<div class="input-group-icon"><i class="fas fa-ad"></i></div>
 															</div>
-															<div class="form-group col-sm-3">
+															<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Numero de Inventario" class="form-control" disabled>
 															</div>
-
-															<div class="form-group col-sm-12"></div>
+															
 
 															<!--Vale-->
 
-															<div class="form-group col-sm-3">
-
-																<div style="display: inline-block;">
-																<input th:field="${vehiculo.vale}"  id="vale" class="form-control soloLetras" type="text" disabled >
-																</div>
+															<div class="form-group col-sm-3 enlineaform">
+																
+																<input th:field="*{vale}"  id="vale" class="form-control soloLetras" type="text" disabled >																
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 															</div>
-															<div class="form-group col-sm-3">
+															<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Vale" class="form-control" disabled>
 															</div>
 
 															<!--Fecha de tarjeta-->
 
-															<div class="form-group col-sm-2">
-
-																<div style="display: inline-block;">
-																<input th:field="${vehiculo.fecha_tarjeta}"  id="fecha_tarjeta" min = 01/01/1900 max = 01/01/2090 class="form-control signos" type="date"  disabled>
-																</div>
+															<div class="form-group col-sm-3 enlineaform">
+																<input th:field="*{fecha_tarjeta}"  id="fecha_tarjeta" min = 01/01/1900 max = 01/01/2090 class="form-control signos" type="date"  disabled>
+																
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 															</div>
-															<div class="form-group col-sm-4">
+															<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Fecha de Tarjeta" class="form-control" disabled>
 															</div>
 
 														</div>
 
-														<div class="form-group col-sm-12" th:if="${editando} == 'si'"><h3>Datos No editables</h3>
+														<div class="form-group col-sm-12 enlineaform" th:if="${editando} == 'si'"><h3>Datos No editables</h3>
 
 														</div>
 
 
-													<div class="border col-sm-12" th:if="${editando} == 'si'">
-														<div class="form-group col-sm-3">
-																<div style="display: inline-block;">
-																<input th:value="${vehiculo.vehiculo_marca.nombre_marca}"  id="modelo" class="form-control signos" type="text" disabled>
-																</div>
+													<div class="border col-sm-12 enlineaform">
+													
+													<div class="form-group col-sm-4  enlineaform"></div>
+														<div class="form-group col-sm-3  enlineaform">
+																
+																<input th:value="*{vehiculo_marca.nombre_marca}"  id="modelo" class="form-control signos" type="text" disabled>
+																
 														</div>
-														<div class="form-group col-sm-3">
+														<div class="form-group col-sm-3  enlineaform">
 																<input placeholder="Marca" class="form-control" disabled>
 														</div>
-														<div class="form-group col-sm-3">
-
-																<div style="display: inline-block;">
-																<input th:value="${vehiculo.vehiculo_marca.nombre_submarca}"  id="modelo" class="form-control signos" type="text" disabled>
-																</div>
+														
+														<div class="form-group col-sm-4  enlineaform"></div>
+														<div class="form-group col-sm-3 enlineaform ">
+																
+																<input th:value="*{vehiculo_marca.nombre_submarca}"  id="modelo" class="form-control signos" type="text" disabled>
+																
 														</div>
-														<div class="form-group col-sm-3">
+														<div class="form-group col-sm-3 enlineaform ">
 																<input placeholder="SubMarca" class="form-control" disabled>
-																</div>
-														<div class="form-group col-sm-3">
-
-																<div style="display: inline-block;">
-																<input th:value="${vehiculo.vehiculo_marca.modelo}"  id="modelo" class="form-control signos" type="text" disabled>
-																</div>
 														</div>
-														<div class="form-group col-sm-3">
+														
+														<div class="form-group col-sm-4  enlineaform"></div>
+														<div class="form-group col-sm-3 enlineaform">
+																
+																<input th:value="*{vehiculo_marca.modelo}"  id="modelo" class="form-control signos" type="text" disabled>
+																
+														</div>
+														<div class="form-group col-sm-3 enlineaform">
 																<input placeholder="Modelo" class="form-control" disabled>
-																</div>
-
-														<div class="form-group col-sm-3">
-
-																<div style="display: inline-block;">
-																<input th:value="${vehiculo.vehiculo_marca.clase}"  id="clase" class="form-control soloLetras" type="text"  disabled>
-																</div>
+														</div>
+														
+														<div class="form-group col-sm-4  enlineaform"></div>
+														<div class="form-group col-sm-3 enlineaform">
+																
+																<input th:value="*{vehiculo_marca.clase}"  id="clase" class="form-control soloLetras" type="text"  disabled>
+																
 
 														</div>
-														<div class="form-group col-sm-3">
+														<div class="form-group col-sm-3 enlineaform">
 																<input placeholder="Clase" class="form-control" disabled>
-																</div>
-
-														<div class="form-group col-sm-3">
-
-																<div style="display: inline-block;">
-																<input th:value="${vehiculo.vehiculo_marca.tipo}"  id="tipo" class="form-control soloLetras" type="text" disabled>
-																</div>
+														</div>
+														
+														<div class="form-group col-sm-4  enlineaform"></div>
+														<div class="form-group col-sm-3 enlineaform">
+																
+																<input th:value="*{vehiculo_marca.tipo}"  id="tipo" class="form-control soloLetras" type="text" disabled>																
 
 														</div>
-														<div class="form-group col-sm-3">
+														<div class="form-group col-sm-3 enlineaform">
 																<input placeholder="Tipo" class="form-control" disabled>
 														</div>
 
@@ -218,93 +161,84 @@
 
 
 													</div>
-													<div class="form-group col-sm-12"></div>
+													<div class="form-group col-sm-12 enlineaform"></div>
 
 
-												    <div class="form-group col-sm-3">
-															<div style="display: inline-block;">
-																<input th:value="${vehiculo.vehiculo_transmision.nombre_transmision}"  id="tipo" class="form-control soloLetras" type="text" disabled>
-															</div>
+												    <div class="form-group col-sm-3 enlineaform">
+															
+																<input th:value="*{vehiculo_transmision.nombre_transmision}"  id="tipo" class="form-control soloLetras" type="text" disabled>
+															
 										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
 													</div>
 
-													<div class="form-group col-sm-3">
+													<div class="form-group col-sm-3 enlineaform">
 																<input placeholder="Transmision del vehiculo" class="form-control" disabled>
 													</div>
 
 
-													<div class="form-group col-sm-3">
-														<div style="display: inline-block;">
-																<input th:value="${vehiculo.vehiculo_funcion.nombre_funcion}"  id="tipo" class="form-control soloLetras" type="text" disabled>
-															</div>
+													<div class="form-group col-sm-3 enlineaform">
+														
+																<input th:value="*{vehiculo_funcion.nombre_funcion}"  id="tipo" class="form-control soloLetras" type="text" disabled>
+															
 										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
 													</div>
-													<div class="form-group col-sm-3">
+													<div class="form-group col-sm-3 enlineaform">
 																<input placeholder="Funcion a desempeñar" class="form-control" disabled>
 													</div>
 
-													<div class="form-group col-sm-12"><h3>Caracteristicas del vehiculo</h3></div>
+													<div class="form-group col-sm-12 enlineaform"><h3>Caracteristicas del vehiculo</h3></div>
 
-													<div class="border col-sm-12">
+													<div class="border col-sm-12 enlineaform">
 
-													<div class="form-group col-sm-2">
-
-																<div style="display: inline-block;">
-																<input th:field="${vehiculo.vehiculo_detalle.rin}"  id="rin" class="form-control soloLetras" type="text"  disabled>
-																</div>
+													<div class="form-group col-sm-2 enlineaform">
+																
+																<input th:field="*{vehiculo_detalle.rin}"  id="rin" class="form-control soloLetras" type="text"  disabled>
+																
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Tamaño del Rin" class="form-control" disabled>
 													</div>
 
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 
-																<div style="float: right;">
-																<!--
-																	<select th:field="*{vehiculo_detalle.color}" class="form-control" style=" height: 34px;" required data-error="Elija el cojor del vehiculo">
-											                         <option value=""> Seleccione un color </option>
-											                         <option value=""></option>
-											                    	</select>
-											                    	-->
-											                    	<input type="color" value="${vehiculo.vehiculo_detalle.color}" disabled>
-																</div>
+											                   <input type="color" th:value="*{vehiculo_detalle.color}" disabled>
+																
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Color" th:field="${vehiculo.vehiculo_detalle.color}" class="form-control" disabled>
 													</div>
 
-													<div class="form-group col-sm-2">
-
-																<div style="display: inline-block;">
+													<div class="form-group col-sm-2 enlineaform">
+																
 																<input th:field="${vehiculo.vehiculo_detalle.no_cilindros}"  id="no_cilindros" min = 1 max = 30 class="form-control signos" type="number"  disabled>
-																</div>
+																
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Numero de Clilindros" class="form-control" disabled>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 
-																<div style="display: inline-block;">
+																
 																<input th:field="${vehiculo.vehiculo_detalle.no_personas}"  id="no_personas" min = 1 max = 20 class="form-control signos" type="number"  disabled>
-																</div>
+																
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Personas" class="form-control" disabled>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 
-																<div style="display: inline-block;">
+																
 																<input th:field="${vehiculo.vehiculo_detalle.no_puertas}"  id="no_puertas" min = 0 max = 8 class="form-control signos" type="number"  disabled>
-																</div>
+																
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Puertas" class="form-control" disabled>
 													</div>
-													<div class="form-group col-sm-2" style="height: 17%;">
+													<div class="form-group col-sm-2 enlineaform" style="height: 17%;">
 
 																<div style="display: inline-block;   float: right;">
 
@@ -321,10 +255,10 @@
 																</div>
 
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Balisado" class="form-control" disabled>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 
 																<div style="display: inline-block; float:right">
 																<div class="form-check form-check-inline">
@@ -339,60 +273,60 @@
 																</div>
 
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="¿tiene blindaje?" class="form-control" disabled>
 													</div>
 
 
 													</div>
 
-													<div class="border col-sm-12">
+													<div class="border col-sm-12 enlineaform">
 
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 
 																<div style="display: inline-block;">
 																<input th:field="${vehiculo.vehiculo_detalle.no_motor}"  id="no_motor"  class="form-control soloLetras" type="text" disabled>
 																</div>
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Numero de Motor" class="form-control" disabled>
 													</div>
-													<div class="form-group col-sm-3">
+													<div class="form-group col-sm-3 enlineaform">
 
 																<div style="display: inline-block;">
 																<input th:field="${vehiculo.vehiculo_detalle.no_economico}"  id="no_economico"  class="form-control signos" type="text"  disabled>
 																</div>
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-3">
+													<div class="form-group col-sm-3 enlineaform">
 																<input placeholder="Numero Economico" class="form-control" disabled>
 													</div>
 													</div>
-													<div class="border col-sm-12">
+													<div class="border col-sm-12 enlineaform">
 
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 
 																<div style="display: inline-block;">
 																<input th:field="${vehiculo.vehiculo_detalle.fecha_compra}"  id="fecha_compra" min = 01-01-1900 max = 01-01-2090 class="form-control signos" type="date" disabled>
 																</div>
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Fecha de compra" class="form-control" disabled>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 
 																<div style="display: inline-block;">
 																<input th:field="${vehiculo.vehiculo_detalle.valor_compra}" step="any" id="valor_compra" min = 0.0 max = 1000000.0 class="form-control signos" type="number"  disabled>
 																</div>
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Valor de la compra" class="form-control" disabled>
 													</div>
 
-													<div class="form-group col-sm-4">
+													<div class="form-group col-sm-4 enlineaform">
 
 																<div style="display: inline-block;">
 																<select th:field="${vehiculo.vehiculo_detalle.tipo_combustible}" class="form-control" style=" height: 34px;"  disabled>
@@ -405,12 +339,12 @@
 																</div>
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Tipo de Combustible" class="form-control" disabled>
 													</div>
 
 
-													<div class="form-group col-sm-12" th:if="${documento} == 'existe'">
+													<div class="form-group col-sm-12 enlineaform" th:if="${documento} == 'existe'">
 															<label for="file1" class="col-sm-2 col-form-label">Tarjeta de Circulacion</label>
 															<div class="col-sm-10">
 																<div th:if="${documento} == 'existe'" class="card-body d-flex justify-content-center col-sm-12" >
@@ -419,20 +353,20 @@
 															</div>
 														</div>
 													</div>
-													<div class="col-sm-12" th:if="${documento}=='noexiste'">														
+													<div class="col-sm-12 enlineaform" th:if="${documento}=='noexiste'">														
 														<div class="card-body d-flex justify-content-center col-sm-12" >
 																<h1>El Documento no existe en la base de datos</h1>
 														</div>
 													</div>
 
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 
 																<div style="display: inline-block;">
 																<input th:field="${vehiculo.vehiculo_detalle.vigencia_circulacion}"  id="vigencia_circulacion" min = 01/01/1900 max = 01/01/2090 class="form-control signos" type="date" disabled>
 																</div>
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2">
+													<div class="form-group col-sm-2 enlineaform">
 																<input placeholder="Vegencia de circulacion" class="form-control" disabled>
 													</div>
 

@@ -1,65 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <title>Seguros</title>
-<head>
-	<meta charset="utf-8">
-	<meta content="IE=edge" http-equiv="X-UA-Compatible">
-	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
-	<link href="favicon.html" rel="icon">
-    <link rel="stylesheet" th:href="@{/assets/css/estilos.css}">
-    <link rel="stylesheet" th:href="@{/assets/fontawesome/css/fontawesome.min.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/contact-form.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/assets/SweetAlert2/sweetalert2.css}">
-    <script th:src="@{/assets/js/jquery-3.4.1.min.js}"></script>
-	
-	
-</head>
+<meta charset="utf-8">
+	<head th:replace="/layout/layoutHeadMetaData :: head"></head>
 <body>
-	<header>
-		<div class="heades">
-			<img th:src="@{/images/pgj.png}" style="width: 20%">			
-		</div>
-                <div class="TituloCon">
-                </div>
-		<div class="form-group last col-sm-12 form-nav" >	
-			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;font-size:14 px;"><i class="fas fa-home fa-2x" style="font-size:14 px;margin-left:-24%;"></i></a>  			    		
-			<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/ListarSeguros/}+${id_vehiculo}'style="width: 48px; height: 34px; float: right; margin-right: 5%;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: -10%;margin-left: -12%;"></i></a>
-			
-			<div id="button" class="form-group last col-sm-4 " style="margin-bottom: 5px;margin-top: 5px;"> 
-				<div class="container col-sm-4">
-  							 				 					 			
-	 				<div class="dropdown col-sm-4"  >
-						  
-						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #337ab7;">						   
-						  MENU
-						  </a>
-						
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						  	
-						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
-						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
-				    		</form>						    
-						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
-						    </form>
-						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
-						    </form>
-						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
-						    </form>	
-						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
-						    </form>						 
-						   		
-						  </div>
-					</div>			
- 				</div>
- 			</div> 			
-		</div>
-		<h1 class="item-title text-right StituloCon">Seguro</h1>
-	</header>
+	<header th:replace="/layout/layoutHead :: header"></header>
 <section>
 	 <div class="tab-content">
 	      <div class="form-group last col-sm-12 formfondo">
@@ -73,13 +18,15 @@
 	                                            
 	                                            <div class="row">
 	                                            	                    
-	                                            	   <h3 style="margin-left:1%;margin-top:.3%;">Datos</h3>
+	                                            	  
 	                                            	   
-	                                            	   <div class="form-group col-sm-12"></div>
+	                                            	   <div class="form-group col-sm-12 enlineaform">
+	                                            	    <h3 style="margin-left:1%;margin-top:.3%;">Datos</h3>
+	                                            	   </div>
 	                                            	                         
 													   <!--Placas-->
 						
-															   <div class="form-group col-sm-2">
+															   <div class="form-group col-sm-2 enlineaform">
 																<div class="help-block with-errors" ></div>
 																		<input th:field="*{vehiculo.placa}"  name="placa" id="placa" class="form-control" type="text" disabled>																	
 												                        <div class="input-group-icon" style="height: 38px;"><i class="fas fa-car-side"></i></div>
@@ -89,11 +36,11 @@
 																		<input  type="text" readonly="readonly"  placeholder="Placa" class="form-control" disabled>
 															   </div>
 															   
-															   <div class="form-group col-sm-5"></div>
+															   <div class="form-group col-sm-5 enlineaform"></div>
 	
 	                                                   <!--Aseguradora-->
 
-													   <div class="form-group col-sm-3">
+													   <div class="form-group col-sm-3 enlineaform">
 														    <select th:field="*{aseguradora}" class="form-control" style=" height: 38px;" required data-error="Ingrese la Aseguradora correspondiente">
 										                        
 										                         <option value="" th:if="${editar == false}"> Seleccione una Aseguradora </option>
@@ -105,108 +52,108 @@
 										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
 													   </div>
 													   
-													   <div class="form-group col-sm-2">													
+													   <div class="form-group col-sm-2 enlineaform">													
 																<input placeholder="Aseguradora" class="form-control" disabled>														
 													   </div>
 													    
 													    <!--<a  data-toggle="modal" data-target="#myModal" id="save" class="boton_personalizado" th:if="${usuario} == 'ROLE_ADMIN'">Añadir Aseguradora</a> -->
 													                                   
-													    <div class="form-group col-sm-5"></div>
+													    <div class="form-group col-sm-5 enlineaform"></div>
 													    
 													    <!--Nombre Contratante-->
 	                                                   
-	                                                    <div class="form-group col-sm-3">
+	                                                    <div class="form-group col-sm-3 enlineaform">
 	                                                            <div class="help-block with-errors"></div>
 	                                                            <input th:field="*{nombre_contratante}"  id="nombre_contra" placeholder="Nombre Contratante" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese El Nombre del Contratante"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-file-contract"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-7"></div>
+	                                                    <div class="form-group col-sm-7 enlineaform"></div>
 													     
 	                                                    <!--Poliza-->
 	                                                    
-	                                                    <div class="form-group col-sm-3">
+	                                                    <div class="form-group col-sm-3 enlineaform">
 	                                                            <div class="help-block with-errors"></div>
 	                                                            <input th:field="*{no_poliza_hijo}"  id="No_po" placeholder="Numero de Poliza Hija" class="form-control signos" type="text" required data-error="Ingrese El Numero De Poliza"/>
 	                                                            <div class="input-group-icon"><i class="far fa-newspaper"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-7"></div>
+	                                                    <div class="form-group col-sm-7 enlineaform"></div>
 	                                                    
 	                                                   <!--RFC Contratante-->
 	                                                   
-	                                                    <div class="form-group col-sm-3">
+	                                                    <div class="form-group col-sm-3 enlineaform">
 	                                                            <div class="help-block with-errors"></div>
 	                                                            <input th:field="*{rfc_contratante}"  id="rfc_contra" placeholder="RFC Contratante" class="form-control Letrasnum" type="text" required data-error="Ingrese El RFC del Contratante"/>
 	                                                            <div class="input-group-icon"><i class="far fa-newspaper"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-7"></div>
+	                                                    <div class="form-group col-sm-7 enlineaform"></div>
 	                                                    
 	                                                    <!--Código Cliente-->
 	                                                   
-	                                                    <div class="form-group col-sm-3">
+	                                                    <div class="form-group col-sm-3 enlineaform">
 	                                                            <div class="help-block with-errors"></div>
 	                                                            <input th:field="*{codigo_cliente}"  id="cod_cliente" placeholder="Código Cliente" class="form-control signos" type="text" required data-error="Ingrese El código cliente"/>
 	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-12"></div>
+	                                                    <div class="form-group col-sm-12 enlineaform">
+	                                                    <h3 style="margin-left:1%;margin-top:1%;margin-bottom: 2%;">Dirección</h3>
+	                                                    </div>
+	                                                    	                                                                                                
 	                                                    
-	                                                    <h3 style="margin-left:1%;margin-top:.3%;margin-bottom: 3%;">Dirección</h3>
-                                              
-	                                                    
-	                                                    <div class="form-group col-sm-12"></div>
+	                                                    <div class="form-group col-sm-12 enlineaform"></div>
 	                                                    
 	                                                    <!--Calle Cliente-->
 	                                                   
-	                                                    <div class="form-group col-sm-5">
+	                                                    <div class="form-group col-sm-5 enlineaform">
 	                                                            <div class="help-block with-errors"></div>
 	                                                            <input th:field="*{calle_contratante}"  id="calle_contra" placeholder="Calle Contratante" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese la Calle"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    
+	                                                       <div class="form-group col-sm-7 enlineaform"></div>
 	                                                     <!--Número Cliente-->
 	                                                   
-	                                                    <div class="form-group col-sm-3">
+	                                                    <div class="form-group col-sm-3 enlineaform">
 	                                                            <div class="help-block with-errors"></div>
 	                                                            <input th:field="*{numero_contratante}"  id="num_contra" placeholder="Número Contratante" class="form-control signos" type="text" required data-error="Ingrese el número"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
-	                                                    
+	                                                       <div class="form-group col-sm-7 enlineaform"></div>
 	                                                      <!--Colonia Cliente-->
 	                                                   
-	                                                    <div class="form-group col-sm-4">
+	                                                    <div class="form-group col-sm-4 enlineaform">
 	                                                            <div class="help-block with-errors"></div>
 	                                                            <input th:field="*{colonia_contratante}"  id="colonia_contra" placeholder="Colonia Contratante" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese la colonia"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
-	                                                    
+	                                                       <div class="form-group col-sm-7 enlineaform"></div>
  	                                                    <!--Codigo Postal-->
 	                                                   
-	                                                    <div class="form-group col-sm-2">
+	                                                    <div class="form-group col-sm-2 enlineaform">
 	                                                            <div class="help-block with-errors"></div>
 	                                                            <input th:field="*{codigopos_contratante}"  id="cp_contra" placeholder="Código Postal" class="form-control signos" type="text" required data-error="Ingrese el codigo postal"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
-	                                                    
+	                                                       <div class="form-group col-sm-7 enlineaform"></div>
 	                                                   <!--Alcaldia Cliente-->
 	                                                   
-	                                                    <div class="form-group col-sm-5">
+	                                                    <div class="form-group col-sm-5 enlineaform">
 	                                                            <div class="help-block with-errors"></div>
 	                                                            <input th:field="*{alcaldia_contratante}"  id="alcaldia_contra" placeholder="Alcaldia Contratante" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese la Alcaldia"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
 	                                                    
-	                                                     <div class="form-group col-sm-12"></div>
+	                                                     <div class="form-group col-sm-12 enlineaform"></div>
 	                                                     
 	                                                     
 	                                                    <h3 style="margin-left:1%;margin-top:.3%;margin-bottom: 3%;">Documento</h3>
 	                                                     
 	                                                     <!--Adjuntar documento -->
 	                                                     
-            										   <div class="form-group col-sm-12" th:if="${editar} == false">
+            										   <div class="form-group col-sm-12 enlineaform" th:if="${editar} == false">
 															<p style="margin-bottom:2rem;">Póliza de Seguro</p>
 															<div class="col-sm-4"  id="Ndocumento">
 																<div class="help-block with-errors"></div>
@@ -214,13 +161,13 @@
 															</div>
 														</div>
 														
-													   <div class="form-group col-sm-12" th:if="${editar} == true">																														
+													   <div class="form-group col-sm-12 enlineaform" th:if="${editar} == true">																														
 															<div id="aBtnGroup" class="btn-group">
 															    <button type="button" value="D" class="btn btn-default">Documento</button>
 															    <!-- <button type="button" value="N" class="btn btn-default">Nuevo Documento</button> --> 															    
 													   </div>
 													
-													   <div class="form-group col-sm-12"></div>
+													   <div class="form-group col-sm-12 enlineaform"></div>
 							
 													    <!-- <div class="col-sm-6" id="Ndocumento"  style="display:none;">
 													   <p style="margin-bottom:2rem;">Póliza de Seguro</p>

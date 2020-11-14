@@ -2,6 +2,7 @@ package com.PGJ.SGV.controllers;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -11,14 +12,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.PGJ.SGV.models.entity.Authority;
+import com.PGJ.SGV.models.entity.Conductor;
 import com.PGJ.SGV.models.entity.Mantenimiento;
 import com.PGJ.SGV.models.entity.Taller;
 import com.PGJ.SGV.models.entity.Usuario;
@@ -43,14 +49,22 @@ public class TallerController {
 	
 	public static boolean editar = false;
 	@RequestMapping(value="/Talleres", method = RequestMethod.GET)
-	public String listar(Model model, Authentication authentication) {				
-				
+	public String listar(Model model, Authentication authentication) {		
+		var user="";	
+		if(hasRole("ROLE_ADMIN")) {
+			user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
+			}else {
+				if(hasRole("ROLE_USER")) {
+					user = "ROLE_USER"; model.addAttribute("usuario",user);
+				}	
+			}		
 		List<Taller> talleres = new ArrayList<Taller>();
 		
 		talleres = tallerservice.findAll();
 				
 		model.addAttribute("talleres",talleres);		
-		
+		model.addAttribute("PageTitulo", "Talleres");
+		model.addAttribute("titulo","Listado de Talleres");
 		return "Talleres/Talleres";
 	}
 	
@@ -60,13 +74,35 @@ public class TallerController {
 		Taller taller = new Taller();				
 		
 		model.put("talleres", taller);
+		model.put("PageTitulo", "Agregar Taller");
+		model.put("titulo","Formulario de Talleres");
+		return "Talleres/formTaller";
+	}
+	
+	@RequestMapping(value="/Talleres/ediTaller/{id_taller}")
+	public String editar(@PathVariable(value="id_taller") Long id_taller,Map<String,Object>model) {		
+		Taller taller = null;
+		editar = true;
+		var user="";	
+	
+		if(hasRole("ROLE_ADMIN")) {user ="ROLE_ADMIN";model.put("usuario",user);}else {if(hasRole("ROLE_USER")) {user = "ROLE_USER";model.put("usuario",user);}};	
+	
+		if(!id_taller.equals(null)) {
+			taller = tallerservice.findOne(id_taller);
+		}else {
+			return "redirect:Talleres/formTaller";
+		}
+		
+		
+		model.put("talleres",taller);		
+		model.put("titulo", "Editar Taller");
 		return "Talleres/formTaller";
 	}
 	
 	@RequestMapping(value="/AddTaller",method = RequestMethod.POST)
 	public String guardar(Taller taller) {	
-		Authority auto = new Authority();
-		auto = autoservice.findOne(3);
+		//Authority auto = new Authority();
+		//auto = autoservice.findOne(3);
 		/*Usuario Usu = new Usuario();
 		Usu.setNo_empleado(taller.getNombre());
 		Usu.setNombre("");
@@ -81,8 +117,22 @@ public class TallerController {
 		tallerservice.save(taller);
 				
 		editar = false;	
-		return "redirect:Talleres";
+		return "redirect:/Talleres";
 	}
+	
+	@RequestMapping(value="/elimTaller/{id_taller}")
+	public String eliminar (@PathVariable(value="id_taller")Long id_taller) {
+		
+		Taller taller = new Taller();
+		taller=tallerservice.findOne(id_taller);
+		
+		if(!id_taller.equals(null)) {	
+			
+			tallerservice.delete(id_taller);
+		}
+		return "redirect:/Talleres";
+	}
+	
 /*
 	private String ObtenPass(String no_contrato) {
 		String bcryptPassword="";
@@ -99,7 +149,10 @@ public class TallerController {
 			@RequestParam(value="elemento") String elemento,Model model, Authentication authentication){						 
 		Pageable pageRequest = PageRequest.of(page, 100);
 		 Double Dato;
-
+		 var user="";	
+			
+	if(hasRole("ROLE_ADMIN")) {user ="ROLE_ADMIN";model.addAttribute("usuario",user);}else {if(hasRole("ROLE_USER")) {user = "ROLE_USER";model.addAttribute("usuario",user);}};	
+		
 		if(!elemento.isBlank()) {			
 				if(isValidDouble(elemento)) {
 						Dato = Double.parseDouble(elemento);
@@ -114,10 +167,12 @@ public class TallerController {
 			
 			model.addAttribute("talleres",tallerespage);
 			model.addAttribute("page",pageRender);
-			model.addAttribute("elemento",elemento);	
+			model.addAttribute("elemento",elemento);
+			model.addAttribute("PageTitulo", "Talleres");
+			model.addAttribute("titulo","Listado de Talleres");
 			return "Talleres/Talleres";
 		}else {
-			return "redirect:/Talleres/Talleres";
+			return "redirect:/Talleres";
 		}
 				
 		
@@ -152,7 +207,25 @@ public class TallerController {
 		  return Pattern.matches(fpRegex, s);
 	}
 	
-	
+	public static boolean hasRole(String role) {
+		SecurityContext context = SecurityContextHolder.getContext();
+		
+		if(context==null) {
+		return false;
+		}
+		
+		Authentication auth = context.getAuthentication();
+		
+		if(auth == null) {
+			return false;
+		}
+		
+		Collection<? extends GrantedAuthority> autorithies = auth.getAuthorities();
+		for(GrantedAuthority authority: autorithies) {
+			if(role.equals(authority.getAuthority())) {return true;}
+		}
+		return false;
+	}
 	
 
 }

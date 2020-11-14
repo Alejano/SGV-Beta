@@ -2,6 +2,7 @@ package com.PGJ.SGV.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,8 +55,24 @@ public class ResguardanteController {
 	
 	@RequestMapping(value="/infoResguardante/{id_vehiculo}", method = RequestMethod.GET)
 	public String infoResguardo(Model model,Authentication authentication,@RequestParam(name="page", defaultValue = "0") int page
-			,@PathVariable(value="id_vehiculo") long id_vehiculo) {						
-				
+			,@PathVariable(value="id_vehiculo") long id_vehiculo) {		
+		
+		var user="";	
+		if(hasRole("ROLE_ADMIN")) {
+			user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
+			}else {
+				if(hasRole("ROLE_USER")) {
+					user = "ROLE_USER"; model.addAttribute("usuario",user);
+				}else {
+					if(hasRole("ROLE_SEGURO")) {
+						user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
+					}else {
+						if(hasRole("ROLE_SINIESTRO")) {
+						user = "ROLE_SINIESTRO"; model.addAttribute("usuario",user);
+						}
+				   }
+			    }	
+			}
 		Pageable pageRequest = PageRequest.of(page, 500);
 		Vehiculo placa = new Vehiculo();
 		
@@ -94,7 +114,7 @@ public class ResguardanteController {
 		model.put("tiposResguardoS", tiposResguardoS);
 		model.put("conductores", conductoresdb);
 		model.put("usuarios",usuariosdb);
-		
+		model.put("titulo", "Formulario Resguardante");
 		return "vehiculos/AddResguardo";
 	}
 	
@@ -218,7 +238,7 @@ public class ResguardanteController {
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);
 		model.put("Tresguardante", Tresguardante);
-		
+		model.put("titulo", "Formulario Resguardante");
 		return "vehiculos/AddTResguardante";
 	}
 	
@@ -269,6 +289,27 @@ public class ResguardanteController {
 		model.put("Tresguardante", Tresguardante);				
 		return "redirect:/infoResguardante/"+vehi.getId_vehiculo();
 	}
+	
+	public static boolean hasRole(String role) {
+		SecurityContext context = SecurityContextHolder.getContext();
+		
+		if(context==null) {
+		return false;
+		}
+		
+		Authentication auth = context.getAuthentication();
+		
+		if(auth == null) {
+			return false;
+		}
+		
+		Collection<? extends GrantedAuthority> autorithies = auth.getAuthorities();
+		for(GrantedAuthority authority: autorithies) {
+			if(role.equals(authority.getAuthority())) {return true;}
+		}
+		return false;
+	}
+
 	
 
 }

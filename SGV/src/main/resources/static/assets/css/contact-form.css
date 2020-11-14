@@ -33,7 +33,7 @@ calc(100% - .5em) .5em;background-size:5px 6px, 6px 5px, 1.5em 1.5em;background-
 linear-gradient(135deg, #f58e03 50%, transparent 50%),
 radial-gradient(transparent 66%, transparent 66%);}
 .btn{font-size:16px;overflow:hidden;padding:6px 20px;text-transform:uppercase;}
-.btn-custom{background-color:#cd5c5d;border:1px solid 	#32CD32;color:#fff;-webkit-box-shadow:0 0 1px transparent;box-shadow:0 0 1px transparent;display:inline-block;position:relative;-moz-transform:perspective(1px) translateZ(0px);-webkit-transform:perspective(1px) translateZ(0px);-o-transform:perspective(1px) translateZ(0px);-ms-transform:perspective(1px) translateZ(0px);transform:perspective(1px) translateZ(0px);-webkit-transition-duration:0.3s;transition-duration:0.3s;-webkit-transition-property:color;transition-property:color;vertical-align:middle;}
+.btn-custom{background-color: #033076;border: 1px solid #000000;color:#fff;-webkit-box-shadow:0 0 1px transparent;box-shadow:0 0 1px transparent;display:inline-block;position:relative;-moz-transform:perspective(1px) translateZ(0px);-webkit-transform:perspective(1px) translateZ(0px);-o-transform:perspective(1px) translateZ(0px);-ms-transform:perspective(1px) translateZ(0px);transform:perspective(1px) translateZ(0px);-webkit-transition-duration:0.3s;transition-duration:0.3s;-webkit-transition-property:color;transition-property:color;vertical-align:middle;}
 .btn-custom::before{background-color#:32CD32;bottom:0;content:"";left:0;position:absolute;right:0;top:0;-moz-transform:scaleX(0);-webkit-transform:scaleX(0);-o-transform:scaleX(0);-ms-transform:scaleX(0);transform:scaleX(0);-webkit-transform-origin:50%;transform-origin:50%;-webkit-transition-property:transform;transition-property:transform;-webkit-transition-duration:0.3s;transition-duration:0.3s;-webkit-transition-timing-function:ease-out;transition-timing-function:ease-out;z-index:-1;}
 .btn-custom:hover, .btn-custom:focus, .btn-custom:active{border-color:#f58e03;}
 .btn-custom:hover::before, .btn-custom:focus::before, .btn-custom:active::before{-moz-transform:scaleX(1);-webkit-transform:scaleX(1);-o-transform:scaleX(1);-ms-transform:scaleX(1);transform:scaleX(1);}
@@ -41,7 +41,7 @@ radial-gradient(transparent 66%, transparent 66%);}
 .btn.focus, .btn:focus, .btn:hover{color:#fff;}
 .popup-form .form-group{position:relative;margin:0 0 30px;}
 .popup-form .input-group-icon{position:absolute;top:0;}
-.popup-form .form-group .input-group-icon{background-color:#cd5c5d;border:none;border-radius:4px;border-bottom-right-radius:0;border-top-right-radius:0;color:#fff;display:table-cell;font-size:14px;height:100%;padding:5px 7px 7px;text-align:center;vertical-align:top;white-space:nowrap;width:40px;}
+.popup-form .form-group .input-group-icon{background-color:#033076;border:none;border-radius:4px;border-bottom-right-radius:0;border-top-right-radius:0;color:#fff;display:table-cell;font-size:14px;height:100%;padding:5px 7px 7px;text-align:center;vertical-align:top;white-space:nowrap;width:40px;}
 .popup-form .form-control{background-color:transparent;border:1px solid #304f6f;padding-left:50px;}
 .popup-form .form-control:focus, .popup-form .has-error .form-control:focus{border-color:#f58e03;box-shadow:0 1px 1px rgba(245, 142, 3, 0.075) inset, 0 0 8px rgba(245, 142, 3, 0.6);}
 .popup-form .form-control:focus + .input-group-icon, #resetPassForm .has-error .form-control:focus + .input-group-icon{background-color:#f58e03;color:#fff;}

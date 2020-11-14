@@ -351,7 +351,7 @@ input, select, textarea {
 	.div-barra{
 	text-align: -webkit-center; 
 	padding: unset; 
-	margin-top: 10px;
+	
 	}
 	.div-footer{
 	padding: unset; 
@@ -404,7 +404,7 @@ input, select, textarea {
 	.card-image{
 		text-align: center;
     	text-align-last: center;
-		height: 210px;
+		height: 140px;
         width: 240px;
         margin-left: 3%;
         margin-right: 3%;
@@ -2103,7 +2103,7 @@ input, select, textarea {
 /* Form */
 
 	form {
-		margin: 0 0 2em 0;
+		 padding: .75rem 1.25rem;
 	}
 
 	label {
@@ -3691,7 +3691,7 @@ input, select, textarea {
 		}
 
 		#main > .main {
-			padding: 5em 5em 3em 5em ;
+			padding: 2em 5em 3em 5em ;
 			border-top: solid 1px #dddddd;
 		}
 
