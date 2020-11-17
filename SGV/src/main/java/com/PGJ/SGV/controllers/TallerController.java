@@ -55,7 +55,9 @@ public class TallerController {
 		List<Taller> talleres = new ArrayList<Taller>();
 		talleres = tallerservice.findAll();
 		if(tallerservice.totalTalleres()>=9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
-		model.addAttribute("talleres",talleres);		
+		model.addAttribute("talleres",talleres);
+		model.addAttribute("PageTitulo", "Talleres");
+		model.addAttribute("PageSubTitulo", "Listado de Talleres");
 
 		return "Talleres/Talleres";
 	}

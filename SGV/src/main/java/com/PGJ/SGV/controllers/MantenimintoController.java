@@ -80,6 +80,8 @@ public class MantenimintoController {
 			Page<Mantenimiento> MantAreaPage = mantService.FindMantenimientoAreaPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);
 			PageRender<Mantenimiento> MantRenderArea= new PageRender<>("/Mantenimientos",MantAreaPage);
 			if(mantService.totalMantenimiento()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+			model.addAttribute("PageTitulo", "Mantenimientos");
+			model.addAttribute("PageSubTitulo", "Listado de Mantenimientos");
 			model.addAttribute("mantenimientos",MantAreaPage);
 			model.addAttribute("page",MantRenderArea);
 			model.addAttribute("Mplaca",Mplaca);
@@ -90,7 +92,8 @@ public class MantenimintoController {
 		
 		Page<Mantenimiento> MantPage = mantService.findAll(pageRequest);
 		PageRender<Mantenimiento> MantRender= new PageRender<>("/Mantenimientos",MantPage);
-		if(mantService.totalMantenimiento()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};		
+		if(mantService.totalMantenimiento()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
+		model.addAttribute("PageTitulo", "Mantenimientos");
 		model.addAttribute("titulo","Listado de Mantenimientos");
 		model.addAttribute("mantenimientos",MantPage);
 		model.addAttribute("page",MantRender);
@@ -123,6 +126,8 @@ public class MantenimintoController {
 				Page<Mantenimiento> mantAreaPage = mantService.FindMantPlacaAreaPage(vehi.getId_vehiculo(), usus.getAdscripcion().getId_adscripcion(), pageRequest);
 				PageRender<Mantenimiento> mantRender = new PageRender<>("/Mantenimientos/{placa}",mantAreaPage);
 				
+				model.addAttribute("PageTitulo", "Mantenimientos");
+				model.addAttribute("PageSubTitulo", "Listado de Mantenimientos de la placa: "+vehi.getPlaca());
 				model.addAttribute("placa",vehi.getPlaca());	
 				model.addAttribute("id_vehiculo",vehi.getId_vehiculo());
 				model.addAttribute("mantenimientos",mantAreaPage);
@@ -135,6 +140,8 @@ public class MantenimintoController {
 			Page<Mantenimiento> mantPage = mantService.FindMantPlacaPage(vehi.getId_vehiculo(), pageRequest);
 			PageRender<Mantenimiento> mantRender = new PageRender<>("/Mantenimientos/"+vehi.getPlaca(),mantPage);
 				
+		model.addAttribute("PageTitulo", "Mantenimientos");
+		model.addAttribute("PageSubTitulo", "Listado de Mantenimientos de la placa: "+vehi.getPlaca());
 		model.addAttribute("titulo","Listado de Mantenimientos");
 		model.addAttribute("id_vehiculo",vehi.getId_vehiculo());
 		model.addAttribute("placa",vehi.getPlaca());

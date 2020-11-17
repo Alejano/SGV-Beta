@@ -52,7 +52,8 @@ public class RevistaController {
 		user = obuserService.obtenUser();
 		model.addAttribute("usuario",user);	
 			
-	    nombre= usuario.getNombre();		
+	    nombre= usuario.getNombre();	
+	    model.addAttribute("PageTitulo", "Revista Vehicular");
 	    model.addAttribute("id",authentication.getPrincipal());
 	    model.addAttribute("Online",nombre); 		   	
 	    model.addAttribute("adscripciones",ads); 		   		

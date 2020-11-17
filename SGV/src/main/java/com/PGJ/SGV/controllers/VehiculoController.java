@@ -121,6 +121,8 @@ public class VehiculoController {
 			model.addAttribute("Corddocu",Corddocu);
 			model.addAttribute("Cordtabla",Cordtabla);
 			model.addAttribute("thisurl","Vehiculos");
+			model.addAttribute("PageTitulo", "Vehiculos");
+            model.addAttribute("PageSubTitulo", "Listado de Vehiculos");
 			model.addAttribute("vehiculos",vehiculoPageAra);		
 			model.addAttribute("page",pageRender);
 			model.addAttribute("PageTitulo", "Vehiculos");
@@ -142,6 +144,8 @@ public class VehiculoController {
 		model.addAttribute("Cordtabla",Cordtabla);
 		model.addAttribute("thisurl","Vehiculos");
 		model.addAttribute("titulo","Listado de Vehiculos");
+		model.addAttribute("PageTitulo", "Vehiculos");
+        model.addAttribute("PageSubTitulo", "Listado de Vehiculos");
 		model.addAttribute("vehiculos",vehiculopage);
 		model.addAttribute("page",pageRender);
 		model.addAttribute("Clase","AUTOMOVIL");
@@ -175,6 +179,8 @@ public class VehiculoController {
 			model.addAttribute("Corddocu",Corddocu);
 			model.addAttribute("Cordtabla",Cordtabla);
 			model.addAttribute("thisurl","Vehiculos");
+			model.addAttribute("PageTitulo", "Vehiculos");
+            model.addAttribute("PageSubTitulo", "Listado de Vehiculos");
 			model.addAttribute("vehiculos",vehiculoPageAra);		
 			model.addAttribute("page",pageRender);
 			model.addAttribute("PageTitulo", "Vehiculos");
@@ -195,6 +201,8 @@ public class VehiculoController {
 		model.addAttribute("Cordtabla",Cordtabla);
 		model.addAttribute("thisurl","Vehiculos");
 		model.addAttribute("titulo","Listado de Vehiculos");
+		model.addAttribute("PageTitulo", "Vehiculos");
+        model.addAttribute("PageSubTitulo", "Listado de Vehiculos");
 		model.addAttribute("vehiculos",vehiculopage);
 		model.addAttribute("page",pageRender);
 		model.addAttribute("Clase",Clase);

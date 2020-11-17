@@ -80,6 +80,8 @@ public class SeguroController {
 			if(seguroService.totalSeguroAreaPage(usus.getAdscripcion().getId_adscripcion())>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 
 			model.addAttribute("titulo","Listado de Seguros");
+			model.addAttribute("PageTitulo", "Seguros");
+			model.addAttribute("PageSubTitulo", "Listado de Seguros");
 			model.addAttribute("auxiliar", aux);
 			model.addAttribute("seguros",SeguroAreaPage);
 			model.addAttribute("page",SeguroRenderArea);
@@ -92,6 +94,8 @@ public class SeguroController {
 		System.err.println(seguroService.totalSeguros());
 		
 		model.addAttribute("titulo","Listado de Seguros");
+		model.addAttribute("PageTitulo", "Seguros");
+		model.addAttribute("PageSubTitulo", "Listado de Seguros");
 		model.addAttribute("auxiliar", aux);
 		model.addAttribute("seguros",SeguroPage);
 		model.addAttribute("page",SeguroRender);
@@ -122,6 +126,8 @@ public class SeguroController {
 			PageRender<Seguro> SeguroRenderArea = new PageRender<>("/SegurosVehi",SeguroPage);
 			if(seguroService.totalSeguros()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 			model.addAttribute("titulo","Listado de Seguros");
+			model.addAttribute("PageTitulo", "Seguros");
+			model.addAttribute("PageSubTitulo", "Listado de Seguros de la placa: "+vehiculo.getPlaca());
 			model.addAttribute("id_vehiculo",vehiculo.getId_vehiculo());
 			model.addAttribute("auxiliar", aux);
 			model.addAttribute("seguros",SeguroPage);

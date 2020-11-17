@@ -70,6 +70,8 @@ public class UsuarioController {
 		PageRender <Usuario> usuarioRender = new PageRender<>("/Usuarios",usuarioPage);
 		if(usuarioService.totalUsuarios()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 		
+		model.addAttribute("PageTitulo", "Usuarios");
+        model.addAttribute("PageSubTitulo", "Listado de Usuarios");
 		model.addAttribute("usuarios",usuarioPage);
 		model.addAttribute("page",usuarioRender);
 		//model.addAttribute("autoridad",autoridad);
@@ -320,6 +322,8 @@ public class UsuarioController {
 
 		PageRender <Usuario> usuarioRender = new PageRender<>("/Bajas",usuarioPage);
 		if(usuarioService.totalUsuariosBajas()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+		model.addAttribute("PageTitulo", "Baja Usuarios");
+        model.addAttribute("PageSubTitulo", "Listado de Bajas Usuarios");
 		model.addAttribute("usuarios",usuarioPage);
 		model.addAttribute("page",usuarioRender);
 		model.addAttribute("Corddocu",Corddocu);

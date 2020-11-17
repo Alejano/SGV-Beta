@@ -1,6 +1,7 @@
 package com.PGJ.SGV.controllers;
 
 import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -36,7 +37,7 @@ public class HomeController {
 
 	String user;
 	@RequestMapping(value={"/","/home"}, method = RequestMethod.GET)
-	public String HomeBarra(Model model, Authentication authentication,HttpServletRequest request){
+	public String HomeBarra(Model model,Authentication authentication,HttpServletRequest request){
 		
 		var nombre="";
 		user = obuserService.obtenUser();
@@ -73,7 +74,7 @@ public class HomeController {
 	}
 	*/
 	
-	public static boolean hasRole(String role) {
+	public boolean hasRole (String role) {
 		SecurityContext context = SecurityContextHolder.getContext();
 		
 		if(context==null) {
@@ -81,7 +82,7 @@ public class HomeController {
 		}
 		
 		Authentication auth = context.getAuthentication();
-		
+	
 		if(auth == null) {
 			return false;
 		}
@@ -90,8 +91,10 @@ public class HomeController {
 		for(GrantedAuthority authority: autorithies) {
 			if(role.equals(authority.getAuthority())) {return true;}
 		}
+		
 		return false;
-	}
+		}
+	
 	
 	@MessageMapping("/hello")
     @SendTo("/topic/greetings")

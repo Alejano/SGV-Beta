@@ -40,6 +40,8 @@ public class AdscripcionController {
 		
 		adscripciones = adscripService.findAll();
 		if(adscripService.adscripcionestotales()>= 4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
+		model.addAttribute("PageTitulo", "Adscripciones");
+		model.addAttribute("PageSubTitulo","Listado de Adscripciones");
 		model.addAttribute("titulo","Listado de Adscripciones");
 		model.addAttribute("adscripciones",adscripciones);
 		model.addAttribute("usuario",user);	

@@ -45,6 +45,8 @@ public class AseguradoraController {
 		
 		if(asegService.aseguradorastotales()>= 5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 
+		model.addAttribute("PageTitulo", "Aseguradoras");
+		model.addAttribute("PageSubTitulo","Listado de Aseguradoras");
 		model.addAttribute("titulo","Listado de Aseguradoras");
 		model.addAttribute("usuario",user);	
 		model.addAttribute("aseguradoras",aseguradora);

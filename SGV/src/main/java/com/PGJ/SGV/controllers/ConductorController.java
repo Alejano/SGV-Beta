@@ -70,7 +70,9 @@ public class ConductorController {
 			Page<Conductor> conductorareapage = conductorService.findConductorAreaPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);
 			PageRender<Conductor> pageRenderArea = new PageRender<> ("/Conductores",conductorareapage);
             if(conductorService.totalConductores()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");}
-			model.addAttribute("conductores",conductorareapage);
+            model.addAttribute("PageTitulo", "Conductores");
+            model.addAttribute("PageSubTitulo", "Listado de Conductores");
+            model.addAttribute("conductores",conductorareapage);
 			model.addAttribute("page",pageRenderArea);			
 			return "Conductores";
 		}
@@ -85,6 +87,7 @@ public class ConductorController {
 		model.addAttribute("conductores",conductorPage);
 		model.addAttribute("page",pageRender);	
 		model.addAttribute("PageTitulo", "Conductores");
+        model.addAttribute("PageSubTitulo", "Listado de Conductores");
 		return "Conductores";
 	}
 		
@@ -363,6 +366,8 @@ public class ConductorController {
 			Page<Conductor> conductorareapage = conductorService.findConductorAreaBajasPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);
 			PageRender<Conductor> pageRenderArea = new PageRender<> ("/Conductores",conductorareapage);
 			if(conductorService.totalConductorAreaBajas(usus.getAdscripcion().getId_adscripcion())>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
+			model.addAttribute("PageTitulo", "Baja Conductores");
+            model.addAttribute("PageSubTitulo", "Listado de Bajas Conductores");
 			model.addAttribute("conductores",conductorareapage);
 			model.addAttribute("page",pageRenderArea);			
 			return "BajasCond";
@@ -374,6 +379,8 @@ public class ConductorController {
 		if(conductorService.totalConductoresBajas()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		model.addAttribute("Corddocu",Corddocu);
 		model.addAttribute("Cordtabla",Cordtabla);
+		model.addAttribute("PageTitulo", "Baja Conductores");
+		model.addAttribute("PageSubTitulo", "Listado de Bajas Conductores");
 		model.addAttribute("conductores",conductorPage);
 		model.addAttribute("page",pageRender);	
 		return "BajasCond";
