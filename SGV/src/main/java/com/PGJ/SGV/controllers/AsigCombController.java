@@ -54,7 +54,7 @@ public class AsigCombController {
 		
 		Vehiculo vehiculo = new Vehiculo();
 		vehiculo = vehiculoService.findOne(id_vehiculo);
-		
+		System.out.println( "el mes es: " + ObtenMonth.obtenNumMes());
 		combustiblePlacaMes = AsigCombus.findidVehiculoMensual(vehiculo.getId_vehiculo(),ObtenMonth.obtenNumMes());
 	
 		if(!combustiblePlacaMes.isEmpty()) {
@@ -130,7 +130,7 @@ public class AsigCombController {
 		model.put("combustible",combustible );	
 		model.put("placa", combustible.getVehiculo().getPlaca());
 		model.put("combustibleExt",extra);				
-		model.put("titulo", "Formulario de Combustible");
+		model.put("titulo", "Formulario de Combustible Extemporaneo de la placa: "+combustible.getVehiculo().getPlaca());
 		model.put("mes", ObtenMonth.obtenMes());
 							
 		return "combustible/formCombExt";

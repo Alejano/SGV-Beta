@@ -56,7 +56,7 @@
 											
 											<div style=" width: 100%;">
 												
-												<h2 class="titulotabla" id="todo"  >Listado de todos los vehiculos</h2>
+												<h2 class="titulotabla" id="todo"  th:text="${PageSubTitulo}"></h2>
 												
 										
 												<div class="col-md-6"></div>
@@ -191,7 +191,7 @@
 					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{Mantenimientos/} " id="man" th:text="'Ver y asignar mantenimiento'" ></a>
 				</div>
 				<div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}"  data-value="5" class="optionModal">
-					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{/VehiViaj/} " id="via" th:text="'Agregar viajes mensuales'" ></a>
+					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{/VehiViaj/} " id="via" th:text="'Ver y asignar viajes mensuales'" ></a>
 				</div>
 				<div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER' or usuario == 'ROLE_SEGURO'}"  data-value="6" class="optionModal">
 					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{/ListarSeguros/}" th:text="'Ver y asignar seguros'" id="eg" ></a>
@@ -363,7 +363,7 @@
 		 $("#edi").prop("href","/formVehi/"+id);
 		 $("#baj").prop("href","/formBaja/"+id);
 		 $("#man").prop("href","Mantenimientos/"+id);
-		 $("#via").prop("href","/VehiViaj/"+id);
+		 $("#via").prop("href","/ListarViajes/"+id);
 		 $("#eg").prop("href","/ListarSeguros/"+id);
 		 $("#comb").prop("href","/ListarCombustible/"+id);
 		 $("#inf").prop("href","/info/"+id);

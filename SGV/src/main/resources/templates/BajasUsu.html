@@ -1,91 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <title>Bajas Usuario</title>
-<head>
 	<meta charset="utf-8">
-	<meta content="IE=edge" http-equiv="X-UA-Compatible">
-	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
-	<link href="favicon.html" rel="icon">
-	<link rel="stylesheet" th:href="@{assets/css/estilos.css}">
-	<link rel="stylesheet" th:href="@{assets/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{assets/css/font-awesome.min.css}">
-	<link rel="stylesheet" th:href="@{assets/css/contact-form.css}" type="text/css">
-	<script src="/assets/js/jquery-3.4.1.min.js"></script>
-	<script src="https://kit.fontawesome.com/4b484f74be.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-	
-</head>
+	<head th:replace="/layout/layoutHead :: head"></head>
 <body th:onload="'Scrol(\''+${Corddocu}+'\',\'' +${Cordtabla}+'\');'">
-	<header>
-		<div>
-		<div class="heades" >
-			<img th:src="@{images/pgj.png}" class="logopgj">
-			<div class="dropdown menuGen"  >
-				  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    <i class="fas fa-user-cog"></i>
-				  </a>
-				
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		  			<form th:action="@{/logout}" method="post" id="loggout" style="margin-bottom: 3px; margin-left: 5px;">
-				        <button class="btn btn-outline-success" onclick="document.getElementById('loggout').submit()" type="submit" style="color:green !important">Cerrar sesion</button>
-				    	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-				    </form>	
-				    <form  th:action="@{/perfil}" style="margin-bottom: 3px; margin-left: 5px;">
-						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Perfil</button>					    	
-						    </form>
-				    <form th:action="@{/Adscripciones}" style="margin-bottom: 3px; margin-left: 5px;">
-						        <button class="btn btn-outline-success" type="submit" value="enviar" style="color:green !important">Adscripciones</button>					    	
-					</form>
-				  </div>
-			</div>			
-		</div>
-		
-	
-                <div class="TituloCon"></div>
-		<div class="form-group last col-sm-12 nav-listado">
-		<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/home}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-home fa-2x" style="margin-top: 10%;"></i></a>
-		
-		<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Usuarios}' style="width: 48px; height: 34px; float: right; margin-right: 1%;margin-top: 5px;"><i class="fas fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%;"></i></a>
-			
-			<div id="button" class="form-group last col-sm-4"> 				 			
-	 				<div class="dropdown" style=" margin-top: 5%; margin-right: 10%" >
-						  <a class="btn btn-secondary dropdown-toggle btn-stilo" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						   Menu
-						  </a>
-						
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">						  							 
-						    <form th:action="@{/Viajes}" style="margin-bottom: 3px; margin-left: 5px;" >
-						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Viajes</button>					    	
-				    		</form>
-				    		  <form th:action="@{/Usuarios}" style="margin-bottom: 3px; margin-left: 5px;" >
-						        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Usuarios</button>					    	
-				    		</form>							    
-						    <form th:action="@{/Vehiculos}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Vehiculo</button>					    	
-						    </form>
-						     <form th:action="@{/Seguros}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Seguros</button>					    	
-						    </form>
-						      <form th:action="@{/Conductores}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Conductores</button>					    	
-						    </form>	
-						    <form th:action="@{/Mantenimientos}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Mantenimiento</button>					    	
-						    </form>						    
-						    <form th:action="@{/Adscripciones}" style="margin-bottom: 3px; margin-left: 5px;" >
-								        <button class="btn btn-outline-success btn-menu" type="submit" value="enviar" >Adscripciones</button>					    	
-						    </form>							 
-						   		
-						  </div>
-					</div>			
- 				
- 			</div> 			
-		</div>
-		<div class="titulocontainer">
-			<h1 class="item-title text-right StituloCon">Baja Usuarios</h1>
-		</div>
-</div>
-	</header>
+	<header th:replace="/layout/layoutHead :: header"></header>
 
 	
 	<section>
@@ -97,15 +16,21 @@
 	                            <div class="item-wrap">
 	                                <div class="row" style="text-align: center;">
 	                                		<div class=" col-md-12" id="Contenedorbuscar" >
-	                                			<div class="col-md-5" > <p style="text-align: right;">Buscar</p></div> 
 	                                			
-	                                        	<form id="Busqueda" class="col-md-6" th:action="@{/formUsuBajaBuscar}">											       											       
-											         <input id="searchTerm" th:value=*{elemento} class="form-control col-md-5" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required"/>												           
-											           <button type="submit" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="margin-top: 1%;margin-left: 1%;margin-right: 1%;">Buscar</button>										
-											    		<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/BajasUsu}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%;"></i></a>
+	                                			
+	                                        	<form id="Busqueda" class="col-md-12 enlineaform" th:action="@{/formUsuBajaBuscar}">		
+	                                        		<div class="col-md-1 enlineaform" > <p style="text-align: right;">Buscar</p></div> 									       											       
+											        <div class="col-md-5 enlineaform" >
+											        <input id="searchTerm" th:value=*{elemento} class="form-control" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required"/>												           
+											        </div>
+											        <div class="col-md-5 enlineaform" >
+											        <button type="submit" class="btn btn-primary btn-xs btn-stilo" ><i class="fas fa-search fa-2x"></i></button>										
+											    	<a class="btn btn-primary btn-xs btn-stilo" th:href='@{/BajasUsu}'><i class="fas fa-sync-alt fa-2x" ></i></a>
+											    	</div>
+											    	
 											    </form>
 											    
-											     <div id="coincidencias" class="col-md-8"></div>
+											     <div id="coincidencias" class="col-md-8 enlineaform"></div>
 											</div>
 	                                    <div class="col-md-12">
 	                                        <h2 th:text="${titulo}" class="titulotabla"  ></h2>
@@ -135,15 +60,15 @@
 													<!--<td th:text="${usuariosql.fecha_alta}" class="celda"></td>-->	
 
 													<td th:switch="${usuariosql.enabled} == true" class="celda">															
-															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="true" class="btn btn-success btn-xs sel" th:href="@{/estadoUsu/} +${usuariosql.no_empleado}+'/'+${usuariosql.enabled}"  th:text="Activo" style="width: 70px;"></a>
-															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="false" class="btn btn-danger btn-xs sel" th:href="@{/estadoUsu/} +${usuariosql.no_empleado}+'/'+${usuariosql.enabled}"  th:text="Inactivo" style="width: 70px;"></a>																								
+															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="true" class="btn btn-success btn-xs sel" th:href="@{/estadoUsu/} +${usuariosql.no_empleado}+'/'+${usuariosql.enabled}"  th:text="Activo" ></a>
+															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="false" class="btn btn-danger btn-xs sel" th:href="@{/estadoUsu/} +${usuariosql.no_empleado}+'/'+${usuariosql.enabled}"  th:text="Inactivo"></a>																								
 													</td>
 													
 													
 																																		
 											        <td
                                                             class="celda">
-														    <a class="btn btn-primary btn-xs btn-stilo" th:href="@{/RecuperarUsu/} +${usuariosql.no_empleado}" onclick="return confirm('Seguro que desea recuperar el usuario?');" th:text="Recuperar"></a>										
+														    <a class="btn btn-primary btn-xs sel" th:href="@{/RecuperarUsu/} +${usuariosql.no_empleado}" onclick="return confirm('Seguro que desea recuperar el usuario?');" th:text="Recuperar"></a>										
 										
 													</td>
 													
@@ -253,9 +178,7 @@
     	  tecla = (document.all) ? e.keyCode :e.which;
     	  return (tecla!=13);
     	} 
-    $('.sel').click(function(event) {
-        event.preventDefault();
-     });
+  
 	    
     </script>
     

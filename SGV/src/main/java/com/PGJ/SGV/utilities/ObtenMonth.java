@@ -12,7 +12,7 @@ public class ObtenMonth {
 		
 		mes = calen.get(Calendar.MONTH)+1;
 	       
-	      System.out.println(mes);
+	     // System.out.println(mes);
 	   
 	      switch (mes){
 	       case 1: name="Enero";
@@ -44,7 +44,7 @@ public class ObtenMonth {
 	       
 	   }
 	   
-	     System.err.println(name);
+	    // System.err.println(name);
 	     return name;
 	   }
 	
@@ -77,7 +77,7 @@ public class ObtenMonth {
 	               break;
 	       case 10: name="10";
 	               break;
-	       case 11: name="22";
+	       case 11: name="11";
 	               break;
 	       case 12: name="12";
 	               break;

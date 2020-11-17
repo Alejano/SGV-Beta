@@ -29,7 +29,7 @@
 											    <div id="coincidencias" class="col-md-8"></div>
 											</div>
 	                                    <div class="col-md-12">
-	                                        <h2 th:text="${titulo}" class="titulotabla"  ></h2>
+	                                        <h2 th:text="${PageSubTitulo}" class="titulotabla"  ></h2>
 										<table class="table table-striped table-bordered fixed_header " id="UsuariosT">
 											<thead class="table-success">
 												<tr>
@@ -182,14 +182,12 @@
     	  tecla = (document.all) ? e.keyCode :e.which;
     	  return (tecla!=13);
     	} 
-    $('.sel').click(function(event) {
-        event.preventDefault();
-     });
-	    
+ 
     </script>
     
     <script src="/assets/js/CambiosEstado.js"></script>
-	
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
 	<!-- Popper js -->
 	<script src="/assets/js/popper.min.js"></script>
 	<!-- Form Validator -->
@@ -197,9 +195,7 @@
 	<!-- Contact Form Js -->
 	<script src="/assets/js/contact-form.js"></script>
 	<!-- Fontawesome -->
-    <script th:src="@{/assets/fontawesome/js/all.js}"></script>
-	<!-- jQuery Library -->
-	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+    <script th:src="@{/assets/fontawesome/js/all.js}"></script>	
 	<!-- Bootstrap Js -->
 	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 

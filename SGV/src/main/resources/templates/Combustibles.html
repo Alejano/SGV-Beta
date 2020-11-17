@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <title>Combustible</title>
-<head th:replace="/layout/layoutHead :: head"></head>
+	<meta charset="utf-8">
+	<head th:replace="/layout/layoutHead :: head"></head>
 <body>
 	<header th:replace="/layout/layoutHead :: header"></header>
 	
@@ -44,9 +45,9 @@
 													<td th:text="${combustiblesql.fecha_ini_ord}"></td>	
 													<td th:text="${combustiblesql.fecha_fin_ord}"></td>																									
 													<td th:if="${usuario} == 'ROLE_ADMIN' ">
-													<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/formComb/}+${combustiblesql.id_asignacion}" th:text="editar" style="width: 100px;"></a>
-													<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/elimComb/}+${combustiblesql.id_asignacion}+'/'+ ${id_vehiculo}" onclick="return confirm('Seguro que desea eliminar?');" th:text="eliminar" style="width: 100px;"></a>
-													<a class="btn btn-primary btn-xs btn-stilo" th:if="${existeAsignacion}" th:href="@{/Addext/}+${combustiblesql.id_asignacion}"  th:text="'Asignar Extemporaneo'" style="width: 200px;"></a>													
+													<a class="btn btn-primary btn-xs sel" th:href="@{/formComb/}+${combustiblesql.id_asignacion}"><i class="fas fa-pencil-alt fa-2x"></i></a>
+													<a class="btn btn-primary btn-xs sel" th:href="@{/elimComb/}+${combustiblesql.id_asignacion}+'/'+ ${id_vehiculo}" onclick="return confirm('Seguro que desea eliminar?');" ><i class="fas fa-trash-alt fa-2x"></i></a>
+													<a class="btn btn-primary btn-xs sel" th:if="${existeAsignacion}" th:href="@{/Addext/}+${combustiblesql.id_asignacion}"  th:text="'Asignar Extemporaneo'" style="width: 200px;"></a>													
 													</td>
 												</tr>
 												<tr><td colspan="3" th:text="'Asignaciones Extraordinarias'"></td></tr>
