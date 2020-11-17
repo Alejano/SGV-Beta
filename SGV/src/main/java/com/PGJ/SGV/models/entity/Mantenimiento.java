@@ -1,17 +1,13 @@
 package com.PGJ.SGV.models.entity;
 
 import java.io.Serializable;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -261,5 +257,12 @@ public class Mantenimiento implements Serializable {
 	}
 
 	private static final long serialVersionUID = 1L;
+	
+	@Override
+	public String toString() {
+		return "ID MANT:"+id_mantenimiento+ ";" +"ID VEHI:"+vehiculo.getId_vehiculo()+ ";" +"PLACA:"+vehiculo.getPlaca()+ ";" 
+	            +"COSTO:" + costo_mantenimiento + ";" + "FECHA SOLICITUD:" + fecha_solicitud + ";" + "NO ORDEN:"+ no_orden + ";"  
+				+ "TIPO:"+ tipo_mantenimiento + ";" +  "FECHA ORDEN:" + fecha_orden+ ";" +  "NO OFICIO:"+ no_oficio ;  
+	}
 
 }

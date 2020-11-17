@@ -19,6 +19,7 @@ import com.PGJ.SGV.models.entity.Greeting;
 import com.PGJ.SGV.models.entity.MessageNotify;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.service.IMantenimientoService;
+import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IUsuarioService;
 
 @Controller
@@ -30,34 +31,21 @@ public class HomeController {
 	private IUsuarioService usuarioService;
 	@Autowired
 	private IMantenimientoService mantenimientoService;
+	@Autowired
+	private IObtenerUserService obuserService;
 
-	
+	String user;
 	@RequestMapping(value={"/","/home"}, method = RequestMethod.GET)
 	public String HomeBarra(Model model, Authentication authentication,HttpServletRequest request){
-		var nombre="";
-		var user="";
 		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.addAttribute("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-					}else {
-						if(hasRole("ROLE_TALLER")) {
-							user = "ROLE_TALLER"; model.addAttribute("usuario",user);
-						}
-					}
-				}	
-			};
+		var nombre="";
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);
 			
 		usuario = usuarioService.findOne(authentication.getName());
 		nombre= usuario.getNombre();		
-	   model.addAttribute("id",authentication.getPrincipal());
-	   model.addAttribute("Online",nombre); 		   	
-	   
+	    model.addAttribute("id",authentication.getPrincipal());
+	    model.addAttribute("Online",nombre); 		   	
 	   
 		return "home";
 	}

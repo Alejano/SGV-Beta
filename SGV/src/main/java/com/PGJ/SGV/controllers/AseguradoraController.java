@@ -1,14 +1,10 @@
 package com.PGJ.SGV.controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +15,9 @@ import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.Vehiculo;
 import com.PGJ.SGV.service.IAseguradoraService;
 import com.PGJ.SGV.service.ILogsAuditService;
+import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.utilities.ObtenHour;
 import com.PGJ.SGV.utilities.SystemDate;
-
-
 
 @Controller
 public class AseguradoraController {
@@ -33,36 +28,27 @@ public class AseguradoraController {
 	private IAseguradoraService asegService;
 	@Autowired
 	private ILogsAuditService logsauditService;
+	@Autowired
+	private IObtenerUserService obuserService;
 	
 	Vehiculo vehiculo = new Vehiculo();
-	static String user="";
+	String user;
 	public static boolean editar = false;
 	Long id_aseg;
 
-
+	
 	@RequestMapping(value="/Aseguradoras", method = RequestMethod.GET)
-	public String listar(Model model,Authentication authentication) {
+	public String listar(Model model) {
 		
-
-		var user="";	
-				if(hasRole("ROLE_ADMIN")) {
-					user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-					}else {
-						if(hasRole("ROLE_USER")) {
-							user = "ROLE_USER"; model.addAttribute("usuario",user);
-						}else {
-							if(hasRole("ROLE_SEGURO")) {
-								user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-							}
-						}	
-					}
-
+		user = obuserService.obtenUser();
 		aseguradora = asegService.findAll();
 		
 		if(asegService.aseguradorastotales()>= 5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 
 		model.addAttribute("titulo","Listado de Aseguradoras");
+		model.addAttribute("usuario",user);	
 		model.addAttribute("aseguradoras",aseguradora);
+		
 		return "Aseguradoras/Aseguradoras";
 
 	}
@@ -102,17 +88,6 @@ public class AseguradoraController {
 	@RequestMapping(value="/estadoAseg/{id_aseguradora}/{enabled}")
 	public String estado (@PathVariable(value="id_aseguradora")Long id_aseguradora,@PathVariable(value="enabled")boolean enabled,Authentication authentication) {
 		
-		var user="";
-		var no_user ="";
-		no_user = authentication.getName();
-		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER";
-				}
-			}
 		
 		Aseguradora aseguradora = null;
 		boolean seteo = false;
@@ -137,8 +112,8 @@ public class AseguradoraController {
 		
      	LogsAudit logs = new LogsAudit();
      	
-        logs.setId_usuario(no_user);
-		logs.setTipo_role(user);
+     	logs.setId_usuario(obuserService.obtenEmpl());
+ 		logs.setTipo_role(obuserService.obtenUser());
 		logs.setFecha(SystemDate.obtenFecha());
 		logs.setHora(ObtenHour.obtenHour());
 		logs.setName_table("ASEGURADORAS");
@@ -173,20 +148,7 @@ public class AseguradoraController {
 	}
 	
 	@RequestMapping(value="/formAseg",method = RequestMethod.POST)
-	public String guardar(Aseguradora aseguradora,Authentication authentication) {	
-
-		var user="";
-		var no_user ="";
-		no_user = authentication.getName();
-		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER";
-				}
-			}
-		
+	public String guardar(Aseguradora aseguradora) {	
 		
 		if(editar == true) {
 			
@@ -203,8 +165,8 @@ public class AseguradoraController {
 			
          	LogsAudit logs = new LogsAudit();
          	
-            logs.setId_usuario(no_user);
-			logs.setTipo_role(user);
+         	logs.setId_usuario(obuserService.obtenEmpl());
+     		logs.setTipo_role(obuserService.obtenUser());
 			logs.setFecha(SystemDate.obtenFecha());
 			logs.setHora(ObtenHour.obtenHour());
 			logs.setName_table("ASEGURADORAS");
@@ -214,7 +176,6 @@ public class AseguradoraController {
 			logsauditService.save(logs);
 			editar = false;	
 			
-		
 		}else {
 		
 		asegService.save(aseguradora);
@@ -224,8 +185,8 @@ public class AseguradoraController {
 		
      	LogsAudit logs = new LogsAudit();
      	
-        logs.setId_usuario(no_user);
-		logs.setTipo_role(user);
+     	logs.setId_usuario(obuserService.obtenEmpl());
+ 		logs.setTipo_role(obuserService.obtenUser());
 		logs.setFecha(SystemDate.obtenFecha());
 		logs.setHora(ObtenHour.obtenHour());
 		logs.setName_table("ASEGURADORAS");
@@ -235,9 +196,6 @@ public class AseguradoraController {
 		logsauditService.save(logs);
 		
 		}
-		
-		//asegService.save(aseguradora);
-		//editar = false;	
 		
 		return "redirect:Aseguradoras";
 	}
@@ -251,24 +209,4 @@ public class AseguradoraController {
 		return "redirect:/Aseguradoras";
 	}
 
-	public static boolean hasRole(String role) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		
-		if(context==null) {
-		return false;
-		}
-		
-		Authentication auth = context.getAuthentication();
-		
-		if(auth == null) {
-			return false;
-		}
-		
-		Collection<? extends GrantedAuthority> autorithies = auth.getAuthorities();
-		for(GrantedAuthority authority: autorithies) {
-			if(role.equals(authority.getAuthority())) {return true;}
-		}
-		return false;
-	}
-	
 }

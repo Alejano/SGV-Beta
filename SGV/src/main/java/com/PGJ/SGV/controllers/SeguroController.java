@@ -3,7 +3,6 @@ package com.PGJ.SGV.controllers;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -11,10 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,16 +18,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.PGJ.SGV.models.entity.Aseguradora;
+import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.Seguro;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.models.entity.Vehiculo;
 import com.PGJ.SGV.service.IAseguradoraService;
+import com.PGJ.SGV.service.ILogsAuditService;
+import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.ISeguroService;
 import com.PGJ.SGV.service.IUploadFileService;
 import com.PGJ.SGV.service.IUsuarioService;
 import com.PGJ.SGV.service.IVehiculoService;
 import com.PGJ.SGV.util.paginador.PageRender;
-
+import com.PGJ.SGV.utilities.ObtenHour;
+import com.PGJ.SGV.utilities.SystemDate;
 
 @Controller
 public class SeguroController {
@@ -41,7 +40,6 @@ public class SeguroController {
 	List<Seguro> seguros = new ArrayList<Seguro>();
 	List<Aseguradora> aseguradora = new ArrayList<Aseguradora>();
 
-	static String user="";
 	@Autowired
 	private ISeguroService seguroService;
 	@Autowired
@@ -53,30 +51,24 @@ public class SeguroController {
 	@Autowired
 	private IUsuarioService usuarioService;
 	@Autowired
-	private IAseguradoraService asegService;
+	private ILogsAuditService logsauditService;
+	@Autowired
+	private IObtenerUserService obuserService;
 	
 	boolean editar = false;
 	boolean aux=false;
 	Long id_vehi;
+	String user;
 	
 	@RequestMapping(value="/Seguros", method = RequestMethod.GET)
-	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model,Authentication authentication) {	
+	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model) {	
 			
 		aux=false;
-		var ads="";			
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.addAttribute("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-					}
-				}	
-			}
-
-		ads = authentication.getName();
+		var ads="";
+		ads = obuserService.obtenEmpl();
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);	
+		
 		Pageable pageRequest = PageRequest.of(page, 100);
 		
 		if(user.equals("ROLE_USER")){
@@ -107,27 +99,15 @@ public class SeguroController {
 		
 	}
 		
+	
 	@RequestMapping(value="/ListarSeguros/{id_vehiculo}", method = RequestMethod.GET)
-	public String listarpv(@PathVariable(value="id_vehiculo") Long id_vehiculo,@RequestParam(name="page", defaultValue = "0") int page,Model model,Authentication authentication) {	
+	public String listarpv(@PathVariable(value="id_vehiculo") Long id_vehiculo,@RequestParam(name="page", defaultValue = "0") int page,Model model) {	
 	
 		aux=true;
-		var ads="";		
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);		
 		id_vehi=id_vehiculo;
 		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.addAttribute("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-					}
-				}	
-			}
-		
-		
-		ads = authentication.getName();
 		Pageable pageRequest = PageRequest.of(page, 100);
 		
 		//if(user.equals("ROLE_USER")){
@@ -147,44 +127,18 @@ public class SeguroController {
 			model.addAttribute("seguros",SeguroPage);
 			model.addAttribute("page",SeguroRenderArea);
 			return "SegurosVehi";
-		//}
-	
-		/*Vehiculo vehiculo = new Vehiculo();
-		vehiculo = vehiculoService.findOne(id_vehiculo);
-		Page<Seguro> SeguroPage = seguroService.FindsegVehi(vehiculo.getId_vehiculo(),pageRequest);
-		PageRender<Seguro> SeguroRender = new PageRender<>("/SegurosVehi",SeguroPage);
-		if(seguroService.totalSeguros()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
-		model.addAttribute("titulo","Listado de Polizas");
-		model.addAttribute("id_vehiculo",vehiculo.getId_vehiculo());
-		model.addAttribute("auxiliar", aux);
-		model.addAttribute("seguros",SeguroPage);
-		model.addAttribute("page",SeguroRender);
-		return "SegurosVehi";
-		*/
+
 	}
 
 	
 	@RequestMapping(value="/formSeg/Ag/{id_vehiculo}")
-	public String crear(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object> model,Authentication authentication) {
+	public String crear(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object> model) {
 
 		editar=false;
-		var ads="";						
-		ads = authentication.getName();
-		var user="";
+		user = obuserService.obtenUser();
+		model.put("usuario",user);	
 		Seguro seguro = new Seguro();
 		Vehiculo vehi= new Vehiculo();
-		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.put("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.put("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.put("usuario",user);
-					}
-				}	
-			}
 		
 		if(user.equals("ROLE_USER")){
 			
@@ -257,8 +211,8 @@ public class SeguroController {
 	
 	
 	@RequestMapping(value = "/formSeg", method = RequestMethod.POST)
-	public String guardar(Seguro seguro, @RequestParam("file") MultipartFile documento) {
-		
+	public String guardar(Seguro seguro, @RequestParam("file") MultipartFile documento,Map<String,Object> model) {
+					
 		Vehiculo vehiculos =new Vehiculo();
 		
 		if (!documento.isEmpty()) {
@@ -276,24 +230,62 @@ public class SeguroController {
 		}
 				
 		if(editar == true) {
+			
+			//Seguro OLD
+		    
+			Seguro seguro_old = null;
+			seguro_old = seguroService.findOne(seguro.getId_seguro());
+		    System.err.println("old:"+seguro_old.toString());
+		    String valor_old = seguro_old.toString();
+		    		    
 			System.err.println("entroeditar: "+seguro.getId_seguro());
 			vehiculos = vehiculoService.findOne(seguro.getVehiculo().getId_vehiculo());	
 			seguro.setVehiculo(vehiculos);
 			seguroService.save(seguro);
+			
+			//Auditoria
+			
+         	LogsAudit logs = new LogsAudit();
+         	
+         	logs.setId_usuario(obuserService.obtenEmpl());
+    		logs.setTipo_role(obuserService.obtenUser());
+			logs.setFecha(SystemDate.obtenFecha());
+			logs.setHora(ObtenHour.obtenHour());
+			logs.setName_table("SEGUROS");
+			logs.setValor_viejo(valor_old);
+			logs.setTipo_accion("UPDATE");
+									
+			logsauditService.save(logs);
+			
 			editar = false;	
 			
 		}else {
 		
 	    System.err.println("entrocrear: "+seguro.getId_seguro());
 		vehiculos = vehiculoService.findOne(seguro.getVehiculo().getId_vehiculo());						
-		seguro.setVehiculo(vehiculos);
+		seguro.setVehiculo(vehiculos);		
 		seguroService.save(seguro);
+		String valor_nuevo=seguro.toString();
+		
+		//Auditoria
+		
+     	LogsAudit logs = new LogsAudit();
+     	
+     	logs.setId_usuario(obuserService.obtenEmpl());
+		logs.setTipo_role(obuserService.obtenUser());
+		logs.setFecha(SystemDate.obtenFecha());
+		logs.setHora(ObtenHour.obtenHour());
+		logs.setName_table("SEGUROS");
+		logs.setValor_viejo(valor_nuevo);
+		logs.setTipo_accion("INSERT");
+								
+		logsauditService.save(logs);
+		
 		}
 		
 		return "redirect:ListarSeguros/"+seguro.getVehiculo().getId_vehiculo();
 	
     } 
-
 	
 	@RequestMapping(value="/elimSeg/{id_seguro}/{documento}")
 	public String eliminar (@PathVariable(value="id_seguro")Long id_seguro,@PathVariable(value="documento")String documento) {
@@ -319,28 +311,15 @@ public class SeguroController {
 	
 	
 	@RequestMapping(value="/formSegBuscarPv")
-	public String Buscartablapv(@RequestParam(name="page", defaultValue = "0") int page,Authentication authentication,
+	public String Buscartablapv(@RequestParam(name="page", defaultValue = "0") int page,
 		@RequestParam(value="elemento") String elemento,Model model){	
 		
 		 aux=true;
 		 Pageable pageRequest = PageRequest.of(page, 100);
-		 var ads="";		
-		 ads = authentication.getName();
+		 user = obuserService.obtenUser();
+		 model.addAttribute("usuario",user);
 		 String elementof="";
 		 
-			 if(user.equals("ROLE_ADMIN")) {
-				 model.addAttribute("usuario",user);
-				}else {
-					if(user.equals("ROLE_USER")) { 
-						model.addAttribute("usuario",user);
-						}else {
-							if(user.equals("ROLE_SEGURO")) {
-								model.addAttribute("usuario",user);
-							}
-						}
-					};
-				
-				
 		 if(!elemento.isBlank()) {			
 							if(isValidDouble(elemento)) {
 								Double Dato = Double.parseDouble(elemento);
@@ -348,21 +327,7 @@ public class SeguroController {
 									elemento = formt.format(Dato);
 									elemento = elemento.replaceAll(",","");	
 							};
-						/*if(user.equals("ROLE_USER")) {
-						 Usuario usus = new Usuario();
-						 usus = usuarioService.findbyAdscripcion(ads);
-						 elementof = elemento.toUpperCase(); 
-						  //  Page<Seguro> segurospage = seguroService.FindSegElemVehiAreaPage(id_vehi, usus.getAdscripcion().getId_adscripcion(), elementof, pageRequest);
-							Page<Seguro> segurospage= seguroService.FindSegElemVehiPage(id_vehi, elementof, pageRequest);
-						    PageRender<Seguro> pageRender = new PageRender<>("/formSegBuscarPv?elemento="+elementof, segurospage);
-							model.addAttribute("seguros",segurospage);
-							model.addAttribute("auxiliar", aux);
-							model.addAttribute("page",pageRender);
-							model.addAttribute("elemento",elementof);
-							model.addAttribute("id_vehiculo",id_vehi);
-							return "SegurosVehi";
-					};*/
-					
+						
 					elementof = elemento.toUpperCase(); 
 					Page<Seguro> segurospage= seguroService.FindSegElemVehiPage(id_vehi, elementof, pageRequest);
 					PageRender<Seguro> pageRender = new PageRender<>("/formSegBuscarPv?elemento="+elementof, segurospage);
@@ -382,27 +347,18 @@ public class SeguroController {
 	
 	
 	@RequestMapping(value="/formSegBuscar")
-	public String Buscartabla(@RequestParam(name="page", defaultValue = "0") int page,Authentication authentication,
+	public String Buscartabla(@RequestParam(name="page", defaultValue = "0") int page,
 		@RequestParam(value="elemento") String elemento,Model model){	
 		
 		 aux=false;
 		 Pageable pageRequest = PageRequest.of(page, 100);
-		 var ads="";		
-		 ads = authentication.getName();
+		 user = obuserService.obtenUser();
+		 model.addAttribute("usuario",user);
 		 String elementof="";
 		 
-				 if(user.equals("ROLE_ADMIN")) {
-					 model.addAttribute("usuario",user);
-					}else {
-						if(user.equals("ROLE_USER")) { 
-							model.addAttribute("usuario",user);
-							}else {
-								if(user.equals("ROLE_SEGURO")) {
-									model.addAttribute("usuario",user);
-								}
-							}
-						};
-			 
+		 var ads="";
+		 ads = obuserService.obtenEmpl();
+		 
 		 if(!elemento.isBlank()) {			
 							if(isValidDouble(elemento)) {
 								Double Dato = Double.parseDouble(elemento);
@@ -473,24 +429,4 @@ public class SeguroController {
 		  return Pattern.matches(fpRegex, s);
 	}
 	
-	public static boolean hasRole(String role) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		
-		if(context==null) {
-		return false;
-		}
-		
-		Authentication auth = context.getAuthentication();
-		
-		if(auth == null) {
-			return false;
-		}
-		
-		Collection<? extends GrantedAuthority> autorithies = auth.getAuthorities();
-		for(GrantedAuthority authority: autorithies) {
-			if(role.equals(authority.getAuthority())) {return true;}
-		}
-		return false;
-	}
-
 }

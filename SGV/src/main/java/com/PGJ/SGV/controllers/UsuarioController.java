@@ -2,7 +2,6 @@ package com.PGJ.SGV.controllers;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -10,10 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,15 +16,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.PGJ.SGV.SystemDate;
 import com.PGJ.SGV.models.entity.Adscripcion;
 import com.PGJ.SGV.models.entity.Authority;
+import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.service.IAdscripcionService;
 import com.PGJ.SGV.service.IAutoridadService;
+import com.PGJ.SGV.service.ILogsAuditService;
+import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IUsuarioService;
 import com.PGJ.SGV.util.paginador.PageRender;
+import com.PGJ.SGV.utilities.ObtenHour;
+import com.PGJ.SGV.utilities.SystemDate;
 
 @Controller
 public class UsuarioController {
@@ -43,18 +41,27 @@ public class UsuarioController {
 	private IAutoridadService autoridadService;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private ILogsAuditService logsauditService;
+	@Autowired
+	private IObtenerUserService obuserService;
+	
 	
 	List<Adscripcion> adscripcion = new ArrayList<Adscripcion>();
 	List<Usuario> usuarios = new ArrayList<Usuario>();
 	List<Authority> autoridad = new ArrayList<Authority>();
-    String empleado ="";
-    String falta_usuario="";
-    String ealta_usuario="";
+    String empleado;
+    String falta_usuario;
+    String ealta_usuario;
+    String user;
 	static boolean editar = false;
 	
 	
 	@RequestMapping(value="/Usuarios", method = RequestMethod.GET)
 	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model) {			
+		
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);	
 		
 		Pageable pageRequest = PageRequest.of(page, 100);
 		//Page<Usuario> usuarioPage = usuarioService.findAll(pageRequest);
@@ -74,8 +81,6 @@ public class UsuarioController {
 		return "Usuarios";
 	}
 		
-	
-	
 	
 	@RequestMapping(value="/formUsu")
 	public String crear(Map<String,Object> model) {
@@ -115,9 +120,9 @@ public class UsuarioController {
 	}
 	
 	
-	
 	@RequestMapping(value="/formUsu",method = RequestMethod.POST)
-	public String guardar(Usuario usuario){		
+	public String guardar(Usuario usuario){	
+		
 		Adscripcion adc = new Adscripcion();
 		var password = usuario.getContrasena();		
 		String bcryptPassword = passwordEncoder.encode(password);		
@@ -150,34 +155,111 @@ public class UsuarioController {
 			};
 		}
 		
-		usuario.setAdscripcion(adc);	
+		
+		if(editar==true) {
+    		
+			usuario.setFecha_alta(ealta_usuario);
+    		
+			//Conductor OLD
+			
+		    Usuario usuario_old = null;	
+		    usuario_old = usuarioService.findOne(usuario.getNo_empleado());
+		    System.err.println("old:"+usuario_old.toString());
+		    String valor_old = usuario_old.toString();
+		   
+			usuarioService.save(usuario);
+			
+			//Auditoria
+			
+         	LogsAudit logs = new LogsAudit();
+         	
+         	logs.setId_usuario(obuserService.obtenEmpl());
+    		logs.setTipo_role(obuserService.obtenUser());
+			logs.setFecha(SystemDate.obtenFecha());
+			logs.setHora(ObtenHour.obtenHour());
+			logs.setName_table("USUARIOS");
+			logs.setValor_viejo(valor_old);
+			logs.setTipo_accion("UPDATE");
+									
+			logsauditService.save(logs);
+			
+			editar = false;	
+    		
+    		}else {
+    			
+    			usuario.setFecha_alta(falta_usuario);
+    			
+    			usuarioService.save(usuario);
+				String valor_nuevo=usuario.toString();
+				
+				//Auditoria
+				
+		     	LogsAudit logs = new LogsAudit();
+		     	
+		     	logs.setId_usuario(obuserService.obtenEmpl());
+	    		logs.setTipo_role(obuserService.obtenUser());
+				logs.setFecha(SystemDate.obtenFecha());
+				logs.setHora(ObtenHour.obtenHour());
+				logs.setName_table("USUARIOS");
+				logs.setValor_viejo(valor_nuevo);
+				logs.setTipo_accion("INSERT");
+										
+				logsauditService.save(logs);
+    			
+    			}
+		
+		/*usuario.setAdscripcion(adc);	
 		usuarioService.save(usuario);			
-		editar = false;						
+		editar = false;			*/			
 		return "redirect:Usuarios";
+		
 	 }	
 	
+	@RequestMapping(value="/estadoUsu/{no_empleado}/{enabled}")
+    public String estado (@PathVariable(value="no_empleado")String no_empleado,@PathVariable(value="enabled")boolean enabled,
+		@RequestParam(name="page", defaultValue = "0") int page) {
 	
-	@RequestMapping(value="/estadoUsu/{no_empleado}/{enabled}/{Corddocu}/{Cordtabla}")
-	public String estado (@PathVariable(value="no_empleado")String no_empleado,@PathVariable(value="enabled")boolean enabled,
-			@PathVariable(value="Corddocu")int docu,@PathVariable(value="Cordtabla")int tabla,@RequestParam(name="page", defaultValue = "0") int page) {
-		Usuario uss = new Usuario();
-		boolean seteo = false;
-		Corddocu =docu;
-		Cordtabla = tabla;
-		uss = usuarioService.findOne(no_empleado);
-		if(enabled) {
-			seteo=false;
-			uss.setEnabled(seteo);
+	  Usuario uss = new Usuario();
+	  uss = usuarioService.findOne(no_empleado);
+	  boolean seteo = false;
+	  
+	  
+	  if(enabled) {
+		seteo=false;
+		uss.setEnabled(seteo);
 		}else {
 			seteo=true;
 			uss.setEnabled(seteo);	
-		}
-		usuarioService.save(uss);		
-	    return "redirect:/Usuarios?page="+page;
+			}
+	  
+	  Usuario usuario_old = null;
+	  usuario_old = usuarioService.findOne(uss.getNo_empleado());
+	  System.err.println("old:"+usuario_old.toString());
+	  String valor_old = usuario_old.toString();
+	  
+	  usuarioService.save(uss);	
+	  
+	  //Auditoria
+	  
+	  LogsAudit logs = new LogsAudit();
+	  
+	  logs.setId_usuario(obuserService.obtenEmpl());
+	  logs.setTipo_role(obuserService.obtenUser());
+	  logs.setFecha(SystemDate.obtenFecha());
+	  logs.setHora(ObtenHour.obtenHour());
+	  logs.setName_table("USUARIOS");
+	  logs.setValor_viejo(valor_old);
+	  logs.setTipo_accion("UPDATE");
+	  
+	  logsauditService.save(logs);
+	  
+	  editar = false;		
+	  
+	  return "redirect:/Usuarios?page="+page;
+	  
 	}
-	
-	
-	
+
+
 	@RequestMapping(value="/elimUsu/{no_empleado}")
 	public String eliminar (@PathVariable(value="no_empleado")String no_empleado) {
 		
@@ -194,33 +276,34 @@ public class UsuarioController {
 	}
 	
 	
-	
 	@RequestMapping(value="/formUsuBuscar")
 	public String Buscartabla(@RequestParam(name="page", defaultValue = "0") int page,
-			@RequestParam(value="elemento") String elemento,Model model, Authentication authentication){	
+			@RequestParam(value="elemento") String elemento,Model model){	
+		
 		 Pageable pageRequest = PageRequest.of(page, 100);
 		 Double Dato;
 		 String elementof="";
 		 
 		 if(!elemento.isBlank()) {			
-				if(isValidDouble(elemento)) {
+			 if(isValidDouble(elemento)) {
 						Dato = Double.parseDouble(elemento);
 						DecimalFormat formt = new DecimalFormat("0");
 						elemento = formt.format(Dato);
-						System.err.println(elemento);
 						elemento = elemento.replaceAll(",","");	
-						
-				};
+						};
 				
 		 elementof = elemento.toUpperCase(); 
 		 Page<Usuario> usuariospage = usuarioService.finUsuElemntPage(elementof, pageRequest);
 		 PageRender<Usuario> renderpage = new PageRender<>("/formUsuBuscar",usuariospage);
+		 if(usuarioService.totalfinUsuElemnt(elementof)>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+		 
 		 model.addAttribute("usuarios",usuariospage);
 		 model.addAttribute("page",renderpage);
 		 model.addAttribute("elemento",elementof);
 		 return "Usuarios";
 		 }
 		   return "redirect:/Usuarios";
+		   
 	}
 	
 	
@@ -229,17 +312,16 @@ public class UsuarioController {
 	@RequestMapping(value="/BajasUsu", method = RequestMethod.GET)
 	public String listar2(@RequestParam(name="page", defaultValue = "0") int page,Model model) {			
 		
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);	
 		Pageable pageRequest = PageRequest.of(page, 100);
 		//Page<Usuario> usuarioPage = usuarioService.findAll(pageRequest);
 		Page<Usuario> usuarioPage = usuarioService.findByNn(pageRequest);
 
 		PageRender <Usuario> usuarioRender = new PageRender<>("/Bajas",usuarioPage);
-		if(usuarioService.totalUsuariosBajas()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
-	
+		if(usuarioService.totalUsuariosBajas()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 		model.addAttribute("usuarios",usuarioPage);
 		model.addAttribute("page",usuarioRender);
-		//model.addAttribute("autoridad",autoridad);
-		//model.addAttribute("adslist",adscripcion);
 		model.addAttribute("Corddocu",Corddocu);
 		model.addAttribute("Cordtabla",Cordtabla);
 		model.addAttribute("titulo","Bajas Usuario");
@@ -251,7 +333,7 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/RecuperarUsu/{no_empleado}")
 	public String recuperar(@PathVariable(value="no_empleado") String no_empleado) {
-		    
+		  
 			Usuario usuarec = new Usuario();
 			usuarec=usuarioService.findOne(no_empleado);
 	
@@ -259,17 +341,39 @@ public class UsuarioController {
 				//usuarioService.delete(no_empleado);
 			    usuarec.setEnabled(true);
 				usuarec.setFecha_baja(null);
+				
+				Usuario usuario_old = null;
+				usuario_old = usuarioService.findOne(usuarec.getNo_empleado());
+			    System.err.println("old:"+usuario_old.toString());
+			    String valor_old = usuario_old.toString();
+				
 				usuarioService.save(usuarec);
-			}
+				
+				 //Auditoria
+				
+	         	LogsAudit logs = new LogsAudit();
+	         	
+	         	logs.setId_usuario(obuserService.obtenEmpl());
+	    		logs.setTipo_role(obuserService.obtenUser());
+				logs.setFecha(SystemDate.obtenFecha());
+				logs.setHora(ObtenHour.obtenHour());
+				logs.setName_table("USUARIOS");
+				logs.setValor_viejo(valor_old);
+				logs.setTipo_accion("UPDATE");
+										
+				logsauditService.save(logs);
+				
+				}
 			return "redirect:/BajasUsu";
 			
-		}
+	}
 		
 	
 	@RequestMapping(value="/formUsuBajaBuscar")
 	public String Buscartablabaja(@RequestParam(name="page", defaultValue = "0") int page,
-			@RequestParam(value="elemento") String elemento,Model model, Authentication authentication){	
-		Pageable pageRequest = PageRequest.of(page, 100);
+			@RequestParam(value="elemento") String elemento,Model model){	
+		
+		 Pageable pageRequest = PageRequest.of(page, 100);
 		 Double Dato;
 		 String elementof="";
 		 
@@ -279,21 +383,21 @@ public class UsuarioController {
 						DecimalFormat formt = new DecimalFormat("0");
 						elemento = formt.format(Dato);
 						elemento = elemento.replaceAll(",","");	
-				};
+						};
 		 
 		 elementof = elemento.toUpperCase();			
 		 Page<Usuario> usuariospage = usuarioService.finUsuElemntBajasPage(elementof, pageRequest);
 		 PageRender<Usuario> renderpage = new PageRender<>("/formUsuBajaBuscar",usuariospage);
+		 if(usuarioService.totalfinUsuElemntBajas(elementof)>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 		 model.addAttribute("usuarios",usuariospage);
 		 model.addAttribute("page",renderpage);
 		 model.addAttribute("elemento",elementof);		 
 		 return "BajasUsu";
 		 }
+		 return "redirect:/BajasUsu";
 		 
-		return "redirect:/BajasUsu";
 	}
-	
-	 
+
 		 private static boolean isValidDouble(String s) {
 				final String Digits     = "(\\p{Digit}+)";
 				  final String HexDigits  = "(\\p{XDigit}+)";
@@ -323,7 +427,4 @@ public class UsuarioController {
 				  return Pattern.matches(fpRegex, s);
 			}
 		 
-	
-	
-	
 }

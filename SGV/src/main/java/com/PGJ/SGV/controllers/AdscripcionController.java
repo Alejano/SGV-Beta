@@ -30,16 +30,19 @@ public class AdscripcionController {
 	private IObtenerUserService obuserService;
 	
 	boolean editar = false;
+	String user;
 	Long ID;
 	
 	@RequestMapping(value="/Adscripciones", method = RequestMethod.GET)
 	public String listar(Model model) {
 		
+		user = obuserService.obtenUser();
+		
 		adscripciones = adscripService.findAll();
 		if(adscripService.adscripcionestotales()>= 4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		model.addAttribute("titulo","Listado de Adscripciones");
 		model.addAttribute("adscripciones",adscripciones);
-		model.addAttribute("usuarios",obuserService.obtenUser());
+		model.addAttribute("usuario",user);	
 		
 		return "Adscripciones";
 	}
@@ -50,7 +53,7 @@ public class AdscripcionController {
 		
 		Adscripcion ads = new Adscripcion();
 		model.put("adscripcion", ads);
-		model.put("usuarios",obuserService.obtenUser());
+		model.put("usuario",obuserService.obtenUser());
 		model.put("titulo", "Formulario de Adscripciones");
 							
 		return "formAds";
@@ -143,11 +146,6 @@ public class AdscripcionController {
 	}
 	
 }
-
-
-
-
-
 
 
 

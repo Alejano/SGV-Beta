@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.PGJ.SGV.models.entity.Adscripcion;
 import com.PGJ.SGV.models.entity.Conductor;
+import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.Resguardante;
 import com.PGJ.SGV.models.entity.Seguro;
 import com.PGJ.SGV.models.entity.TipoResguardante;
@@ -39,6 +35,8 @@ import com.PGJ.SGV.models.entity.VehiculoMarca;
 import com.PGJ.SGV.models.entity.VehiculoTransmision;
 import com.PGJ.SGV.service.IAdscripcionService;
 import com.PGJ.SGV.service.IConductorService;
+import com.PGJ.SGV.service.ILogsAuditService;
+import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IResguardanteService;
 import com.PGJ.SGV.service.ISeguroService;
 import com.PGJ.SGV.service.ITipoResguardanteService;
@@ -46,7 +44,8 @@ import com.PGJ.SGV.service.IUploadFileService;
 import com.PGJ.SGV.service.IUsuarioService;
 import com.PGJ.SGV.service.IVehiculoService;
 import com.PGJ.SGV.util.paginador.PageRender;
-
+import com.PGJ.SGV.utilities.ObtenHour;
+import com.PGJ.SGV.utilities.SystemDate;
 
 @Controller
 public class VehiculoController {
@@ -67,11 +66,14 @@ public class VehiculoController {
 	
 	Usuario resguardante1 = new Usuario();
 	Usuario resguardante2 = new Usuario();
+	Vehiculo detalle_old = new Vehiculo();
 	
 	static boolean editar = false;
 	String coche="";
+	String user;
 	static int 	Corddocu = 0;
 	static int 	Cordtabla = 0;
+	
 	@Autowired
 	private IVehiculoService vehiculoService;	
 	@Autowired
@@ -88,36 +90,22 @@ public class VehiculoController {
 	private ITipoResguardanteService tiporesguardoService;
 	@Autowired
 	private IResguardanteService reguardanteservice;
+	@Autowired
+	private ILogsAuditService logsauditService;
+	@Autowired
+	private IObtenerUserService obuserService;
 	
-
 	
 	@RequestMapping(value="/Vehiculos", method = RequestMethod.GET)
-	public String listar(Model model,Authentication authentication,@RequestParam(name="page", defaultValue = "0") int page) {		
+	public String listar(Model model,@RequestParam(name="page", defaultValue = "0") int page) {		
 		//List<Vehiculo> vehiculoArea = new ArrayList<Vehiculo>();			
-		var ads="";						
-		ads = authentication.getName();
-		var user="";			
-		clase = vehiculoService.findallByClase();	
+				
+		var ads="";
+		ads = obuserService.obtenEmpl();
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);
 		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.addAttribute("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-					}else {
-						if(hasRole("ROLE_TALLER")) {
-							user = "ROLE_TALLER"; model.addAttribute("usuario",user);
-						}else {
-							if(hasRole("ROLE_SINIESTRO")) {
-							user = "ROLE_SINIESTRO"; model.addAttribute("usuario",user);
-						  }
-						}
-					}
-				}	
-			}
+		clase = vehiculoService.findallByClase();	
 		Pageable pageRequest = PageRequest.of(page, 1000);
 		
 		if(user.equals("ROLE_USER")){
@@ -127,7 +115,7 @@ public class VehiculoController {
 			//vehiculoArea = vehiculoService.findVehiculosArea(usus.getAdscripcion().getId_adscripcion());
 			Page<Vehiculo> vehiculoPageAra = vehiculoService.findVehiculosAreaPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);
 			PageRender<Vehiculo> pageRender = new PageRender<>("/Vehiculos", vehiculoPageAra);
-			if(vehiculoService.totalVehiculo()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+			if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 			//model.addAttribute("vehiculos",vehiculoArea);						
 			
 			model.addAttribute("Corddocu",Corddocu);
@@ -136,7 +124,6 @@ public class VehiculoController {
 			model.addAttribute("vehiculos",vehiculoPageAra);		
 			model.addAttribute("page",pageRender);
 			model.addAttribute("PageTitulo", "Vehiculos");
-			model.addAttribute("titulo","Listado de Vehiculos");
 			return "Vehiculos";
 		}
 		
@@ -147,10 +134,9 @@ public class VehiculoController {
 		
 		Page<Vehiculo> vehiculopage = vehiculoService.findTVechiulo("AUTOMOVIL", pageRequest);
 		PageRender<Vehiculo> pageRender = new PageRender<>("/Vehiculos", vehiculopage);
-		int tamaño = 7;
-		//if(vehiculoService.totalVehiculo()>= tamaño) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};		
-		
-		model.addAttribute("tamano",(vehiculoService.totalVehiculo()>= tamaño)?"mostrar":"no mostrar");
+		int tamaño = 4;
+		if(vehiculoService.totalVehiculo()>= tamaño) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+
 		model.addAttribute("Corddocu",Corddocu);
 		model.addAttribute("marca",clase);
 		model.addAttribute("Cordtabla",Cordtabla);
@@ -165,33 +151,14 @@ public class VehiculoController {
 	}
 	
 	@RequestMapping(value="/VehiculoClase", method = RequestMethod.GET)
-	public String listarporClase(@RequestParam(value="clase") String Clase,Model model,Authentication authentication,
+	public String listarporClase(@RequestParam(value="clase") String Clase,Model model,
 			@RequestParam(name="page", defaultValue = "0") int page) {	
 		
-		var ads="";						
-		ads = authentication.getName();
-		var user="";			
+		var ads="";
+		ads = obuserService.obtenEmpl();
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);	
 		List<String> clase = new ArrayList<String>();
-		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.addAttribute("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-					}else {
-						if(hasRole("ROLE_TALLER")) {
-							user = "ROLE_TALLER"; model.addAttribute("usuario",user);
-						}else {
-							if(hasRole("ROLE_SINIESTRO")) {
-							user = "ROLE_SINIESTRO"; model.addAttribute("usuario",user);
-						  }
-						}
-					}
-				}	
-			}
 		
 		Pageable pageRequest = PageRequest.of(page, 1000);
 		
@@ -202,7 +169,7 @@ public class VehiculoController {
 			//vehiculoArea = vehiculoService.findVehiculosArea(usus.getAdscripcion().getId_adscripcion());
 			Page<Vehiculo> vehiculoPageAra = vehiculoService.findVehiculosAreaPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);
 			PageRender<Vehiculo> pageRender = new PageRender<>("/Vehiculos", vehiculoPageAra);
-			if(vehiculoService.totalVehiculo()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+			if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 			//model.addAttribute("vehiculos",vehiculoArea);						
 			
 			model.addAttribute("Corddocu",Corddocu);
@@ -211,8 +178,6 @@ public class VehiculoController {
 			model.addAttribute("vehiculos",vehiculoPageAra);		
 			model.addAttribute("page",pageRender);
 			model.addAttribute("PageTitulo", "Vehiculos");
-			model.addAttribute("titulo","Listado de Vehiculos ::"+ Clase);
-			
 			return "Vehiculos";
 		}
 		
@@ -220,20 +185,16 @@ public class VehiculoController {
 		//seguros = seguroService.findAll();
 		//vehiculo = vehiculoService.findAll();		
 		clase = vehiculoService.findallByClase();			
-		
-		
 		Page<Vehiculo> vehiculopage = vehiculoService.findTVechiulo(Clase, pageRequest);
 		PageRender<Vehiculo> pageRender = new PageRender<>("/Vehiculos", vehiculopage);
-		
-		int tamaño = 7;
+		int tamaño = 4;
 		if(vehiculoService.totalVehiculo()>= tamaño) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 	
-		
 		model.addAttribute("Corddocu",Corddocu);
 		model.addAttribute("marca",clase);
 		model.addAttribute("Cordtabla",Cordtabla);
 		model.addAttribute("thisurl","Vehiculos");
-		model.addAttribute("titulo","Listado de Vehiculos ::"+ Clase);
+		model.addAttribute("titulo","Listado de Vehiculos");
 		model.addAttribute("vehiculos",vehiculopage);
 		model.addAttribute("page",pageRender);
 		model.addAttribute("Clase",Clase);
@@ -241,8 +202,10 @@ public class VehiculoController {
 		return "Vehiculos";
 	}
 	
+	
 	@RequestMapping(value="/formVehiP1")
 	public String crearP1(Map<String,Object> model) {
+		
 		Resguardante Presguardante = new Resguardante();
 		Resguardante Sresguardante = new Resguardante();
 		Resguardante Tresguardante = new Resguardante();
@@ -265,34 +228,22 @@ public class VehiculoController {
 		model.put("tiposResguardoS", tiposResguardoS);
 		model.put("conductores", conductoresdb);
 		model.put("usuarios",usuariosdb);
-		model.put("titulo","Resguardantes");
+		
 		return "vehiculos/formVehiP1";
 	}
 	
 	@RequestMapping(value="/formVehiP2",method = RequestMethod.POST)
-	public String crearP1post(Map<String,Object> model,Resguardante resguardante,Authentication authentication
-			) {
-
-		var user="";				
+	public String crearP1post(Map<String,Object> model,Resguardante resguardante) {
 		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	
-			model.put("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; 
-					model.put("usuario",user);
-				}
-			}
-		
-								
+		user = obuserService.obtenUser();
+		model.put("usuario",user);
+						
 		transmision = vehiculoService.findAllTransmision();
 		funcion = vehiculoService.findAllFuncion();					
 		editar = false;				
 		List<String> marca = new ArrayList<String>();
 		marca = vehiculoService.findAllMarcaUnica();
 		
-
 		String nombres = resguardante.getNombre();
 		String apellidos1 = resguardante.getApellido1();
 		String apellidos2 = resguardante.getApellido2();
@@ -326,8 +277,6 @@ public class VehiculoController {
 		Sresguardante.setId_resguardante(Presguardante.getId_resguardante()+1);
 		Sresguardante.setFecha_inicio(formateador.format(ahora));
 		
-				
-		
 		adscripcionlist = adscripService.findAll();
 		seguros = seguroService.findAll();
 	
@@ -354,11 +303,12 @@ public class VehiculoController {
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);
 		model.put("Tresguardante", Tresguardante);		
-		model.put("documento", "noexiste");		
-		
+				
 		return "/formVehi";
+		
 	}
 		
+	
 	@RequestMapping(value="/formVehiTResguardante{Pnombre}{Papellido1}{Papellido2}{Pcargo}{Snombre}{Sapellido1}{Sapellido2}{Scargo}" )
 	public String tresguardante(Map<String,Object> model,
 			@RequestParam(value="Pnombre") String Pnombre,
@@ -391,9 +341,7 @@ public class VehiculoController {
 				conductoresactualizada.add(us);
 			};
 		};
-		
-		
-				
+
 		Presguardante.setNombre(Pnombre);
 		Sresguardante.setNombre(Snombre);
 			
@@ -419,14 +367,12 @@ public class VehiculoController {
 		Sresguardante.setTipo_resguardante_id(tiporesguardoService.findOne((long) 2));
 		Sresguardante.setId_resguardante(Presguardante.getId_resguardante()+1);
 		Sresguardante.setFecha_inicio(formateador.format(ahora));
-		
-							
+	
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);
 		model.put("Tresguardante", Tresguardante);
 		model.put("conductores", conductoresactualizada);
 		model.put("usuarios",usuariosactualizada);
-		model.put("titulo","Tercer Resguardante");
 		return "vehiculos/formVehiTR";
 	}
 	
@@ -441,8 +387,11 @@ public class VehiculoController {
 		Date ahora = new Date();
 		SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
 		Tresguardante.setFecha_inicio(formateador.format(ahora));
-		Long id = Sresguardante.getId_resguardante();
-		Tresguardante.setId_resguardante(id+1);				
+		Tresguardante.setTipo_resguardante_id(tiporesguardoService.findOne((long)3));
+		Tresguardante.setId_resguardante(Sresguardante.getId_resguardante()+1);	
+		
+		//Long id = Sresguardante.getId_resguardante();
+		//Tresguardante.setId_resguardante(id+1);				
 		
 		transmision = vehiculoService.findAllTransmision();
 		funcion = vehiculoService.findAllFuncion();					
@@ -450,7 +399,6 @@ public class VehiculoController {
 		List<String> marca = new ArrayList<String>();
 		marca = vehiculoService.findAllMarcaUnica();	
 				
-		
 		adscripcionlist = adscripService.findAll();
 		seguros = seguroService.findAll();
 	
@@ -480,6 +428,7 @@ public class VehiculoController {
 		return "formVehi";
 	}
 		
+	
 	@RequestMapping(value="/formVehi")
 	public String crear(Map<String,Object> model) {
 		transmision = vehiculoService.findAllTransmision();
@@ -488,7 +437,6 @@ public class VehiculoController {
 		List<String> marca = new ArrayList<String>();
 		marca = vehiculoService.findAllMarcaUnica();	
 				
-		
 		adscripcionlist = adscripService.findAll();
 		seguros = seguroService.findAll();
 	
@@ -517,17 +465,9 @@ public class VehiculoController {
 		List<String> marca = new ArrayList<String>();
 		String documento = "";								
 		
-		var user="";			
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";						
-			model.put("usuario",user);
-		}else {
-			if(hasRole("ROLE_USER")) {
-				user = "ROLE_USER";
-				model.put("usuario",user);				
-			}
-		}
-		
+		user = obuserService.obtenUser();
+		model.put("usuario",user);	
+	
 		editar = true;
 		if(id_vehiculo != null) {
 			vehiculo = vehiculoService.findOne(id_vehiculo);				
@@ -536,7 +476,6 @@ public class VehiculoController {
 			funcion = vehiculoService.findAllFuncion();
 			detalle = vehiculoService.findDetalle(id_vehiculo);
 			documento = vehiculoService.findTCDetalle(id_vehiculo);
-			
 			
 			if(documento != null) {documento = "existe";}else{documento = "noexiste";};
 			
@@ -547,6 +486,7 @@ public class VehiculoController {
 		}
 		
 		vehiculo.setVehiculo_detalle(detalle);
+		detalle_old.setVehiculo_detalle(detalle);
 		
 		model.put("transmisiones", transmision);
 		model.put("funciones", funcion);
@@ -557,15 +497,16 @@ public class VehiculoController {
 		model.put("vehiculo",vehiculo);		
 		model.put("detalle",detalle);	
 		model.put("marcas",marca);				
-		model.put("titulo", "Editar Vehiculo");	
+		model.put("titulo", "Editar cliente");	
 		
 		return "formVehi";
 	}
 	
 	
 	@RequestMapping(value="/formVehi",method = RequestMethod.POST)
-	public String guardar(Authentication authentication,Vehiculo vehiculox,@RequestParam("file") MultipartFile tarjeta_circulacion){		
+	public String guardar(Vehiculo vehiculox,@RequestParam("file") MultipartFile tarjeta_circulacion){		
 		
+		String valor_oldetalle = detalle_old.getVehiculo_detalle().toString();
 		VehiculoDetalle detalle = new VehiculoDetalle();
 		
 		detalle.setId_detalle(vehiculox.getId_vehiculo());
@@ -584,8 +525,6 @@ public class VehiculoController {
 		detalle.setRin(vehiculox.getVehiculo_detalle().getRin());
 		detalle.setTarjeta_circulacion(vehiculox.getVehiculo_detalle().getTarjeta_circulacion());
 				
-	
-		
 		if (!tarjeta_circulacion.isEmpty()) {
 
 			if (detalle.getTarjeta_circulacion() != null 
@@ -616,30 +555,130 @@ public class VehiculoController {
 				
 				Presguardante.setActivo(true);
 				Sresguardante.setActivo(true);
+				Tresguardante.setActivo(true);
 				Presguardante.setVehiculo(vehiculox);		
 				Sresguardante.setVehiculo(vehiculox);
+				Tresguardante.setVehiculo(vehiculox);
 				
 				vehiculox.setVehiculo_detalle(detalle);			
 				vehiculoService.save(vehiculox);
 				
 				reguardanteservice.save(Presguardante);
 				reguardanteservice.save(Sresguardante);
+				reguardanteservice.save(Tresguardante);
+				
+				System.err.println("Primero: "+Presguardante.toString());
+				 
+				String valor_oldp = Presguardante.toString();
+				LogsAudit logsp = new LogsAudit();
+		     	
+				logsp.setId_usuario(obuserService.obtenEmpl());
+	    		logsp.setTipo_role(obuserService.obtenUser());
+				logsp.setFecha(SystemDate.obtenFecha());
+				logsp.setHora(ObtenHour.obtenHour());
+				logsp.setName_table("RESGUARDANTE");
+				logsp.setValor_viejo(valor_oldp);
+				logsp.setTipo_accion("INSERT");
+										
+				System.err.println("Segundo: "+Sresguardante.toString());
+				
+				String valor_olds = Sresguardante.toString();
+				LogsAudit logss = new LogsAudit();
+		     	
+				logss.setId_usuario(obuserService.obtenEmpl());
+	    		logss.setTipo_role(obuserService.obtenUser());
+				logss.setFecha(SystemDate.obtenFecha());
+				logss.setHora(ObtenHour.obtenHour());
+				logss.setName_table("RESGUARDANTE");
+				logss.setValor_viejo(valor_olds);
+				logss.setTipo_accion("INSERT");
+				
+	            System.err.println("Tercero: "+Tresguardante.toString());
+				
+				String valor_oldt = Tresguardante.toString();
+				LogsAudit logst = new LogsAudit();
+		     	
+				logst.setId_usuario(obuserService.obtenEmpl());
+	    		logst.setTipo_role(obuserService.obtenUser());
+				logst.setFecha(SystemDate.obtenFecha());
+				logst.setHora(ObtenHour.obtenHour());
+				logst.setName_table("RESGUARDANTE");
+				logst.setValor_viejo(valor_oldt);
+				logst.setTipo_accion("INSERT");
+			
+				logsauditService.save(logsp);
+				logsauditService.save(logss);
+				logsauditService.save(logst);
+
+			    System.out.println("ALTA: "+vehiculox.toString());
+			    String valor_nuevov = vehiculox.toString();
+		     	String valor_nuevod = vehiculox.getVehiculo_detalle().toString();
+			
+			    LogsAudit logsv = new LogsAudit();
+			    LogsAudit logsd = new LogsAudit();
+	         
+			    logsv.setId_usuario(obuserService.obtenEmpl());
+	    		logsv.setTipo_role(obuserService.obtenUser());
+				logsv.setFecha(SystemDate.obtenFecha());
+				logsv.setHora(ObtenHour.obtenHour());
+				logsv.setName_table("VEHICULOS");
+				logsv.setValor_viejo(valor_nuevov);
+				logsv.setTipo_accion("INSERT");
+				
+				logsd.setId_usuario(obuserService.obtenEmpl());
+	    		logsd.setTipo_role(obuserService.obtenUser());
+				logsd.setFecha(SystemDate.obtenFecha());
+				logsd.setHora(ObtenHour.obtenHour());
+				logsd.setName_table("VEHICULO_DETALLE");
+				logsd.setValor_viejo(valor_nuevod);
+				logsd.setTipo_accion("INSERT");
+												
+				logsauditService.save(logsv);
+				logsauditService.save(logsd);
+
 				return "redirect:Vehiculos";
 		}else{
 				if(!coche.equals(vehiculox.getPlaca())) {
 							return "redirect:/idDuplicadoVehiCrea/"+vehiculox.getPlaca()+"/"+coche;
 					};
-					
-					
+				
+				Vehiculo vehiculo_old = new Vehiculo();
+				vehiculo_old = vehiculoService.findOne(vehiculox.getId_vehiculo());					
+				String valor_olvehi = vehiculo_old.toString();
+			
 				vehiculox.setVehiculo_detalle(detalle);		
 				System.out.println("epieza: "+vehiculox.getVehiculo_detalle().getTarjeta_circulacion()+":para");
-				vehiculoService.save(vehiculox);		
+				vehiculoService.save(vehiculox);
+				
+				LogsAudit logsv = new LogsAudit();
+				 LogsAudit logsd = new LogsAudit();
+		         
+				    logsv.setId_usuario(obuserService.obtenEmpl());
+		    		logsv.setTipo_role(obuserService.obtenUser());
+					logsv.setFecha(SystemDate.obtenFecha());
+					logsv.setHora(ObtenHour.obtenHour());
+					logsv.setName_table("VEHICULOS");
+					logsv.setValor_viejo(valor_olvehi);
+					logsv.setTipo_accion("UPDATE");
+					
+					logsd.setId_usuario(obuserService.obtenEmpl());
+		    		logsd.setTipo_role(obuserService.obtenUser());
+					logsd.setFecha(SystemDate.obtenFecha());
+					logsd.setHora(ObtenHour.obtenHour());
+					logsd.setName_table("VEHICULO_DETALLE");
+					logsd.setValor_viejo(valor_oldetalle);
+					logsd.setTipo_accion("UPDATE");
+													
+					logsauditService.save(logsv);
+					logsauditService.save(logsd);
+				
 		};		
 		
 		editar = false;						
 		return "redirect:Vehiculos";
-		//return "redirect:/";
+
 	}
+	
 	
 	@RequestMapping(value="/elimVehi/{placa}")
 	public String eliminar (@PathVariable(value="placa")Long placa) {
@@ -688,13 +727,13 @@ public class VehiculoController {
 	
 	@RequestMapping(value="/formVehBuscar")
 	public String Buscartabla(@RequestParam(name="page", defaultValue = "0") 
-	int page,@RequestParam(value="elemento") String elemento,Model model , Authentication authentication){						 
+	int page,@RequestParam(value="elemento") String elemento,Model model){						 
 		Pageable pageRequest = PageRequest.of(page, 1000);
 		 Double Dato;
 		 var ads="";
-		 ads = authentication.getName();	
-		 var user="";
-			 if(hasRole("ROLE_ADMIN")) {user ="ROLE_ADMIN";	model.addAttribute("usuario",user);}else {if(hasRole("ROLE_USER")) user = "ROLE_USER"; model.addAttribute("usuario",user);}
+		 ads = obuserService.obtenEmpl();
+		 user = obuserService.obtenUser();
+		 model.addAttribute("usuario",user);	
 		
 		if(!elemento.isBlank()) {			
 			if(isValidDouble(elemento)) {
@@ -708,6 +747,7 @@ public class VehiculoController {
 				 Usuario usus = new Usuario();
 				usus = usuarioService.findbyAdscripcion(ads);					
 				Page<Vehiculo> vehiculopage = vehiculoService.findVehElemAreaPage(usus.getAdscripcion().getId_adscripcion(), elemento, pageRequest);
+				if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 				PageRender<Vehiculo> pageRender = new PageRender<>("/formVehBuscar?elemento="+elemento, vehiculopage);
 		
 				model.addAttribute("marca",clase);
@@ -719,8 +759,8 @@ public class VehiculoController {
 			};					
 			Page<Vehiculo> vehiculopage= vehiculoService.findVehElemntoPage(elemento, pageRequest);		 									
 			PageRender<Vehiculo> pageRender = new PageRender<>("/formVehBuscar?elemento="+elemento, vehiculopage);
-			
-			
+			if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+
 			model.addAttribute("marca",clase);
 			model.addAttribute("vehiculos",vehiculopage);
 			model.addAttribute("page",pageRender);
@@ -731,26 +771,6 @@ public class VehiculoController {
 			return "redirect:/Vehiculos";
 		}
 						
-	}
-	
-	public static boolean hasRole(String role) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		
-		if(context==null) {
-		return false;
-		}
-		
-		Authentication auth = context.getAuthentication();
-		
-		if(auth == null) {
-			return false;
-		}
-		
-		Collection<? extends GrantedAuthority> autorithies = auth.getAuthorities();
-		for(GrantedAuthority authority: autorithies) {
-			if(role.equals(authority.getAuthority())) {return true;}
-		}
-		return false;
 	}
 	
 	private static boolean isValidDouble(String s) {
@@ -869,25 +889,21 @@ public class VehiculoController {
 	}	
 	
 	@RequestMapping(value="/info/{id_vehiculo}")
-	public String info(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {				
+	public String info(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {		
+		adscripcionlist = adscripService.findAll();
 		Vehiculo vehiculo = null;
 		VehiculoDetalle detalle = null;
-				
-		String documento = "";								
 		
-		var user="";			
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";						
-			model.put("usuario",user);
-		}else {
-			if(hasRole("ROLE_USER")) {
-				user = "ROLE_USER";
-				model.put("usuario",user);				
-			}
-		}
-				
+		List<String> marca = new ArrayList<String>();
+		String documento = "";								
+		user = obuserService.obtenUser();
+		model.put("usuario",user);	
+
 		if(id_vehiculo != null) {
-			vehiculo = vehiculoService.findOne(id_vehiculo);													
+			vehiculo = vehiculoService.findOne(id_vehiculo);				
+			marca = vehiculoService.findAllMarcaUnica();		
+			transmision = vehiculoService.findAllTransmision();
+			funcion = vehiculoService.findAllFuncion();
 			detalle = vehiculoService.findDetalle(id_vehiculo);
 			documento = vehiculoService.findTCDetalle(id_vehiculo);
 			
@@ -899,18 +915,19 @@ public class VehiculoController {
 			return "redirect:/Vehiculos";
 		}
 		
-		model.put("color", vehiculo.getVehiculo_detalle().getColor());			
+
+		model.put("transmisiones", transmision);
+		model.put("funciones", funcion);
+		model.put("editando", "si");
 		model.put("documento", documento);
 		model.put("seguroslist", seguros);
 		model.put("adslist",adscripcionlist );		
 		model.put("vehiculo",vehiculo);
-		model.put("detalle",detalle);				
-		model.put("titulo", "Informacion del Vehiculo");	
+		model.put("detalle",detalle);
+		model.put("marcas",marca);				
+		model.put("titulo", "Editar cliente");	
 		return "infoVehi";
 	}	
-	
-	
-	
 	
 	
 }

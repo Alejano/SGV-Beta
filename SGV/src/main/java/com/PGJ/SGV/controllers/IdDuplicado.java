@@ -5,11 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
 public class IdDuplicado {
-	
-	
 	
 	@RequestMapping(value="/idDuplicadoAds/{id_adscripcion}")
 	public String idAdscripcion (@PathVariable(value="id_adscripcion")String id_adscripcion,Model model) {
@@ -20,7 +17,6 @@ public class IdDuplicado {
 		model.addAttribute("URL","/formAds");
 		return "idDuplicado";
 	}
-	
 	
 	@RequestMapping(value="/idDuplicadoUsu/{no_empleado}")
 	public String idUsuario (@PathVariable(value="no_empleado")String no_empleado,Model model) {
@@ -90,8 +86,5 @@ public class IdDuplicado {
 		model.addAttribute("URL","/FormCond/"+empleado);
 		return "idDuplicado";
 	}
-
-
-	
 
 }

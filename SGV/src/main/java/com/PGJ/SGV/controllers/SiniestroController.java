@@ -3,19 +3,13 @@ package com.PGJ.SGV.controllers;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.PGJ.SGV.models.entity.Mantenimiento;
+import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.Resguardante;
-import com.PGJ.SGV.models.entity.Seguro;
 import com.PGJ.SGV.models.entity.Siniestro;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.models.entity.Vehiculo;
@@ -34,6 +26,10 @@ import com.PGJ.SGV.service.IUploadFileService;
 import com.PGJ.SGV.service.IUsuarioService;
 import com.PGJ.SGV.service.IVehiculoService;
 import com.PGJ.SGV.util.paginador.PageRender;
+import com.PGJ.SGV.utilities.ObtenHour;
+import com.PGJ.SGV.utilities.SystemDate;
+import com.PGJ.SGV.service.ILogsAuditService;
+import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IResguardanteService;
 import com.PGJ.SGV.service.ISiniestroService;
 
@@ -43,7 +39,6 @@ public class SiniestroController {
 	List<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 	List<Siniestro> siniestros = new ArrayList<Siniestro>();
 
-	static String user="";
 	@Autowired
 	private ISiniestroService siniestroService;
 	@Autowired
@@ -54,40 +49,41 @@ public class SiniestroController {
 	private IUsuarioService usuarioService;
 	@Autowired
 	private IResguardanteService resguardanteService;
+	@Autowired
+	private ILogsAuditService logsauditService;
+	@Autowired
+	private IObtenerUserService obuserService;
 	
 	boolean editar = false;
 	boolean aux=false;
 	Long id_vehi;
 	Long id_sin;
+	String user;
 	
 	@RequestMapping(value="/Siniestros", method = RequestMethod.GET)
-	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model,Authentication authentication) {	
+	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model) {	
 			
 		aux=false;
-		var ads="";			
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.addAttribute("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-					}else {
-						if(hasRole("ROLE_SINIESTRO")) {
-						user = "ROLE_SINIESTRO"; model.addAttribute("usuario",user);
-						}
-				   }
-			    }	
-			}
-
-		ads = authentication.getName();
+		var ads="";
+		ads = obuserService.obtenEmpl();
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);
+		
 		Pageable pageRequest = PageRequest.of(page, 100);
 		
 		if(user.equals("ROLE_USER")){
 			Usuario usus = new Usuario();
 			usus = usuarioService.findbyAdscripcion(ads);
 			
+			Page<Siniestro> SiniestroPageArea = siniestroService.FindSinVehiArea(usus.getAdscripcion().getId_adscripcion(),pageRequest);
+			PageRender<Siniestro> SiniestroRenderArea = new PageRender<>("/Siniestros",SiniestroPageArea);
+			if(siniestroService.totalSiniestro()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+			
+			model.addAttribute("titulo","Listado de Siniestros");
+			model.addAttribute("auxiliar", aux);
+			model.addAttribute("siniestros",SiniestroPageArea);
+			model.addAttribute("page",SiniestroRenderArea);
+			return "Siniestros";
 		}
 	
 		Page<Siniestro> SiniestroPage = siniestroService.findAll(pageRequest);
@@ -102,33 +98,16 @@ public class SiniestroController {
 		
 	}
 	
+	
 	@RequestMapping(value="/ListarSiniestros/{id_vehiculo}", method = RequestMethod.GET)
-	public String listarpv(@PathVariable(value="id_vehiculo") Long id_vehiculo,@RequestParam(name="page", defaultValue = "0") int page,Model model,Authentication authentication) {	
+	public String listarpv(@PathVariable(value="id_vehiculo") Long id_vehiculo,@RequestParam(name="page", defaultValue = "0") int page,Model model) {	
 	
 		aux=true;
-		var ads="";		
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);
 		id_vehi=id_vehiculo;
-
 		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.addAttribute("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-					}else {
-						if(hasRole("ROLE_SINIESTRO")) {
-						user = "ROLE_SINIESTRO"; model.addAttribute("usuario",user);
-						}
-				   }
-			    }	
-			}
-
-		ads = authentication.getName();
 		Pageable pageRequest = PageRequest.of(page, 100);
-		
 		
 			Vehiculo vehiculo = new Vehiculo();
 			vehiculo = vehiculoService.findOne(id_vehiculo);
@@ -147,31 +126,15 @@ public class SiniestroController {
 		
 	
 	@RequestMapping(value="/formSin/Ag/{id_vehiculo}")
-	public String crear(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object> model,Authentication authentication) {
+	public String crear(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object> model) {
 
 		editar=false;
-		var ads="";						
-		ads = authentication.getName();
-		var user="";
+		user = obuserService.obtenUser();
+		model.put("usuario",user);
+
 		Siniestro siniestro = new Siniestro();
 		Vehiculo vehi= new Vehiculo();
 		List<Resguardante> resguardantes = new ArrayList<Resguardante>();
-		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.put("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.put("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.put("usuario",user);
-					}else {
-						if(hasRole("ROLE_SINIESTRO")) {
-						user = "ROLE_SINIESTRO"; model.put("usuario",user);
-						}
-				   }
-			    }	
-			}
 		
 		resguardantes = resguardanteService.findResg(id_vehiculo);
 		vehi = vehiculoService.findOne(id_vehiculo);
@@ -188,23 +151,9 @@ public class SiniestroController {
 	
 	@RequestMapping(value="/formSin/{id_siniestro}")
 	public String editar(@PathVariable(value="id_siniestro") Long id_siniestro,Map<String,Object>model) {
-		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.put("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.put("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.put("usuario",user);
-					}else {
-						if(hasRole("ROLE_SINIESTRO")) {
-						user = "ROLE_SINIESTRO"; model.put("usuario",user);
-						}
-				   }
-			    }	
-			}
-		
+
+		user = obuserService.obtenUser();
+		model.put("usuario",user);
 		editar=true;
 		Siniestro siniestro = null;
 	
@@ -229,7 +178,6 @@ public class SiniestroController {
 			@RequestParam("file_licencia") MultipartFile licencia, @RequestParam("file_declaracion") MultipartFile declaracion_universal,
 			@RequestParam("file_ingreso") MultipartFile constancia_ingreso, @RequestParam("file_salida") MultipartFile constancia_salida) {
 		
-
 			Vehiculo vehiculoselect =new Vehiculo();
 			
 			//IDENTIFICACION
@@ -295,7 +243,6 @@ public class SiniestroController {
 					e.printStackTrace();
 				}								
 			}
-			
 			
 			//DECLARACION UNIVERSAL
 			
@@ -408,39 +355,72 @@ public class SiniestroController {
 					}					
 			}
 			
+			if(editar == true) {
+				
+				//Siniestro OLD
+			    
+				Siniestro siniestro_old = null;
+				siniestro_old = siniestroService.findOne(siniestro.getId_siniestro());
+			    System.err.println("old:"+siniestro_old.toString());
+			    String valor_old = siniestro_old.toString();
+			    
+				System.err.println("entroeditar: "+siniestro.getId_siniestro());
+				vehiculoselect = vehiculoService.findOne(siniestro.getVehiculo().getId_vehiculo());	
+				siniestro.setVehiculo(vehiculoselect);
+				siniestroService.save(siniestro);
+				
+				//Auditoria
+				
+             	LogsAudit logs = new LogsAudit();
+             	
+             	logs.setId_usuario(obuserService.obtenEmpl());
+        		logs.setTipo_role(obuserService.obtenUser());
+				logs.setFecha(SystemDate.obtenFecha());
+				logs.setHora(ObtenHour.obtenHour());
+				logs.setName_table("SINIESTROS");
+				logs.setValor_viejo(valor_old);
+				logs.setTipo_accion("UPDATE");
+										
+				logsauditService.save(logs);
+				
+			    editar = false;	
+				
+			}else {
 			
-					if(editar == true) {
-						
-						System.err.println("entroeditar: "+siniestro.getId_siniestro());
-						System.err.println(siniestro.getUrl_identificacion_fgjcdmx());
+			System.err.println("entrocrear: "+siniestro.getId_siniestro());
+		
+			vehiculoselect = vehiculoService.findOne(siniestro.getVehiculo().getId_vehiculo());							
+			siniestro.setVehiculo(vehiculoselect);
+			System.err.println("CREA:"+siniestro.toString());
+			siniestroService.save(siniestro);
+			String valor_nuevo=siniestro.toString();
+			
+			//Auditoria
+			
+         	LogsAudit logs = new LogsAudit();
+         	
+         	logs.setId_usuario(obuserService.obtenEmpl());
+    		logs.setTipo_role(obuserService.obtenUser());
+			logs.setFecha(SystemDate.obtenFecha());
+			logs.setHora(ObtenHour.obtenHour());
+			logs.setName_table("SINIESTROS");
+			logs.setValor_viejo(valor_nuevo);
+			logs.setTipo_accion("INSERT");
+									
+			logsauditService.save(logs);
 
-						vehiculoselect = vehiculoService.findOne(siniestro.getVehiculo().getId_vehiculo());	
-						siniestro.setVehiculo(vehiculoselect);
-						siniestroService.save(siniestro);
-						editar = false;	
-						
-					}else {
-					
-						System.err.println("entrocrear: "+siniestro.getId_siniestro());
-				
-					vehiculoselect = vehiculoService.findOne(siniestro.getVehiculo().getId_vehiculo());							
-					siniestro.setVehiculo(vehiculoselect);
-					siniestroService.save(siniestro);
-					}				
-				
-	    return "redirect:/ListarSiniestros/"+siniestro.getVehiculo().getId_vehiculo();
-						
+			}				
+			
+			return "redirect:/ListarSiniestros/"+siniestro.getVehiculo().getId_vehiculo();			
+			
 	}
+
 	
-
-
 	@RequestMapping(value="/elimSin/{id_siniestro}/{identificacion}/{ine}/{licencia}/{declaracion}/{ingreso}/{salida}")
 	public String eliminar (@PathVariable(value="id_siniestro")Long id_siniestro,@PathVariable(value="identificacion")String identificacion,
 			@PathVariable(value="ine")String ine, @PathVariable(value="licencia")String licencia,
 			@PathVariable(value="declaracion")String declaracion,@PathVariable(value="ingreso")String ingreso,
 			@PathVariable(value="salida")String salida) {
-		
-	
 		
 		if(id_siniestro != null) {
 			siniestroService.delete(id_siniestro);	
@@ -468,31 +448,15 @@ public class SiniestroController {
 	
 	
 	@RequestMapping(value="/formSinBuscarPv")
-	public String Buscartablapv(@RequestParam(name="page", defaultValue = "0") int page,Authentication authentication,
+	public String Buscartablapv(@RequestParam(name="page", defaultValue = "0") int page,
 		@RequestParam(value="elemento") String elemento,Model model){	
 		
 		 aux=true;
 		 Pageable pageRequest = PageRequest.of(page, 100);
-		 var ads="";		
-		 ads = authentication.getName();
+		 user = obuserService.obtenUser();
+		 model.addAttribute("usuario",user);		
 		 String elementof="";
-		 
-			if(hasRole("ROLE_ADMIN")) {
-				user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-				}else {
-					if(hasRole("ROLE_USER")) {
-						user = "ROLE_USER"; model.addAttribute("usuario",user);
-					}else {
-						if(hasRole("ROLE_SEGURO")) {
-							user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-						}else {
-							if(hasRole("ROLE_SINIESTRO")) {
-							user = "ROLE_SINIESTRO"; model.addAttribute("usuario",user);
-							}
-					   }
-				    }	
-				}
-				
+
 		 if(!elemento.isBlank()) {			
 							if(isValidDouble(elemento)) {
 								Double Dato = Double.parseDouble(elemento);
@@ -503,7 +467,7 @@ public class SiniestroController {
 					elementof = elemento.toUpperCase(); 
 					Page<Siniestro> siniestrospage= siniestroService.FindSinElemVehiPage(id_vehi, elementof, pageRequest);
 					PageRender<Siniestro> pageRender = new PageRender<>("/formSinBuscarPv?elemento="+ elementof, siniestrospage);
-					if(siniestroService.totalSiniestro()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+					if(siniestroService.totalSiniestro()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 					
 					model.addAttribute("siniestros",siniestrospage);
 					model.addAttribute("page",pageRender);
@@ -518,30 +482,17 @@ public class SiniestroController {
 	}
 	
 	@RequestMapping(value="/formSinBuscar")
-	public String Buscartabla(@RequestParam(name="page", defaultValue = "0") int page,Authentication authentication,
+	public String Buscartabla(@RequestParam(name="page", defaultValue = "0") int page,
 		@RequestParam(value="elemento") String elemento,Model model){	
 		
 		 aux=false;
-		 Pageable pageRequest = PageRequest.of(page, 100);
-		 var ads="";		
-		 ads = authentication.getName();
-		 String elementof="";
+		 var ads="";
+		 ads = obuserService.obtenEmpl();
+		 user = obuserService.obtenUser();
+		 model.addAttribute("usuario",user);	
 		 
-			if(hasRole("ROLE_ADMIN")) {
-				user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-				}else {
-					if(hasRole("ROLE_USER")) {
-						user = "ROLE_USER"; model.addAttribute("usuario",user);
-					}else {
-						if(hasRole("ROLE_SEGURO")) {
-							user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-						}else {
-							if(hasRole("ROLE_SINIESTRO")) {
-							user = "ROLE_SINIESTRO"; model.addAttribute("usuario",user);
-							}
-					   }
-				    }	
-				}
+		 Pageable pageRequest = PageRequest.of(page, 100);
+		 String elementof="";
 			
 		 if(!elemento.isBlank()) {			
 							if(isValidDouble(elemento)) {
@@ -557,7 +508,7 @@ public class SiniestroController {
 
 							Page<Siniestro> siniestrospage= siniestroService.FindSinElemenAreaPage(usus.getAdscripcion().getId_adscripcion(), elementof, pageRequest);
 						    PageRender<Siniestro> pageRender = new PageRender<>("/formSinBuscar?elemento="+elementof, siniestrospage);
-							if(siniestroService.totalSiniestro()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+							if(siniestroService.totalSiniestro()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 
 						    model.addAttribute("siniestros",siniestrospage);
 							model.addAttribute("auxiliar", aux);
@@ -570,7 +521,7 @@ public class SiniestroController {
 					elementof = elemento.toUpperCase(); 
 					Page<Siniestro> siniestrospage= siniestroService.FindSinElemenPage(elementof, pageRequest);
 					PageRender<Siniestro> pageRender = new PageRender<>("/formSinBuscar?elemento="+elementof, siniestrospage);
-					if(siniestroService.totalSiniestro()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+					if(siniestroService.totalSiniestro()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 
 					model.addAttribute("siniestros",siniestrospage);
 					model.addAttribute("page",pageRender);
@@ -583,8 +534,7 @@ public class SiniestroController {
 		}
 		 
 	}
-
-
+	
 	private static boolean isValidDouble(String s) {
 		final String Digits     = "(\\p{Digit}+)";
 		  final String HexDigits  = "(\\p{XDigit}+)";
@@ -613,28 +563,5 @@ public class SiniestroController {
 
 		  return Pattern.matches(fpRegex, s);
 	}
-
-	public static boolean hasRole(String role) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		
-		if(context==null) {
-		return false;
-		}
-		
-		Authentication auth = context.getAuthentication();
-		
-		if(auth == null) {
-			return false;
-		}
-		
-		Collection<? extends GrantedAuthority> autorithies = auth.getAuthorities();
-		for(GrantedAuthority authority: autorithies) {
-			if(role.equals(authority.getAuthority())) {return true;}
-		}
-		return false;
-	}
-
-	
-	
 	
 }

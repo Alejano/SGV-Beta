@@ -81,4 +81,10 @@ public class BajaVehiculo implements Serializable {
 	}
 
 	private static final long serialVersionUID = 1L;
+	
+	@Override
+	public String toString() {
+		return "ID BAJA:"+id_baja_vehiculo+ ";" + "FECHA BAJA:" + fecha_baja + ";" + "ID VEHICULO:" + vehiculo.getId_vehiculo() + ";"+
+	    "PLACA:"+vehiculo.getPlaca(); 	
+	}
 }

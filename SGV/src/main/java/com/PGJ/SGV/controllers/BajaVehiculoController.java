@@ -13,10 +13,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.PGJ.SGV.models.dao.IBajaVehiculoDao;
 import com.PGJ.SGV.models.entity.BajaVehiculo;
+import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.Vehiculo;
 import com.PGJ.SGV.models.entity.VehiculoEstado;
+import com.PGJ.SGV.service.ILogsAuditService;
+import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IUploadFileService;
 import com.PGJ.SGV.service.IVehiculoService;
+import com.PGJ.SGV.utilities.ObtenHour;
+import com.PGJ.SGV.utilities.SystemDate;
 
 @Controller
 public class BajaVehiculoController {
@@ -29,14 +34,17 @@ public class BajaVehiculoController {
 	private IBajaVehiculoDao bajaservice;
 	@Autowired
 	private IUploadFileService uploadFileService;
-
+	@Autowired
+	private ILogsAuditService logsauditService;
+	@Autowired
+	private IObtenerUserService obuserService;
 	
 	@RequestMapping(value="/formBaja/{id_vehiculo}")
-	public String bajaform(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {		
+	public String bajaform(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {	
+		
 		Vehiculo vehiculo = null;	
 		BajaVehiculo bajavehiculo = new BajaVehiculo();
 		
-	
 		if(!id_vehiculo.equals(null)) {
 			vehiculo = vehiculoService.findOne(id_vehiculo);			
 			cocheid = vehiculo.getId_vehiculo();
@@ -49,6 +57,7 @@ public class BajaVehiculoController {
 		model.put("titulo", "Baja Vehiculo");
 		return "formBaja";
 	}
+	
 	
 	@RequestMapping(value="/formBaja",method = RequestMethod.POST)
 	public String guardarBaja(Authentication authentication,BajaVehiculo baja,
@@ -114,8 +123,26 @@ public class BajaVehiculoController {
 			vehiculo.setVehiculo_estado(vehiculoestado);
 			vehiculoService.save(vehiculo);
 			bajaservice.save(baja);
+			
+			String valor_nuevo=baja.toString();
+			
+			//Auditoria
+			
+	     	LogsAudit logs = new LogsAudit();
+	     	
+	     	logs.setId_usuario(obuserService.obtenEmpl());
+	 		logs.setTipo_role(obuserService.obtenUser());
+			logs.setFecha(SystemDate.obtenFecha());
+			logs.setHora(ObtenHour.obtenHour());
+			logs.setName_table("BAJAS VEHICULOS");
+			logs.setValor_viejo(valor_nuevo);
+			logs.setTipo_accion("INSERT");
+									
+			logsauditService.save(logs);
+			
 		}		
 						
 		return "redirect:Vehiculos";
 	}
+	
 }

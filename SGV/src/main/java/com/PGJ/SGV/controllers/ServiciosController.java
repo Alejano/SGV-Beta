@@ -1,18 +1,13 @@
 package com.PGJ.SGV.controllers;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Collection;
 import java.util.Map;
 import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,37 +17,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.PGJ.SGV.models.entity.CatalogoServicio;
 import com.PGJ.SGV.service.ICatalogoServicioService;
+import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IUploadFileService;
 import com.PGJ.SGV.util.paginador.PageRender;
-
 
 @Controller
 public class ServiciosController {
 	@Autowired
 	private ICatalogoServicioService catalogoServicio;
-	
 	@Autowired
 	private IUploadFileService uploadFileService;
+	@Autowired
+	private IObtenerUserService obuserService;
+	
 	static int 	Corddocu = 0;
 	static int 	Cordtabla = 0;
-	
+	String user;
 	
 	@RequestMapping(value="/Servicios", method = RequestMethod.GET)
-	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model, Authentication authentication) {				
+	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model) {				
 	
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);	
 		Pageable pageRequest = PageRequest.of(page, 100);
-		
-		var user="";
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";						
-			model.addAttribute("usuario",user);
-		}else {
-			if(hasRole("ROLE_USER")) {
-				user = "ROLE_USER";
-				model.addAttribute("usuario",user);				
-			}
-		}
-		
 		
 		Page<CatalogoServicio> catalogoPage = catalogoServicio.findAll(pageRequest);
 		PageRender<CatalogoServicio> catalogorender = new PageRender<>("/Servicios",catalogoPage);
@@ -122,9 +109,7 @@ public class ServiciosController {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + campo);
 		}
-		
-		
-									
+							
 		catalogoServicio.save(uss);		
 		
 	return "redirect:/Servicios?page="+page;
@@ -186,33 +171,13 @@ public class ServiciosController {
 			}
 			
 		}
-		
 		return "redirect:/Servicios";
 	}
 	
-	public static boolean hasRole(String role) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		
-		if(context==null) {
-		return false;
-		}
-		
-		Authentication auth = context.getAuthentication();
-		
-		if(auth == null) {
-			return false;
-		}
-		
-		Collection<? extends GrantedAuthority> autorithies = auth.getAuthorities();
-		for(GrantedAuthority authority: autorithies) {
-			if(role.equals(authority.getAuthority())) {return true;}
-		}
-		return false;
-	}
 	
 	@RequestMapping(value="/formServBuscar")
 	public String Buscartabla(@RequestParam(name="page", defaultValue = "0") int page,
-			@RequestParam(value="elemento") String elemento,Model model, Authentication authentication){	
+			@RequestParam(value="elemento") String elemento,Model model){	
 		Pageable pageRequest = PageRequest.of(page, 100);
 		 Double Dato;
 		 

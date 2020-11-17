@@ -25,11 +25,12 @@ public interface ISiniestroService {
 	
 	public Page<Siniestro> FindsegVehi(Long id_vehiculo,Pageable pageable);
 	
+	public Page<Siniestro> FindSinVehiArea(Long id_adscripcion,Pageable pageable);
+	
 	public Page<Siniestro> FindSinElemVehiPage(Long id_vehiculo,String elemento,Pageable pageable);
 
 	public Page<Siniestro> FindSinElemenAreaPage(Long id_adscripcion,String elemento,Pageable pageable);
 	
 	public Page<Siniestro> FindSinElemenPage(String elemento,Pageable pageable);
-	
-	
+
 }

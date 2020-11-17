@@ -1,15 +1,10 @@
 package com.PGJ.SGV.controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +17,9 @@ import com.PGJ.SGV.models.entity.Revista;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.models.entity.Vehiculo;
 import com.PGJ.SGV.service.IAdscripcionService;
+import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IRevistaService;
 import com.PGJ.SGV.service.IVehiculoService;
-
 
 
 @Controller
@@ -39,51 +34,36 @@ public class RevistaController {
 	private IAdscripcionService adscripService;
 	@Autowired
 	private IVehiculoService vehiculoService;
-	
+	@Autowired
+	private IObtenerUserService obuserService;
 
-	
-	@RequestMapping(value={"/Revista"}, method = RequestMethod.GET)
-	public String HomeBarra(Model model, Authentication authentication,HttpServletRequest request){
-		var nombre="";
-		var user="";
-		
-	List<Adscripcion> ads = new ArrayList<Adscripcion>();
-		ads = adscripService.findAll();
-		
-		if(hasRole("ROLE_ADMIN")) {
-			user ="ROLE_ADMIN";	model.addAttribute("usuario",user);
-			}else {
-				if(hasRole("ROLE_USER")) {
-					user = "ROLE_USER"; model.addAttribute("usuario",user);
-				}else {
-					if(hasRole("ROLE_SEGURO")) {
-						user = "ROLE_SEGURO"; model.addAttribute("usuario",user);
-					}else {
-						if(hasRole("ROLE_TALLER")) {
-							user = "ROLE_TALLER"; model.addAttribute("usuario",user);
-						}
-					}
-				}	
-			};
-			
-			
-						
-	   nombre= usuario.getNombre();		
-	   model.addAttribute("id",authentication.getPrincipal());
-	   model.addAttribute("Online",nombre); 		   	
-	   model.addAttribute("adscripciones",ads); 		   		
-	   
-		return "Revista";
-	}
+	String user;
 	static List<Vehiculo> vehi = new ArrayList<Vehiculo>();
 	static Long id_ads=(long)0;
 	static List<Revista> revistas = new ArrayList<Revista>();
 
 	
+	@RequestMapping(value={"/Revista"}, method = RequestMethod.GET)
+	public String HomeBarra(Model model, Authentication authentication,HttpServletRequest request){
+		
+	    List<Adscripcion> ads = new ArrayList<Adscripcion>();
+		ads = adscripService.findAll();
+		var nombre="";
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);	
+			
+	    nombre= usuario.getNombre();		
+	    model.addAttribute("id",authentication.getPrincipal());
+	    model.addAttribute("Online",nombre); 		   	
+	    model.addAttribute("adscripciones",ads); 		   		
+	   
+		return "Revista";
+	}
+	
+	
 	@RequestMapping(value = "/refreshVehi")
 	public @ResponseBody String refreshVehi(@RequestParam("id_ads") Long id,@RequestParam("title") String title,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin, Model model) {
 	
-		
 		if(id_ads != id) {
 		vehi = vehiculoService.findVehiculosArea(id);
 		id_ads =id;		
@@ -174,26 +154,5 @@ public class RevistaController {
 							
 	    return html;
 	}	
-	
-	
-	public static boolean hasRole(String role) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		
-		if(context==null) {
-		return false;
-		}
-		
-		Authentication auth = context.getAuthentication();
-		
-		if(auth == null) {
-			return false;
-		}
-		
-		Collection<? extends GrantedAuthority> autorithies = auth.getAuthorities();
-		for(GrantedAuthority authority: autorithies) {
-			if(role.equals(authority.getAuthority())) {return true;}
-		}
-		return false;
-	}
 	
 }

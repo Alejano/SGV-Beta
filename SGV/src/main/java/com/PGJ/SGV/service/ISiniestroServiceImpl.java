@@ -65,6 +65,12 @@ public class ISiniestroServiceImpl implements ISiniestroService {
 	}
 
 	@Override
+	public Page<Siniestro> FindSinVehiArea(Long id_adscripcion,Pageable pageable){
+		// TODO Auto-generated method stub
+		return siniestroDao.FindSinVehiArea(id_adscripcion,pageable);
+	}
+	
+	@Override
 	public Page<Siniestro> FindSinElemVehiPage(Long id_vehiculo,String elemento,Pageable pageable) {
 		// TODO Auto-generated method stub
 		return siniestroDao.FindSinElemVehiPage(id_vehiculo,elemento,pageable);
