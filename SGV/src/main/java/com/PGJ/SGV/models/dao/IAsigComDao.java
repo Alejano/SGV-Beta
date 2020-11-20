@@ -23,4 +23,8 @@ public interface IAsigComDao extends PagingAndSortingRepository<AsigCombustible,
 
 	//@Query("select a from AsigCombustible a inner join Vehiculo v on a.vehiculo.placa = v.placa where v.placa like %?1%")
 	//public Page<AsigCombustible> findPlacaPage(String placa,Pageable pageable);
+	
+	@Query("select p.id_asignacion from AsigCombustible p where p.id_asignacion = (select max(p.id_asignacion) from AsigCombustible p)")
+	public int ultimoId();
+	
 }

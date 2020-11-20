@@ -189,7 +189,7 @@
 		var kilometrajeF = parseFloat(document.getElementById("Kfinal").value);
 		console.log(kilometrajeF);
 		
-		if( kilometrajeF < kilometrajeI ){
+		if( kilometrajeF <= kilometrajeI ){
 			document.getElementById("Kfinal").value = "";
 			swal("Error","El kilimetraje final debe ser mayor al Kilometraje inicial","error");
 			}

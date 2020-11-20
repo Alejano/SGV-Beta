@@ -56,9 +56,17 @@ public class IAsigComServiceImpl implements IAsigComService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<AsigCombustible> findidVehiculoMensual(long id_vehiculo, String mes) {
 		// TODO Auto-generated method stub
 		return asignacionDao.findidVehiculoMensual(id_vehiculo,mes);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public int ultimoId() {
+		// TODO Auto-generated method stub
+		return asignacionDao.ultimoId();
 	}
 
 	/*@Override

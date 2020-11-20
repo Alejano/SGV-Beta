@@ -20,7 +20,6 @@ public class AsigCombustible implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id_asignacion;
 	private Double presupuesto_ord;
 	private String no_tarjeta;

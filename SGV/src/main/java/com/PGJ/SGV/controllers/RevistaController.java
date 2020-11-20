@@ -106,7 +106,7 @@ public class RevistaController {
 										
 			//
 			codigo+="$('#CB"+s.getId_vehiculo()+"').change(function() {"+ 	
-					"$(\"#tr"+s.getId_vehiculo()+"\").load(\"revista\",\"placa="+s.getPlaca()+"&rev_id="+idRevista+"&Fini="+Fini+"&Ffin="+Ffin+"&checkbox=\"+$(\"#CB"+s.getId_vehiculo()+"\").prop(\"checked\"));"
+					"$(\"#tr"+s.getId_vehiculo()+"\").load(\"Estadorevista\",\"idAds="+id+"&id_vehiculo="+s.getId_vehiculo()+"&rev_id="+idRevista+"&Fini="+Fini+"&Ffin="+Ffin+"&checkbox=\"+$(\"#CB"+s.getId_vehiculo()+"\").prop(\"checked\"));"
 					
 					+ "});";									
 		}
@@ -118,14 +118,14 @@ public class RevistaController {
 	    return ini+html+fin;
 	}	
 	static Vehiculo ve = new Vehiculo();
-	static String placasave="";
+	static Long id_vehi=(long) 0;
 	
-	@RequestMapping(value = "/revista")
-	public @ResponseBody String revistaEstado(@RequestParam("placa") String placa,@RequestParam("rev_id") Long idRevista,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin,@RequestParam("checkbox") boolean check, Model model) {
+	@RequestMapping(value = "/Estadorevista")
+	public @ResponseBody String revistaEstado(@RequestParam("idAds") Long idAds,@RequestParam("id_vehiculo") Long id_vehiculo,@RequestParam("rev_id") Long idRevista,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin,@RequestParam("checkbox") boolean check, Model model) {
 		
-		if(placasave != placa) {
-			placasave=placa;
-			ve = vehiculoService.findByPlaca(placa);
+		if(id_vehi != id_vehiculo) {
+			id_vehi=id_vehiculo;
+			ve = vehiculoService.findOne(id_vehiculo);
 			
 		}
 		
@@ -138,7 +138,7 @@ public class RevistaController {
 		rev.setFecha_fin((Ffin=="")?Fini:Ffin);
 		rev.setVehiculo(ve);
 		rev.setEstado(check);
-		
+		rev.setEvento(idAds);
 		String html="";	
 		
 		

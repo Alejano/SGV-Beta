@@ -48,10 +48,10 @@ public class IAsigComExtServiceImpl implements IAsigComExtService  {
 	}
 
 	@Override
-	public List<AsigCombustibleExt> findAsig(String id_asignacion) {
-		return null;
+	public List<AsigCombustibleExt> findAsigVehi(long id_vehiculo) {
+		
 		// TODO Auto-generated method stub
-		//return asignacionextDao.findAsig(id_asignacion);
+		return asignacionextDao.findAsigVehi(id_vehiculo);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class IAsigComExtServiceImpl implements IAsigComExtService  {
 	}
 
 	@Override
-	public long ultimoid() {
+	public int ultimoid() {
 		// TODO Auto-generated method stub
 		return asignacionextDao.ultimoId();
 	}

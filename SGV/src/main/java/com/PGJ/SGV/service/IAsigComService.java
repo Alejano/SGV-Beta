@@ -23,4 +23,5 @@ public interface IAsigComService {
 	
 	public List<AsigCombustible> findidVehiculoMensual(long id_vehiculo,String mes);
 	
+	public int ultimoId();
 }

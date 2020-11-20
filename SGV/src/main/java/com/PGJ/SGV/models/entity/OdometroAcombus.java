@@ -16,6 +16,7 @@ public class OdometroAcombus implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id_odo;
+	
 	private long id_asignacion;
 	private String odometro;
 

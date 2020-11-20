@@ -8,13 +8,13 @@ import com.PGJ.SGV.models.entity.AsigCombustibleExt;
 public interface IAsigComExtService {
 
 	
-public List<AsigCombustibleExt> findAll(); 
+	public List<AsigCombustibleExt> findAll(); 
 	
-	//public Page<AsigCombustible> findAll(Pageable pageable); 
 	
-	public List<AsigCombustibleExt> findAsig(String id_asignacion); 
+	public List<AsigCombustibleExt> findAsigVehi(long id_vehiculo); 
 	
-	public List<AsigCombustibleExt> findextId(long id_asignacion);  	
+	public List<AsigCombustibleExt> findextId(long id_asignacion);  
+	
 	
 	//public Page<AsigCombustible> findPlacaPage(String placa,Pageable pageable);
 	
@@ -24,6 +24,6 @@ public List<AsigCombustibleExt> findAll();
 	
 	public void delete(Long id_asignacion);
 	
-	public long ultimoid();
+	public int ultimoid();
 	
 }

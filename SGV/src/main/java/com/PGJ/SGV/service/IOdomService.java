@@ -2,7 +2,6 @@ package com.PGJ.SGV.service;
 
 import java.util.List;
 
-import com.PGJ.SGV.models.entity.AsigCombustible;
 import com.PGJ.SGV.models.entity.OdometroAcombus;
 
 public interface IOdomService {
@@ -15,5 +14,8 @@ public interface IOdomService {
 	
 	public void delete(long id_odo);
 		
+	public int ultimoID();
+	
+	public OdometroAcombus ObtenerAsignacion(Long id_asignacion);
 	
 }
