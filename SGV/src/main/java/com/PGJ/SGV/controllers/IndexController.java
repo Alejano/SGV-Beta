@@ -19,7 +19,6 @@ public class IndexController {
 		}
 		if(principal != null) {	
 			flash.addFlashAttribute("info", "Ya ha iniciado sesion");
-			//System.out.print(" entro al if: "+principal.getName());
 			return "redirect:/";
 		}else {			
 						

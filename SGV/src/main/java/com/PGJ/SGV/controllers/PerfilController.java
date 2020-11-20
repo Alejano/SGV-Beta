@@ -22,7 +22,6 @@ public class PerfilController {
 	@RequestMapping(value = "/perfil")
 	public String editar(Map<String, Object> model) {
 		
-		
 		 Usuario usuario = null;
 		 var no_empleado="";
 		 no_empleado = obuserService.obtenEmpl();
@@ -41,7 +40,9 @@ public class PerfilController {
 		model.put("nombrebienbenida", usuario.getNombre());
 		model.put("Ads", usuario.getAdscripcion().getNombre_adscripcion());
 		model.put("titulo", "Editar Perfil");
+		
 		return "perfil";
+		
 	}
 
 	
@@ -49,8 +50,9 @@ public class PerfilController {
 	public String guardar(Usuario usuario) {		
 									
 		usuarioService.save(usuario);		
-
+		
 		return "redirect:home";
+		
 	}
 	
 }

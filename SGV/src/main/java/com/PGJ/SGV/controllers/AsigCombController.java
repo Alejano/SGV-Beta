@@ -104,6 +104,8 @@ public class AsigCombController {
 		model.addAttribute("ascombus",asignacion);
 		model.addAttribute("mes",ObtenMonth.obtenNumMes());
 		model.addAttribute("usuario",user);
+		model.addAttribute("PageTitulo", "Asignaciones de Combustible");
+		model.addAttribute("PageSubTitulo","Listado de Combustible de "+ ObtenMonth.obtenMes()+" de la placa: "+vehiculo.getPlaca());
 		model.addAttribute("titulo","Listado de Combustible de "+ ObtenMonth.obtenMes()+" de la placa: "+vehiculo.getPlaca());
 		model.addAttribute("titulo2","Listado de Combustible Historico");
 		//Mensual
@@ -132,7 +134,6 @@ public class AsigCombController {
 		combustible.setKilometraje_ord(vehiculo.getKilometraje_inicial());
 		combustible.setFecha_ini_ord(SystemDate.obtenFecha());
 	    combustible.setId_asignacion(ultimoid+1);
-	    
 	    
 		model.put("editar", editar);
 		model.put("Odometro", odometro);

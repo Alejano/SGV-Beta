@@ -75,6 +75,8 @@ public class ViajeCotroller {
 			PageRender<Viaje> pageRenderArea = new PageRender<>("/Viajes", viajespageArea);	
 			if(viajeService.totalViajesArea(usus.getAdscripcion().getId_adscripcion())>= 9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};				
 			model.addAttribute("titulo","Listado de Viajes");
+			model.addAttribute("PageTitulo", "Viajes");
+            model.addAttribute("PageSubTitulo", "Listado de Viajes");
 			model.addAttribute("auxiliar", aux);
 			model.addAttribute("titulouser",usus.getAdscripcion().getNombre_adscripcion());
 			model.addAttribute("viajes",viajespageArea);
@@ -87,6 +89,8 @@ public class ViajeCotroller {
 		if(viajeService.viajestotales() >= 9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		
 		model.addAttribute("titulo","Listado de Viajes ");
+		model.addAttribute("PageTitulo", "Viajes");
+        model.addAttribute("PageSubTitulo", "Listado de Viajes");
 		model.addAttribute("auxiliar", aux);
 		model.addAttribute("viajes",viajespage);
 		model.addAttribute("page",pageRender);
@@ -115,6 +119,8 @@ public class ViajeCotroller {
 		if(viajeService.viajestotales()>= 9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		
 		model.addAttribute("titulo","Listado de Viajes");
+		model.addAttribute("PageTitulo", "Viajes");
+        model.addAttribute("PageSubTitulo", "Listado de Viajes de la placa: "+vehiculo.getPlaca());
 		model.addAttribute("id_vehiculo",vehiculo.getId_vehiculo());
 		model.addAttribute("auxiliar", aux);
 		model.addAttribute("viajes",viajespageArea);
@@ -185,9 +191,7 @@ public class ViajeCotroller {
 		    
 			Viaje viaje_old = null;
 			viaje_old = viajeService.findOne(viaje.getId_viaje());
-		    System.err.println("old:"+viaje_old.toString());
 		    String valor_old = viaje_old.toString();
-		    
 		    viajeService.save(viaje);
 			
 			//Auditoria
@@ -232,18 +236,8 @@ public class ViajeCotroller {
 			
 			}
 		
-	     /*	if(editar==false) {
-	     	vehi=vehiculoService.findOne(id_vehi);
-      	    viaje.setVehiculo(vehi);
-    		kilom_final=viaje.getKilometraje_final();
-      	    vehi.setKilometraje_inicial(kilom_final);
-      	    vehiculoService.save(vehi);
-		    viajeService.save(viaje);	
-		    } else {
-		    	viajeService.save(viaje);
-		    	}*/
-		
 		return "redirect:ListarViajes/"+viaje.getVehiculo().getId_vehiculo();
+		
 	}
 	
 	

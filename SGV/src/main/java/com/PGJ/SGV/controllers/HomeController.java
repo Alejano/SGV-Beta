@@ -1,6 +1,7 @@
 package com.PGJ.SGV.controllers;
 
 import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -36,7 +37,7 @@ public class HomeController {
 
 	String user;
 	@RequestMapping(value={"/","/home"}, method = RequestMethod.GET)
-	public String HomeBarra(Model model, Authentication authentication,HttpServletRequest request){
+	public String HomeBarra(Model model,Authentication authentication,HttpServletRequest request){
 		
 		var nombre="";
 		user = obuserService.obtenUser();
@@ -48,32 +49,11 @@ public class HomeController {
 	    model.addAttribute("Online",nombre); 		   	
 	   
 		return "home";
-	}
-	/*
-	@RequestMapping(value="/home", method = RequestMethod.GET)
-	public String Home(Model model, Authentication authentication) {
-		var nombre="";
-		var UAuth ="";
-		if(hasRole("ROLE_ADMIN")) {
-			UAuth = "ROLE_ADMIN";
-			model.addAttribute("usuario",UAuth);
-		}else {
-			if(hasRole("ROLE_USER")) {
-				UAuth = "ROLE_USER";
-				model.addAttribute("usuario",UAuth);
-			}
-		}	    		    	  
-						   		
 		
-		usuario = usuarioService.findOne(authentication.getName());    
-		nombre= usuario.getNombre();
-		model.addAttribute("id",authentication.getName());
-		 model.addAttribute("Online",nombre); 		
-		return "home";
 	}
-	*/
 	
-	public static boolean hasRole(String role) {
+	
+	public boolean hasRole (String role) {
 		SecurityContext context = SecurityContextHolder.getContext();
 		
 		if(context==null) {
@@ -81,7 +61,7 @@ public class HomeController {
 		}
 		
 		Authentication auth = context.getAuthentication();
-		
+	
 		if(auth == null) {
 			return false;
 		}
@@ -90,8 +70,10 @@ public class HomeController {
 		for(GrantedAuthority authority: autorithies) {
 			if(role.equals(authority.getAuthority())) {return true;}
 		}
+		
 		return false;
-	}
+		}
+	
 	
 	@MessageMapping("/hello")
     @SendTo("/topic/greetings")
@@ -101,6 +83,7 @@ public class HomeController {
         return new Greeting("El vehiculo con placa: "+HtmlUtils.htmlEscape(message.getName())+" Se le a asignado un nuevo mantenimiento, "
         		+ "Mantenimientos Registrados el dia de hoy: " + HtmlUtils.htmlEscape(NotificacionMant.toString()) + " "  );
     }
+	
 	
 	@MessageMapping("/TimeReal")
     @SendTo("/topic/MantTimeReal")
@@ -114,15 +97,11 @@ public class HomeController {
         return new Greeting(titulo+"<br>"+valor1+HtmlUtils.htmlEscape(MantRegistro.toString())+"   "+ valor2 + HtmlUtils.htmlEscape(MantEntrega.toString()) );
     }
 
-
 /*
-	
 	@GetMapping({"/home","/"})	
-	public String login() {
-		
-		
-				
+	public String login() {	
 		return "home";
 	}
 */
+	
 }

@@ -16,7 +16,9 @@ public class IdDuplicado {
 		model.addAttribute("complemento","Ya se encuentra asignada a otra unidad, prueba con otra.");
 		model.addAttribute("URL","/formAds");
 		return "idDuplicado";
+		
 	}
+	
 	
 	@RequestMapping(value="/idDuplicadoUsu/{no_empleado}")
 	public String idUsuario (@PathVariable(value="no_empleado")String no_empleado,Model model) {
@@ -26,7 +28,9 @@ public class IdDuplicado {
 		model.addAttribute("complemento","Ya se encuentra asignado a otra persona, prueba con otra.");
 		model.addAttribute("URL","/formUsu");
 		return "idDuplicado";
+		
 	}
+	
 	
 	@RequestMapping(value="/idDuplicadoVehi/{placa}")
 	public String idVehiculo (@PathVariable(value="placa")String placa,Model model) {
@@ -36,7 +40,10 @@ public class IdDuplicado {
 		model.addAttribute("complemento","Ya se encuentra asignada a otra unidad, prueba con otra.");
 		model.addAttribute("URL","/formVehi");
 		return "idDuplicado";
+		
 	}
+	
+	
 	@RequestMapping(value="/idDuplicadoUsuCrea/{no_empleado}/{empleado}")
 	public String idCreateUsu (@PathVariable(value="no_empleado")String no_empleado,@PathVariable(value="empleado")String empleado,Model model) {
 		
@@ -45,7 +52,9 @@ public class IdDuplicado {
 		model.addAttribute("complemento","Debe ser el mismo numero de empleado para poder editar");
 		model.addAttribute("URL","/formUsu/"+empleado);
 		return "idDuplicado";
+		
 	}
+	
 	
 	@RequestMapping(value="/idDuplicadoCon/{no_empleado}")
 	public String idCreateCon (@PathVariable(value="no_empleado")String no_empleado,Model model) {
@@ -55,7 +64,9 @@ public class IdDuplicado {
 		model.addAttribute("complemento","Ya se encuentra asignado a otra persona, prueba con otra.");	
 		model.addAttribute("URL","/FormCond");
 		return "idDuplicado";
+		
 	}
+	
 	
 	@RequestMapping(value="/idDuplicadoAdsCrea/{no_adscripcion}/{ID}")
 	public String idCreateAds (@PathVariable(value="no_adscripcion")String no_adscripcion,@PathVariable(value="ID")Long ID,Model model) {
@@ -65,7 +76,9 @@ public class IdDuplicado {
 		model.addAttribute("complemento","Debe ser el mismo numero de Adscripcion para poder editar");
 		model.addAttribute("URL","/formAds/"+ID);
 		return "idDuplicado";
+		
 	}
+	
 	
 	@RequestMapping(value="/idDuplicadoVehiCrea/{no_vehiculo}/{coche}")
 	public String idCreateVehiculo (@PathVariable(value="no_vehiculo")String no_vehiculo,@PathVariable(value="coche")String coche,Model model) {
@@ -75,7 +88,9 @@ public class IdDuplicado {
 		model.addAttribute("complemento","Debe ser la misma placa de empleado para poder editar");
 		model.addAttribute("URL","/formVehi/"+coche);
 		return "idDuplicado";
+		
 	}
+	
 	
 	@RequestMapping(value="/idDuplicadoConCrea/{no_empleado}/{empleado}")
 	public String idCreateConductor (@PathVariable(value="no_empleado")String no_empleado,@PathVariable(value="empleado")String empleado,Model model) {
@@ -85,6 +100,7 @@ public class IdDuplicado {
 		model.addAttribute("complemento","Debe ser el mismo numero de empleado para poder editar");
 		model.addAttribute("URL","/FormCond/"+empleado);
 		return "idDuplicado";
+		
 	}
 
 }

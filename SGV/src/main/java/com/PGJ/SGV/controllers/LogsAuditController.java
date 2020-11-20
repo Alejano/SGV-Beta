@@ -31,6 +31,8 @@ public class LogsAuditController {
 		logsaudit = logsauditService.findAll();
 		if(logsauditService.logstotales()>= 5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		
+		model.addAttribute("PageTitulo", "Seguridad");
+		 model.addAttribute("PageSubTitulo", "Listado de Seguridad");
 		model.addAttribute("titulo","Seguridad");
 		model.addAttribute("logs",logsaudit);
 		model.addAttribute("usuario",user);

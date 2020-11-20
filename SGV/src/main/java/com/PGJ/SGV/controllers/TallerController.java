@@ -55,10 +55,13 @@ public class TallerController {
 		List<Taller> talleres = new ArrayList<Taller>();
 		talleres = tallerservice.findAll();
 		if(tallerservice.totalTalleres()>=9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
-		model.addAttribute("talleres",talleres);		
+		model.addAttribute("talleres",talleres);
+		model.addAttribute("PageTitulo", "Talleres");
+		model.addAttribute("PageSubTitulo", "Listado de Talleres");
 
 		return "Talleres/Talleres";
 	}
+	
 	
 	@RequestMapping(value="/AddTaller")
 	public String crear(Map<String,Object> model) {	
@@ -68,6 +71,7 @@ public class TallerController {
 		model.put("talleres", taller);
 		return "Talleres/formTaller";
 	}
+	
 	
 	@RequestMapping(value="/AddTaller",method = RequestMethod.POST)
 	public String guardar(Taller taller) {	
@@ -105,6 +109,7 @@ public class TallerController {
 		editar = false;	
 		return "redirect:Talleres";
 	}
+	
 /*
 	private String ObtenPass(String no_contrato) {
 		String bcryptPassword="";
@@ -115,6 +120,7 @@ public class TallerController {
 		
 		return bcryptPassword;		
 	}*/
+	
 	
 	@RequestMapping(value="/formTallerBuscar")
 	public String Buscartabla(@RequestParam(name="page", defaultValue = "0") int page,
@@ -144,6 +150,7 @@ public class TallerController {
 				
 		
 	}
+	
 	
 	private static boolean isValidDouble(String s) {
 		final String Digits     = "(\\p{Digit}+)";

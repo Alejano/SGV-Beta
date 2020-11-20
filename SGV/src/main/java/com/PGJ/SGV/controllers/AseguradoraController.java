@@ -42,13 +42,12 @@ public class AseguradoraController {
 		
 		user = obuserService.obtenUser();
 		aseguradora = asegService.findAll();
-		
 		if(asegService.aseguradorastotales()>= 5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
-
+		model.addAttribute("PageTitulo", "Aseguradoras");
+		model.addAttribute("PageSubTitulo","Listado de Aseguradoras");
 		model.addAttribute("titulo","Listado de Aseguradoras");
 		model.addAttribute("usuario",user);	
 		model.addAttribute("aseguradoras",aseguradora);
-		
 		return "Aseguradoras/Aseguradoras";
 
 	}
@@ -61,7 +60,6 @@ public class AseguradoraController {
 		Aseguradora aseguradora = new Aseguradora();		
 		model.put("editar", editar);
 		model.put("aseguradora", aseguradora);
-		
 		return "Aseguradoras/formAseg";
 		
 	}
@@ -72,6 +70,7 @@ public class AseguradoraController {
 		
 		editar = true;
 		Aseguradora aseguradora = null;
+		
 		if(id_aseguradora != 0) {
 			aseguradora = asegService.findOne(id_aseguradora);			
 			id_aseg = aseguradora.getId_aseguradora();
@@ -85,9 +84,9 @@ public class AseguradoraController {
 		
 	}
 	
+	
 	@RequestMapping(value="/estadoAseg/{id_aseguradora}/{enabled}")
 	public String estado (@PathVariable(value="id_aseguradora")Long id_aseguradora,@PathVariable(value="enabled")boolean enabled,Authentication authentication) {
-		
 		
 		Aseguradora aseguradora = null;
 		boolean seteo = false;
@@ -103,9 +102,7 @@ public class AseguradoraController {
 		
 		Aseguradora aseguradora_old = null;
 		aseguradora_old = asegService.findOne(aseguradora.getId_aseguradora());
-	    System.err.println("old:"+aseguradora_old.toString());
 	    String valor_old = aseguradora_old.toString();
-	    
 	    asegService.save(aseguradora);	
 	
 		//Auditoria
@@ -121,18 +118,18 @@ public class AseguradoraController {
 		logs.setTipo_accion("UPDATE");
 								
 		logsauditService.save(logs);
-		
 		editar = false;		
-			
 	    return "redirect:/Aseguradoras";
 	    
 	}
+	
 	
 	@RequestMapping(value="/VerAseg/{id_aseguradora}")
 	public String ver(@PathVariable(value="id_aseguradora") Long id_aseguradora,Map<String,Object>model) {
 		
 		editar = true;
 		Aseguradora aseguradora = null;
+		
 		if(id_aseguradora != 0) {
 			aseguradora = asegService.findOne(id_aseguradora);			
 			id_aseg = aseguradora.getId_aseguradora();
@@ -147,6 +144,7 @@ public class AseguradoraController {
 		
 	}
 	
+	
 	@RequestMapping(value="/formAseg",method = RequestMethod.POST)
 	public String guardar(Aseguradora aseguradora) {	
 		
@@ -156,9 +154,7 @@ public class AseguradoraController {
 			
 			Aseguradora aseguradora_old = null;
 		    aseguradora_old = asegService.findOne(aseguradora.getId_aseguradora());	
-		    System.err.println("old:"+aseguradora_old.toString());
 		    String valor_old = aseguradora.toString();
-		    
 			asegService.save(aseguradora);
 			
 			//Auditoria
@@ -198,7 +194,9 @@ public class AseguradoraController {
 		}
 		
 		return "redirect:Aseguradoras";
+		
 	}
+	
 	
 	@RequestMapping(value="/elimAseg/{id_aseguradora}")
 	public String eliminar (@PathVariable(value="id_aseguradora")Long id_aseguradora) {

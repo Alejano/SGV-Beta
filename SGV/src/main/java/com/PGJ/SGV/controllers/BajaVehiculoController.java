@@ -52,6 +52,7 @@ public class BajaVehiculoController {
 			return "redirect:/Vehiculos";
 		}
 		
+		model.put("PageTitulo", "Baja de Vehiculo con la placa: "+vehiculo.getPlaca());
 		model.put("vehiculo",vehiculo);
 		model.put("bajavehiculo", bajavehiculo);
 		model.put("titulo", "Baja Vehiculo");
@@ -60,11 +61,8 @@ public class BajaVehiculoController {
 	
 	
 	@RequestMapping(value="/formBaja",method = RequestMethod.POST)
-	public String guardarBaja(Authentication authentication,BajaVehiculo baja,
-			@RequestParam("file1") MultipartFile url_acta_fnq,
-			@RequestParam("file2") MultipartFile url_oficio_baja,
-			@RequestParam("file3") MultipartFile url_dictamen
-			){
+	public String guardarBaja(Authentication authentication,BajaVehiculo baja,@RequestParam("file1") MultipartFile url_acta_fnq,
+			@RequestParam("file2") MultipartFile url_oficio_baja,@RequestParam("file3") MultipartFile url_dictamen){
 		
 		VehiculoEstado vehiculoestado = new VehiculoEstado();
 		
@@ -96,7 +94,6 @@ public class BajaVehiculoController {
 					) 
 			{
 				
-				//System.out.println("entro al if");
 				uploadFileService.delete(baja.getUrl_acta_fnq());
 				uploadFileService.delete(baja.getUrl_dictamen());
 				uploadFileService.delete(baja.getUrl_oficio_baja());

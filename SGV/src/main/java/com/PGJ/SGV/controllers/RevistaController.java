@@ -52,7 +52,8 @@ public class RevistaController {
 		user = obuserService.obtenUser();
 		model.addAttribute("usuario",user);	
 			
-	    nombre= usuario.getNombre();		
+	    nombre= usuario.getNombre();	
+	    model.addAttribute("PageTitulo", "Revista Vehicular");
 	    model.addAttribute("id",authentication.getPrincipal());
 	    model.addAttribute("Online",nombre); 		   	
 	    model.addAttribute("adscripciones",ads); 		   		
@@ -65,9 +66,10 @@ public class RevistaController {
 	public @ResponseBody String refreshVehi(@RequestParam("id_ads") Long id,@RequestParam("title") String title,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin, Model model) {
 	
 		if(id_ads != id) {
-		vehi = vehiculoService.findVehiculosArea(id);
-		id_ads =id;		
-		}
+			vehi = vehiculoService.findVehiculosArea(id);
+			id_ads =id;		
+			}
+		
 		revistas = revistaService.findAllFuturo();
 		String html="";			
 		String codigo="";
@@ -103,8 +105,6 @@ public class RevistaController {
 					idRevista=0;
 				}
 					
-										
-			//
 			codigo+="$('#CB"+s.getId_vehiculo()+"').change(function() {"+ 	
 					"$(\"#tr"+s.getId_vehiculo()+"\").load(\"Estadorevista\",\"idAds="+id+"&id_vehiculo="+s.getId_vehiculo()+"&rev_id="+idRevista+"&Fini="+Fini+"&Ffin="+Ffin+"&checkbox=\"+$(\"#CB"+s.getId_vehiculo()+"\").prop(\"checked\"));"
 					
@@ -117,8 +117,11 @@ public class RevistaController {
 			
 	    return ini+html+fin;
 	}	
+	
+	
 	static Vehiculo ve = new Vehiculo();
 	static Long id_vehi=(long) 0;
+	
 	
 	@RequestMapping(value = "/Estadorevista")
 	public @ResponseBody String revistaEstado(@RequestParam("idAds") Long idAds,@RequestParam("id_vehiculo") Long id_vehiculo,@RequestParam("rev_id") Long idRevista,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin,@RequestParam("checkbox") boolean check, Model model) {
@@ -131,7 +134,6 @@ public class RevistaController {
 		
 		Revista rev= new Revista();	
 		
-	
 		if(idRevista != 0) {rev =revistaService.findOne(idRevista);};
 				
 		rev.setFecha_inicio(Fini);
@@ -140,7 +142,6 @@ public class RevistaController {
 		rev.setEstado(check);
 		rev.setEvento(idAds);
 		String html="";	
-		
 		
 		revistaService.save(rev);
 		
