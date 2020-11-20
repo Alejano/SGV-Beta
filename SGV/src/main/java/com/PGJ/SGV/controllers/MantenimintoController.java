@@ -76,7 +76,6 @@ public class MantenimintoController {
 			Usuario usus = new Usuario();
 			usus = usuarioService.findbyAdscripcion(ads);	
 			
-			//MantArea = mantService.FindMantenimientoArea(usus.getAdscripcion().getId_adscripcion());
 			Page<Mantenimiento> MantAreaPage = mantService.FindMantenimientoAreaPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);
 			PageRender<Mantenimiento> MantRenderArea= new PageRender<>("/Mantenimientos",MantAreaPage);
 			if(mantService.totalMantenimiento()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
@@ -85,7 +84,9 @@ public class MantenimintoController {
 			model.addAttribute("mantenimientos",MantAreaPage);
 			model.addAttribute("page",MantRenderArea);
 			model.addAttribute("Mplaca",Mplaca);
+			
 			return "Mantenimientos";
+			
 		}
 		
 		//mantenimiento = mantService.findAll();
@@ -94,6 +95,7 @@ public class MantenimintoController {
 		PageRender<Mantenimiento> MantRender= new PageRender<>("/Mantenimientos",MantPage);
 		if(mantService.totalMantenimiento()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		model.addAttribute("PageTitulo", "Mantenimientos");
+		model.addAttribute("PageSubTitulo", "Listado de Mantenimientos");
 		model.addAttribute("titulo","Listado de Mantenimientos");
 		model.addAttribute("mantenimientos",MantPage);
 		model.addAttribute("page",MantRender);
@@ -122,7 +124,6 @@ public class MantenimintoController {
 				Usuario usus = new Usuario();
 				usus = usuarioService.findbyAdscripcion(ads);	
 				
-				//MantArea = mantService.FindMantPlacaAds(placa, usus.getAdscripcion().getId_adscripcion());
 				Page<Mantenimiento> mantAreaPage = mantService.FindMantPlacaAreaPage(vehi.getId_vehiculo(), usus.getAdscripcion().getId_adscripcion(), pageRequest);
 				PageRender<Mantenimiento> mantRender = new PageRender<>("/Mantenimientos/{placa}",mantAreaPage);
 				
@@ -133,10 +134,11 @@ public class MantenimintoController {
 				model.addAttribute("mantenimientos",mantAreaPage);
 				model.addAttribute("page",mantRender);
 				model.addAttribute("Mplaca",Mplaca);
+				
 				return "Mantenimientos";
+				
 			}
 			
-		//mantenimiento = mantService.FindMantPlaca(placa);
 			Page<Mantenimiento> mantPage = mantService.FindMantPlacaPage(vehi.getId_vehiculo(), pageRequest);
 			PageRender<Mantenimiento> mantRender = new PageRender<>("/Mantenimientos/"+vehi.getPlaca(),mantPage);
 				
@@ -148,7 +150,9 @@ public class MantenimintoController {
 		model.addAttribute("mantenimientos",mantPage);
 		model.addAttribute("page",mantRender);
 		model.addAttribute("Mplaca",Mplaca);
+		
 		return "Mantenimientos";
+		
 	}
 		
 	
@@ -168,10 +172,12 @@ public class MantenimintoController {
 				model.put("taller",taller);
 				model.put("mantenimiento",mantenimiento );				
 				model.put("placa", placa);								
-				model.put("titulo", "Formulario de Mantenimiento");					
+				model.put("titulo", "Formulario de Mantenimiento");		
+				
 		return "formMant";
 					
 	}
+	
 	
 	List<CatalogoServicio> iterar(List<CatalogoServicio> servicios, String buscar) {
 		List<CatalogoServicio> lista = new ArrayList<CatalogoServicio>();
@@ -203,22 +209,27 @@ public class MantenimintoController {
 		return lista;
 	}
 	
+	
 	@RequestMapping(value="/formMant/{id_mantenimiento}")
-	public String editar(@PathVariable(value="id_mantenimiento") Long id_mantenimiento,Map<String,Object>model) {	
+	public String editar(@PathVariable(value="id_mantenimiento") Long id_mantenimiento,Map<String,Object>model) {
+		
 		Editar = true;			
 		Mantenimiento mant = null;
-	
+		
 		if(id_mantenimiento != null) {
 			mant = mantService.findOne(id_mantenimiento);
 		}else {
 			return "redirect:/Mantenimientos";
 		}
+		
 		model.put("Editar", Editar);
 		model.put("vehiculo", vehiculo);
 		model.put("placa", mant.getVehiculo().getPlaca());
 		model.put("mantenimiento",mant);
 		model.put("titulo", "Editar Mantenimiento");
+		
 		return "formMant";
+		
 	}
 	
 	
@@ -242,10 +253,9 @@ public class MantenimintoController {
 			}
 			
 					if(Editar == true) {
-												
+			
 						Mantenimiento mantenimiento_old = null;
 						mantenimiento_old = mantService.findOne(mantenimiento.getId_mantenimiento());
-						System.err.println("old:"+mantenimiento_old.toString());
 						String valor_old = mantenimiento_old.toString();
 						
 						vehiculoselect = vehiculoService.findOne(mantenimiento.getVehiculo().getId_vehiculo());	
@@ -274,7 +284,6 @@ public class MantenimintoController {
 					mantenimiento.setVehiculo(vehiculoselect);
 					mantenimiento.setKilometraje(vehiculoselect.getKilometraje_inicial());					
 					mantService.save(mantenimiento);
-					
 					String valor_nuevo=mantenimiento.toString();
 					
 					//Auditoria

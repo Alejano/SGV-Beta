@@ -66,7 +66,6 @@ public class ConductorController {
 		if(user.equals("ROLE_USER")){
 			Usuario usus = new Usuario();
 			usus = usuarioService.findbyAdscripcion(ads);
-			//ConductorArea = conductorService.findConductorArea(usus.getAdscripcion().getId_adscripcion());
 			Page<Conductor> conductorareapage = conductorService.findConductorAreaPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);
 			PageRender<Conductor> pageRenderArea = new PageRender<> ("/Conductores",conductorareapage);
             if(conductorService.totalConductores()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");}
@@ -78,7 +77,6 @@ public class ConductorController {
 		}
 		
 		//ADMINISTRADOR 
-		//Page<Conductor> conductorPage = conductorService.findAll(pageRequest);
 		Page<Conductor> conductorPage = conductorService.findByCNl(pageRequest); 
 		PageRender<Conductor> pageRender = new PageRender<>("/Conductores",conductorPage);
 		if(conductorService.totalConductores()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
@@ -153,7 +151,6 @@ public class ConductorController {
 	}
 	
 	
-	
 	@RequestMapping(value="/FormCond",method = RequestMethod.POST)
 	public String guardar(Conductor conductor){
 		
@@ -185,9 +182,7 @@ public class ConductorController {
 		
 		    Conductor conductor_old = null;	
 		    conductor_old = conductorService.findOne(conductor.getNo_empleado());
-		    System.err.println("old:"+conductor_old.toString());
 		    String valor_old = conductor_old.toString();
-		   
 			conductorService.save(conductor);
 			
 			//Auditoria
@@ -233,7 +228,6 @@ public class ConductorController {
 	}
 
 	
-	//@RequestMapping(value="/elimCond/{id_adscripcion}")
 	@RequestMapping(value="/elimCond/{no_empleado}")
 	public String eliminar (@PathVariable(value="no_empleado")String no_empleado) {
 		
@@ -269,9 +263,7 @@ public class ConductorController {
 			
 			Conductor cond_old = null;
 			cond_old = conductorService.findOne(no_empleado);
-		    System.err.println("old:"+cond_old.toString());
 		    String valor_old = cond_old.toString();
-		    
 			conductorService.save(cond);
 		
 			//Auditoria
@@ -362,7 +354,6 @@ public class ConductorController {
 		if(user.equals("ROLE_USER")){
 			Usuario usus = new Usuario();
 			usus = usuarioService.findbyAdscripcion(ads);
-			//ConductorArea = conductorService.findConductorArea(usus.getAdscripcion().getId_adscripcion());
 			Page<Conductor> conductorareapage = conductorService.findConductorAreaBajasPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);
 			PageRender<Conductor> pageRenderArea = new PageRender<> ("/Conductores",conductorareapage);
 			if(conductorService.totalConductorAreaBajas(usus.getAdscripcion().getId_adscripcion())>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
@@ -386,6 +377,7 @@ public class ConductorController {
 		return "BajasCond";
 		
 	}
+	
 
 	@RequestMapping(value="/RecuperarCond/{no_empleado}")
 	public String recuperar (@PathVariable(value="no_empleado")String no_empleado) {
@@ -400,9 +392,7 @@ public class ConductorController {
 			
 			Conductor cond_old = null;
 			cond_old = conductorService.findOne(condu.getNo_empleado());
-		    System.err.println("old:"+cond_old.toString());
 		    String valor_old = cond_old.toString();
-		    
 			conductorService.save(condu);
 			
             //Auditoria
@@ -472,6 +462,7 @@ public class ConductorController {
 				}	
 		 
 	}
+	
 	
 	private static boolean isValidDouble(String s) {
 		final String Digits     = "(\\p{Digit}+)";

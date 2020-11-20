@@ -1,4 +1,5 @@
 package com.PGJ.SGV.controllers;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,6 @@ import com.PGJ.SGV.service.ILogsAuditService;
 import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.utilities.ObtenHour;
 import com.PGJ.SGV.utilities.SystemDate;
-
 
 @Controller
 public class AdscripcionController {
@@ -37,7 +37,6 @@ public class AdscripcionController {
 	public String listar(Model model) {
 		
 		user = obuserService.obtenUser();
-		
 		adscripciones = adscripService.findAll();
 		if(adscripService.adscripcionestotales()>= 4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		model.addAttribute("PageTitulo", "Adscripciones");
@@ -45,8 +44,8 @@ public class AdscripcionController {
 		model.addAttribute("titulo","Listado de Adscripciones");
 		model.addAttribute("adscripciones",adscripciones);
 		model.addAttribute("usuario",user);	
-		
 		return "Adscripciones";
+		
 	}
 		
 	
@@ -57,7 +56,7 @@ public class AdscripcionController {
 		model.put("adscripcion", ads);
 		model.put("usuario",obuserService.obtenUser());
 		model.put("titulo", "Formulario de Adscripciones");
-							
+		
 		return "formAds";
 	}
 	
@@ -77,6 +76,7 @@ public class AdscripcionController {
 		model.put("adscripcion",adscripcion);
 		model.put("titulo", "Editar cliente");
 		return "formAds";
+		
 	}
 	
 	
@@ -86,13 +86,10 @@ public class AdscripcionController {
 		if(editar == true) {
 		
 		//Adscripciones OLD
-	    
+	   
 		Adscripcion adscripcion_old = null;
 		adscripcion_old = adscripService.findOne(adscripcion.getId_adscripcion());
-				
-	    System.err.println("old:"+adscripcion_old.toString());
 	    String valor_old = adscripcion_old.toString();
-	    
 	    adscripService.save(adscripcion);			
 		editar = false;	
 		
@@ -109,7 +106,6 @@ public class AdscripcionController {
 		logs.setTipo_accion("UPDATE");
 								
 		logsauditService.save(logs);
-		
 		editar = false;	
 		
 		}else {
@@ -130,11 +126,10 @@ public class AdscripcionController {
 			logs.setTipo_accion("INSERT");
 			
 			logsauditService.save(logs);
-			
 		}
 		
 		return "redirect:Adscripciones";
-
+		
 	} 
 		
 	

@@ -86,6 +86,7 @@ public class SiniestroController {
 			model.addAttribute("siniestros",SiniestroPageArea);
 			model.addAttribute("page",SiniestroRenderArea);
 			return "Siniestros";
+			
 		}
 	
 		Page<Siniestro> SiniestroPage = siniestroService.findAll(pageRequest);
@@ -155,6 +156,7 @@ public class SiniestroController {
 		
 	}
 	
+	
 	@RequestMapping(value="/formSin/{id_siniestro}")
 	public String editar(@PathVariable(value="id_siniestro") Long id_siniestro,Map<String,Object>model) {
 
@@ -166,7 +168,6 @@ public class SiniestroController {
 		if(!id_siniestro.equals(null)) {
 			siniestro = siniestroService.findOne(id_siniestro);
 			id_sin=siniestro.getId_siniestro();
-			System.err.println("prueba"+id_siniestro);
 		}else {
 			return "redirect:/Siniestros";
 		}
@@ -367,7 +368,6 @@ public class SiniestroController {
 			    
 				Siniestro siniestro_old = null;
 				siniestro_old = siniestroService.findOne(siniestro.getId_siniestro());
-			    System.err.println("old:"+siniestro_old.toString());
 			    String valor_old = siniestro_old.toString();
 			    
 				System.err.println("entroeditar: "+siniestro.getId_siniestro());
@@ -397,7 +397,6 @@ public class SiniestroController {
 		
 			vehiculoselect = vehiculoService.findOne(siniestro.getVehiculo().getId_vehiculo());							
 			siniestro.setVehiculo(vehiculoselect);
-			System.err.println("CREA:"+siniestro.toString());
 			siniestroService.save(siniestro);
 			String valor_nuevo=siniestro.toString();
 			

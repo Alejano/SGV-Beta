@@ -504,8 +504,9 @@ public class VehiculoController {
 		model.put("adslist",adscripcionlist );		
 		model.put("vehiculo",vehiculo);		
 		model.put("detalle",detalle);	
-		model.put("marcas",marca);				
-		model.put("titulo", "Editar cliente");	
+		model.put("marcas",marca);			
+		model.put("PageTitulo", "Editar Vehiculo");
+		model.put("titulo", "Editar Vehiculo");	
 		
 		return "formVehi";
 	}
@@ -735,7 +736,8 @@ public class VehiculoController {
 	
 	@RequestMapping(value="/formVehBuscar")
 	public String Buscartabla(@RequestParam(name="page", defaultValue = "0") 
-	int page,@RequestParam(value="elemento") String elemento,Model model){						 
+	int page,@RequestParam(value="elemento") String elemento,Model model){	
+		
 		Pageable pageRequest = PageRequest.of(page, 1000);
 		 Double Dato;
 		 var ads="";
@@ -781,6 +783,7 @@ public class VehiculoController {
 						
 	}
 	
+	
 	private static boolean isValidDouble(String s) {
 		final String Digits     = "(\\p{Digit}+)";
 		  final String HexDigits  = "(\\p{XDigit}+)";
@@ -812,10 +815,8 @@ public class VehiculoController {
 	
 	@RequestMapping(value = "/refreshSubMarca")
 	public @ResponseBody String refreshSubMarca(@RequestParam("nombre_marca") String nombre_marca, Model model) {
-		//System.out.println(nombre_marca);
+		
 		List<String> itemList = vehiculoService.findallsubMarcaUnica(nombre_marca);
-	   
-	
 		String html="<option value=''> Selecciona la submarca </option>";
 		
 		for(String s:itemList) {
@@ -823,16 +824,15 @@ public class VehiculoController {
 			html+="<option value='"+s+"'> "+s+" </option>";
 		}
 		
-		
 	    return html;
+	    
 	}	
+	
 	
 	@RequestMapping(value = "/refreshModelo")
 	public @ResponseBody String refreshModelo(@RequestParam("nombre_submarca") String nombre_submarca,@RequestParam("nombre_marca") String nombre_marca, Model model) {
-		//System.out.println(nombre_submarca);
-		List<String> Modelos = vehiculoService.findallModeloUnico(nombre_marca,nombre_submarca);
-	   
 		
+		List<String> Modelos = vehiculoService.findallModeloUnico(nombre_marca,nombre_submarca);
 		String html="<option value=''> Selecciona el Modelo </option>";
 		
 		for(String s:Modelos) {
@@ -840,17 +840,16 @@ public class VehiculoController {
 			html+="<option value='"+s+"'> "+s+" </option>";
 		}
 		
-		
 	    return html;
 	}
+	
 	
 	@RequestMapping(value = "/refreshTipo")
 	public @ResponseBody String refreshTipo(@RequestParam("nombre_submarca") String nombre_submarca,
 			@RequestParam("nombre_marca") String nombre_marca,
 			@RequestParam("modelo") String modelo,Model model) {
-		//System.out.println(nombre_submarca);
-		List<String> tipos = vehiculoService.findallTipoUnico(nombre_marca, nombre_submarca, modelo);
 		
+		List<String> tipos = vehiculoService.findallTipoUnico(nombre_marca, nombre_submarca, modelo);
 		String html="<option value=''> Selecciona El Tipo  </option>";
 		
 		for(String s:tipos) {
@@ -858,18 +857,17 @@ public class VehiculoController {
 			html+="<option value='"+s+"'> "+s+" </option>";
 		}
 		
-		
 	    return html;
 	}
+	
 	
 	@RequestMapping(value = "/refreshClase")
 	public @ResponseBody String refreshClase(@RequestParam("nombre_submarca") String nombre_submarca,
 			@RequestParam("nombre_marca") String nombre_marca,
 			@RequestParam("modelo") String modelo,
 			@RequestParam("tipo") String tipo,Model model) {
-		//System.out.println(nombre_submarca);
+
 		List<String> tipos = vehiculoService.findallClaseUnico(nombre_marca, nombre_submarca, modelo,tipo);
-		
 		String html="<option value=''> Selecciona La Clase  </option>";
 		
 		for(String s:tipos) {
@@ -877,9 +875,9 @@ public class VehiculoController {
 			html+="<option value='"+s+"'> "+s+" </option>";
 		}
 		
-		
 	    return html;
 	}	
+	
 	
 	@RequestMapping(value = "/refreshID")
 	public @ResponseBody String refreshId(@RequestParam("nombre_submarca") String nombre_submarca,
@@ -893,11 +891,14 @@ public class VehiculoController {
 		String html="<input id=\"vehiculo_marca\" name=\"vehiculo_marca\" type=\"hidden\" value=\""+marca.getId_marca()+"\"/>";			
 		
 		model.addAttribute("marca", marca);
+		
 	    return html;
 	}	
 	
+	
 	@RequestMapping(value="/info/{id_vehiculo}")
-	public String info(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {		
+	public String info(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {	
+		
 		adscripcionlist = adscripService.findAll();
 		Vehiculo vehiculo = null;
 		VehiculoDetalle detalle = null;
@@ -923,7 +924,6 @@ public class VehiculoController {
 			return "redirect:/Vehiculos";
 		}
 		
-
 		model.put("transmisiones", transmision);
 		model.put("funciones", funcion);
 		model.put("editando", "si");
@@ -933,9 +933,9 @@ public class VehiculoController {
 		model.put("vehiculo",vehiculo);
 		model.put("detalle",detalle);
 		model.put("marcas",marca);				
-		model.put("titulo", "Editar cliente");	
+		model.put("PageTitulo", "Información Vehiculo");
+		model.put("titulo", "Información Vehiculo");	
 		return "infoVehi";
 	}	
-	
 	
 }

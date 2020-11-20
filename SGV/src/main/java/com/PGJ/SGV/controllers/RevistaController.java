@@ -66,9 +66,10 @@ public class RevistaController {
 	public @ResponseBody String refreshVehi(@RequestParam("id_ads") Long id,@RequestParam("title") String title,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin, Model model) {
 	
 		if(id_ads != id) {
-		vehi = vehiculoService.findVehiculosArea(id);
-		id_ads =id;		
-		}
+			vehi = vehiculoService.findVehiculosArea(id);
+			id_ads =id;		
+			}
+		
 		revistas = revistaService.findAllFuturo();
 		String html="";			
 		String codigo="";
@@ -104,8 +105,6 @@ public class RevistaController {
 					idRevista=0;
 				}
 					
-										
-			//
 			codigo+="$('#CB"+s.getId_vehiculo()+"').change(function() {"+ 	
 					"$(\"#tr"+s.getId_vehiculo()+"\").load(\"revista\",\"placa="+s.getPlaca()+"&rev_id="+idRevista+"&Fini="+Fini+"&Ffin="+Ffin+"&checkbox=\"+$(\"#CB"+s.getId_vehiculo()+"\").prop(\"checked\"));"
 					
@@ -118,8 +117,11 @@ public class RevistaController {
 			
 	    return ini+html+fin;
 	}	
+	
+	
 	static Vehiculo ve = new Vehiculo();
 	static String placasave="";
+	
 	
 	@RequestMapping(value = "/revista")
 	public @ResponseBody String revistaEstado(@RequestParam("placa") String placa,@RequestParam("rev_id") Long idRevista,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin,@RequestParam("checkbox") boolean check, Model model) {
@@ -132,7 +134,6 @@ public class RevistaController {
 		
 		Revista rev= new Revista();	
 		
-	
 		if(idRevista != 0) {rev =revistaService.findOne(idRevista);};
 				
 		rev.setFecha_inicio(Fini);
@@ -141,7 +142,6 @@ public class RevistaController {
 		rev.setEstado(check);
 		
 		String html="";	
-		
 		
 		revistaService.save(rev);
 		

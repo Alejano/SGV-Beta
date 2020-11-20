@@ -49,30 +49,9 @@ public class HomeController {
 	    model.addAttribute("Online",nombre); 		   	
 	   
 		return "home";
-	}
-	/*
-	@RequestMapping(value="/home", method = RequestMethod.GET)
-	public String Home(Model model, Authentication authentication) {
-		var nombre="";
-		var UAuth ="";
-		if(hasRole("ROLE_ADMIN")) {
-			UAuth = "ROLE_ADMIN";
-			model.addAttribute("usuario",UAuth);
-		}else {
-			if(hasRole("ROLE_USER")) {
-				UAuth = "ROLE_USER";
-				model.addAttribute("usuario",UAuth);
-			}
-		}	    		    	  
-						   		
 		
-		usuario = usuarioService.findOne(authentication.getName());    
-		nombre= usuario.getNombre();
-		model.addAttribute("id",authentication.getName());
-		 model.addAttribute("Online",nombre); 		
-		return "home";
 	}
-	*/
+	
 	
 	public boolean hasRole (String role) {
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -105,6 +84,7 @@ public class HomeController {
         		+ "Mantenimientos Registrados el dia de hoy: " + HtmlUtils.htmlEscape(NotificacionMant.toString()) + " "  );
     }
 	
+	
 	@MessageMapping("/TimeReal")
     @SendTo("/topic/MantTimeReal")
     public Greeting MantTimeReal(MessageNotify message) throws Exception {
@@ -117,15 +97,11 @@ public class HomeController {
         return new Greeting(titulo+"<br>"+valor1+HtmlUtils.htmlEscape(MantRegistro.toString())+"   "+ valor2 + HtmlUtils.htmlEscape(MantEntrega.toString()) );
     }
 
-
 /*
-	
 	@GetMapping({"/home","/"})	
-	public String login() {
-		
-		
-				
+	public String login() {	
 		return "home";
 	}
 */
+	
 }

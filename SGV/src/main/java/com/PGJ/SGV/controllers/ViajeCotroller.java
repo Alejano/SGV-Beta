@@ -191,9 +191,7 @@ public class ViajeCotroller {
 		    
 			Viaje viaje_old = null;
 			viaje_old = viajeService.findOne(viaje.getId_viaje());
-		    System.err.println("old:"+viaje_old.toString());
 		    String valor_old = viaje_old.toString();
-		    
 		    viajeService.save(viaje);
 			
 			//Auditoria
@@ -238,18 +236,8 @@ public class ViajeCotroller {
 			
 			}
 		
-	     /*	if(editar==false) {
-	     	vehi=vehiculoService.findOne(id_vehi);
-      	    viaje.setVehiculo(vehi);
-    		kilom_final=viaje.getKilometraje_final();
-      	    vehi.setKilometraje_inicial(kilom_final);
-      	    vehiculoService.save(vehi);
-		    viajeService.save(viaje);	
-		    } else {
-		    	viajeService.save(viaje);
-		    	}*/
-		
 		return "redirect:ListarViajes/"+viaje.getVehiculo().getId_vehiculo();
+		
 	}
 	
 	

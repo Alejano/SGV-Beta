@@ -115,9 +115,7 @@ public class ResguardanteController {
 	
 	
 	@RequestMapping(value="/AddResguardo/{placa}",method = RequestMethod.POST)
-	public String saveR(Map<String,Object> model,Resguardante resguardante,
-			@PathVariable(value="placa") String placa
-			) {		
+	public String saveR(Map<String,Object> model,Resguardante resguardante,@PathVariable(value="placa") String placa) {		
 
 		String nombres = resguardante.getNombre();
 		String apellidos1 = resguardante.getApellido1();
@@ -173,12 +171,10 @@ public class ResguardanteController {
 		
 		reguardanteservice.save(Presguardante);
 		reguardanteservice.save(Sresguardante);
-		
-        System.err.println("Primero: "+Presguardante.toString());
-		
+				
 		String valor_oldp = Presguardante.toString();
 		LogsAudit logsp = new LogsAudit();
-     	
+    
 		logsp.setId_usuario(obuserService.obtenEmpl());
 		logsp.setTipo_role(obuserService.obtenUser());
 		logsp.setFecha(SystemDate.obtenFecha());
@@ -186,9 +182,7 @@ public class ResguardanteController {
 		logsp.setName_table("RESGUARDANTE");
 		logsp.setValor_viejo(valor_oldp);
 		logsp.setTipo_accion("INSERT");
-								
-		System.err.println("Segundo: "+Sresguardante.toString());
-		
+										
 		String valor_olds = Sresguardante.toString();
 		LogsAudit logss = new LogsAudit();
      	
@@ -277,9 +271,6 @@ public class ResguardanteController {
 		Tresguardante.setFecha_inicio(formateador.format(ahora));
 		Tresguardante.setId_resguardante(id +1);	
 		Tresguardante.setTipo_resguardante_id(tiporesguardoService.findOne((long) 3));
-		System.out.println(Presguardante.getId_resguardante());
-		System.out.println(Sresguardante.getId_resguardante());
-		System.out.println(Tresguardante.getId_resguardante());
 		
 		Presguardante.setActivo(true);
 		Sresguardante.setActivo(true);
@@ -303,8 +294,6 @@ public class ResguardanteController {
 		reguardanteservice.save(Presguardante);
 		reguardanteservice.save(Sresguardante);
 		reguardanteservice.save(Tresguardante);
-
-		 System.err.println("Primero: "+Presguardante.toString());
 		 
 			String valor_oldp = Presguardante.toString();
 			LogsAudit logsp = new LogsAudit();
@@ -316,8 +305,6 @@ public class ResguardanteController {
 			logsp.setName_table("RESGUARDANTE");
 			logsp.setValor_viejo(valor_oldp);
 			logsp.setTipo_accion("INSERT");
-									
-			System.err.println("Segundo: "+Sresguardante.toString());
 			
 			String valor_olds = Sresguardante.toString();
 			LogsAudit logss = new LogsAudit();
@@ -329,8 +316,6 @@ public class ResguardanteController {
 			logss.setName_table("RESGUARDANTE");
 			logss.setValor_viejo(valor_olds);
 			logss.setTipo_accion("INSERT");
-			
-         System.err.println("Tercero: "+Tresguardante.toString());
 			
 			String valor_oldt = Tresguardante.toString();
 			LogsAudit logst = new LogsAudit();
@@ -349,8 +334,10 @@ public class ResguardanteController {
 	
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);
-		model.put("Tresguardante", Tresguardante);				
+		model.put("Tresguardante", Tresguardante);	
+		
 		return "redirect:/infoResguardante/"+vehi.getId_vehiculo();
+		
 	}
 	
 }

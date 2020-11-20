@@ -64,7 +64,6 @@ public class UsuarioController {
 		model.addAttribute("usuario",user);	
 		
 		Pageable pageRequest = PageRequest.of(page, 100);
-		//Page<Usuario> usuarioPage = usuarioService.findAll(pageRequest);
 		Page<Usuario> usuarioPage = usuarioService.findByNl(pageRequest);
 
 		PageRender <Usuario> usuarioRender = new PageRender<>("/Usuarios",usuarioPage);
@@ -166,9 +165,7 @@ public class UsuarioController {
 			
 		    Usuario usuario_old = null;	
 		    usuario_old = usuarioService.findOne(usuario.getNo_empleado());
-		    System.err.println("old:"+usuario_old.toString());
 		    String valor_old = usuario_old.toString();
-		   
 			usuarioService.save(usuario);
 			
 			//Auditoria
@@ -183,8 +180,7 @@ public class UsuarioController {
 			logs.setValor_viejo(valor_old);
 			logs.setTipo_accion("UPDATE");
 									
-			logsauditService.save(logs);
-			
+			logsauditService.save(logs);                       
 			editar = false;	
     		
     		}else {
@@ -209,10 +205,7 @@ public class UsuarioController {
 				logsauditService.save(logs);
     			
     			}
-		
-		/*usuario.setAdscripcion(adc);	
-		usuarioService.save(usuario);			
-		editar = false;			*/			
+				
 		return "redirect:Usuarios";
 		
 	 }	
@@ -225,7 +218,6 @@ public class UsuarioController {
 	  uss = usuarioService.findOne(no_empleado);
 	  boolean seteo = false;
 	  
-	  
 	  if(enabled) {
 		seteo=false;
 		uss.setEnabled(seteo);
@@ -236,7 +228,6 @@ public class UsuarioController {
 	  
 	  Usuario usuario_old = null;
 	  usuario_old = usuarioService.findOne(uss.getNo_empleado());
-	  System.err.println("old:"+usuario_old.toString());
 	  String valor_old = usuario_old.toString();
 	  
 	  usuarioService.save(uss);	
@@ -275,6 +266,7 @@ public class UsuarioController {
 			usuarioService.save(usua);
 		}
 		return "redirect:/Usuarios";
+		
 	}
 	
 	
@@ -308,7 +300,6 @@ public class UsuarioController {
 		   
 	}
 	
-	
 	// BAJAS DE USUARIO
 	
 	@RequestMapping(value="/BajasUsu", method = RequestMethod.GET)
@@ -317,7 +308,6 @@ public class UsuarioController {
 		user = obuserService.obtenUser();
 		model.addAttribute("usuario",user);	
 		Pageable pageRequest = PageRequest.of(page, 100);
-		//Page<Usuario> usuarioPage = usuarioService.findAll(pageRequest);
 		Page<Usuario> usuarioPage = usuarioService.findByNn(pageRequest);
 
 		PageRender <Usuario> usuarioRender = new PageRender<>("/Bajas",usuarioPage);
@@ -348,7 +338,6 @@ public class UsuarioController {
 				
 				Usuario usuario_old = null;
 				usuario_old = usuarioService.findOne(usuarec.getNo_empleado());
-			    System.err.println("old:"+usuario_old.toString());
 			    String valor_old = usuario_old.toString();
 				
 				usuarioService.save(usuarec);
@@ -368,6 +357,7 @@ public class UsuarioController {
 				logsauditService.save(logs);
 				
 				}
+			
 			return "redirect:/BajasUsu";
 			
 	}

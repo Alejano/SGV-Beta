@@ -22,7 +22,6 @@ public class Viaje implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_viaje;
 	
-	private Double distancia_mensual;
 	private String finicial_registro;
 	private String ffinal_registro;
 	private Double kilometraje_inicial;
@@ -38,14 +37,6 @@ public class Viaje implements Serializable {
 
 	public void setId_viaje(Long id_viaje) {
 		this.id_viaje = id_viaje;
-	}
-
-	public Double getDistancia_mensual() {
-		return distancia_mensual;
-	}
-
-	public void setDistancia_mensual(Double distancia_mensual) {
-		this.distancia_mensual = distancia_mensual;
 	}
 
 	public String getFinicial_registro() {
@@ -90,8 +81,8 @@ public class Viaje implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "ID_VIAJE:"+id_viaje+ " ; " +"DISTANCIA_MENSUAL:" + distancia_mensual + " ; " + "KILOMETRAJE INICIAL:" + kilometraje_inicial + " ; " +
-				"KILOMETRAJE FINAL:"+ kilometraje_final + " ; " + "FECHA INICIAL:"+ finicial_registro + " ; " +
+		return "ID_VIAJE:"+id_viaje+ ";" + ";" + "KILOMETRAJE INICIAL:" + kilometraje_inicial + ";" +
+				"KILOMETRAJE FINAL:"+ kilometraje_final + ";" + "FECHA INICIAL:"+ finicial_registro + ";" +
 				"FECHA FINAL:"+ ffinal_registro ;
 	}
 	

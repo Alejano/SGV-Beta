@@ -113,15 +113,10 @@ public class SeguroController {
 		id_vehi=id_vehiculo;
 		
 		Pageable pageRequest = PageRequest.of(page, 100);
-		
-		//if(user.equals("ROLE_USER")){
-			//Usuario usus = new Usuario();
-			//usus = usuarioService.findbyAdscripcion(ads);
+	
 			Vehiculo vehiculo = new Vehiculo();
 			vehiculo = vehiculoService.findOne(id_vehiculo);
-			
-			//segurosArea = seguroService.FindSeguroArea(usus.getAdscripcion().getId_adscripcion());
-			//Page<Seguro> SeguroAreaPage = seguroService.FindsegVehiArea(id_vehiculo, usus.getAdscripcion().getId_adscripcion(), pageRequest);
+
 			Page<Seguro> SeguroPage = seguroService.FindsegVehi(vehiculo.getId_vehiculo(),pageRequest);
 			PageRender<Seguro> SeguroRenderArea = new PageRender<>("/SegurosVehi",SeguroPage);
 			if(seguroService.totalSeguros()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
@@ -145,20 +140,7 @@ public class SeguroController {
 		model.put("usuario",user);	
 		Seguro seguro = new Seguro();
 		Vehiculo vehi= new Vehiculo();
-		
-		if(user.equals("ROLE_USER")){
-			
-			/*List<Vehiculo> Vehi = new ArrayList<Vehiculo>();
-			Usuario usus = new Usuario();
-			usus = usuarioService.findbyAdscripcion(ads);
-			Vehi = vehiculoService.findVehiculosArea(usus.getAdscripcion().getId_adscripcion());
-			
-			model.put("vehiculos", Vehi);
-			model.put("seguros", seguro);
-			model.put("titulo", "Formulario de Seguros");
-			return "formSeg";*/
-		};
-		
+	
 		vehi = vehiculoService.findOne(id_vehiculo);
 		seguro.setVehiculo(vehi);
 		aseguradora = aseguradoraService.findAll();
@@ -181,7 +163,6 @@ public class SeguroController {
 		
 		if(!id_seguro.equals(null)) {
 			seguro = seguroService.findOne(id_seguro);
-			System.err.println(id_seguro);
 		}else {
 			return "redirect:/seguros";
 		}
@@ -241,7 +222,6 @@ public class SeguroController {
 		    
 			Seguro seguro_old = null;
 			seguro_old = seguroService.findOne(seguro.getId_seguro());
-		    System.err.println("old:"+seguro_old.toString());
 		    String valor_old = seguro_old.toString();
 		    		    
 			System.err.println("entroeditar: "+seguro.getId_seguro());
@@ -292,6 +272,7 @@ public class SeguroController {
 		return "redirect:ListarSeguros/"+seguro.getVehiculo().getId_vehiculo();
 	
     } 
+	
 	
 	@RequestMapping(value="/elimSeg/{id_seguro}/{documento}")
 	public String eliminar (@PathVariable(value="id_seguro")Long id_seguro,@PathVariable(value="documento")String documento) {
@@ -376,7 +357,6 @@ public class SeguroController {
 						 Usuario usus = new Usuario();
 						 usus = usuarioService.findbyAdscripcion(ads);
 						 elementof = elemento.toUpperCase(); 
-						  //  Page<Seguro> segurospage = seguroService.FindSegElemVehiAreaPage(id_vehi, usus.getAdscripcion().getId_adscripcion(), elementof, pageRequest);
 							Page<Seguro> segurospage= seguroService.FindSegElemenAreaPage(usus.getAdscripcion().getId_adscripcion(), elementof, pageRequest);
 						    PageRender<Seguro> pageRender = new PageRender<>("/formSegBuscar?elemento="+elementof, segurospage);
 							if(seguroService.totalSegElemenAreaPage(usus.getAdscripcion().getId_adscripcion(), elementof)>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
@@ -406,6 +386,7 @@ public class SeguroController {
 		 
 	}
 
+	
 	private static boolean isValidDouble(String s) {
 		final String Digits     = "(\\p{Digit}+)";
 		  final String HexDigits  = "(\\p{XDigit}+)";

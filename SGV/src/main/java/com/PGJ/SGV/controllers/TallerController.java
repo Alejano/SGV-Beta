@@ -62,6 +62,7 @@ public class TallerController {
 		return "Talleres/Talleres";
 	}
 	
+	
 	@RequestMapping(value="/AddTaller")
 	public String crear(Map<String,Object> model) {	
 		editar=false;
@@ -70,6 +71,7 @@ public class TallerController {
 		model.put("talleres", taller);
 		return "Talleres/formTaller";
 	}
+	
 	
 	@RequestMapping(value="/AddTaller",method = RequestMethod.POST)
 	public String guardar(Taller taller) {	
@@ -107,6 +109,7 @@ public class TallerController {
 		editar = false;	
 		return "redirect:Talleres";
 	}
+	
 /*
 	private String ObtenPass(String no_contrato) {
 		String bcryptPassword="";
@@ -117,6 +120,7 @@ public class TallerController {
 		
 		return bcryptPassword;		
 	}*/
+	
 	
 	@RequestMapping(value="/formTallerBuscar")
 	public String Buscartabla(@RequestParam(name="page", defaultValue = "0") int page,
@@ -146,6 +150,7 @@ public class TallerController {
 				
 		
 	}
+	
 	
 	private static boolean isValidDouble(String s) {
 		final String Digits     = "(\\p{Digit}+)";
