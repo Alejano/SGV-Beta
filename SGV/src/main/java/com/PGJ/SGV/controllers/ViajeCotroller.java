@@ -152,6 +152,7 @@ public class ViajeCotroller {
 	
 	    		model.put("viaje", viaje);
 	    		model.put("titulo", "Formulario de Viajes");
+	    		model.put("PageTitulo", "Agregar Viaje Mensual");
 	    		return "formViaj";
 	    		}else {
 	    			return "formViaj";
@@ -174,6 +175,7 @@ public class ViajeCotroller {
 			}
 		model.put("viaje",viaje);
 		model.put("titulo", "Editar cliente");
+		model.put("PageTitulo", "Editar Viaje Mensual");
 		return "formViajEditar";
 		
 	}

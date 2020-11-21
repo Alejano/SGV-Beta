@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.PGJ.SGV.models.entity.Aseguradora;
 import com.PGJ.SGV.models.entity.LogsAudit;
+import com.PGJ.SGV.models.entity.OdometroAcombus;
 import com.PGJ.SGV.models.entity.Seguro;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.models.entity.Vehiculo;
@@ -61,8 +63,8 @@ public class SeguroController {
 	String user;
 	
 	@RequestMapping(value="/Seguros", method = RequestMethod.GET)
-	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model) {	
-			
+		public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model) {	
+
 		aux=false;
 		var ads="";
 		ads = obuserService.obtenEmpl();
@@ -386,6 +388,60 @@ public class SeguroController {
 		 
 	}
 
+
+	@RequestMapping(value = "/ListarSeguros/refreshImgpv")
+	public @ResponseBody String verImgpv(@RequestParam("id_seguro") Long id_seguro, Model model) {
+		
+		
+	    System.err.println("entroo");
+
+		
+		
+		Seguro seg = new Seguro();
+	    seg = seguroService.findOne(id_seguro);
+	    
+	    System.err.println("kakaroto"+seg.getId_seguro());
+	    
+		String html="";
+				if(seg.getUrl_poliza().equals(null)) {
+					 html="<div>No se encontro la imagen en el servidor</div>";	
+				}else {
+					 html="<div class=\"card-body justify-content-center col-sm-12\">\r\n" + 
+							"		<div class=\"card-body d-flex justify-content-center\" >\r\n" + 
+							"				<iframe src=\"/upload/"+seg.getUrl_poliza()+"\" type=\"application/pdf\" style=\"height:715px;width:600px;\"/>\r\n" + 
+							"		</div>\r\n" + 
+							"	</div>";	
+				}			
+				
+				return html;
+	}		
+	
+	@RequestMapping(value = "/Seguros/refreshImg")
+	public @ResponseBody String verImg(@RequestParam("id_seguro") Long id_seguro, Model model) {
+		
+		
+	    System.err.println("entroo");
+
+		
+		
+		Seguro seg = new Seguro();
+	    seg = seguroService.findOne(id_seguro);
+	    
+	    System.err.println("vegeta"+seg.getId_seguro());
+	    
+		String html="";
+				if(seg.getUrl_poliza().equals(null)) {
+					 html="<div>No se encontro la imagen en el servidor</div>";	
+				}else {
+					 html="<div class=\"card-body justify-content-center col-sm-12\">\r\n" + 
+							"		<div class=\"card-body d-flex justify-content-center\" >\r\n" + 
+							"				<iframe src=\"/upload/"+seg.getUrl_poliza()+"\" type=\"application/pdf\" style=\"height:715px;width:600px;\"/>\r\n" + 
+							"		</div>\r\n" + 
+							"	</div>";	
+				}			
+				
+				return html;
+	}		
 	
 	private static boolean isValidDouble(String s) {
 		final String Digits     = "(\\p{Digit}+)";

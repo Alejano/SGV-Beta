@@ -53,7 +53,7 @@
 													<th class="celda">Poliza Hijo </th>
 													<th class="celda">Nombre del Contratante</th>
 													<th class="celda">RFC del Contratante</th>
-													<th class="celda">Código del Cliente</th>
+													<th class="celda">Codigo del Cliente</th>
 													<th class="celda"  style="width:250px">Opciones</th>													
 													<th style="width: 10px" id="tamano" th:if="${tamano} == 'mostrar'"></th>									
 												</tr>
@@ -71,7 +71,9 @@
 														<a class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/formSeg/} +${segurosql.id_seguro}" ><i class="far fa-question-circle fa-2x"></i></a>
 													    <!-- <a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SEGURO'}" style="font-size:smaller;" th:href="@{/formSeg/} +${segurosql.id_seguro}" th:text="editar" ></a> --> 
 													    <!-- <a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario} == 'ROLE_ADMIN'"style="font-size:smaller;" th:href="@{/elimSeg/} +${segurosql.id_seguro}+'/'+${segurosql.url_poliza}" onclick="return confirm('Seguro que desea eliminar el registro?');" th:text="eliminar"></a> -->  
-														<a class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/verSeguro/} +${segurosql.id_seguro}"> <i class="far fa-eye fa-2x"></i></a> 
+													    <!--<a th:if="${auxiliar == false}"  class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/verSeguro/} +${segurosql.id_seguro}"> <i class="far fa-eye fa-2x"></i></a> -->
+														<button th:if="${auxiliar == true}"  th:onclick="'javascript:btnimgpv('+ ${segurosql.id_seguro}+' )'" th:name="${segurosql.id_seguro}" type="button" class="btn btn-primary btn-xs sel" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="far fa-eye fa-2x"></i></button>			
+														<button th:if="${auxiliar == false}"  th:onclick="'javascript:btnimg('+ ${segurosql.id_seguro}+' )'" th:name="${segurosql.id_seguro}" type="button" class="btn btn-primary btn-xs sel" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="far fa-eye fa-2x"></i></button>			
 													</td>
 												</tr>
 											</tbody>										
@@ -92,11 +94,17 @@
 		</div>
 	</section>
 	
-	
+	<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div id="imgSeg">
+      </div>
+     </div>
+    </div>
+    </div>
+    
 	<script type="text/javascript"  th:inline="javascript">
 	
-  
-    
 	function doSearch()
     {	
         
@@ -152,7 +160,7 @@
     	  tecla = (document.all) ? e.keyCode :e.which;
     	  return (tecla!=13);
     	} 
-    
+	 
 	    </script>
 	    <script src="/assets/js/CambiosEstado.js"></script>
 		 <!-- Fontawesome -->
@@ -167,6 +175,17 @@
 		<script src="/assets/js/validator.min.js"></script>
 		<!-- Contact Form Js -->
 		<script src="/assets/js/contact-form.js"></script>
-
+		<script type="text/javascript">
+		 function btnimgpv(id){		
+				$('#imgSeg').load('refreshImgpv','id_seguro='+id);
+				console.log(id);
+			}
+		 
+		 function btnimg(id){		
+				$('#imgSeg').load('/Seguros/refreshImg','id_seguro='+id);
+				console.log(id);
+			}
+ 	    </script>
+		
 </body>
 </html>

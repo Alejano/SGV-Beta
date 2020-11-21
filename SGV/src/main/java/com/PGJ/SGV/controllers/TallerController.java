@@ -69,6 +69,7 @@ public class TallerController {
 		Taller taller = new Taller();				
 		
 		model.put("talleres", taller);
+		model.put("PageTitulo", "Agregar Taller");
 		return "Talleres/formTaller";
 	}
 	

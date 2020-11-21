@@ -169,6 +169,7 @@ public class MantenimintoController {
 				placa= vehiculoService.findPlaca(id_vehiculo);																			
 				mantenimiento.setVehiculo(vehi);
 				model.put("Editar", Editar);
+				model.put("PageTitulo", "Agregar Mantenimiento");
 				model.put("taller",taller);
 				model.put("mantenimiento",mantenimiento );				
 				model.put("placa", placa);								
@@ -224,6 +225,7 @@ public class MantenimintoController {
 		
 		model.put("Editar", Editar);
 		model.put("vehiculo", vehiculo);
+		model.put("PageTitulo", "Editar Mantenimiento");
 		model.put("placa", mant.getVehiculo().getPlaca());
 		model.put("mantenimiento",mant);
 		model.put("titulo", "Editar Mantenimiento");

@@ -54,7 +54,6 @@
 													<th class="celda">Fecha Fin</th>													
 													<th class="celda">Kilometraje Inicial</th>
 													<th class="celda">Kilometraje Final</th>
-													<th class="celda">Distancia Recorrida</th>
 													<!-- <th th:if="${usuario} == 'ROLE_ADMIN'" class="noSearch celda" >Opciones</th> -->	
 													<th style="width: 1.4%;" id="tamano" th:if="${tamano} == 'mostrar'"></th>											
 												</tr>
@@ -66,8 +65,7 @@
 													<td th:text="${viajessql.finicial_registro}" class="celda"></td>
 													<td th:text="${viajessql.ffinal_registro}"class="celda"></td>													
 													<td th:text="${viajessql.kilometraje_inicial}" class="celda"></td>
-													<td th:text="${viajessql.kilometraje_final}" class="celda"></td>	
-													<td th:text="${viajessql.distancia_mensual}" class="celda"></td>							
+													<td th:text="${viajessql.kilometraje_final}" class="celda"></td>							
 													<!--<td class="noSearch celda"  th:if="${usuario} == 'ROLE_ADMIN'">
 															<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/formViajEditar/} +${viajessql.id_viaje}" th:text="editar" ></a>
 															<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/elimViaj/} +${viajessql.id_viaje}" onclick="return confirm('Seguro que desea eliminar el registro?');" th:text="eliminar" ></a>													

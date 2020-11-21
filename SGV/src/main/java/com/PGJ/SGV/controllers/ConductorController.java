@@ -60,7 +60,6 @@ public class ConductorController {
 		ads = obuserService.obtenEmpl();
 		user = obuserService.obtenUser();
 		model.addAttribute("usuario",user);	
-		model.addAttribute("titulo_conductores","Listado de Conductores"); 	
 		Pageable pageRequest = PageRequest.of(page, 100);
 		//USUARIOS
 		if(user.equals("ROLE_USER")){
@@ -110,6 +109,7 @@ public class ConductorController {
 			model.put("nombreAds",usus.getAdscripcion().getNombre_adscripcion());
 			model.put("adscripcion",cond.getAdscripcion());
 			model.put("conductor", cond);
+			model.put("PageTitulo", "Agregar Conductor");
 			model.put("titulo", "Formulario de Conductores");
 			return "FormCond";
 		};
@@ -122,6 +122,7 @@ public class ConductorController {
 		model.put("adslist",adscripcion );
 		model.put("conductor", cond);
 		model.put("titulo", "Formulario de Conductores");	
+		model.put("PageTitulo", "Agregar Conductor");
 		return "FormCond";
 	}
 	
@@ -147,6 +148,7 @@ public class ConductorController {
 		model.put("adslist",adscripcion );		
 		model.put("conductor",conductor);
 		model.put("titulo", "Editar cliente");
+		model.put("PageTitulo", "Editar Conductor");
 		return "FormCond";
 	}
 	
@@ -346,8 +348,7 @@ public class ConductorController {
 		ads = obuserService.obtenEmpl();
 		user = obuserService.obtenUser();
 		
-		model.addAttribute("usuario",user);	
-		model.addAttribute("titulo_conductores","Bajas Conductor"); 	
+		model.addAttribute("usuario",user);		
 		Pageable pageRequest = PageRequest.of(page, 100);
 		
 		// USUARIO
@@ -357,7 +358,7 @@ public class ConductorController {
 			Page<Conductor> conductorareapage = conductorService.findConductorAreaBajasPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);
 			PageRender<Conductor> pageRenderArea = new PageRender<> ("/Conductores",conductorareapage);
 			if(conductorService.totalConductorAreaBajas(usus.getAdscripcion().getId_adscripcion())>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
-			model.addAttribute("PageTitulo", "Baja Conductores");
+			model.addAttribute("PageTitulo", "Bajas Conductores");
             model.addAttribute("PageSubTitulo", "Listado de Bajas Conductores");
 			model.addAttribute("conductores",conductorareapage);
 			model.addAttribute("page",pageRenderArea);			
@@ -370,7 +371,7 @@ public class ConductorController {
 		if(conductorService.totalConductoresBajas()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		model.addAttribute("Corddocu",Corddocu);
 		model.addAttribute("Cordtabla",Cordtabla);
-		model.addAttribute("PageTitulo", "Baja Conductores");
+		model.addAttribute("PageTitulo", "Bajas Conductores");
 		model.addAttribute("PageSubTitulo", "Listado de Bajas Conductores");
 		model.addAttribute("conductores",conductorPage);
 		model.addAttribute("page",pageRender);	
