@@ -106,7 +106,7 @@
 	background: #ffffff;
 }
 .fondolistado{
-	background-color: #9a9a9a;
+	 background-image: url("../../images/fondo.png");
 }
 .TituloCon{
         height: 20px;
