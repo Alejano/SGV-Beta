@@ -105,6 +105,7 @@ public class ResguardanteController {
 		model.put("placa", placa);
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);		
+		model.put("PageTitulo", "Agregar Resguardantes");
 		model.put("tiposResguardoP", tiposResguardoP);
 		model.put("tiposResguardoS", tiposResguardoS);
 		model.put("conductores", conductoresdb);

@@ -933,7 +933,7 @@ public class VehiculoController {
 		model.put("vehiculo",vehiculo);
 		model.put("detalle",detalle);
 		model.put("marcas",marca);				
-		model.put("PageTitulo", "Información Vehiculo");
+		model.put("PageTitulo", "Información del Vehiculo");
 		model.put("titulo", "Información Vehiculo");	
 		return "infoVehi";
 	}	

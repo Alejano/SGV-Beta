@@ -147,6 +147,7 @@ public class SiniestroController {
 		vehi = vehiculoService.findOne(id_vehiculo);
 		siniestro.setVehiculo(vehi);
 		model.put("id_vehiculo", vehi.getId_vehiculo());
+		model.put("PageTitulo", "Agregar Siniestro");
 		model.put("editar", editar);
 		model.put("resguardantes", resguardantes);
 		model.put("siniestros", siniestro);
@@ -174,6 +175,7 @@ public class SiniestroController {
 		model.put("id_vehiculo", siniestro.getVehiculo().getId_vehiculo());
 		model.put("editar", editar);
 		model.put("siniestros",siniestro);
+		model.put("PageTitulo", "Editar Siniestro");
 		model.put("titulo", "Editar Siniestro");
 		return "formSin";
 
