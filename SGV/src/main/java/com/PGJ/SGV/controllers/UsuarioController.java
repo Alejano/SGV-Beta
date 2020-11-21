@@ -94,6 +94,7 @@ public class UsuarioController {
 		falta_usuario=usuario.getFecha_alta();
 		model.put("adslist", adscripcion);
 		model.put("usuarios", usuario);
+		model.put("PageTitulo", "Agregar Usuario");
 		model.put("titulo", "Formulario de Adscripciones");	
 		return "formUsu";
 
@@ -115,6 +116,7 @@ public class UsuarioController {
 		
 		ealta_usuario=usuario.getFecha_alta();
 		model.put("adslist", adscripcion);
+		model.put("PageTitulo", "Editar Usuario");
 		model.put("usuarios",usuario);
 		model.put("titulo", "Editar cliente");
 		return "formUsu";
@@ -312,7 +314,7 @@ public class UsuarioController {
 
 		PageRender <Usuario> usuarioRender = new PageRender<>("/Bajas",usuarioPage);
 		if(usuarioService.totalUsuariosBajas()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
-		model.addAttribute("PageTitulo", "Baja Usuarios");
+		model.addAttribute("PageTitulo", "Bajas Usuarios");
         model.addAttribute("PageSubTitulo", "Listado de Bajas Usuarios");
 		model.addAttribute("usuarios",usuarioPage);
 		model.addAttribute("page",usuarioRender);

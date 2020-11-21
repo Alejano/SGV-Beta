@@ -60,6 +60,7 @@ public class AseguradoraController {
 		Aseguradora aseguradora = new Aseguradora();		
 		model.put("editar", editar);
 		model.put("aseguradora", aseguradora);
+		model.put("PageTitulo", "Agregar Aseguradora");
 		return "Aseguradoras/formAseg";
 		
 	}
@@ -80,6 +81,7 @@ public class AseguradoraController {
 		
 		model.put("aseguradora",aseguradora);
 		model.put("titulo", "Editar cliente");
+		model.put("PageTitulo", "Editar Aseguradora");
 		return "Aseguradoras/formAseg";
 		
 	}
@@ -140,6 +142,7 @@ public class AseguradoraController {
 		model.put("editar", editar);
 		model.put("aseguradora",aseguradora);
 		model.put("titulo", "Editar cliente");
+		model.put("PageTitulo", "Información Aseguradora");
 		return "Aseguradoras/formAseg";
 		
 	}

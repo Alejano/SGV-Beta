@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.PGJ.SGV.models.entity.Aseguradora;
 import com.PGJ.SGV.models.entity.LogsAudit;
-import com.PGJ.SGV.models.entity.OdometroAcombus;
 import com.PGJ.SGV.models.entity.Seguro;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.models.entity.Vehiculo;
@@ -151,6 +150,7 @@ public class SeguroController {
 		model.put("editar", editar);
 		model.put("seguros", seguro);
 		model.put("aseguradoras", aseguradora);
+		model.put("PageTitulo", "Agregar Seguro");
 		model.put("titulo", "Formulario de Seguros");	
 		return "formSeg";
 		
@@ -171,6 +171,7 @@ public class SeguroController {
 		model.put("id_vehiculo", seguro.getVehiculo().getId_vehiculo());
 		model.put("editar", editar);
 		model.put("seguros",seguro);
+		model.put("PageTitulo", "Información del Seguro");
 		model.put("titulo", "Editar Seguro");
 		return "formSeg";
 	}
