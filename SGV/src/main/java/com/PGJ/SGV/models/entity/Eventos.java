@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,14 +14,26 @@ import javax.persistence.Table;
 public class Eventos implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name ="id_adscripcion")
+	private Long id_adscripcion;
 	@Column(name ="titulo")
 	private String title;
 	@Column(name ="inicio")
 	private String start;
 	@Column(name ="fin")
 	private String end;
+
+	
+	public Long getId_adscripcion() {
+		return id_adscripcion;
+	}
+
+	public void setId_adscripcion(Long id_adscripcion) {
+		this.id_adscripcion = id_adscripcion;
+	}
 
 	public Long getId() {
 		return id;

@@ -43,8 +43,21 @@ public class RestWebControllerCalendary {
 		
 	
 	@PostMapping(value = "/save")
-	  public respuestaEvento postEventEdit(@RequestBody Eventos eventos) {
+	  public respuestaEvento postEventSave(@RequestBody Eventos eventos) {
+			
+			eventos.setId_adscripcion(eventos.getId());
+			eventos.setId(null);			
+			
+			eventoService.save(eventos);
 		
+					
+			respuestaEvento respuesta= new respuestaEvento("done",eventos);
+		    
+		    return respuesta;
+					  
+	  }
+	@PostMapping(value = "/ed")
+	  public respuestaEvento postEventEdit(@RequestBody Eventos eventos) {				
 			
 			eventoService.save(eventos);
 		
@@ -58,7 +71,7 @@ public class RestWebControllerCalendary {
 	@PostMapping(value = "/serial")
 	  public respuestaEvento postEventDelete(@RequestBody Eventos eventos) {
 
-			
+		
 			eventoService.delete(eventos.getId());
 					
 		 respuestaEvento respuesta= new respuestaEvento("done",eventos.getTitle());

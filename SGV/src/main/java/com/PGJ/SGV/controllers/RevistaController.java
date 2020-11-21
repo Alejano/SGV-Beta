@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.PGJ.SGV.models.entity.Adscripcion;
+import com.PGJ.SGV.models.entity.EventosExternos;
 import com.PGJ.SGV.models.entity.Revista;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.models.entity.Vehiculo;
 import com.PGJ.SGV.service.IAdscripcionService;
+import com.PGJ.SGV.service.IEventoService;
 import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IRevistaService;
 import com.PGJ.SGV.service.IVehiculoService;
@@ -37,6 +39,9 @@ public class RevistaController {
 	@Autowired
 	private IObtenerUserService obuserService;
 
+	@Autowired
+	private IEventoService eventoService;
+
 	String user;
 	static List<Vehiculo> vehi = new ArrayList<Vehiculo>();
 	static Long id_ads=(long)0;
@@ -45,18 +50,33 @@ public class RevistaController {
 	
 	@RequestMapping(value={"/Revista"}, method = RequestMethod.GET)
 	public String HomeBarra(Model model, Authentication authentication,HttpServletRequest request){
+		Long ultimoEvento = (long) 0;		
+		ultimoEvento = eventoService.ultimoid(); 
 		
 	    List<Adscripcion> ads = new ArrayList<Adscripcion>();
 		ads = adscripService.findAll();
+		
+		List<EventosExternos> eventos = new ArrayList<EventosExternos>();
+		for(Adscripcion a:ads) {
+			ultimoEvento++;
+			EventosExternos evento = new EventosExternos();		
+			evento.setId(ultimoEvento);
+			evento.setId_adscripcion(a.getId_adscripcion());
+			evento.setNombre_adscripcion(a.getNombre_adscripcion());
+		
+			eventos.add(evento);
+						
+		}
 		var nombre="";
 		user = obuserService.obtenUser();
 		model.addAttribute("usuario",user);	
+		
 			
 	    nombre= usuario.getNombre();	
 	    model.addAttribute("PageTitulo", "Revista Vehicular");
 	    model.addAttribute("id",authentication.getPrincipal());
 	    model.addAttribute("Online",nombre); 		   	
-	    model.addAttribute("adscripciones",ads); 		   		
+	    model.addAttribute("eventosexternos",eventos); 		   		
 	   
 		return "Revista";
 	}

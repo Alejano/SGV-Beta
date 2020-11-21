@@ -7,11 +7,10 @@ html, body {
 }
 
 #external-events {
-  position: fixed;
   z-index: 2;
   top: 30%;
   left: 20px;
-  width: 39%;
+  width: 36%;
   height: 600px;
   padding: 0 10px;
   border: 1px solid #ccc;
@@ -26,7 +25,7 @@ html, body {
 #calendar-container {
   position: relative;
   z-index: 1;
-  margin-left: 40%;
+ 
 }
 
 #calendar {
@@ -41,10 +40,6 @@ html, body {
 
 /* sgv formato */
 
-.heades{
-        background: #2F4F4F;
-                    
-}
 .nav-listado{
 	background: darkgoldenrod;
 }
@@ -399,7 +394,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 .fc .fc-scroller-liquid-absolute {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -50px;
     left: 0;
     bottom: 0;
   }
@@ -1511,4 +1506,80 @@ A VERTICAL event
   .fc-theme-bootstrap a:not([href]) {
     color: inherit; /* natural color for navlinks */
   }
+  
+  .menu-forms{
+	margin-bottom: 3px; 
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.btn-menu{
+	color:#ffffff !important;
+	background : #033076 !important;
+	width: 155px;
+}
+.btn-menu:hover{
+	color:#ffffff  !important;
+	background : #085ada !important;
+}
 
+.heades{        
+        display: inline-block;            
+}
+.nav-listado{
+	background: #ffffff;
+}
+.fondolistado{
+	background-color: #9a9a9a;
+}
+.TituloCon{
+        height: 20px;
+    background: #ffffff;
+}
+.StituloCon{
+        margin-right: 100px !important;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-stilo {
+    background: #033076 !important;
+    border: none !important;
+}
+.enlinea {
+    margin: unset !important;
+    display: inline-block;
+    padding: unset !important;
+}
+.logopgj {
+    width: 100%;
+    margin-top: 13px;
+    margin-left: 15px;
+    margin-bottom: 11px;
+}
+.titulotabla {
+    text-align: center;
+    color: #033076;
+    font-weight: 600;
+}
+.barra {
+    height: 11px;
+    background: #033076;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: block;
+    border-radius: 10px;
+}
+
+.fondocalenday{
+	border: 2px solid #2F4F4F;
+	margin: 2%;
+    padding: 1%;
+        text-align: center;
+}
+.enlineaform {
+    display: inline-block;
+    margin-left: 1%;
+    margin-right: 1%;
+}

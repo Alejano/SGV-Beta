@@ -97,7 +97,7 @@
 					<div class="card-deck" style="margin-top: -41px;">
 							<!-- Viajes -->
 						  <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER'}" class="card-image">							  
-							  <img id="img1" src="images/2898563.png" class="card-img-top imgboton" alt="..." style="border-radius: inherit; width: 120px;">							     	
+							  <img id="img1" src="images/Viajes.png" class="card-img-top imgboton" alt="..." style="border-radius: inherit; width: 120px;">							     	
 							  <form th:action="@{/Viajes}" class="F" name="salir">		 		
 	                             <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="btimg1" type="submit" value="enviar" >VIAJES</button>
 	                          </form>		                          	   
@@ -110,7 +110,7 @@
 						 </div>
 						 
 						 <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER' or usuario== 'ROLE_SINIESTRO' or usuario== 'ROLE_SEGURO'}" class="card-image">
-							   	<img id="img2" src="images/3069541.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;;">
+							   	<img id="img2" src="images/vehiculos.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;;">
 							   <form th:action="@{/Vehiculos}"  class="F" name="salir">		 									   		
 	                                <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="btimg2" type="submit" value="enviar" >VEHICULOS</button>
 	                           </form>						    
@@ -123,7 +123,7 @@
 						 </div>
 						 
 						 <div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" class="card-image">
-							   <img id="img3" src="images/2916223.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">							   
+							   <img id="img3" src="images/Conductores.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">							   
 							   <form th:action="@{/Conductores}" class="F" name="salir">		 		
 	                               <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="btimg3" type="submit" value="enviar" >CONDUCTORES</button>
 	                           </form>						    
@@ -136,7 +136,7 @@
 						 </div>
 						 
 						 <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER' or usuario== 'ROLE_SEGURO'}" class="card-image">
-							   <img id="img4" src="images/3011825.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
+							   <img id="img4" src="images/Seguros.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
 							   <form th:action="@{/Seguros}" class="F" name="salir">		 		
 	                                  <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="btimg4" type="submit" value="enviar" >SEGUROS</button>
 	                           </form>						    
@@ -149,7 +149,7 @@
 						 </div>
 		
 						 <div th:if="${usuario == 'ROLE_ADMIN'}" class="card-image" >						 
-						 	<img id="img5" src="images/usuarios.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
+						 	<img id="img5" src="images/Usuarios.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
 							   <form th:action="@{/Usuarios}" class="F" name="salir" id="SA">		 		
                                   <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="btimg5" type="submit" value="enviar" >USUARIOS </button>
 	                           </form>					    
@@ -163,7 +163,7 @@
 								
 						 
 						 <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER' or usuario== 'ROLE_TALLER'}" class="card-image">
-							   <img id="img6" src="images/mantto_auto.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
+							   <img id="img6" src="images/Mantenimiento.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
 							   <form th:action="@{/Mantenimientos}" class="F" name="salir">		 		
 	                                  <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="btimg6" type="submit" value="enviar" >MANTENIMIENTO</button>
 	                           </form>						    
@@ -177,7 +177,7 @@
 						 
 						 
 						   <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER' or usuario == 'ROLE_SINIESTRO'}" class="card-image">
-							   <img id="img7"  src="images/siniestro.jpg" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
+							   <img id="img7"  src="images/Siniestros.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
 							   <form th:action="@{/Siniestros}" class="F" name="salir">		 		
                                   <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="btimg7" type="submit" value="enviar" >SINIESTROS</button>
 	                           </form>						    

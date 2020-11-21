@@ -8,5 +8,5 @@ import com.PGJ.SGV.models.entity.Eventos;
 public interface IEventoDao extends CrudRepository<Eventos, Long>{		
 
 	@Query("select p.id from Eventos p where p.id = (select max(p.id) from Eventos p)")
-	public int ultimoId();
+	public Long ultimoId();
 }

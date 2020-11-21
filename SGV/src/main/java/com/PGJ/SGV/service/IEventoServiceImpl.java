@@ -46,8 +46,13 @@ public class IEventoServiceImpl implements IEventoService {
 
 	@Override
 	public long ultimoid() {
-		// TODO Auto-generated method stub
-		return eventoDao.ultimoId();
+		Long id= eventoDao.ultimoId();
+		if(id == null) {
+			return 0;
+		}else {
+			return eventoDao.ultimoId();
+		}
+		
 	}
 
 
