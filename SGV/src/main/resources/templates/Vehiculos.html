@@ -16,7 +16,7 @@
 	                                
 	                                		<div class=" col-md-12" id="Contenedorbuscar" >	                                			 	                                		
 	                                        	<form id="Busqueda" class="col-md-8" th:action="@{/formVehBuscar}" style="display: inline-block;">											       											       
-											         <div class="col-md-2 enlinea" > <p style="text-align: right;">Buscar</p></div>
+											         <div class="col-md-1 enlinea" style="text-align: right;" ><i class="fas fa-search"></i></div> 
 											         <div class="col-md-6 enlinea">
 											         	<input id="searchTerm" th:value=*{elemento} class="form-control " name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required"/>												           											          											           									
 											    	 </div>
@@ -32,11 +32,10 @@
 								        							    	
 						    					</form>	
 											    
-											    <form class="col-md-12 " th:action="@{/VehiculoClase}" id="EnviarClase">	
-												
-													<div class="col-sm-12">																												
+											    <form class="col-md-12 " th:action="@{/VehiculoClase}" id="EnviarClase" style="text-align: -webkit-right; margin-top: 1%;">	
+																																																	
 															<!--Marcas-->
-																<div class="form-group col-sm-3" id="marca1" style="float:right;">		
+																<div class="form-group col-sm-3" id="marca1">		
 																																										
 																	<select id="clase" name="clase" class="form-control" style="left: unset !important; height: 34px;" onchange="this.form.submit()">																																    																 
 																	    <option th:value="${Clase}" th:text="${Clase}"></option>
@@ -45,8 +44,7 @@
 																	    th:text="${marca}"></option>
 																	</select>																																																												
 																</div>
-																
-													</div>
+																												
 												</form>
 											    
 											        <div id="coincidencias" class="col-md-6"></div>

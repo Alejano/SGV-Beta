@@ -18,7 +18,7 @@
 	                                        <div class=" col-md-12" id="Contenedorbuscar" >
 	                                        	
 	                                        	<form id="Busqueda" class="col-md-12"  th:if="${auxiliar} == true" th:action="@{/formSegBuscarPv}">		   
-	                                        	    <div class="col-sm-1 enlinea"><p>Buscar</p></div>							       											       
+	                                        	    <div class="col-md-1 enlinea" style="text-align: right;" ><i class="fas fa-search"></i></div> 							       											       
 											        <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style="display:inline-block;"/>													         										           
                                                     <button type="submit" class="btn btn-primary btn-xs col-sm-1 btn-stilo" style="margin-left: 1%;margin-right: -11%;font-size: 14px;">Buscar</button>
 											        

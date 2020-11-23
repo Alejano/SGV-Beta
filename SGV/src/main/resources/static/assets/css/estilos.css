@@ -105,9 +105,7 @@
 .nav-listado{
 	background: #ffffff;
 }
-.fondolistado{
-	 background-image: url("../../images/fondo.png");
-}
+
 .TituloCon{
         height: 20px;
     background: #ffffff;
@@ -252,9 +250,11 @@ thead, tbody tr {
 background: darkgoldenrod;	
 }
 .formfondo{
-	background: #ffffff;
+	background-image: url("../../images/fondo.png");
 }
-
+.fondolistado{
+	 background-image: url("../../images/fondo.png");
+}
 body{
 	background-color: #ffffff !important;
 }

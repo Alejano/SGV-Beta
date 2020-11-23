@@ -18,10 +18,9 @@
 	                                    <div class="col-md-12">
 		                                    <div class=" col-md-12" id="Contenedorbuscar" >
 		                                    <form id="Busqueda" class="col-md-12">
-		                                			<div class="col-sm-1 enlinea"> <p>Buscar</p></div> 										       											       
+		                                			<div class="col-md-1 enlinea" style="text-align: right;" ><i class="fas fa-search"></i></div>  										       											       
 												         <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style="display:inline-block;"/>												           
-												         <!--  <button type="submit" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="margin-top: 1%;margin-left: 1%;margin-right: 1%;">Buscar</button>									
-												    		<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Adscripciones}' style="width: 48px; height: 34px; float: right; margin-right: 5%;margin-top: 5px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%;"></i></a>-->	
+												         <!--  <button type="submit" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="margin-top: 1%;margin-left: 1%;margin-right: 1%;">Buscar</button>-->												    		
 												    		<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href="@{/Adscripciones}" style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
 												    </form>
 												    

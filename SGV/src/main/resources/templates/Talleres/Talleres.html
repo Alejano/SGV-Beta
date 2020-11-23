@@ -7,7 +7,7 @@
 
 	<section>
 	 <div class="tab-content">
-	      <div class="form-group last col-sm-12 formfondo">
+	      <div class="form-group last col-sm-12 fondolistado">
 	                <div class="row">
 	                    <div class="tab-content">
 	                        <div class="col-sm-12" >
@@ -16,17 +16,15 @@
 	                                		<div class=" col-md-12" id="Contenedorbuscar" >
 	                                				                                			
 	                                        	<form id="Busqueda" class="col-md-5 enlinea" th:action="@{/formTallerBuscar}">											       											       
-											         <div class="col-md-2 enlinea" > 
-											         	<p style="text-align: right;">Buscar</p>
-											         </div> 
-											         <div class="col-md-2 enlinea" >
+											         <div class="col-md-1 enlinea" ><i class="fas fa-search"></i></div> 
+											         <div class="col-md-6 enlinea" >
 											         	<input id="searchTerm" th:value=*{elemento} class="form-control" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required"/>												           
 											         </div>
 											         <div class="col-md-2 enlinea" >  
 											           <button type="submit" class="btn btn-primary btn-xs btn-stilo" style="margin-top: 1%;margin-left: 1%;margin-right: 1%;">Buscar</button>										
 											    	</div>	
 											    	
-											    	<div class="col-md-5 enlinea" >
+											    	<div class="col-md-2 enlinea" >
 											    	<a class="btn btn-primary btn-xs btn-stilo" th:href='@{/Talleres}' ><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%;"></i></a>											    	
 											    	</div>
 											    </form>
