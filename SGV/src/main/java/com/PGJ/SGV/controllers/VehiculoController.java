@@ -236,6 +236,7 @@ public class VehiculoController {
 		model.put("tiposResguardoS", tiposResguardoS);
 		model.put("conductores", conductoresdb);
 		model.put("usuarios",usuariosdb);
+		model.put("PageTitulo", "Agregar Vehiculo");
 		
 		return "vehiculos/formVehiP1";
 	}
@@ -307,7 +308,8 @@ public class VehiculoController {
 		model.put("vehiculo", vehi);
 		model.put("marcas",marca);	
 		model.put("detalle",detalle);
-		model.put("titulo", "Formulario de Vehiculos");								
+		model.put("titulo", "Formulario de Vehiculos");	
+		model.put("PageTitulo", "Agregar Vehiculo");
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);
 		model.put("Tresguardante", Tresguardante);		
@@ -379,6 +381,7 @@ public class VehiculoController {
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);
 		model.put("Tresguardante", Tresguardante);
+		model.put("PageTitulo", "Agregar Vehiculo");
 		model.put("conductores", conductoresactualizada);
 		model.put("usuarios",usuariosactualizada);
 		return "vehiculos/formVehiTR";
@@ -429,7 +432,8 @@ public class VehiculoController {
 		model.put("vehiculo", vehi);
 		model.put("marcas",marca);	
 		model.put("detalle",detalle);
-		model.put("titulo", "Formulario de Vehiculos");								
+		model.put("titulo", "Formulario de Vehiculos");	
+		model.put("PageTitulo", "Agregar Vehiculo");
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);
 		model.put("Tresguardante", Tresguardante);				
@@ -456,6 +460,7 @@ public class VehiculoController {
 		model.put("editando", "no");
 		model.put("seguroslist", seguros);
 		model.put("adslist",adscripcionlist );
+		model.put("PageTitulo", "Agregar Vehiculo");
 		model.put("vehiculo", vehi);
 		model.put("marcas",marca);	
 		model.put("detalle",detalle);

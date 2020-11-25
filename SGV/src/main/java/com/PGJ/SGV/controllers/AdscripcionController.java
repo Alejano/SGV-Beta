@@ -55,6 +55,7 @@ public class AdscripcionController {
 		Adscripcion ads = new Adscripcion();
 		model.put("adscripcion", ads);
 		model.put("usuario",obuserService.obtenUser());
+		model.put("PageTitulo", "Agregar Adscripción");
 		model.put("titulo", "Formulario de Adscripciones");
 		
 		return "formAds";
@@ -74,6 +75,7 @@ public class AdscripcionController {
 		}
 				
 		model.put("adscripcion",adscripcion);
+		model.put("PageTitulo", "Editar Adscripción");
 		model.put("titulo", "Editar cliente");
 		return "formAds";
 		
