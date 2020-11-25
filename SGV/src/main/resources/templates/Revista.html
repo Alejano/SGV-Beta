@@ -12,7 +12,7 @@
 	<div class="col-md-5 enlineaform" id='external-events' th:if="${usuario} == 'ROLE_ADMIN'">
 
 		<form id="Busqueda" class="col-md-12">										
-			<p class="col-md-4" style="display: inline-block;">Buscar:  </p>	       											       
+			<i class="fas fa-search"></i>	       											       
 		     <input id="searchTerm" th:value=*{elemento} class="form-control col-md-7" style="display: inline-block;" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required"/>      
 		</form> 
 
@@ -175,7 +175,7 @@
 	   	  		  	  		
       	      },
     	    eventDrop: function(info) {    	      			
-    	        if (!confirm("Estas Seguro que aras este cambio?")) {
+    	        if (!confirm("Estas seguro que aras este cambio?")) {
     	          info.revert();    	          
     	        }else{
     	        	
@@ -183,14 +183,30 @@
     	        }
     	      },
     	      eventResize: function(info) {
-    	    	    //alert(info.event.title + " ahora termina el: " + info.event.endStr);
-
-    	    	    if (!confirm("Estas Seguro que aras este cambio?")) {
-    	    	      info.revert();
-    	    	    }else{
-    	    	    	console.log(info);
-    	    	    	//ajaxPost(info.event.id,info.event.title,info.event.startStr,info.event.endStr);
-    	    	    }
+    	    	  swal({
+    	    		  title: 'Estas seguro que aras este cambio?',
+    	    		  text: "Debes confirmar para continuar",
+    	    		  icon: 'warning',
+    	    		  showCancelButton: false,
+    	    		  showDenyButton: true,      	    		  	    		    	    		
+    	    		  confirmButtonText: 'Confirmar',
+    	    		  denyButtonText: 'Cancelar',    	    		  
+    	    		}).then((result) => {
+    	    			console.log(result);
+    	    		  if (result) {
+    	    		    swal('Deleted!','Your file has been deleted.','success');
+    	    		  }else if (!result) {
+    	    	    		    swal('Deleted!','Your file has been deleted.','success');
+    	    			  } 
+    	    		  
+    	    		}).catch(swal.noop);
+    	    	  
+    	    				//ajaxPost(info.event.id,info.event.title,info.event.startStr,info.event.endStr);
+    	    			 
+    	                    //info.revert();
+    	    			    	    		  
+    	    		
+    	    	    
     	    	  },
    	    	  eventClick: function(info) {
    	    				

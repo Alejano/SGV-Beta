@@ -545,7 +545,7 @@ public class VehiculoController {
 			
 			try {
 				nombreUnico1 = uploadFileService.copy(tarjeta_circulacion);		
-				System.out.println(nombreUnico1.length());
+				//System.out.println(nombreUnico1.length());
 				detalle.setTarjeta_circulacion(nombreUnico1);
 				//vehiculox.getVehiculo_detalle().setTarjeta_circulacion(nombreUnico1);
 				
@@ -568,8 +568,9 @@ public class VehiculoController {
 				Presguardante.setVehiculo(vehiculox);		
 				Sresguardante.setVehiculo(vehiculox);
 				Tresguardante.setVehiculo(vehiculox);
+				vehiculox.setMotivo("Alta");
+				vehiculox.setVehiculo_detalle(detalle);
 				
-				vehiculox.setVehiculo_detalle(detalle);			
 				vehiculoService.save(vehiculox);
 				
 				reguardanteservice.save(Presguardante);
@@ -656,7 +657,8 @@ public class VehiculoController {
 				String valor_olvehi = vehiculo_old.toString();
 			
 				vehiculox.setVehiculo_detalle(detalle);		
-				System.out.println("epieza: "+vehiculox.getVehiculo_detalle().getTarjeta_circulacion()+":para");
+				//System.out.println("epieza: "+vehiculox.getVehiculo_detalle().getTarjeta_circulacion()+":para");
+				vehiculox.setMotivo("Editado"+SystemDate.obtenFecha());
 				vehiculoService.save(vehiculox);
 				
 				LogsAudit logsv = new LogsAudit();
