@@ -141,6 +141,7 @@ public class AsigCombController {
 		model.put("kilometraje", vehiculo.getKilometraje_inicial());
 		model.put("combustible",combustible );				
 		model.put("titulo", "Formulario de Combustible");
+		model.put("PageTitulo", "Agregar Asig de Combustible Ordinaria");
 		model.put("mes", ObtenMonth.obtenMes());
 							
 		return "combustible/formComb";
@@ -168,6 +169,7 @@ public class AsigCombController {
 		model.put("placa", combustible.getVehiculo().getPlaca());
 		model.put("combustibleExt",extra);				
 		model.put("titulo", "Formulario de Combustible Extemporaneo de la placa: "+combustible.getVehiculo().getPlaca());
+		model.put("PageTitulo", "Agregar Asig de Combustible Extraordinaria");
 		model.put("mes", ObtenMonth.obtenMes());
 							
 		return "combustible/formCombExt";
@@ -188,6 +190,7 @@ public class AsigCombController {
 		model.put("combustible",combustible );	
 		model.put("editar", editar);	
 		model.put("titulo", "Editar Combustible");
+		model.put("PageTitulo", "Editar Asig de Combustible Ordinaria");
 		return "combustible/formComb";
 	}
 	
@@ -208,6 +211,7 @@ public class AsigCombController {
 		model.put("combustible",combusext );	
 		model.put("editar", editar);	
 		model.put("titulo", "Editar Combustible");
+		model.put("PageTitulo", "Agregar Asig de Combustible Extraordinaria");
 		return "combustible/formCombExt";
 	}
 	
