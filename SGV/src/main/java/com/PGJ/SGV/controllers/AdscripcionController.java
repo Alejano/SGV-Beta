@@ -77,6 +77,7 @@ public class AdscripcionController {
 		model.put("adscripcion",adscripcion);
 		model.put("PageTitulo", "Editar Adscripción");
 		model.put("titulo", "Editar cliente");
+		model.put("PageTitulo", "Editar Adscripción");
 		return "formAds";
 		
 	}

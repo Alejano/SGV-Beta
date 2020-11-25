@@ -82,6 +82,7 @@ public class AseguradoraController {
 		model.put("aseguradora",aseguradora);
 		model.put("titulo", "Editar cliente");
 		model.put("PageTitulo", "Editar Aseguradora");
+		model.put("PageTitulo", "Información Aseguradora");
 		return "Aseguradoras/formAseg";
 		
 	}
