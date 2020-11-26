@@ -83,6 +83,7 @@ public class SiniestroController {
 			model.addAttribute("PageTitulo", "Siniestros");
 			model.addAttribute("PageSubTitulo", "Listado de Siniestros");
 			model.addAttribute("auxiliar", aux);
+			model.addAttribute("ads",usus.getAdscripcion().getNombre_adscripcion());
 			model.addAttribute("siniestros",SiniestroPageArea);
 			model.addAttribute("page",SiniestroRenderArea);
 			return "Siniestros";
@@ -119,7 +120,7 @@ public class SiniestroController {
 			
 			Page<Siniestro> SiniestroPage = siniestroService.FindsegVehi(vehiculo.getId_vehiculo(), pageRequest);
 			PageRender<Siniestro> SiniestroRenderArea = new PageRender<>("/Siniestros",SiniestroPage);
-			if(siniestroService.totalSiniestro()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+			if(siniestroService.totalSiniestrosVehi(id_vehiculo)>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 			model.addAttribute("titulo","Listado de Siniestros");
 			model.addAttribute("PageTitulo", "Siniestros");
 			model.addAttribute("PageSubTitulo", "Listado de Siniestros de la placa: "+vehiculo.getPlaca());

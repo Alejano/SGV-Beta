@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 
-import com.PGJ.SGV.models.entity.Seguro;
 import com.PGJ.SGV.models.entity.Siniestro;
 
 public interface ISiniestroService {
@@ -22,6 +20,8 @@ public interface ISiniestroService {
 	public void delete(Long id_siniestro);
 	
 	public Long totalSiniestro();
+	
+	public Long totalSiniestrosVehi(Long id_vehiculo);
 	
 	public Page<Siniestro> FindsegVehi(Long id_vehiculo,Pageable pageable);
 	

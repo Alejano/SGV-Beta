@@ -59,6 +59,12 @@ public class ISiniestroServiceImpl implements ISiniestroService {
 	}
 	
 	@Override
+	public Long totalSiniestrosVehi(Long id_vehiculo) {
+		// TODO Auto-generated method stub
+		return siniestroDao.totalSiniestrosVehi(id_vehiculo);
+	}
+	
+	@Override
 	public Page<Siniestro> FindsegVehi(Long id_vehiculo,Pageable pageable) {
 		// TODO Auto-generated method stub
 		return siniestroDao.FindsegVehi(id_vehiculo,pageable);

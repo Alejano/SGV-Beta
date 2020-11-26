@@ -66,34 +66,34 @@
 													<td th:text="${conductoressql.vig_licencia}" class="celda"></td>																																																
 													<td class="celda">
 													
-															<div th:if="${usuario} == 'ROLE_ADMIN'" th:switch="${conductoressql.enabled} == true">															
+															<div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" th:switch="${conductoressql.enabled} == true">															
 															<a th:id="estCon+${conductoressql.no_empleado}" th:case="true" class="btn btn-success btn-xs sel" th:href="@{/estadoCond/} +${conductoressql.no_empleado}+'/'+${conductoressql.enabled}" onclick="scrolleruc(this.id,'Inactivo');" th:text="Activo" style="width: 100px;font-size:smaller;"></a>
 															<a th:id="estCon+${conductoressql.no_empleado}" th:case="false" class="btn btn-danger btn-xs sel" th:href="@{/estadoCond/} +${conductoressql.no_empleado}+'/'+${conductoressql.enabled}" onclick="scrolleruc(this.id,'Activo');" th:text="Inactivo" style="width: 100px;font-size:smaller;"></a>																								
 																											 
 															</div>													
 																													
-															<div th:if="${usuario} == 'ROLE_USER'">
+															<!--  <div th:if="${usuario} == 'ROLE_USER'">
 																<h6  th:if="${conductoressql.enabled} == true" class="celda">Activo</h6>
 																<h6  th:if="${conductoressql.enabled} == false" class="celda">Inactivo</h6>
-															</div>	
+															</div>-->	
 													</td>
 													
-													<td th:if="${usuario} == 'ROLE_ADMIN' " class="celda">
+													<td th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" class="celda">
 															<a class="btn btn-primary btn-xs btn-stilo sel" th:href="@{/FormCond/} +${conductoressql.no_empleado}" ><i class="fas fa-pencil-alt fa-2x"></i></a>															
 															<a class="btn btn-primary btn-xs btn-stilo sel" th:href="@{/elimCond/} +${conductoressql.no_empleado}" onclick="return confirm('Seguro que desea dar de baja al conductor?');"><i class="fas fa-trash-alt fa-2x"></i></a>													
 													
 													</td>
 													
-													<td th:if="${usuario} == 'ROLE_USER' " class="celda">
+													<!-- <td th:if="${usuario} == 'ROLE_USER' " class="celda">
 															<a class="btn btn-primary btn-xs btn-stilo sel" th:href="@{/FormCond/} +${conductoressql.no_empleado}" th:text="datos" ></a>													
-													</td>
+													</td> -->
 												</tr>																							
 												
 											</tbody>										
 										</table>
 										<nav th:replace="paginator-nav :: paginator"></nav>
 										
-										<div class="form-group last col-sm-12"  th:if="${usuario} == 'ROLE_ADMIN'">
+										<div class="form-group last col-sm-12"  th:if="${usuario == 'ROLE_ADMIN' or usuario=='ROLE_USER'}">
 										<a class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/FormCond}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>										
 										</div>
 	                                    </div>

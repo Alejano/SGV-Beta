@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import com.PGJ.SGV.models.entity.Seguro;
 
 public interface ISeguroService {
@@ -33,6 +34,8 @@ public interface ISeguroService {
 	public Page<Seguro> FindSegElemenPage(String elemento,Pageable pageable);
 		
 	public Long totalSeguros();
+	
+	public Long totalSegurosVehi(Long id_vehiculo);
 	
 	public Long totalSeguroAreaPage(Long id_adscripcion);
 	

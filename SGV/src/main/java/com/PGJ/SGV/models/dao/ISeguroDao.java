@@ -20,6 +20,9 @@ public interface ISeguroDao extends PagingAndSortingRepository<Seguro, Long> {
 	@Query("select count(s) from Seguro s")
 	public Long totalSeguro();
 	
+	@Query("select count(s) from Seguro s inner join Vehiculo l on s.vehiculo.id_vehiculo = l.id_vehiculo where l.id_vehiculo = ?1")
+	public Long totalSegurosVehi(Long id_vehiculo);
+	
 	@Query("select count(s) from Seguro s inner join Vehiculo v on s.vehiculo.id_vehiculo = v.id_vehiculo inner join Adscripcion a on v.adscripcion.id_adscripcion=a.id_adscripcion where a.id_adscripcion = ?1")
 	public Long totalSeguroAreaPage(Long id_adscripcion);
 	

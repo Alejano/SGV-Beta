@@ -17,7 +17,7 @@
 	                                        <form th:action="@{/FormCond}" th:object="${conductor}" method="post" id="formulario"  name="visitas" data-toggle="validator" class="popup-form">
 	                                            <div class="row">	
 	                                            
-	                                            		<div class="form-group col-sm-11" th:if="${usuario} == 'ROLE_USER'" style="background: #f8f8e5; text-align: center;">																																								                
+	                                            		<div class="form-group col-sm-11" th:if="${usuario} == 'ROLE_USER'" style="text-align: center;">																																								                
 															<h4 th:text="${nombreAds}" style="margin-left: 43px;"></h4>													    										                        
 										                    <div class="input-group-icon"><i class="far fa-building fa-2x"></i></div>
 										                    <input type="hidden" th:field="*{adscripcion}">
@@ -134,7 +134,7 @@
 														</div>
 																			
 														<!--Boton Guardar-->
-														<div class="form-group last col-sm-12" th:if="${usuario} == 'ROLE_ADMIN'">
+														<div class="form-group last col-sm-12" th:if="${usuario == 'ROLE_ADMIN' or usuario =='ROLE_USER'}">
 															<button type="submit" id="guardar" class="btn btn-custom btn-stilo" style="float: right;"><i class='fa fa-envelope'></i> Guardar</button>
 														</div>
 														<div class="clearfix"></div>														                                                    

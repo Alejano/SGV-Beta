@@ -5,13 +5,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.PGJ.SGV.models.entity.Seguro;
 import com.PGJ.SGV.models.entity.Siniestro;
 
 public interface ISiniestroDao extends PagingAndSortingRepository<Siniestro, Long>{
 
 	@Query("select count(s) from Siniestro s")
 	public Long totalSiniestro();
+	
+	@Query("select count(s) from Siniestro s inner join Vehiculo l on s.vehiculo.id_vehiculo = l.id_vehiculo where l.id_vehiculo = ?1")
+	public Long totalSiniestrosVehi(Long id_vehiculo);
 	
 	@Query("select s from Siniestro s inner join Vehiculo v on s.vehiculo.id_vehiculo = v.id_vehiculo where v.id_vehiculo = ?1")
 	public Page<Siniestro> FindsegVehi(Long id_vehiculo,Pageable pageable);

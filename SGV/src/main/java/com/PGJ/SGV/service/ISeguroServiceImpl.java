@@ -102,6 +102,12 @@ public class ISeguroServiceImpl implements ISeguroService {
 	}
 	
 	@Override
+	public Long totalSegurosVehi(Long id_vehiculo) {
+		// TODO Auto-generated method stub
+		return seguroDao.totalSegurosVehi(id_vehiculo);
+	}
+	
+	@Override
 	public Long totalSeguroAreaPage(Long id_adscripcion) {
 		// TODO Auto-generated method stub
 		return seguroDao.totalSeguroAreaPage(id_adscripcion);

@@ -82,6 +82,7 @@ public class SeguroController {
 
 			model.addAttribute("titulo","Listado de Seguros");
 			model.addAttribute("PageTitulo", "Seguros");
+			model.addAttribute("ads",usus.getAdscripcion().getNombre_adscripcion());
 			model.addAttribute("PageSubTitulo", "Listado de Seguros");
 			model.addAttribute("auxiliar", aux);
 			model.addAttribute("seguros",SeguroAreaPage);
@@ -120,7 +121,8 @@ public class SeguroController {
 
 			Page<Seguro> SeguroPage = seguroService.FindsegVehi(vehiculo.getId_vehiculo(),pageRequest);
 			PageRender<Seguro> SeguroRenderArea = new PageRender<>("/SegurosVehi",SeguroPage);
-			if(seguroService.totalSeguros()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+			if(seguroService.totalSegurosVehi(id_vehiculo)>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+			
 			model.addAttribute("titulo","Listado de Seguros");
 			model.addAttribute("PageTitulo", "Seguros");
 			model.addAttribute("PageSubTitulo", "Listado de Seguros de la placa: "+vehiculo.getPlaca());

@@ -27,6 +27,8 @@ public interface IViajeService {
 	
 	public Long viajestotales(); 
 	
+	public Long totalViajesVehi(Long id_vehiculo);
+	
 	public Long totalviajeElem(String elemento);
 	
 	public Long totalViajesArea(Long id_adscipcion);

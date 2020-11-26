@@ -44,7 +44,7 @@
 													<td th:text="${combustiblesql.kilometraje_ord}"></td>
 													<td th:text="${combustiblesql.fecha_ini_ord}"></td>	
 													<td th:text="${combustiblesql.fecha_fin_ord}"></td>																									
-													<td th:if="${usuario} == 'ROLE_ADMIN' ">
+													<td th:if="${usuario} == 'ROLE_ADMIN'">
 													<a class="btn btn-primary btn-xs sel" th:href="@{/formComb/}+${combustiblesql.id_asignacion}"><i class="fas fa-pencil-alt fa-2x"></i></a>
 													<a class="btn btn-primary btn-xs sel" th:href="@{/elimComb/}+${combustiblesql.id_asignacion}+'/'+ ${id_vehiculo}" onclick="return confirm('Seguro que desea eliminar?');" ><i class="fas fa-trash-alt fa-2x"></i></a>													
 													<button th:onclick="'javascript:btnimg('+ ${combustiblesql.id_asignacion}+' )'" th:name="${combustiblesql.id_asignacion}" type="button" class="btn btn-primary btn-xs sel" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="far fa-eye fa-2x"></i></button>													
@@ -67,7 +67,7 @@
 											</tbody>
 										</table>
 										
-										<div class="form-group last col-sm-12 enlinea">
+										<div  th:if="${usuario} == 'ROLE_ADMIN'" class="form-group last col-sm-12 enlinea">
 										<a class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:if="${ascombus} == true"  th:href="@{/formComb/Ag/} + ${id_vehiculo}"  style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>
 										
 										</div>

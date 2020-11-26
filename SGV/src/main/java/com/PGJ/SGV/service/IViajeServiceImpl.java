@@ -77,6 +77,12 @@ public class IViajeServiceImpl implements IViajeService {
 	}
 	
 	@Override
+	public Long totalViajesVehi(Long id_vehiculo){
+		// TODO Auto-generated method stub
+		return viajeDao.totalViajesVehi(id_vehiculo);
+	}
+		
+	@Override
 	public Long totalviajeElem(String elemento) {
 		// TODO Auto-generated method stub
 		return viajeDao.totalviajeElem(elemento);

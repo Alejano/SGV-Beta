@@ -81,6 +81,7 @@ public class MantenimintoController {
 			if(mantService.totalMantenimiento()>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 			model.addAttribute("PageTitulo", "Mantenimientos");
 			model.addAttribute("PageSubTitulo", "Listado de Mantenimientos");
+			model.addAttribute("ads",usus.getAdscripcion().getNombre_adscripcion());
 			model.addAttribute("mantenimientos",MantAreaPage);
 			model.addAttribute("page",MantRenderArea);
 			model.addAttribute("Mplaca",Mplaca);

@@ -73,12 +73,13 @@ public class ViajeCotroller {
 			//id_ad=id_ads.intValue();
 			Page<Viaje> viajespageArea = viajeService.ViajesAreaPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);	
 			PageRender<Viaje> pageRenderArea = new PageRender<>("/Viajes", viajespageArea);	
-			if(viajeService.totalViajesArea(usus.getAdscripcion().getId_adscripcion())>= 9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};				
+			if(viajeService.totalViajesArea(usus.getAdscripcion().getId_adscripcion())>= 7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
+						
 			model.addAttribute("titulo","Listado de Viajes");
 			model.addAttribute("PageTitulo", "Viajes");
             model.addAttribute("PageSubTitulo", "Listado de Viajes");
 			model.addAttribute("auxiliar", aux);
-			model.addAttribute("titulouser",usus.getAdscripcion().getNombre_adscripcion());
+			model.addAttribute("ads",usus.getAdscripcion().getNombre_adscripcion());
 			model.addAttribute("viajes",viajespageArea);
 			model.addAttribute("page",pageRenderArea);
 			return "Viajes";
@@ -86,7 +87,7 @@ public class ViajeCotroller {
 				
 		Page<Viaje> viajespage = viajeService.findAll(pageRequest);		
 		PageRender<Viaje> pageRender = new PageRender<>("/Viajes", viajespage);				
-		if(viajeService.viajestotales() >= 9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
+		if(viajeService.viajestotales() >= 5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		
 		model.addAttribute("titulo","Listado de Viajes ");
 		model.addAttribute("PageTitulo", "Viajes");
@@ -116,8 +117,9 @@ public class ViajeCotroller {
 		
 		Page<Viaje> viajespageArea = viajeService.FindviajeVehi(vehiculo.getId_vehiculo(), pageRequest);
 		PageRender<Viaje> pageRenderArea = new PageRender<>("/Viajes", viajespageArea);	
-		if(viajeService.viajestotales()>= 9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		
+		if(viajeService.totalViajesVehi(id_vehiculo)>=9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
+				
 		model.addAttribute("titulo","Listado de Viajes");
 		model.addAttribute("PageTitulo", "Viajes");
         model.addAttribute("PageSubTitulo", "Listado de Viajes de la placa: "+vehiculo.getPlaca());
