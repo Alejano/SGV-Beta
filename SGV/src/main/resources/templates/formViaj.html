@@ -136,7 +136,7 @@
 		  
 		   if(Date.parse(fechainicial) < Date.parse(fechaanterior)) {
 			   document.getElementById("H_ini").value = fechaanterior;   
-			   swal("Error", "La fecha de inicio debe ser mayor al periodo anterior registrado", "error");
+			   swal.fire("Error", "La fecha de inicio debe ser mayor al periodo anterior registrado", "error");
 			   };
 			  
 	 }
@@ -150,7 +150,7 @@
 
 	   if(Date.parse(fechafinal) < Date.parse(fechainicial)) {
 		   document.getElementById("H_fin").value = fechaanterior;
-		   swal("Error", "La fecha fin debe ser mayor a la fecha de inicio", "error");
+		   swal.fire("Error", "La fecha fin debe ser mayor a la fecha de inicio", "error");
 		};
 		
 	}
@@ -163,7 +163,7 @@
 
 		if(kilometrajeI.parseFloat <= kilometrajeF.parseFloat){
 			document.getElementById("Kinicial").value = "";
-			swal("Error","El kilimetraje inicial debe ser mayor al final","error");
+			swal.fire("Error","El kilimetraje inicial debe ser mayor al final","error");
 		}
 		
 	}
@@ -178,7 +178,7 @@
 		
 		if( kilometrajeF <= kilometrajeI ){
 			document.getElementById("Kfinal").value = "";
-			swal("Error","El kilimetraje final debe ser mayor al Kilometraje inicial","error");
+			swal.fire("Error","El kilimetraje final debe ser mayor al Kilometraje inicial","error");
 			}
 		
 	}

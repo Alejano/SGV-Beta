@@ -199,7 +199,7 @@
 				if(valor1 != valor2){
 					$("#span").show();
 					document.getElementById("span").innerHTML= negacion;	
-					swal("Error", "No coinciden las contraseñas", "error");
+					swal.fire("Error", "No coinciden las contraseñas", "error");
 					$("#guardar").hide();
 					limpiar();
 				}
@@ -212,7 +212,7 @@
 			if(valor1 == valor2){
 				$("#span").show();		
 				document.getElementById("span").innerHTML= confirmacion;
-				swal("", "Las contraseñas coinciden", "success");
+				swal.fire("", "Las contraseñas coinciden", "success");
 				$("#guardar").show();
 			};	
 		}

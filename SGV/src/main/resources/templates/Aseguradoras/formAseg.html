@@ -193,12 +193,12 @@
 	
            if(Date.parse(fechainicial) > Date.parse(fechafinal)) {
         	   document.getElementById("H_ini").value = fechaanterior;   
-        	   swal("Error", "La fecha de inicio debe ser menor a la fecha de fin", "error");
+        	   swal.fire("Error", "La fecha de inicio debe ser menor a la fecha de fin", "error");
         	   };
 		  
 		   if(Date.parse(fechainicial) < Date.parse(fechaanterior)) {
 			   document.getElementById("H_ini").value = fechaanterior;   
-			   swal("Error", "La fecha de inicio debe ser mayor al periodo anterior registrado", "error");
+			   swal.fire("Error", "La fecha de inicio debe ser mayor al periodo anterior registrado", "error");
 			   };
 			  
 	 }
@@ -212,26 +212,26 @@
 
 	   if(Date.parse(fechafinal) < Date.parse(fechainicial)) {
 		   document.getElementById("H_fin").value = fechaanterior;
-		   swal("Error", "La fecha fin debe ser mayor a la fecha de inicio", "error");
+		   swal.fire("Error", "La fecha fin debe ser mayor a la fecha de inicio", "error");
 		};
 		
 	}
 	
 	</script>	
 
-	<script src="/SGV/assets/js/CambiosEstado.js"></script>
+	<script src="/assets/js/CambiosEstado.js"></script>
 	<!-- jQuery Library -->
-	<script src="/SGV/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
 	<!-- Popper js -->
-	<script src="/SGV/assets/js/popper.min.js"></script>
+	<script src="/assets/js/popper.min.js"></script>
 	<!-- Bootstrap Js -->
-	<script src="/SGV/assets/bootstrap/js/bootstrap.min.js"></script>	
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>	
 	<!-- Form Validator -->
-	<script src="/SGV/assets/js/validator.min.js"></script>
+	<script src="/assets/js/validator.min.js"></script>
 	<!-- Contact Form Js -->
-	<script src="/SGV/assets/js/contact-form.js"></script>
+	<script src="/assets/js/contact-form.js"></script>
 	<!-- SweetAlert-->
-	<script src="/SGV/assets/SweetAlert2/sweetalert2.min.js"></script>
+	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
 	<!-- fontawesome -->
 	<script th:src="@{/assets/fontawesome/js/all.js}"></script>	
  

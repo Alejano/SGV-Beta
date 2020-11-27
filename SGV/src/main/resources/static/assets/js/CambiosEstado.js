@@ -105,7 +105,7 @@
 		}
 		
 		if (letras.indexOf(tecla) == -1 && !tecla_especial){
-			swal("Error", "Solo se permiten letras en mayúsculas", "error");
+			swal.fire("Error", "Solo se permiten letras en mayúsculas", "error");
 			return false;
 	  }
 		}
