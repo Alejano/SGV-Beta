@@ -55,8 +55,8 @@
 													<td th:text="${usuariosql.apellido2}" class="celda"></td>													
 													<td th:text="${usuariosql.Adscripcion != null}? ${usuariosql.Adscripcion.nombre_adscripcion} :'No se Encontro Adscripcion'" style="width:300px" class="celda"></td>
 													<td th:switch="${usuariosql.enabled} == true" class="celda">															
-															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="true" class="btn btn-success btn-xs sel" th:href="@{/estadoUsu/} +${usuariosql.no_empleado}+'/'+${usuariosql.enabled}" onclick="scroller(this.id,'Inactivo');" th:text="Activo" ></a>
-															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="false" class="btn btn-danger btn-xs sel" th:href="@{/estadoUsu/} +${usuariosql.no_empleado}+'/'+${usuariosql.enabled}" onclick="scroller(this.id,'Activo');" th:text="Inactivo" ></a>																								
+															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="true" class="btn btn-success btn-xs sel" th:href="@{/estadoUsu/} +${usuariosql.no_empleado}+'/'+${usuariosql.enabled}" onclick="scrolleruc(this.id,'Inactivo');" th:text="Activo" ></a>
+															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="false" class="btn btn-danger btn-xs sel" th:href="@{/estadoUsu/} +${usuariosql.no_empleado}+'/'+${usuariosql.enabled}" onclick="scrolleruc(this.id,'Activo');" th:text="Inactivo" ></a>																								
 													</td>
 													
 												    <td th:switch="${usuariosql.authority.authority}" class="celda">

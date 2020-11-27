@@ -244,7 +244,7 @@ public class UsuarioController {
 	  logs.setHora(ObtenHour.obtenHour());
 	  logs.setName_table("USUARIOS");
 	  logs.setValor_viejo(valor_old);
-	  logs.setTipo_accion("UPDATE");
+	  logs.setTipo_accion("UPDATE ESTADO");
 	  
 	  logsauditService.save(logs);
 	  
@@ -354,7 +354,7 @@ public class UsuarioController {
 				logs.setHora(ObtenHour.obtenHour());
 				logs.setName_table("USUARIOS");
 				logs.setValor_viejo(valor_old);
-				logs.setTipo_accion("UPDATE");
+				logs.setTipo_accion("UPDATE ESTADO");
 										
 				logsauditService.save(logs);
 				

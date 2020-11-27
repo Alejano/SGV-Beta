@@ -59,8 +59,8 @@
 													<td  class="celda">		
 													
 													        <div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SEGURO'}"  th:switch="${aseguradorasql.enabled} == true">											
-															<a th:id="estadoAseg+${aseguradorasql.id_aseguradora}" th:case="true" class="btn btn-success btn-xs sel" th:href="@{/estadoAseg/} +${aseguradorasql.id_aseguradora}+'/'+${aseguradorasql.enabled}" onclick="scroller(this.id,'Inactivo');" th:text="Activo" style="width: 100px;font-size:smaller;"></a>
-															<a th:id="estadoAseg+${aseguradorasql.id_aseguradora}" th:case="false" class="btn btn-danger btn-xs sel" th:href="@{/estadoAseg/} +${aseguradorasql.id_aseguradora}+'/'+${aseguradorasql.enabled}" onclick="scroller(this.id,'Activo');" th:text="Inactivo" style="width: 100px;font-size:smaller;"></a>																								
+															<a th:id="estadoAseg+${aseguradorasql.id_aseguradora}" th:case="true" class="btn btn-success btn-xs sel" th:href="@{/estadoAseg/} +${aseguradorasql.id_aseguradora}+'/'+${aseguradorasql.enabled}" onclick="scrolleruc(this.id,'Inactivo');" th:text="Activo" style="width: 100px;font-size:smaller;"></a>
+															<a th:id="estadoAseg+${aseguradorasql.id_aseguradora}" th:case="false" class="btn btn-danger btn-xs sel" th:href="@{/estadoAseg/} +${aseguradorasql.id_aseguradora}+'/'+${aseguradorasql.enabled}" onclick="scrolleruc(this.id,'Activo');" th:text="Inactivo" style="width: 100px;font-size:smaller;"></a>																								
 													        </div>
 													
 													       <div th:if="${usuario} == 'ROLE_USER'">

@@ -118,7 +118,7 @@ public class AseguradoraController {
 		logs.setHora(ObtenHour.obtenHour());
 		logs.setName_table("ASEGURADORAS");
 		logs.setValor_viejo(valor_old);
-		logs.setTipo_accion("UPDATE");
+		logs.setTipo_accion("UPDATE ESTADO");
 								
 		logsauditService.save(logs);
 		editar = false;		

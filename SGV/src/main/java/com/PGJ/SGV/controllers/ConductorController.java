@@ -278,7 +278,7 @@ public class ConductorController {
 			logs.setHora(ObtenHour.obtenHour());
 			logs.setName_table("CONDUCTORES");
 			logs.setValor_viejo(valor_old);
-			logs.setTipo_accion("UPDATE");
+			logs.setTipo_accion("UPDATE ESTADO");
 									
 			logsauditService.save(logs);
 			
@@ -406,7 +406,7 @@ public class ConductorController {
 			logs.setHora(ObtenHour.obtenHour());
 			logs.setName_table("CONDUCTORES");
 			logs.setValor_viejo(valor_old);
-			logs.setTipo_accion("UPDATE");
+			logs.setTipo_accion("UPDATE ESTADO");
 									
 			logsauditService.save(logs);
 		}
