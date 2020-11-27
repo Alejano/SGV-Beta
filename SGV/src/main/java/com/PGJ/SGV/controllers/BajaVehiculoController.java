@@ -52,7 +52,7 @@ public class BajaVehiculoController {
 			return "redirect:/Vehiculos";
 		}
 		
-		model.put("PageTitulo", "Baja de Vehiculo");
+		model.put("PageTitulo", "Baja del Vehiculo");
 		model.put("vehiculo",vehiculo);
 		model.put("bajavehiculo", bajavehiculo);
 		model.put("titulo", "Baja Vehiculo");

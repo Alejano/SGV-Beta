@@ -173,10 +173,14 @@ public class SiniestroController {
 		}else {
 			return "redirect:/Siniestros";
 		}
+		
+		if(user.equals("ROLE_ADMIN") || user.equals("ROLE_SINIESTRO")){
+			model.put("PageTitulo", "Editar Siniestro");
+		}else {model.put("PageTitulo", "Información del Siniestro");}
+		
 		model.put("id_vehiculo", siniestro.getVehiculo().getId_vehiculo());
 		model.put("editar", editar);
 		model.put("siniestros",siniestro);
-		model.put("PageTitulo", "Editar Siniestro");
 		model.put("titulo", "Editar Siniestro");
 		return "formSin";
 

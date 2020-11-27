@@ -118,8 +118,12 @@ public class ViajeCotroller {
 		Page<Viaje> viajespageArea = viajeService.FindviajeVehi(vehiculo.getId_vehiculo(), pageRequest);
 		PageRender<Viaje> pageRenderArea = new PageRender<>("/Viajes", viajespageArea);	
 		
-		if(viajeService.totalViajesVehi(id_vehiculo)>=9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
-				
+		if(user.equals("ROLE_USER")){
+		if(viajeService.totalViajesVehi(id_vehiculo)>=7) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
+		}else {
+			if(viajeService.viajestotales() >= 5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
+		}		
+		
 		model.addAttribute("titulo","Listado de Viajes");
 		model.addAttribute("PageTitulo", "Viajes");
         model.addAttribute("PageSubTitulo", "Listado de Viajes de la placa: "+vehiculo.getPlaca());

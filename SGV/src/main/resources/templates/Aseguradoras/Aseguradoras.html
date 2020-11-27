@@ -44,7 +44,7 @@
 													<th class="celda">Teléfono</th>
 													<th class="celda">Estado</th>
 													<th style="width:210px" class="celda">Opciones</th>
-													<th style="width:10px" th:if="${tamano} == 'mostrar'"></th>
+													<th style="width: 1.4%" th:if="${tamano} == 'mostrar'"></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -56,9 +56,18 @@
 													<td th:text="${aseguradorasql.fecha_inicio}" class="celda"></td>
 													<td th:text="${aseguradorasql.fecha_fin}" class="celda"></td>
 													<td th:text="${aseguradorasql.tel_aseguradora}" class="celda"></td>
-													<td th:switch="${aseguradorasql.enabled} == true" class="celda">															
+													<td  class="celda">		
+													
+													        <div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SEGURO'}"  th:switch="${aseguradorasql.enabled} == true">											
 															<a th:id="estadoAseg+${aseguradorasql.id_aseguradora}" th:case="true" class="btn btn-success btn-xs sel" th:href="@{/estadoAseg/} +${aseguradorasql.id_aseguradora}+'/'+${aseguradorasql.enabled}" onclick="scroller(this.id,'Inactivo');" th:text="Activo" style="width: 100px;font-size:smaller;"></a>
 															<a th:id="estadoAseg+${aseguradorasql.id_aseguradora}" th:case="false" class="btn btn-danger btn-xs sel" th:href="@{/estadoAseg/} +${aseguradorasql.id_aseguradora}+'/'+${aseguradorasql.enabled}" onclick="scroller(this.id,'Activo');" th:text="Inactivo" style="width: 100px;font-size:smaller;"></a>																								
+													        </div>
+													
+													       <div th:if="${usuario} == 'ROLE_USER'">
+																<h6  th:if="${aseguradorasql.enabled} == true" class="celda" style="font-size: 14px;">ACTIVO</h6>
+																<h6  th:if="${aseguradorasql.enabled} == false" class="celda" style="font-size: 14px;">INACTIVO</h6>
+															</div>		
+															
 													</td>
 													<td class="celda" style="width:210px">
 													        <a class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/VerAseg/} +${aseguradorasql.id_aseguradora}" th:text="información"></a>
