@@ -186,7 +186,7 @@
 					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{/ListarCombustible/} " th:text="'Ver y asignar combustible'" id="comb" ></a>
 				</div>																
 				<div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" data-value="4" class="optionModal">
-					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{Mantenimientos/} " id="man" th:text="'Ver y asignar mantenimiento'" ></a>
+					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{Mantenimientos/} " id="man" th:text="'Ver y asignar mantenimientos'" ></a>
 				</div>
 				<div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}"  data-value="5" class="optionModal">
 					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{/VehiViaj/} " id="via" th:text="'Ver y asignar viajes mensuales'" ></a>
