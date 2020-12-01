@@ -294,6 +294,8 @@ public class UsuarioController {
 		 if(usuarioService.totalfinUsuElemnt(elementof)>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 		 
 		 model.addAttribute("usuarios",usuariospage);
+		 model.addAttribute("PageTitulo", "Usuarios");
+	     model.addAttribute("PageSubTitulo", "Listado de Usuarios");
 		 model.addAttribute("page",renderpage);
 		 model.addAttribute("elemento",elementof);
 		 return "Usuarios";
@@ -386,6 +388,8 @@ public class UsuarioController {
 		 PageRender<Usuario> renderpage = new PageRender<>("/formUsuBajaBuscar",usuariospage);
 		 if(usuarioService.totalfinUsuElemntBajas(elementof)>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 		 model.addAttribute("usuarios",usuariospage);
+		 model.addAttribute("PageTitulo", "Bajas Usuarios");
+	        model.addAttribute("PageSubTitulo", "Listado de Bajas Usuarios");
 		 model.addAttribute("page",renderpage);
 		 model.addAttribute("elemento",elementof);		 
 		 return "BajasUsu";

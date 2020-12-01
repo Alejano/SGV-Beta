@@ -59,6 +59,7 @@ public class SiniestroController {
 	Long id_vehi;
 	Long id_sin;
 	String user;
+	String id_placa;
 	
 	@RequestMapping(value="/Siniestros", method = RequestMethod.GET)
 	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model) {	
@@ -117,6 +118,7 @@ public class SiniestroController {
 		
 			Vehiculo vehiculo = new Vehiculo();
 			vehiculo = vehiculoService.findOne(id_vehiculo);
+			id_placa=vehiculo.getPlaca();
 			
 			Page<Siniestro> SiniestroPage = siniestroService.FindsegVehi(vehiculo.getId_vehiculo(), pageRequest);
 			PageRender<Siniestro> SiniestroRenderArea = new PageRender<>("/Siniestros",SiniestroPage);
@@ -482,6 +484,8 @@ public class SiniestroController {
 					if(siniestroService.totalSiniestro()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 					
 					model.addAttribute("siniestros",siniestrospage);
+					model.addAttribute("PageTitulo", "Siniestros");
+					model.addAttribute("PageSubTitulo", "Listado de Siniestros de la placa: "+id_placa);
 					model.addAttribute("page",pageRender);
 					model.addAttribute("elemento",elementof);	
 					model.addAttribute("auxiliar", aux);
@@ -523,6 +527,8 @@ public class SiniestroController {
 							if(siniestroService.totalSiniestro()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 
 						    model.addAttribute("siniestros",siniestrospage);
+						    model.addAttribute("PageTitulo", "Siniestros");
+							model.addAttribute("PageSubTitulo", "Listado de Siniestros");
 							model.addAttribute("auxiliar", aux);
 							model.addAttribute("page",pageRender);
 							model.addAttribute("elemento",elementof);
@@ -537,6 +543,8 @@ public class SiniestroController {
 
 					model.addAttribute("siniestros",siniestrospage);
 					model.addAttribute("page",pageRender);
+					model.addAttribute("PageTitulo", "Siniestros");
+					model.addAttribute("PageSubTitulo", "Listado de Siniestros");
 					model.addAttribute("elemento",elementof);	
 					model.addAttribute("auxiliar", aux);
 					model.addAttribute("id_vehiculo",id_vehi);

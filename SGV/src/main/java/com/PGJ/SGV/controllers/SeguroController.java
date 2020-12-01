@@ -59,6 +59,7 @@ public class SeguroController {
 	boolean editar = false;
 	boolean aux=false;
 	Long id_vehi;
+	String id_placa;
 	String user;
 	
 	@RequestMapping(value="/Seguros", method = RequestMethod.GET)
@@ -82,8 +83,8 @@ public class SeguroController {
 
 			model.addAttribute("titulo","Listado de Seguros");
 			model.addAttribute("PageTitulo", "Seguros");
-			model.addAttribute("ads",usus.getAdscripcion().getNombre_adscripcion());
 			model.addAttribute("PageSubTitulo", "Listado de Seguros");
+			model.addAttribute("ads",usus.getAdscripcion().getNombre_adscripcion());
 			model.addAttribute("auxiliar", aux);
 			model.addAttribute("seguros",SeguroAreaPage);
 			model.addAttribute("page",SeguroRenderArea);
@@ -113,11 +114,13 @@ public class SeguroController {
 		user = obuserService.obtenUser();
 		model.addAttribute("usuario",user);		
 		id_vehi=id_vehiculo;
+	
 		
 		Pageable pageRequest = PageRequest.of(page, 100);
 	
 			Vehiculo vehiculo = new Vehiculo();
 			vehiculo = vehiculoService.findOne(id_vehiculo);
+			id_placa=vehiculo.getPlaca();
 
 			Page<Seguro> SeguroPage = seguroService.FindsegVehi(vehiculo.getId_vehiculo(),pageRequest);
 			PageRender<Seguro> SeguroRenderArea = new PageRender<>("/SegurosVehi",SeguroPage);
@@ -330,6 +333,8 @@ public class SeguroController {
 					model.addAttribute("elemento",elementof);	
 					model.addAttribute("auxiliar", aux);
 					model.addAttribute("id_vehiculo",id_vehi);
+					model.addAttribute("PageTitulo", "Seguros");
+					model.addAttribute("PageSubTitulo", "Listado de Seguros de la placa: "+id_placa);
 	     			return "SegurosVehi";		
 		}else{
 			return "redirect:/Seguros";
@@ -371,6 +376,8 @@ public class SeguroController {
 							model.addAttribute("page",pageRender);
 							model.addAttribute("elemento",elementof);
 							model.addAttribute("id_vehiculo",id_vehi);
+							model.addAttribute("PageTitulo", "Seguros");
+							model.addAttribute("PageSubTitulo", "Listado de Seguros");
 							return "SegurosVehi";
 					};
 					
@@ -384,6 +391,8 @@ public class SeguroController {
 					model.addAttribute("elemento",elementof);	
 					model.addAttribute("auxiliar", aux);
 					model.addAttribute("id_vehiculo",id_vehi);
+					model.addAttribute("PageTitulo", "Seguros");
+					model.addAttribute("PageSubTitulo", "Listado de Seguros");
 	     			return "SegurosVehi";		
 		}else{
 			return "redirect:/Seguros";

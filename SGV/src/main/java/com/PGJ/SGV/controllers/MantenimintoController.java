@@ -347,6 +347,8 @@ public class MantenimintoController {
 						model.addAttribute("mantenimientos",mantspage);
 						model.addAttribute("page",pageRender);
 						model.addAttribute("elemento",elemento);
+						model.addAttribute("PageTitulo", "Mantenimientos");
+						model.addAttribute("PageSubTitulo", "Listado de Mantenimientos");
 						return "Mantenimientos";
 				 };
 			
@@ -355,6 +357,8 @@ public class MantenimintoController {
 			model.addAttribute("mantenimientos",mantspage);
 			model.addAttribute("page",pageRender);
 			model.addAttribute("elemento",elemento);	
+			model.addAttribute("PageTitulo", "Mantenimientos");
+			model.addAttribute("PageSubTitulo", "Listado de Mantenimientos");
 			return "Mantenimientos";
 		}else {
 			return "redirect:/Mantenimientos";

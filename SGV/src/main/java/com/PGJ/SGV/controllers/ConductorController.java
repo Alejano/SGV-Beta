@@ -321,6 +321,8 @@ public class ConductorController {
 					model.addAttribute("conductores",conductorespage);
 					model.addAttribute("page",pageRender);
 					model.addAttribute("elemento",elementof);
+					model.addAttribute("PageTitulo", "Conductores");
+		            model.addAttribute("PageSubTitulo", "Listado de Conductores");
 					return "Conductores";
 					};			
 			
@@ -332,6 +334,8 @@ public class ConductorController {
 			model.addAttribute("conductores",conductorespage);
 			model.addAttribute("page",pageRender);
 			model.addAttribute("elemento",elementof);	
+			model.addAttribute("PageTitulo", "Conductores");
+            model.addAttribute("PageSubTitulo", "Listado de Conductores");
 			return "Conductores";
 			}else {
 				return "redirect:/Conductores";
@@ -447,6 +451,8 @@ public class ConductorController {
 					model.addAttribute("conductores",conductorespage);
 					model.addAttribute("page",pageRender);
 					model.addAttribute("elemento",elementof);
+					model.addAttribute("PageTitulo", "Bajas Conductores");
+		            model.addAttribute("PageSubTitulo", "Listado de Bajas Conductores");
 					return "BajasCond";
 			};	
 			
@@ -457,6 +463,8 @@ public class ConductorController {
 			model.addAttribute("conductores",conductorespage);
 			model.addAttribute("page",pageRender);
 			model.addAttribute("elemento",elementof);	
+			model.addAttribute("PageTitulo", "Bajas Conductores");
+            model.addAttribute("PageSubTitulo", "Listado de Bajas Conductores");
 			return "BajasCond";
 			} else {
 				return "redirect:/BajasCond";

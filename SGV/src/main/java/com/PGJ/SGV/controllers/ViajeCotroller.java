@@ -51,6 +51,7 @@ public class ViajeCotroller {
 	Long id_vehi=null;
 	Double kilom_final;
 	String user;
+	String id_placa;
 	//Long id_vehi_edit=null;
 
 	@RequestMapping(value="/Viajes", method = RequestMethod.GET)
@@ -114,6 +115,7 @@ public class ViajeCotroller {
 		
 		Vehiculo vehiculo = new Vehiculo();
 		vehiculo = vehiculoService.findOne(id_vehiculo);
+		id_placa=vehiculo.getPlaca();
 		
 		Page<Viaje> viajespageArea = viajeService.FindviajeVehi(vehiculo.getId_vehiculo(), pageRequest);
 		PageRender<Viaje> pageRenderArea = new PageRender<>("/Viajes", viajespageArea);	
@@ -286,6 +288,8 @@ public class ViajeCotroller {
 					model.addAttribute("auxiliar", aux);
 					model.addAttribute("elemento",elementof);
 					model.addAttribute("id_vehiculo",id_vehi);
+					model.addAttribute("PageTitulo", "Viajes");
+			        model.addAttribute("PageSubTitulo", "Listado de Viajes de la placa: "+id_placa);
 					return "Viajes";
 					}
 					else{
@@ -324,6 +328,8 @@ public class ViajeCotroller {
 		PageRender<Viaje> pageRender = new PageRender<>("/formViajBuscar?elemento="+elementof, viajespage);
 		if(viajeService.totalViajesElemArea(usus.getAdscripcion().getId_adscripcion(), elementof)>= 9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 		model.addAttribute("viajes",viajespage);
+		model.addAttribute("titulo","Listado de Viajes");
+		model.addAttribute("PageTitulo", "Viajes");
 		model.addAttribute("page",pageRender);
 		model.addAttribute("auxiliar", aux);
 		model.addAttribute("elemento",elementof);
@@ -337,6 +343,8 @@ public class ViajeCotroller {
 		PageRender<Viaje> pageRender = new PageRender<>("/formViajBuscar?elemento="+elementof, viajespage);
 		if(viajeService.totalviajeElem(elementof)>= 9) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 		model.addAttribute("viajes",viajespage);
+		model.addAttribute("titulo","Listado de Viajes");
+		model.addAttribute("PageTitulo", "Viajes");
 		model.addAttribute("page",pageRender);
 		model.addAttribute("auxiliar", aux);
 		model.addAttribute("elemento",elementof);
