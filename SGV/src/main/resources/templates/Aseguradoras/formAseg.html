@@ -29,8 +29,12 @@
 	                                                            <input th:field="*{nombre_aseguradora}"  id="nombre_aseg" placeholder="Nombre Aseguradora" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese El Nombre de la Aseguradora"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-file-contract"></i></div>
 	                                                      </div>
+	                                                      
+	                                                       <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Nombre Aseguradora" class="form-control" disabled>
+													       </div>
 	                                                    
-	                                                      <div class="form-group col-sm-7"></div>
+	                                                      <div class="form-group col-sm-5"></div>
 	                                                             
 	                                                      <!--Poliza-->
 	                                                    
@@ -40,7 +44,11 @@
 	                                                            <div class="input-group-icon"><i class="far fa-newspaper"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-7"></div>
+	                                                    <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Número de Póliza Padre" class="form-control" disabled>
+													       </div>
+	                                                    
+	                                                    <div class="form-group col-sm-5"></div>
 	                                                                                                
 	                                                     <!--No Contrato-->
 	                                                    
@@ -49,8 +57,12 @@
 	                                                            <input th:field="*{no_contrato}"  id="No_contrato" placeholder="Numero de Contrato" class="form-control Contrato" type="text" required data-error="Ingrese El Numero de Contrato"/>
 	                                                            <div class="input-group-icon"><i class="far fa-newspaper"></i></div>
 	                                                     </div>
+	                                                     
+	                                                     <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Número de Contrato" class="form-control" disabled>
+													       </div>
 	                                                    
-	                                                     <div class="form-group col-sm-7"></div>
+	                                                     <div class="form-group col-sm-5"></div>
 	                                                     
 	                                                         
 	                                                   <!--RFC Contratante-->
@@ -61,7 +73,11 @@
 	                                                            <div class="input-group-icon"><i class="far fa-newspaper"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-7"></div>
+	                                                    <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="RFC Aseguradora" class="form-control" disabled>
+													       </div>
+													       
+	                                                    <div class="form-group col-sm-5"></div>
 	                                                    
 	                                                    <!--Fecha inicio-->
 
@@ -107,6 +123,10 @@
 	                                                            <div class="input-group-icon"><i class="fas fa-phone"></i></div>
 	                                                    </div>
 	                                                    
+	                                                    <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Teléfono" class="form-control" disabled>
+													    </div>
+													       
 	                                                    <div class="form-group col-sm-12"></div> 
 	                                                    
 														<h3 style="margin-left:1%;margin-top:.3%;">Dirección</h3>
@@ -121,7 +141,12 @@
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    
+	                                                    <div class="form-group col-sm-2 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Calle" class="form-control" disabled>
+													       </div>
+													       
+													       <div class="form-group col-sm-3"></div> 
+	                                 
 	                                                     <!--Número-->
 	                                                   
 	                                                    <div class="form-group col-sm-3">
@@ -129,6 +154,12 @@
 	                                                            <input th:field="*{numero_domicilio}"  id="num_aseg" placeholder="Número Aseguradora" class="form-control signos" type="text" required data-error="Ingrese el número"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
+	                                                    
+	                                                     <div class="form-group col-sm-2 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Número" class="form-control" disabled>
+													       </div>
+	                                                    
+	                                                    <div class="form-group col-sm-5"></div> 
 	                                                    
 	                                                      <!--Colonia-->
 	                                                   
@@ -138,6 +169,12 @@
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
 	                                                    
+	                                                        <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Colonia" class="form-control" disabled>
+													       </div>
+													       
+													     <div class="form-group col-sm-5"></div> 
+	                                                    
  	                                                    <!--Codigo postaL-->
 	                                                   
 	                                                    <div class="form-group col-sm-2">
@@ -145,6 +182,12 @@
 	                                                            <input th:field="*{codigopos_domicilio}"  id="cp_aseg" placeholder="Código Postal" class="form-control signos" type="text" required data-error="Ingrese el codigo postal"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
+	                                                    
+	                                                    <div class="form-group col-sm-2 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="C.P" class="form-control" disabled>
+													       </div>
+	                                                    
+	                                                    <div class="form-group col-sm-5"></div> 
 	                                                    
 	                                                   <!--Alcaldia-->
 	                                                   
@@ -154,6 +197,10 @@
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
 	                                                    
+	                                                        <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Alcaldia" class="form-control" disabled>
+													       </div>
+													       
 	                                                     <div class="form-group col-sm-12"></div>
 	                                                     
 

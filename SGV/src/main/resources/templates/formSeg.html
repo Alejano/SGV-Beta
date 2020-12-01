@@ -68,7 +68,11 @@
 	                                                            <div class="input-group-icon"><i class="fas fa-file-contract"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-7 enlineaform"></div>
+	                                                    <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Nombre del Contratante" class="form-control" disabled>
+													    </div>
+	                                                    
+	                                                    <div class="form-group col-sm-5 enlineaform"></div>
 													     
 	                                                    <!--Poliza-->
 	                                                    
@@ -78,7 +82,11 @@
 	                                                            <div class="input-group-icon"><i class="far fa-newspaper"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-7 enlineaform"></div>
+	                                                    <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Número de Póliza Hija" class="form-control" disabled>
+													    </div>
+													    
+	                                                    <div class="form-group col-sm-5 enlineaform"></div>
 	                                                    
 	                                                   <!--RFC Contratante-->
 	                                                   
@@ -88,7 +96,12 @@
 	                                                            <div class="input-group-icon"><i class="far fa-newspaper"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-7 enlineaform"></div>
+	                                                    <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="RFC Contratante" class="form-control" disabled>
+													    </div>
+													    
+	                                                    <div class="form-group col-sm-5
+	                                                     enlineaform"></div>
 	                                                    
 	                                                    <!--Código Cliente-->
 	                                                   
@@ -98,12 +111,14 @@
 	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
 	                                                    </div>
 	                                                    
+	                                                    <div class="form-group col-sm-3 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Código Cliente" class="form-control" disabled>
+													    </div>
+	                                                    
 	                                                    <div class="form-group col-sm-12 enlineaform">
 	                                                    <h3 style="margin-left:1%;margin-top:1%;margin-bottom: 2%;">Dirección</h3>
 	                                                    </div>
 	                                                    	                                                                                                
-	                                                    
-	                                                    <div class="form-group col-sm-12 enlineaform"></div>
 	                                                    
 	                                                    <!--Calle Cliente-->
 	                                                   
@@ -113,7 +128,12 @@
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
 	                                                    
-	                                                       <div class="form-group col-sm-7 enlineaform"></div>
+	                                                    <div class="form-group col-sm-2 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Calle" class="form-control" disabled>
+													    </div>
+	                                                    
+	                                                       <div class="form-group col-sm-5 enlineaform"></div>
+	                                                       
 	                                                     <!--Número Cliente-->
 	                                                   
 	                                                    <div class="form-group col-sm-3 enlineaform">
@@ -121,7 +141,13 @@
 	                                                            <input th:field="*{numero_contratante}"  id="num_contra" placeholder="Número Contratante" class="form-control signos" type="text" required data-error="Ingrese el número"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
-	                                                       <div class="form-group col-sm-7 enlineaform"></div>
+	                                                    
+	                                                    <div class="form-group col-sm-2 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Número" class="form-control" disabled>
+													    </div>
+
+	                                                    <div class="form-group col-sm-7 enlineaform"></div>
+	                                                       
 	                                                      <!--Colonia Cliente-->
 	                                                   
 	                                                    <div class="form-group col-sm-4 enlineaform">
@@ -129,7 +155,13 @@
 	                                                            <input th:field="*{colonia_contratante}"  id="colonia_contra" placeholder="Colonia Contratante" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese la colonia"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
-	                                                       <div class="form-group col-sm-7 enlineaform"></div>
+	                                                    
+	                                                    <div class="form-group col-sm-2 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Colonia" class="form-control" disabled>
+													    </div>
+													    
+	                                                       <div class="form-group col-sm-6 enlineaform"></div>
+	                                                       
  	                                                    <!--Codigo Postal-->
 	                                                   
 	                                                    <div class="form-group col-sm-2 enlineaform">
@@ -137,7 +169,13 @@
 	                                                            <input th:field="*{codigopos_contratante}"  id="cp_contra" placeholder="Código Postal" class="form-control signos" type="text" required data-error="Ingrese el codigo postal"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
+	                                                    
+	                                                    <div class="form-group col-sm-2 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="C.P" class="form-control" disabled>
+													    </div>
+													    
 	                                                       <div class="form-group col-sm-7 enlineaform"></div>
+	                                                       
 	                                                   <!--Alcaldia Cliente-->
 	                                                   
 	                                                    <div class="form-group col-sm-5 enlineaform">
@@ -146,8 +184,11 @@
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
 	                                                    
+	                                                    <div class="form-group col-sm-2 enlineaform">
+																		<input  type="text" readonly="readonly"  placeholder="Alcaldia" class="form-control" disabled>
+													    </div>
+	                                                    
 	                                                     <div class="form-group col-sm-12 enlineaform"></div>
-	                                                     
 	                                                     
 	                                                    <h3 style="margin-left:1%;margin-top:.3%;margin-bottom: 3%;">Documento</h3>
 	                                                     
