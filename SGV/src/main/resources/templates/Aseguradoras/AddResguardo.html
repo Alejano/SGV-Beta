@@ -3,8 +3,7 @@
 <title>Vehiculos</title>
 <meta charset="utf-8">
 	<head th:replace="/layout/layoutHead :: head"></head>
-	
-<body onload="datos();">
+<body>
 	<header th:replace="/layout/layoutHead :: header"></header>
 <section>
 	 <div class="tab-content">
@@ -15,56 +14,56 @@
 	                            <div class="item-wrap">
 	                                <div class="row">
 	                                    <div class="col-md-12">
-	                                    <form th:action="@{/TResguardante/}+${placa}" th:object="${Tresguardante}" method="post" id="formulario" data-toggle="validator" class="popup-form">
-	                                        <div class="col-sm-12">
-                                           		<h1>Selecciona el Tercer Resguardante del vehiculo</h1>
+	                                    <form th:action="@{/AddResguardo/}+${placa}" method="post" id="formulario" data-toggle="validator" class="popup-form">
+	                                        <div class="col-sm-12 enlinea" style=" text-align: center;">
+                                           		<h1>Selecciona el Resguardante del vehiculo</h1>
                                            	</div>	
                                            	
-                                           	<div class="Paso1 col-sm-12" >
-                                           		<h3>Tercer Resguardante</h3>
-                                           		
-                                           		
-		                                            <div class="row rowresguardantes" >
+                                           	<div class="Paso1 col-sm-12 enlinea" th:object="${Presguardante}" style="text-align: center;">
+                                           	  <div class="col-sm-5 enlinea">
+                                           		<h3>Primer Resguardante</h3>                                           		                                           
+		                                            <div class="row rowresguardantes">
 															
 														<!--Nombre-->
-														<div class="form-group col-sm-4">
+														<div class="form-group col-sm-7 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input onchange="limpiarTR()" th:field="${Tresguardante.nombre}" th:value="${Tresguardante.nombre}" name="nombre3" id="Nombre3" placeholder="Nombre" class="form-control Letras" type="text" data-error="Ingrese El Nombre">
+															<input th:field="${Presguardante.nombre}" th:value="${Presguardante.nombre}" name="nombre1" id="Nombre" onchange="limpiarPR()" placeholder="Nombre" class="form-control Letras" type="text" required data-error="Ingrese El Nombre">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Apellido1-->
-														<div class="form-group col-sm-4">
+														<div class="form-group col-sm-7 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input onchange="limpiarTR()" th:field="${Tresguardante.apellido1}" th:value="${Tresguardante.apellido1}" name="apellidoP2" id="A_pa3" placeholder="Apellido Paterno" class="form-control Letras" type="text" data-error="Ingrese El primer Apellido">
+															<input th:field="${Presguardante.apellido1}" th:value="${Presguardante.apellido1}" name="apellidoP1" id="A_pa" onchange="limpiarPR()" placeholder="Apellido Paterno" class="form-control Letras" type="text" required data-error="Ingrese El primer Apellido">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Apellido2-->
-														<div class="form-group col-sm-4">
+														<div class="form-group col-sm-7 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input onchange="limpiarTR()" th:field="${Tresguardante.apellido2}" th:value="${Tresguardante.apellido2}" name="apellidoM2" id="A_ma3"  placeholder="Apellido Materno" class="form-control Letras" type="text" data-error="Ingrese El segundo Apellido">
+															<input th:field="${Presguardante.apellido2}" th:value="${Presguardante.apellido2}" name="apellidoM1" id="A_ma" onchange="limpiarPR()" placeholder="Apellido Materno" class="form-control Letras" type="text" required data-error="Ingrese El segundo Apellido">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Cargo-->
-														<div class="form-group col-sm-12">
+														<div class="form-group col-sm-7 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input onchange="limpiarTR()" th:field="${Tresguardante.cargo}" th:value="${Tresguardante.cargo}" name="cargo3" id="cargo3"  placeholder="Cargo" class="form-control Letras" type="text" data-error="Ingrese El cargo">
+															<input th:field="${Presguardante.cargo}" th:value="${Presguardante.cargo}" name="cargo1" id="cargo" onchange="limpiarPR()" placeholder="Cargo" class="form-control Letras" type="text" required data-error="Ingrese El cargo">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
-														
+														<div class="form-group col-sm-6 enlineaform">	
+															<button id="clean" class="btn btn-primary btn-xs btn-stilo" style="display:none;">Limpiar</button>
+														</div>		
 													</div>
 												
                                            		
                                            	</div>	
-                                           	<div class="Paso1 col-sm-6" >
+                                           	<div class="Paso1 col-sm-6 enlineaform" >
                                            		<h3>Datos de Usuarios</h3>
                                            		
-                                           		<div class=" col-md-12" id="Contenedorbuscar" >
-                               						 	                                				                                        
+                                           		<div class=" col-md-12 enlineaform" id="Contenedorbuscar" >                               						 	                                				                                       
 									    			<div id="Busqueda" class="col-md-6 enlinea">											       											       
 												         <input id="searchTerm" class="form-control" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)"/>												           												           
 												    </div>
 												    <div class="col-md-2 enlinea" ><i class="fas fa-search"></i></div>
-									        		<div id="coincidencias" class="col-md-6"></div>
+									        		<div id="coincidencias" class="col-md-6 enlineaform"></div>
 												</div>
                                            		
                                            		<table class="table table-striped table-bordered fixed_header " id="UsuariosT">
@@ -92,16 +91,58 @@
 													</tbody>
 												</table>
                                            		
-                                           	</div>	                                           	                                           	
-                                           	<div class="Paso2 col-sm-6">
+                                           	 </div>	
+                                           </div>
+                                           
+                                           <div class="Paso2 col-sm-12 enlinea" style="display:none" >
+                                           	<div class="col-sm-5 enlinea" style=" text-align: center;"  >
+                                           		<h3>Segundo Resguardante</h3>
+                                           		
+                                           		<div class="row rowresguardantes" th:object="${Sresguardante}">
+															
+														<!--Nombre-->
+														<div class="form-group col-sm-4  enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input th:field="${Sresguardante.nombre}" th:value="${Sresguardante.nombre}" name="nombre2" id="Nombre2" onchange="limpiarSR()" placeholder="Nombre" class="form-control Letras" type="text" required data-error="Ingrese El Nombre">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<!--Apellido1-->
+														<div class="form-group col-sm-4  enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input th:field="${Sresguardante.apellido1}" th:value="${Sresguardante.apellido1}" name="apellidoP2" id="A_pa2" onchange="limpiarSR()" placeholder="Apellido Paterno" class="form-control Letras" type="text" required data-error="Ingrese El primer Apellido">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<!--Apellido2-->
+														<div class="form-group col-sm-4  enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input th:field="${Sresguardante.apellido2}" th:value="${Sresguardante.apellido2}" name="apellidoM2" id="A_ma2" onchange="limpiarSR()" placeholder="Apellido Materno" class="form-control Letras" type="text" required data-error="Ingrese El segundo Apellido">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														
+														<!--Cargo-->
+														<div class="form-group col-sm-6  enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input th:field="${Sresguardante.cargo}" th:value="${Sresguardante.cargo}" name="cargo2" id="cargo2" onchange="limpiarSR()" placeholder="Cargo" class="form-control Letras" type="text" required data-error="Ingrese El cargo">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														
+														<div class="form-group col-sm-12  enlineaform">	
+															<button id="clean2" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;margin: 5px;">Limpiar</button>
+																								
+														</div>
+													</div>
+														
+																						
+                                           	</div>	
+                                           	<div class="Paso2 col-sm-6  enlineaform" style="display:none">
                                            		<h3>Datos de Conductores</h3>
                                            		
-                                           		<div class=" col-md-12" id="Contenedorbuscar2" >                               						 	                                				                                       
-									    			<div id="Busqueda2" class="col-md-6 enlinea">											       											       
+                                           		<div class=" col-md-12  enlineaform" id="Contenedorbuscar2" >
+                               						<div class="col-md-2 enlineaform" > <p style="text-align: right;">Buscar</p></div> 	                                				                                        
+									    			<div id="Busqueda2" class="col-md-6 enlineaform">											       											       
 												         <input id="searchTerm2" class="form-control" name="elemento" type="text" onkeyup="doSearch2()" onkeypress="return pulsar(event)"/>												           												           
 												    </div>
-												    <div class="col-md-2 enlinea" ><i class="fas fa-search"></i></div>
-									        		<div id="coincidencias2" class="col-md-6"></div>
+									        		<div id="coincidencias2" class="col-md-6 enlineaform"></div>
 												</div>
                                            		
                                            		<table class="table table-striped table-bordered fixed_header " id="ConductoresT">
@@ -129,18 +170,31 @@
 													</tbody>
 												</table>
                                            		
-                                           	</div>	
-                                           	<div class="col-sm-12" >
-	                                       
-	                                        <input type="hidden" th:field="${Presguardante}" th:value="${Presguardante}"/>
-	                                        <input type="hidden" th:field="${Sresguardante}" th:value="${Sresguardante}"/>
-													
+                                           	</div>
+                                           </div>	
+                                           	<div class="col-sm-12  enlineaform" >
 	                                        
-	                                                                                
+	                                        <input type="hidden" th:field="${Presguardante.id_resguardante}" th:value="${Presguardante.id_resguardante}"/>
+	                                        <input type="hidden" th:field="${Sresguardante.id_resguardante}" th:value="${Sresguardante.id_resguardante}"/>	                                       
+													
+													
+	                                        <button class="btn-minimize btn btn-primary btn-xs col-sm-3 btn-stilo">Continuar</button>
+	                                        <button id="volverPR" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;">Regresar</button>	                                        
 	                                        <button id="finishP1" type="submit" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;">Guardar</button>
 	                                        </div>
 	                                    </form>
-	                                       	                                        
+	                                    <form th:action="@{/TResguardante/}+${placa}" method="get" id="formulario2" data-toggle="validator" class="popup-form">
+	                                    	<input type="hidden" name="Pnombre" id="Pnombre" >	
+	                                    	<input type="hidden" name="Papellido1" id="Papellido1" >
+	                                    	<input type="hidden" name="Papellido2" id="Papellido2" >
+	                                    	<input type="hidden" name="Pcargo" id="Pcargo" >
+	                                    	<input type="hidden" name="Snombre" id="Snombre" >	
+	                                    	<input type="hidden" name="Sapellido1" id="Sapellido1" >
+	                                    	<input type="hidden" name="Sapellido2" id="Sapellido2" >
+	                                    	<input type="hidden" name="Scargo" id="Scargo" >	
+	                                    	<button id="Tresguar" class="btn btn-primary btn-xs col-sm-6 btn-stilo" style="display:none;margin: 5px;">Agregar un tercer Resguardante </button> 
+	                                    </form>	
+	                                    	   	                                       
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -154,6 +208,40 @@
 	
 	<script type="text/javascript"  th:inline="javascript">
 	
+	function limpiarPR()
+    {
+		$("#clean").show();
+		if($("#Nombre").val() != "" && $("#A_pa").val() != "" && $("#A_ma").val() != "" && $("#cargo").val() != "" ){
+			var nombre=$("#Nombre").val();
+			var ap1=$("#A_pa").val();
+			var ap2=$("#A_ma").val();
+			var cargo=$("#cargo").val();
+			$("#Pnombre").val(nombre);	
+			$("#Papellido1").val(ap1);	
+			$("#Papellido2").val(ap2);	
+			$("#Pcargo").val(cargo);	
+		};
+    }
+	
+	function limpiarSR()
+    {
+		$("#clean2").show();
+		if($("#Nombre2").val() != "" && $("#A_pa2").val() != "" && $("#A_ma2").val() != "" && $("#cargo2").val() != "" ){
+			var nombre=$("#Nombre2").val();
+			var ap1=$("#A_pa2").val();
+			var ap2=$("#A_ma2").val();
+			var cargo=$("#cargo2").val();
+			$("#Snombre").val(nombre);	
+			$("#Sapellido1").val(ap1);	
+			$("#Sapellido2").val(ap2);	
+			$("#Scargo").val(cargo);
+			
+			$("#Tresguar").show();
+			$("#finishP1").show();
+		};
+    }
+	
+
 	function doSearch()
     {
         const tableReg = document.getElementById('UsuariosT');
@@ -281,53 +369,96 @@
     	$(".check").click(function () {	 
     		     		
     			var seleccion = $(this).attr('id');
-          		
+          		console.log(seleccion);
           		var datos = seleccion.split(" ");
           		var nombre = seleccion.split(" ")[0];
           		var A1 = seleccion.split(" ")[1];
           		var A2 = seleccion.split(" ")[2];          		          	
-          		$(".check2").prop("checked",false);
-          		$("#Nombre3").val(nombre);
-          		$("#A_pa3").val(A1);
-          		$("#A_ma3").val(A2);    		    	
-    			$("#clean3").show();
+          		
+          		$("#Nombre").val(nombre);
+          		$("#A_pa").val(A1);
+          		$("#A_ma").val(A2);    		    	
+    			$("#clean").show();
     	});
     });
     
     $(document).ready(function()
     	    {
     	    	$(".check2").click(function () {	 
-    	    		$(".check").prop("checked",false); 		
+    	    		     		
     	    			var seleccion = $(this).attr('id');
-    	          	
+    	          		console.log(seleccion);
     	          		var datos = seleccion.split(" ");
     	          		var nombre = seleccion.split(" ")[0];
     	          		var A1 = seleccion.split(" ")[1];
     	          		var A2 = seleccion.split(" ")[2];          		          	
     	          		
-    	          		$("#Nombre3").val(nombre);
-    	          		$("#A_pa3").val(A1);
-    	          		$("#A_ma3").val(A2);    		    	
-    	    			$("#clean3").show();    	    			
+    	          		$("#Nombre2").val(nombre);
+    	          		$("#A_pa2").val(A1);
+    	          		$("#A_ma2").val(A2);    		    	
+    	    			$("#clean2").show();
+    	    			$("#Tresguar").show();
+    	    			$("#finishP1").show();
     	    			
     	    	});
     	    });
-              
-    function limpiarTR()
-    {
-		
-		if($("#Nombre3").val() != "" && $("#A_pa3").val() != "" && $("#A_ma3").val() != "" && $("#cargo3").val() != "" ){						
-			
-			$("#finishP1").show();
-		};
-    }
     
-    function datos(){
-    	$("#Nombre3").val(" ");
-    	$("#A_pa3").val(" ");
-    	$("#A_ma3").val(" ");
-    	$("#cargo3").val(" ");
-    }
+    $(".btn-minimize").click(function(){    
+       if($("#Nombre").val() != "" && $("#A_pa").val() != "" && $("#A_ma").val() != "" && $("#cargo").val() != "" ){
+    	   $(this).toggleClass('btn-plus');       
+        	$(".Paso1").slideToggle();
+        	$(".Paso2").slideToggle();
+        	$(".btn-minimize").hide();
+        	$("#volverPR").show();
+       }
+      });
+    
+    $("#volverPR").click(function(){
+        $(this).toggleClass('btn-plus');
+        $(".Paso1").slideToggle();
+        $(".Paso2").slideToggle();
+        $(".btn-minimize").show();
+        $("#volverPR").hide();
+      });
+       
+    
+    $("#Trescancel").click(function(){
+        $(this).toggleClass('btn-plus');        
+        $("#Extra").slideToggle(function(){        	
+        	$(".check2").prop("disabled",false);
+        	$("#Nombre2").prop("disabled",false);
+      		$("#A_pa2").prop("disabled",false);
+      		$("#A_ma2").prop("disabled",false);       		
+      		$("#Tresguar").show();
+        });        
+      });
+    
+    $("#clean").click(function(){
+    	$("#Nombre").val("");
+  		$("#A_pa").val("");
+  		$("#A_ma").val(""); 
+        $(".check").prop("checked",false);
+        $(this).hide();
+      });
+    
+    $("#clean2").click(function(){
+    	$("#Nombre2").val("");
+  		$("#A_pa2").val("");
+  		$("#A_ma2").val(""); 
+        $(".check2").prop("checked",false);
+        $(this).hide();
+        $("#Tresguar").hide();
+        $("#finishP1").hide();
+      });
+    $("#clean3").click(function(){
+    	$("#Nombre3").val("");
+  		$("#A_pa3").val("");
+  		$("#A_ma3").val(""); 
+        
+        
+      });
+    
+   
 
     </script>
 	

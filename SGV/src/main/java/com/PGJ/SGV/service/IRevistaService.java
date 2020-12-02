@@ -17,7 +17,8 @@ public interface IRevistaService {
 	
 	public void delete(Long id_revista);
 	
-	public Optional<Long> BuscarId(Long id_vehiculo, Long evento, String fecha_ini);
+	public List<Revista> revistaEvento(Long evento);
 	
+	public void deleteAllbyEvento(Long evento);
 
 }

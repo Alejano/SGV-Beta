@@ -1,7 +1,6 @@
 package com.PGJ.SGV.models.entity;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+
 
 @Entity
 @Table(name = "revista")
@@ -20,18 +21,26 @@ public class Revista implements Serializable {
 	private Long id_revista;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Vehiculo vehiculo;
+	private Vehiculo vehiculo;	
 
-	@Column(name = "evento")
-	private Long evento;
 	@Column(name = "fecha_ini")
 	private String fecha_inicio;
 	@Column(name = "fecha_fin")
 	private String fecha_fin;
 	@Column(name = "estado")
 	private boolean estado;
+	@Column(name = "evento_id")
+	private Long evento_id;
+
 	
 	
+	public Long getEvento_id() {
+		return evento_id;
+	}
+
+	public void setEvento_id(Long evento_id) {
+		this.evento_id = evento_id;
+	}
 
 
 	public Long getId_revista() {
@@ -48,14 +57,6 @@ public class Revista implements Serializable {
 
 	public void setVehiculo(Vehiculo vehiculo) {
 		this.vehiculo = vehiculo;
-	}
-
-	public Long getEvento() {
-		return evento;
-	}
-
-	public void setEvento(Long evento) {
-		this.evento = evento;
 	}
 
 	public String getFecha_inicio() {

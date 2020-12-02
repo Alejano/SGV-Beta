@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.PGJ.SGV.models.dao.IEventoDao;
-import com.PGJ.SGV.models.entity.Eventos;
+import com.PGJ.SGV.models.entity.Evento;
 
 
 
@@ -18,21 +18,21 @@ public class IEventoServiceImpl implements IEventoService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Eventos> findAll() {
+	public List<Evento> findAll() {
 		// TODO Auto-generated method stub
-		return (List<Eventos>) eventoDao.findAll();
+		return (List<Evento>) eventoDao.findAll();
 	}
 
 	@Override
 	@Transactional
-	public void save(Eventos eventos) {
+	public void save(Evento eventos) {
 		// TODO Auto-generated method stub
 		eventoDao.save(eventos);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Eventos findOne(Long id) {
+	public Evento findOne(Long id) {
 		// TODO Auto-generated method stub
 		return eventoDao.findById(id).orElse(null);
 	}
@@ -53,6 +53,12 @@ public class IEventoServiceImpl implements IEventoService {
 			return eventoDao.ultimoId();
 		}
 		
+	}
+
+	@Override
+	public List<Evento> allJson() {
+		// TODO Auto-generated method stub
+		return eventoDao.allJson();
 	}
 
 

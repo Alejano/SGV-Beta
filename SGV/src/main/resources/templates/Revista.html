@@ -26,10 +26,10 @@
 						
 					</tr>				
 				</thead>
-				<tbody style="position:absolute; overflow-y: scroll; height: 400px; width: 95%;">
+				<tbody id="Teventos" style="position:absolute; overflow-y: scroll; height: 400px; width: 95%;">
 					<tr th:each="sql: ${eventosexternos}">
 						<td class="celda" style="width:64px">
-							<div th:name="${sql.id}" th:id="${sql.id_adscripcion}" class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+							<div th:id="${sql.id}" th:name="${sql.id_adscripcion}" class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
 						     <div  class='fc-event-main' th:text="${sql.nombre_adscripcion}"></div>
 						    </div>
 						</td>
@@ -98,7 +98,8 @@
     	       	    	    	       	          	     
     	      return {
     	    	id:$(eventEl).attr("id"),
-    	        title:	eventEl.innerText    	        
+    	        title:	eventEl.innerText,
+    	        groupId:$(eventEl).attr("name")
     	      };
     	    }
     	  });
@@ -123,22 +124,49 @@
     	    customButtons: {
     	    	prev:{
     	    	      click: function() {
-    	    	    		if(cambios){
-    	    	    			if (confirm("Deseas Guardar el cambio?")) {
-    	    	    				location.reload();   	    	    	    	      
-    	    	    	    	    }    	    	    			   
-    	    	    		}
-    	    	    	  calendar.prev();
-    	    	        }
+    	    	    	  if(cambios){
+	    	    	    	  Swal.fire({
+	    	    	    		  title: 'Para cambiar de Mes Deseas Guardar el cambio, Deseas hacerlo?',
+	    	    	    		  showDenyButton: true,
+	    	    	    		  showCancelButton: false,
+	    	    	    		  confirmButtonText: `Guardar`,
+	    	    	    		  denyButtonText: `No Guardar`,
+	    	    	    		}).then((result) => {
+	    	    	    		  /* Read more about isConfirmed, isDenied below */
+	    	    	    		  if (result.isConfirmed) {
+	    	    	    		    Swal.fire('Guardado', '', 'Listo')
+	    	    	    		    location.reload(); 
+	    	    	    		    calendar.prev();
+	    	    	    		  } else if (result.isDenied) {
+	    	    	    		    Swal.fire('Cambios no Guardados', '', 'info')
+	    	    	    		  }
+	    	    	    		})    	    	    	      	    	    	
+	    	    	    	 
+	    	    	        } calendar.prev();
+    	    	      }
     	    	},
     	    	next:{
   	    	      click: function() {
-	  	    	    	if(cambios){
-	    	    			if (confirm("Deseas Guardar el cambio?")) {
-	    	    				location.reload();   	    	    	    	      
-	    	    	    	    }    	    	    			   
-	    	    		}  	    	    	
-  	    	    	calendar.next();
+  	    	    	if(cambios){
+	  	    	    	Swal.fire({
+		    	    		  title: 'Para cambiar de Mes Deseas Guardar el cambio, Deseas hacerlo?',
+		    	    		  showDenyButton: true,
+		    	    		  showCancelButton: false,
+		    	    		  confirmButtonText: `Guardar`,
+		    	    		  denyButtonText: `No Guardar`,
+		    	    		}).then((result) => {
+		    	    		  /* Read more about isConfirmed, isDenied below */
+		    	    		  if (result.isConfirmed) {
+		    	    		    Swal.fire('Guardado', '', 'Listo')
+		    	    		    location.reload(); 
+		    	    		    calendar.next();
+		    	    		  } else if (result.isDenied) {
+		    	    		    Swal.fire('Cambios no Guardados', '', 'info')
+		    	    		  }
+		    	    		})   
+  	    	    	    	    	    	  	  	    	    	  	    	   
+	    	    		}  	  calendar.next();   	    	
+  	    	    	
   	    	        },
     	    	}
     	    },
@@ -146,23 +174,23 @@
     	    droppable: true, // this allows things to be dropped onto the calendar    
     	    
     	   	eventReceive: function(info) {   
-    		  //setea los id antes de cargar la pagina y listo, nunca los mandes vacios
+    		  
     		   	var textdia = info.event.startStr.split("-")[2];
    	  			var textMes = info.event.startStr.split("-")[1];
-   	  				console.log(info);
+   	  				console.log("puesto en calendario ");
+   	  				console.log(info.event.id);
+   	  				console.log(info.event.groupId);
    	  			
-   	  			
-	   	  			if(textMes == month && textdia >= day){
-	   	  			
+	   	  			if(textMes == month && textdia >= day){	   	  					
 		   	  				cambios = true;
-		   	  				ajaxPost(info.event.id,info.event.title,info.event.startStr,"");
+		   	  				ajaxPost(info.event.id,info.event.groupId,info.event.title,info.event.startStr,"");
 		   	  				info.draggedEl.parentNode.removeChild(info.draggedEl);	   	  			 			   	  							   	  		
-	   	  		 				
+		   	  				
 	   	  			}else{
 	   	  				if(textMes > month ){
 	   	  				
 	   	  				cambios = true;
-	   	  				ajaxPost(info.event.id,info.event.title,info.event.startStr,"");
+	   	  				ajaxPost(info.event.id,info.event.groupId,info.event.title,info.event.startStr,"");
 	   	  				info.draggedEl.parentNode.removeChild(info.draggedEl);	   	  			 			   	  							   	  		
    	  		 				
    	  					}else{
@@ -172,48 +200,73 @@
 	   	  				
    	  					}
 	   	  			}
-	   	  		  	  		
+	   	  			
+	   	  			
+	   	  					  	
       	      },
-    	    eventDrop: function(info) {    	      			
-    	        if (!confirm("Estas seguro que aras este cambio?")) {
-    	          info.revert();    	          
-    	        }else{
-    	        	
-    	        	ajaxPost(info.event.id,info.event.title,info.event.startStr,info.event.endStr);
-    	        }
+    	    eventDrop: function(info) {  
+    	    	
+	    	    	Swal.fire({
+	  	    		  title: 'Estas seguro que aras este cambio',
+	  	    		  showDenyButton: true,
+	  	    		  showCancelButton: false,
+	  	    		  confirmButtonText: `Aceptar`,
+	  	    		  denyButtonText: `Cancelar`,
+	  	    		}).then((result) => {
+	  	    		  /* Read more about isConfirmed, isDenied below */
+	  	    		  if (result.isConfirmed) {
+	  	    			ajaxed(info.event.id,info.event.title,info.event.startStr,info.event.endStr);
+	  	    		    Swal.fire('Guardado!', '', 'success');
+	  	    		  } else if (result.isDenied) {
+	  	    		    Swal.fire('Cambio no Guardado', '', 'info');
+	  	    		     info.revert();
+	  	    		  }
+	  	    		})
+	  	    		
+	  	    		Swal.fire({
+					  position: 'top-end',
+					  icon: 'success',
+					  title: 'Your work has been saved',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+
     	      },
-    	      eventResize: function(info) {
-    	    	  swal({
-    	    		  title: 'Estas seguro que aras este cambio?',
-    	    		  text: "Debes confirmar para continuar",
-    	    		  icon: 'warning',
-    	    		  showCancelButton: false,
-    	    		  showDenyButton: true,      	    		  	    		    	    		
-    	    		  confirmButtonText: 'Confirmar',
-    	    		  denyButtonText: 'Cancelar',    	    		  
-    	    		}).then((result) => {
-    	    			console.log(result);
-    	    		  if (result) {
-    	    		    swal('Deleted!','Your file has been deleted.','success');
-    	    		  }else if (!result) {
-    	    	    		    swal('Deleted!','Your file has been deleted.','success');
-    	    			  } 
-    	    		  
-    	    		}).catch(swal.noop);
+    	      eventResize: function(info) {    	    	  
+    	    	 
     	    	  
-    	    				//ajaxPost(info.event.id,info.event.title,info.event.startStr,info.event.endStr);
-    	    			 
-    	                    //info.revert();
-    	    			    	    		  
-    	    		
-    	    	    
+    	    		  Swal.fire({
+	    	    		  title: 'Estas seguro que aras este cambio',
+	    	    		  showDenyButton: true,
+	    	    		  showCancelButton: false,
+	    	    		  confirmButtonText: `Aceptar`,
+	    	    		  denyButtonText: `Cancelar`,
+	    	    		}).then((result) => {
+	    	    		 
+	    	    		  if (result.isConfirmed) {
+	    	    			  ajaxed(info.event.id,info.event.title,info.event.startStr,info.event.endStr);
+	    	    		    Swal.fire('Guardado!', '', 'success');
+	    	    		  } else if (result.isDenied) {
+	    	    		    Swal.fire('Cambio no Guardado', '', 'info');
+	    	    		     info.revert();
+	    	    		     
+	    	    		  }
+	    	    		})
+    	    	  
+    	    		     Swal.fire({
+							  position: 'top-end',
+							  icon: 'success',
+							  title: 'Your work has been saved',
+							  showConfirmButton: false,
+							  timer: 1500
+							})	    	      	    				    	    			     	                       	    			    	    		      	    		    	   
     	    	  },
    	    	  eventClick: function(info) {
    	    				
    	    					$('#eliminar').remove();
 		    	    		$('#close').remove();
 		    	    	
-   	    				$("#itemVehi").load("refreshVehi","id_ads="+ info.event.id+"&title="+ info.event.title+"&Fini="+ info.event.startStr+"&Ffin="+ info.event.endStr);
+   	    				$("#itemVehi").load("refreshVehi","id="+ info.event.id+"&title="+ info.event.title+"&Fini="+ info.event.startStr+"&Ffin="+ info.event.endStr);
 		   	    				   	            				   	       	   	    	        
 		   	            $('#fullCalModal').modal();
 		   	       		
@@ -259,7 +312,7 @@
     	  
     	  
   
-		function ajaxPost(idx,infox,startx,endx){
+		function ajaxPost(idx,ads,infox,startx,endx){
 				 
 				  var token = $("meta[name='_csrf']").attr("content");
 				  var header = $("meta[name='_csrf_header']").attr("content");
@@ -267,7 +320,7 @@
 				  // PREPARE FORM DATA
 				  var Eventos = {
 					id : idx,
-					id_ads:idx,
+					id_adscripcion:ads,
 				    title : infox,
 					start : startx,
 				    end :  endx
@@ -385,13 +438,10 @@
 			    alert("Error!")
 			    console.log("ERROR: ", e);
 			  }
-			});
-	  	
-		}
+			});	  	
+		};
 		
-		
-		
-		
+
       });
      
 
@@ -518,6 +568,7 @@
     	  tecla = (document.all) ? e.keyCode :e.which;
     	  return (tecla!=13);
     	} 
+       
     
     </script>
 	<!-- jQuery Library -->
@@ -533,6 +584,10 @@
 	<script src="/assets/js/contact-form.js"></script>
 		<!-- SweetAlert -->
 	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
+	<script src='/assets/calendario/moment.min.js'></script>
+	<script src='/assets/calendario/fullcalendar.min.js'></script>
+	
+	
 	
  
 </body>

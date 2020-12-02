@@ -86,7 +86,7 @@ public class AsigCombController {
 			
 			combustibleExtePlacaMes =  asigExtService.findextId(combustiblePlacaMes.get(0).getId_asignacion());
 			if(!combustibleExtePlacaMes.isEmpty()) {
-				if(vehiculo.getKilometraje_inicial() == combustibleExtePlacaMes.get(combustibleExtePlacaMes.size()-1).getKilometraje_ext() || combustibleExtePlacaMes.size() > 3) {
+				if(vehiculo.getKilometraje_inicial() == combustibleExtePlacaMes.get(combustibleExtePlacaMes.size()-1).getKilometraje_ext() || combustibleExtePlacaMes.size() >= 3) {
 					asignacionext = false;
 				}else {
 					asignacionext = true;

@@ -235,7 +235,6 @@ public class VehiculoController {
 		model.put("tiposResguardoP", tiposResguardoP);
 		model.put("tiposResguardoS", tiposResguardoS);
 		model.put("conductores", conductoresdb);
-		model.put("PageTitulo", "Agregar Vehiculo");
 		model.put("usuarios",usuariosdb);
 		model.put("PageTitulo", "Agregar Vehiculo");
 		

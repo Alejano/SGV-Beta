@@ -46,19 +46,24 @@ public class IRevistaServiceImpl implements IRevistaService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Optional<Long> BuscarId(Long id_vehiculo, Long evento, String fecha_ini) {
-		// TODO Auto-generated method stub
-		return revistaDao.BuscarId(id_vehiculo, evento, fecha_ini);
-	}
-
-	@Override
 	public List<Revista> findAllFuturo() {
 		// TODO Auto-generated method stub
 		return revistaDao.findAllFuturo();
 	}
 
+	@Override
+	public List<Revista> revistaEvento(Long evento) {
+		// TODO Auto-generated method stub
+		return revistaDao.revistaEvento(evento);
+	}
+
 	
+	@Override
+	@Transactional
+	public void deleteAllbyEvento(Long evento) {
+		revistaDao.deleteAllbyEvento(evento);
+		
+	}
 
 	
 

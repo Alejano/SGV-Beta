@@ -14,9 +14,12 @@ import com.PGJ.SGV.models.entity.Revista;
 public interface IRevistaDao extends CrudRepository<Revista, Long>{		
 
 	@Query("select r from Revista r where cast(now() as date) <= cast(fecha_ini as date)")
-	public List<Revista> findAllFuturo();
+	public List<Revista> findAllFuturo();	
 	
-	@Query("select r from Revista r where r.vehiculo.id_vehiculo = ?1 and r.evento = ?2 and r.fecha_inicio = ?3")
-	public Optional<Long> BuscarId(Long id_vehiculo, Long evento, String fecha_ini);
+	@Query("select r from Revista r where r.evento_id = ?1")
+	public List<Revista> revistaEvento(Long evento);
+	
+	@Query("delete from Revista r where r.evento_id = ?1")
+	public List<Revista> deleteAllbyEvento(Long evento);
 	
 }

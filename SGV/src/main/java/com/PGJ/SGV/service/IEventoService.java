@@ -2,15 +2,17 @@ package com.PGJ.SGV.service;
 
 import java.util.List;
 
-import com.PGJ.SGV.models.entity.Eventos;
+import com.PGJ.SGV.models.entity.Evento;
 
 public interface IEventoService {
-	public List<Eventos> findAll(); 
+	public List<Evento> findAll(); 
 	
-	public void save(Eventos eventos);
+	public List<Evento> allJson();
+	
+	public void save(Evento eventos);
 
 	
-	public Eventos findOne(Long id);
+	public Evento findOne(Long id);
 	
 	public void delete(Long id);
 	

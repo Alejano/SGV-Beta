@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.PGJ.SGV.models.entity.Adscripcion;
+import com.PGJ.SGV.models.entity.Evento;
 import com.PGJ.SGV.models.entity.EventosExternos;
 import com.PGJ.SGV.models.entity.Revista;
 import com.PGJ.SGV.models.entity.Usuario;
@@ -83,14 +84,10 @@ public class RevistaController {
 	
 	
 	@RequestMapping(value = "/refreshVehi")
-	public @ResponseBody String refreshVehi(@RequestParam("id_ads") Long id,@RequestParam("title") String title,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin, Model model) {
-	
-		if(id_ads != id) {
-			vehi = vehiculoService.findVehiculosArea(id);
-			id_ads =id;		
-			}
+	public @ResponseBody String refreshVehi(@RequestParam("id") Long id,@RequestParam("title") String title,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin, Model model) {
 		
-		revistas = revistaService.findAllFuturo();
+		
+		revistas = revistaService.revistaEvento(id);
 		String html="";			
 		String codigo="";
 		
@@ -108,6 +105,19 @@ public class RevistaController {
 				"					<tbody  style=\"position:absolute; overflow-y: scroll; height: 400px;width: 95%;\">";
 		
 		
+		for(Revista r:revistas){
+			
+			html+="<tr><td class="+"'celda'"+" style="+"'width:10%'>"+r.getVehiculo().getPlaca()+"</td><td id=\"tr"+r.getVehiculo().getId_vehiculo()+"\" class="+"'celda'"+" style="+"'width:40%'>Estado Actual de la revista: "+((r.isEstado())?"Paso":"No Paso")+"</td><td class="+"'celda'"+" style="+"'width:20%'><div style=\"text-align-last: center;\"><input type=\"checkbox\" value=\""+r.isEstado()+"\" id=\"CB"+r.getVehiculo().getId_vehiculo()+"\" "+((r.isEstado())?"checked":"")+"/></div></td></tr>";
+			
+			codigo+="$('#CB"+r.getVehiculo().getId_vehiculo()+"').change(function() {"+ 	
+					"$(\"#tr"+r.getVehiculo().getId_vehiculo()+"\").load(\"Estadorevista\",\"id="+r.getId_revista()+"&id_vehiculo="+r.getVehiculo().getId_vehiculo()+"&idevento="+r.getEvento_id()+"&Fini="+Fini+"&Ffin="+Ffin+"&checkbox=\"+$(\"#CB"+r.getVehiculo().getId_vehiculo()+"\").prop(\"checked\"));"
+					
+					+ "});";
+			
+		}
+		
+		
+		/*
 		
 		long controlid =0;
 		long idRevista =0;
@@ -126,10 +136,10 @@ public class RevistaController {
 				}
 					
 			codigo+="$('#CB"+s.getId_vehiculo()+"').change(function() {"+ 	
-					"$(\"#tr"+s.getId_vehiculo()+"\").load(\"Estadorevista\",\"idAds="+id+"&id_vehiculo="+s.getId_vehiculo()+"&rev_id="+idRevista+"&Fini="+Fini+"&Ffin="+Ffin+"&checkbox=\"+$(\"#CB"+s.getId_vehiculo()+"\").prop(\"checked\"));"
+					"$(\"#tr"+s.getId_vehiculo()+"\").load(\"Estadorevista\",\"id="+id+"&id_vehiculo="+s.getId_vehiculo()+"&rev_id="+idRevista+"&Fini="+Fini+"&Ffin="+Ffin+"&checkbox=\"+$(\"#CB"+s.getId_vehiculo()+"\").prop(\"checked\"));"
 					
 					+ "});";									
-		}
+		}*/
 				
 		String fin ="</tbody>					\r\n" + 
 				"				</table>\r\n" + 
@@ -144,7 +154,7 @@ public class RevistaController {
 	
 	
 	@RequestMapping(value = "/Estadorevista")
-	public @ResponseBody String revistaEstado(@RequestParam("idAds") Long idAds,@RequestParam("id_vehiculo") Long id_vehiculo,@RequestParam("rev_id") Long idRevista,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin,@RequestParam("checkbox") boolean check, Model model) {
+	public @ResponseBody String revistaEstado(@RequestParam("id") Long id,@RequestParam("id_vehiculo") Long id_vehiculo,@RequestParam("idevento") Long idevento,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin,@RequestParam("checkbox") boolean check, Model model) {
 		
 		if(id_vehi != id_vehiculo) {
 			id_vehi=id_vehiculo;
@@ -152,15 +162,16 @@ public class RevistaController {
 			
 		}
 		
-		Revista rev= new Revista();	
-		
-		if(idRevista != 0) {rev =revistaService.findOne(idRevista);};
-				
+		Revista rev= null;	
+		Evento ev = null;
+		if(id != 0) {rev =revistaService.findOne(id);};
+		if(idevento != 0) {ev =eventoService.findOne(idevento);};
 		rev.setFecha_inicio(Fini);
 		rev.setFecha_fin((Ffin=="")?Fini:Ffin);
 		rev.setVehiculo(ve);
 		rev.setEstado(check);
-		rev.setEvento(idAds);
+		rev.setEvento_id(idevento);
+		
 		String html="";	
 		
 		revistaService.save(rev);
