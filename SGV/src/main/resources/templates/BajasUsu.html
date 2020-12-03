@@ -60,8 +60,8 @@
 													<!--<td th:text="${usuariosql.fecha_alta}" class="celda"></td>-->	
 
 													<td th:switch="${usuariosql.enabled} == true" class="celda">															
-															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="true" class="btn btn-success btn-xs sel" th:href="@{/estadoUsu/} +${usuariosql.no_empleado}+'/'+${usuariosql.enabled}"  th:text="Activo" ></a>
-															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="false" class="btn btn-danger btn-xs sel" th:href="@{/estadoUsu/} +${usuariosql.no_empleado}+'/'+${usuariosql.enabled}"  th:text="Inactivo"></a>																								
+															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="true" class="btn btn-success btn-xs sel"  th:text="Activo" style="color:#FFFFFF"></a>
+															<a th:id="estaUsu+${usuariosql.no_empleado}" th:case="false" class="btn btn-danger btn-xs sel"  th:text="Inactivo" style="color:#FFFFFF"></a>																								
 													</td>
 													
 													
