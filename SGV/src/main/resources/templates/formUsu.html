@@ -14,10 +14,10 @@
 	                            <div class="item-wrap">
 	                                <div class="row">
 	                                    <div class="col-md-12">
-	                                        <form th:action="@{/formUsu}" th:object="${usuarios}" method="post" id="formulario"  data-toggle="validator" class="popup-form">
+	                                        <form th:action="@{/formUsu}" th:object="${usuarios}" method="post" id="formulario" name="usuarios"  data-toggle="validator" class="popup-form">
 	                                            <div class="row">
 														        
-	                                                    <!--Fecha de Alta-->
+	                                                   <!--  <!--Fecha de Alta-->
 	                                            	    <div class="form-group col-sm-4">
 														   <div class="help-block with-errors"></div>
 															   <input th:field="*{fecha_alta}" name="F_al" id="F_al" placeholder="Fecha de alta" class="form-control" type="date"  required data-error="Ingrese Fecha de alta" disabled>
@@ -31,13 +31,14 @@
 														<div class="form-group col-sm-5"></div>
 														
 														<!--Numero de empleado-->
+														
 														<div class="form-group col-sm-4">
 														   <div class="help-block with-errors"></div>
 															 <input th:field="*{no_empleado}" name="N_Em" id="N_Em" placeholder="Numero de Empleado" class="form-control signos" type="text" required data-error="Ingrese El Numero de Empleado">																
 														   <div class="input-group-icon"><i class="fas fa-id-badge"></i></div>
 														</div>
 											
-                                                        <div class="form-group col-sm-5"></div>
+                                                        <div class="form-group col-sm-5"></div> 
                          
 										     			<!--Nombre-->
 											     		<div class="form-group col-sm-4">
@@ -125,6 +126,7 @@
 															<button type="submit" id="guardar" class="btn btn-custom btn-stilo" style="float: right;"><i class='fa fa-envelope' th:if="${error == 'F'}"></i> Guardar</button>
 															<div class="clearfix"></div>
 												    	</div>
+
 											   </div>
 	                                        </form>
 	                                    </div>
@@ -239,7 +241,6 @@
 	<script src="/assets/js/contact-form.js"></script>
     <!-- SweetAlert -->
 	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
-	
 	
 </body>
 </html>

@@ -295,9 +295,9 @@ public class Vehiculo implements Serializable {
 		
 		@Override
 		public String toString() {
-			return "ID VEHICULO:"  +id_vehiculo+ " ; " +"PLACA:" + placa + " ; " + "NO SERIE:" + no_serie + " ; " +
-					"NO INVENTARIO:" + no_inventario + " ; " + "FECHA TARJETA:"+ fecha_tarjeta + " ; " +"VALE:"+ vale + " ; " +
-					"KILO INI:"+ kilometraje_inicial + " ; " +  "ADS:" + adscripcion.getId_adscripcion();
+			return "ID VEHI:"  +id_vehiculo+ ";" +"PLACA:" + placa + ";" + "NO SERIE:" + no_serie + ";" +
+					"NO INVENTARIO:" + no_inventario + ";" + "FECHA TARJETA:"+ fecha_tarjeta + ";" +"VALE:"+ vale + ";" +
+					"KILO INI:"+ kilometraje_inicial + ";";
 		}				
 		
 }

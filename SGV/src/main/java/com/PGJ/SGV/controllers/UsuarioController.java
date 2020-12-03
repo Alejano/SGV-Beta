@@ -51,6 +51,8 @@ public class UsuarioController {
 	List<Usuario> usuarios = new ArrayList<Usuario>();
 	List<Authority> autoridad = new ArrayList<Authority>();
     String empleado;
+    static String no_emple;
+    static Usuario usu=new Usuario();
     String falta_usuario;
     String ealta_usuario;
     String user;
@@ -85,6 +87,7 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/formUsu")
 	public String crear(Map<String,Object> model) {
+		
 		usuarios = usuarioService.findAll();
 		autoridad = autoridadService.findAll();
 		adscripcion = adscripService.findAll();
@@ -99,26 +102,36 @@ public class UsuarioController {
 		return "formUsu";
 
 	}
-	
+
 	
 	@RequestMapping(value="/formUsu/{no_empleado}")
 	public String editar(@PathVariable(value="no_empleado") String no_empleado,Map<String,Object>model) {
-		adscripcion = adscripService.findAll();
+		
 		editar = true;
+		no_emple=no_empleado;
 		Usuario usuario = null;
 		
+		
 		if(!no_empleado.equals(null)){
-			   usuario = usuarioService.findOne(no_empleado);
-			   empleado = usuario.getNo_empleado();
+			   
+			usuario = usuarioService.findOne(no_emple);
+			empleado = usuario.getNo_empleado();
+			 
 		} else {
 			  return "redirect:/Usuarios";
 		}
 		
+		System.err.println("PRUEBA"+empleado);
+		
 		ealta_usuario=usuario.getFecha_alta();
+		
+		System.err.println("coy"+ealta_usuario);
+		
+		adscripcion = adscripService.findAll();
+		
 		model.put("adslist", adscripcion);
 		model.put("PageTitulo", "Editar Usuario");
 		model.put("usuarios",usuario);
-		model.put("titulo", "Editar cliente");
 		return "formUsu";
 	}
 	
@@ -130,7 +143,7 @@ public class UsuarioController {
 		var password = usuario.getContrasena();		
 		String bcryptPassword = passwordEncoder.encode(password);		
 		usuario.setContrasena(bcryptPassword);
-		
+				
 		if(editar==false) {
 			 usuario.setFecha_alta(falta_usuario);
 		}else {
