@@ -60,7 +60,7 @@
 													<td th:text="${talleressql.no_contrato}" class="celda"></td>
 													<td th:if="${usuario} == 'ROLE_ADMIN' " class="celda">
 															<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/Talleres/ediTaller/} +${talleressql.id_taller}"><i class="fas fa-pencil-alt fa-2x"></i></a>
-															<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/elimTaller/} +${talleressql.id_taller}" onclick="return confirm('Seguro que desea eliminar?');"><i class="fas fa-trash-alt fa-2x"></i></a>
+															<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/Talleres/elimTaller/} +${talleressql.id_taller}" onclick="return confirm('Seguro que desea eliminar?');"><i class="fas fa-trash-alt fa-2x"></i></a>
 														
 													</td>
 												</tr>

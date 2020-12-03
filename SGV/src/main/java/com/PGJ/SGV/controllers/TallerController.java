@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,6 +74,22 @@ public class TallerController {
 		return "Talleres/formTaller";
 	}
 	
+	@RequestMapping(value="Talleres/ediTaller/{id_taller}")
+	public String editar(@PathVariable(value="id_taller") Long id_taller,Map<String,Object> model) {	
+		editar=true;
+		Taller taller = null;
+		
+		if(!id_taller.equals(null)) {
+			taller = tallerservice.findOne(id_taller);
+		}else {
+			return "Talleres/formTaller";
+		}
+		
+		model.put("talleres", taller);
+		model.put("PageTitulo", "Agregar Taller");
+		return "Talleres/formTaller";
+	}
+	
 	
 	@RequestMapping(value="/AddTaller",method = RequestMethod.POST)
 	public String guardar(Taller taller) {	
@@ -89,6 +106,15 @@ public class TallerController {
 		String pass = ObtenPass(taller.getNo_contrato());
 		Usu.setContrasena(pass);
 		ususervice.save(Usu);*/
+		
+		if(editar == true) {
+			Taller t=null;
+			
+			t=tallerservice.findOne(taller.getId_taller());
+			editar = false;	
+			return "redirect:Talleres";
+		}
+		
 		tallerservice.save(taller);
 		
 	    String valor_nuevo=taller.toString();
@@ -109,7 +135,18 @@ public class TallerController {
 				
 		editar = false;	
 		return "redirect:Talleres";
+		
 	}
+	
+	@RequestMapping(value="Talleres/elimTaller/{id_taller}")
+	public String eliminar (@PathVariable(value="id_taller") Long id_taller) {
+		
+		if(id_taller != null) {
+			tallerservice.delete(id_taller);			
+		}
+		return "redirect:/Talleres";
+	}
+	
 	
 /*
 	private String ObtenPass(String no_contrato) {
