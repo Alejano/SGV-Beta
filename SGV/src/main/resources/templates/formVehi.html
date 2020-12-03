@@ -27,9 +27,10 @@
 																<input placeholder="Placa" class="form-control" disabled>														
 															</div>
 															
-															<div class="form-group col-sm-12 enlineaform"></div>	
+															<div class="form-group col-sm-5 enlineaform"></div>	
 															
 															<!--kilometros -->	
+															
 															<div class="form-group col-sm-3 enlineaform">
 																<div class="help-block with-errors" style="width: 261px;"></div>
 																<input th:field="*{kilometraje_inicial}" id="D_re" class="form-control signos" type="number" min="0.0" max="100000000000000" required data-error="Ingrese La Distancia Recorrida">
@@ -61,7 +62,7 @@
 																<input placeholder="Numero de Inventario" class="form-control" disabled>														
 															</div>
 																													
-															<div class="form-group col-sm-12 enlineaform"></div>	
+															<div class="form-group col-sm-5 enlineaform"></div>	
 															
 															<!--Vale-->
 		
@@ -75,6 +76,8 @@
 															<div class="form-group col-sm-3 enlineaform">													
 																<input placeholder="Vale" class="form-control" disabled>														
 															</div>
+															
+															<div class="form-group col-sm-5 enlineaform"></div>	
 															
 															<!--Fecha de tarjeta-->
 		
@@ -229,9 +232,6 @@
 																<input placeholder="Tipo" class="form-control" disabled>														
 														</div>
 														
-														
-																																								
-													
 													</div>		
 													<div class="form-group col-sm-12 enlineaform"></div>	
 													
@@ -291,6 +291,8 @@
 																<input placeholder="Color" th:field="*{vehiculo_detalle.color}" class="form-control" disabled>														
 													</div>
 													
+													<div class="form-group col-sm-3 enlineaform"></div>	
+													
 													<div class="form-group col-sm-2 enlineaform">
 																<div class="help-block with-errors" style="width: 261px;"></div>
 																<div style="display: inline-block;">
@@ -298,7 +300,7 @@
 																</div>														
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2 enlineaform">													
+													<div class="form-group col-sm-3 enlineaform">													
 																<input placeholder="Numero de Clilindros" class="form-control" disabled>														
 													</div>
 													<div class="form-group col-sm-2 enlineaform">
@@ -311,6 +313,9 @@
 													<div class="form-group col-sm-2 enlineaform">													
 																<input placeholder="Personas" class="form-control" disabled>														
 													</div>
+													
+													<div class="form-group col-sm-2 enlineaform"></div>	
+													
 													<div class="form-group col-sm-2 enlineaform">
 																<div class="help-block with-errors" style="width: 261px;"></div>
 																<div style="display: inline-block;">
@@ -321,6 +326,9 @@
 													<div class="form-group col-sm-2 enlineaform">													
 																<input placeholder="Puertas" class="form-control" disabled>														
 													</div>
+													
+													<div class="form-group col-sm-6 enlineaform"></div>	
+													
 													<div class="form-group col-sm-2 enlineaform" style="height: 17%;">
 																<div class="help-block with-errors" style="width: 261px;"></div>
 																<div style=" text-align: right;">	
@@ -420,12 +428,11 @@
 																																												
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2 enlineaform">													
+													<div class="form-group col-sm-3 enlineaform">													
 																<input placeholder="Tipo de Combustible" class="form-control" disabled>														
 													</div>
 													
-													
-													<div class="form-group col-sm-12 enlineaform" th:if="${documento} == 'noexiste'">
+													<div class="form-group col-sm-12 enlineaform" th:if="${editando} == 'no'">
 															<label for="file1" class="col-sm-2 col-form-label">Tarjeta de Circulacion</label>
 															<div class="col-sm-4">
 																<div class="help-block with-errors"></div>
@@ -443,7 +450,7 @@
 															  </div>
 															 	
 															 <div id="Mdocumento" >
-															 	<embed th:src="@{'/upload/' + *{vehiculo_detalle.tarjeta_circulacion}}" type="application/pdf" class="col-sm-12" style="height:715px;"/>
+															 	<embed th:src="@{'/upload/' + *{vehiculo_detalle.tarjeta_circulacion}}" type="application/pdf" class="col-sm-12" style="height:715px;" />
 															 </div>
 															 <div id="Ndocumento" style="display:none; margin-top: 30px; margin-bottom: 20px; height: 49px;" >
 															 	<label for="file1" class="col-sm-2 col-form-label enlineaform">Tarjeta de Circulacion</label>
@@ -466,15 +473,18 @@
 																</div>														
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2 enlineaform">													
-																<input placeholder="Vegencia de circulacion" class="form-control" disabled>														
+													<div class="form-group col-sm-3 enlineaform">													
+																<input placeholder="Vigencia de circulacion" class="form-control" disabled>														
 													</div>																								
 
 												<!--Adscripción-->
 
-													<div class="form-group col-sm-12 enlineaform" th:if="${usuario} == 'ROLE_ADMIN'">
+													<div class="form-group col-sm-12 enlineaform">
 														<select th:field="*{adscripcion}" class="form-control" style=" height: 34px;" required data-error="Ingrese la Adscripcion">
-										                         <option value=""> Seleccione una adscripcion </option>
+														
+														
+										                         <option value=""  th:if="${editando == 'no'}"> Seleccione una adscripcion </option>
+										                         <option th:value="${adscripcion.nombre_adscripcion}" th:text="${adscripcion.nombre_aseguradora}" th:if="${editar} == true"></option>
 										                         <option th:each="adss : ${adslist} "
 										                            th:value="${adss.id_adscripcion}"
 										                            th:utext="${adss.nombre_adscripcion}" />
@@ -482,7 +492,9 @@
 										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
 													</div>		
 													
-												  	<input type="hidden" th:field="*{id_vehiculo}"/>												  	
+													
+												  	<input type="hidden" th:field="*{id_vehiculo}"/>
+																							  	
 												  	<input type="hidden" th:field="*{vehiculo_estado.id_estado}"/>
 												  	<div id="marcaid">
 												  		<input type="hidden" th:field="*{vehiculo_marca.id_marca}"/>
@@ -491,9 +503,8 @@
 												  	<input type="hidden" th:field="*{vehiculo_transmision}"/>
 												  	<input type="hidden" th:field="*{vehiculo_detalle}"/>
 												    <input type="hidden" th:field="*{placa_anterior}"/>	
-												    <input type="hidden" th:field="*{adscripcion}"/>	
-												    <input type="hidden" th:field="*{motivo}"/>																								
-
+												    <input type="hidden" th:field="*{adscripcion}"/>
+												  																							
 													<!--Boton de guardar-->													
 
 													<div  class="text-center form-group col-sm-12 enlineaform">

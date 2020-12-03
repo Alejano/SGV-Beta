@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    Dashboard 
+    Perfil 
   </title>
   <!-- Favicon -->
   <link th:href="@{/dashboardAssets/img/brand/favicon.png}" rel="icon" type="image/png">
@@ -40,10 +40,10 @@
               <i class="ni ni-single-02 text-yellow"></i> Home
             </a>
           </li>
-          <li class="nav-item" th:if="${us} == 'ROLE_ADMIN'">
+          <!--<li class="nav-item" th:if="${us} == 'ROLE_ADMIN'">
           <a class=" nav-link " th:href="@{/Dashboard}"> <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
-          </li>          
+          </li> -->         
         </ul>
         <!-- Divider -->
         <hr class="my-3">
@@ -78,12 +78,12 @@
           </li>
           <li class="nav-item" th:if="${us == 'ROLE_ADMIN' or us == 'ROLE_USER'}">
             <a class="nav-link" th:href="@{/Mantenimientos}">
-              <i class="ni ni-ui-04"></i> Mantenimiento
+              <i class="ni ni-ui-04"></i> Mantenimientos
             </a>
           </li>
           <li class="nav-item" th:if="${us} == 'ROLE_ADMIN' ">
             <a class="nav-link" th:href="@{/Adscripciones}">
-              <i class="ni ni-ui-04"></i> Adscripciones
+              <i class="ni ni-ui-04"></i> Siniestros
             </a>
           </li>
         </ul>
@@ -95,21 +95,21 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" th:href="@{/profile}">User Profile</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" th:href="@{/profile}">Perfil de Usuario</a>
 
       </div>
     </nav>
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="background-image: url(/dashboardAssets/img/theme/fondo.png); padding-top: 10px !important;padding-bottom: 10px !important; min-height: 328px;  background-size: cover; background-position: center top;">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="padding-top: 10px !important;padding-bottom: 10px !important; min-height: 328px;  background-size: cover; background-position: center top;">
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
       <!-- Header container -->
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-12 col-md-10">
-            <h1 class="display-2 text-white">Hello, <span style="float:right;" th:text="${nombrebienbenida}"></span></h1>
-            <a href="#" onclick="editar()" class="btn btn-info">Editar perfil</a>
+            <h1 class="display-2 text-white">Hola,<span style="float:right;" th:text="${nombrebienbenida}"></span></h1>
+           <!--  <a href="#" onclick="editar()" class="btn btn-info">Editar perfil</a> -->
           </div>
         </div>
       </div>
@@ -199,10 +199,10 @@
 				<input type="hidden" th:field="*{contrasena}"/>
 				<input type="hidden" th:field="*{authority}"/>
 				<input type="hidden" th:field="*{no_empleado}"/>
-						<div class="form-group last col-sm-12">
+						<!--<div class="form-group last col-sm-12">
                              <button  type="submit" id="guardar" class="btn btn-custom" disabled><i class='fa fa-envelope'></i> Guardar</button>	                    	 
 	                    	 <button type="reset" id="cancelar" class="btn btn-custom" onclick="cancel()" disabled><i class='fa fa-envelope'></i> Cancelar</button>
-	                    </div>
+	                    </div>-->
               </form>
             </div>
           </div>
