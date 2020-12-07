@@ -175,7 +175,6 @@
 						    </div>
 						 </div>
 						 
-						 
 						   <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER' or usuario == 'ROLE_SINIESTRO'}" class="card-image">
 							   <img id="img7"  src="images/Siniestros.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
 							   <form th:action="@{/Siniestros}" class="F" name="salir">		 		
@@ -188,7 +187,21 @@
 							  </div>
 						    </div>
 						 </div>
-						 						 						 						 					
+						
+						<div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER'}" class="card-image">
+							   <img id="img8"  src="images/Siniestros.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
+							   <form class="F" name="salir">		 		
+                                  <button class="btn btn-lg btn-primary btn-block btn-signin ingresolog " id="btimg8" type="button" data-toggle="modal"  data-target="#formatos">FORMATOS</button>
+	                           </form>						    
+						    <div class="card-footer div-footer" style="background: none; border-top-style: hidden;">
+						      <div class="col-md-12 div-barra" >
+								<div class="barra2" style="width: 100%;" ></div>
+								<div class="barra2" style="width: 80%;" ></div>			
+							  </div>
+						    </div>
+						 </div>
+						 		 
+						 		 						 					
 					</div>			
 				</div>
 		
@@ -216,6 +229,66 @@
                 <tbody id="greetings">
                 </tbody>                
             </table>            
+</div>
+
+<!-- Modal: FORMATOS -->
+      <div class="modal fade" id="formatos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered" role="document">
+           <div class="modal-content" style="height: 652px;width: 450px;">
+             <!--Header-->
+               <div class="modal-header">
+               <h4 class="modal-title" id="myModalLabel">FORMATOS</h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">×</span>
+               </button>
+               </div>
+             <!--Body-->
+               <div class="modal-body">
+                 <table class="table table-hover">
+                    <thead>
+                      <tr>
+                      <th>Formato</th>
+                      <th>#</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                       <td>Formato Resguardante</td>
+                       <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="far fa-eye fa-2x"></i></button><td>
+                      </tr>
+                      <tr>
+                      <td>Formato Kilometraje</td>
+                      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm1"><i class="far fa-eye fa-2x"></i></button><td>
+                      </tr>
+                    </tbody>
+                </table>
+               </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Resguardante-->
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content" style="height:715px;width:650px;">
+        <embed src="/upload/formatos/prueba.pdf" type="application/pdf" class="col-sm-12" style="height:715px;"/>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button> 
+      </div>
+    </div>
+</div>
+    
+<!-- Modal Kilometraje-->
+<div class="modal fade bd-example-modal-sm1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content"  style="height:715px;width:650px;">
+         <embed src="/upload/formatos/documento.pdf" type="application/pdf" class="col-sm-12" style="height:715px;"/>
+         <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -324,6 +397,7 @@ var awesomeDiv4 = $('#img4');
 var awesomeDiv5 = $('#img5');
 var awesomeDiv6 = $('#img6');
 var awesomeDiv7 = $('#img7');
+var awesomeDiv8= $('#img8');
 
 $("#btimg1").hover(function(){
   $({rotation: 0}).animate({rotation: 360}, {
@@ -406,6 +480,16 @@ $("#btimg7").hover(function(){
 	   });
 	});
 	  
+$("#btimg8").hover(function(){
+	  $({rotation: 0}).animate({rotation: 360}, {
+	    duration: 1000,
+	    easing: 'linear',
+	    step: function () {
+	      awesomeDiv8.css({transform: 'rotateY(' + this.rotation + 'deg)'});
+	   
+	     }
+	   });
+	});
   
 
 </script>
