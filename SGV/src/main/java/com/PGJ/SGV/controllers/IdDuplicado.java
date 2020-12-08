@@ -11,6 +11,7 @@ public class IdDuplicado {
 	@RequestMapping(value="/idDuplicadoAds/{id_adscripcion}")
 	public String idAdscripcion (@PathVariable(value="id_adscripcion")String id_adscripcion,Model model) {
 		
+		model.addAttribute("PageTitulo", "Adscripcion Duplicada");
 		model.addAttribute("titulo","Lo sentimos pero la adcrispcion con el ID: ");
 		model.addAttribute("cuerpo",id_adscripcion);
 		model.addAttribute("complemento","Ya se encuentra asignada a otra unidad, prueba con otra.");
@@ -23,6 +24,7 @@ public class IdDuplicado {
 	@RequestMapping(value="/idDuplicadoUsu/{no_empleado}")
 	public String idUsuario (@PathVariable(value="no_empleado")String no_empleado,Model model) {
 		
+		model.addAttribute("PageTitulo", "Usuario Duplicado");
 		model.addAttribute("titulo","Lo sentimos pero el numero de empleado: ");
 		model.addAttribute("cuerpo",no_empleado);
 		model.addAttribute("complemento","Ya se encuentra asignado a otra persona, prueba con otra.");
@@ -35,6 +37,7 @@ public class IdDuplicado {
 	@RequestMapping(value="/idDuplicadoVehi/{placa}")
 	public String idVehiculo (@PathVariable(value="placa")String placa,Model model) {
 		
+		model.addAttribute("PageTitulo", "Vehiculo Duplicado");
 		model.addAttribute("titulo","Lo sentimos pero la placa: ");
 		model.addAttribute("cuerpo",placa);
 		model.addAttribute("complemento","Ya se encuentra asignada a otra unidad, prueba con otra.");
@@ -46,7 +49,7 @@ public class IdDuplicado {
 	
 	@RequestMapping(value="/idDuplicadoUsuCrea/{no_empleado}/{empleado}")
 	public String idCreateUsu (@PathVariable(value="no_empleado")String no_empleado,@PathVariable(value="empleado")String empleado,Model model) {
-		
+		model.addAttribute("PageTitulo", "Usuario Duplicado");
 		model.addAttribute("titulo","Lo sentimos pero el numero de empleado");
 		model.addAttribute("cuerpo",no_empleado);
 		model.addAttribute("complemento","Debe ser el mismo numero de empleado para poder editar");
@@ -59,6 +62,7 @@ public class IdDuplicado {
 	@RequestMapping(value="/idDuplicadoCon/{no_empleado}")
 	public String idCreateCon (@PathVariable(value="no_empleado")String no_empleado,Model model) {
 		
+		model.addAttribute("PageTitulo", "Conductor Duplicado");
 		model.addAttribute("titulo","Lo sentimos pero el numero de empleado del conductor");
 		model.addAttribute("cuerpo",no_empleado);
 		model.addAttribute("complemento","Ya se encuentra asignado a otra persona, prueba con otra.");	

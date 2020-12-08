@@ -46,6 +46,13 @@
 													     	  <input th:field="*{nombre}" name="Nombre" id="Nombre" placeholder="Nombre" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese El Nombre en Mayúsculas">
 														    <div class="input-group-icon"><i class="fa fa-user"></i></div>
 													    </div>
+													    
+													     <!--Apellido1-->
+													    <div class="form-group col-sm-4">
+														    <div class="help-block with-errors"></div>
+														     <input th:field="*{apellido1}" name="A_ma" id="A_ma" placeholder="Apellido Materno" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese El Segundo Apellido  en Mayúsculas">
+														    <div class="input-group-icon"><i class="fa fa-user"></i></div>
+													    </div>
 													
 													    <!--Apellido2-->
 													    <div class="form-group col-sm-4">
@@ -53,15 +60,7 @@
 														   <input th:field="*{apellido2}" name="A_pa" id="A_pa" placeholder="Apellido Paterno" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese El Primer Apellido en Mayúsculas">
 														 <div class="input-group-icon"><i class="fa fa-user"></i></div>
 													    </div>
-													   
-													    <!--Apellido1-->
-													    <div class="form-group col-sm-4">
-														    <div class="help-block with-errors"></div>
-														     <input th:field="*{apellido1}" name="A_ma" id="A_ma" placeholder="Apellido Materno" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese El Segundo Apellido  en Mayúsculas">
-														    <div class="input-group-icon"><i class="fa fa-user"></i></div>
-													    </div>
-													   
-													   			   
+													      
 													   <!--Adscripción-->
 													   <div class="form-group col-sm-10">
 															<div class="help-block with-errors"></div>
@@ -89,9 +88,9 @@
 														<div class="help-block with-errors"></div>														
 														  <select th:field="*{authority.id}" id="autoridad" class="form-control" style="height: 34px;" required data-error="Ingrese el estado del usuario">																												
 														    <option value="1">-Administrador</option>
-														    <option value="2">-Usuario</option>					  
-														    <option value="4">-Siniestro</option>	
-														    <option value="5">-Seguro</option>								
+														    <option value="2">-Usuario</option>
+														    <option value="3">-Taller</option>
+														    <option value="4">-Siniestro</option>								
 														  </select>	
 														  <div class="input-group-icon"><i class="fa fa-user-tag"></i></div>
 													  </div>
