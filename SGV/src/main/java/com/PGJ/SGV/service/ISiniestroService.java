@@ -33,4 +33,7 @@ public interface ISiniestroService {
 	
 	public Page<Siniestro> FindSinElemenPage(String elemento,Pageable pageable);
 
+	public Long totalSinElemVehiPage(Long id_vehiculo,String elemento);
+	
+	public Long totalSinElemen(String elemento);
 }

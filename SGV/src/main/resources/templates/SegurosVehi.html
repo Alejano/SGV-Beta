@@ -69,8 +69,8 @@
 													<td class="celda" th:text="${segurosql.rfc_contratante}"></td>
 													<td class="celda" th:text="${segurosql.codigo_cliente}"></td>
 													<td class="celda" style="width:250px">
-														<a class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/formSeg/} +${segurosql.id_seguro}" ><i class="far fa-question-circle fa-2x"></i></a>
-													    <!-- <a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SEGURO'}" style="font-size:smaller;" th:href="@{/formSeg/} +${segurosql.id_seguro}" th:text="editar" ></a> --> 
+														<a th:if="${usuario} == 'ROLE_USER'" class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/verSeguro/} +${segurosql.id_seguro}" ><i class="far fa-question-circle fa-2x"></i></a>
+													    <a th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SEGURO'}" class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/formSeg/} +${segurosql.id_seguro}" ><i class="fas fa-pencil-alt fa-2x"></i></a> 
 													    <!-- <a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario} == 'ROLE_ADMIN'"style="font-size:smaller;" th:href="@{/elimSeg/} +${segurosql.id_seguro}+'/'+${segurosql.url_poliza}" onclick="return confirm('Seguro que desea eliminar el registro?');" th:text="eliminar"></a> -->  
 													    <!--<a th:if="${auxiliar == false}"  class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/verSeguro/} +${segurosql.id_seguro}"> <i class="far fa-eye fa-2x"></i></a> -->
 														<button th:if="${auxiliar == true}"  th:onclick="'javascript:btnimgpv('+ ${segurosql.id_seguro}+' )'" th:name="${segurosql.id_seguro}" type="button" class="btn btn-primary btn-xs sel" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="far fa-eye fa-2x"></i></button>			

@@ -12,6 +12,12 @@ public interface ISiniestroDao extends PagingAndSortingRepository<Siniestro, Lon
 	@Query("select count(s) from Siniestro s")
 	public Long totalSiniestro();
 	
+	@Query("select count(s) from Siniestro s inner join Vehiculo v on s.vehiculo.id_vehiculo = v.id_vehiculo where v.id_vehiculo = ?1 and (v.placa like %?2% or cast(s.numero_siniestro AS string) like %?2% or s.nombre_conductor like %?2% or s.apellido1_conductor like %?2% or s.apellido2_conductor like %?2% or s.fecha_siniestro like %?2% or s.fecha_ingreso_taller like %?2% or s.fecha_salida_taller like %?2%)")	
+	public Long totalSinElemVehiPage(Long id_vehiculo,String elemento);
+	
+	@Query("select count(s) from Siniestro s inner join Vehiculo v on s.vehiculo.id_vehiculo = v.id_vehiculo where v.placa like %?1% or cast(s.numero_siniestro AS string) like %?1% or s.nombre_conductor like %?1% or s.apellido1_conductor like %?1% or s.apellido2_conductor like %?1% or s.fecha_siniestro like %?1% or s.fecha_ingreso_taller like %?1% or s.fecha_salida_taller like %?1%")
+	public Long totalSinElemen(String elemento);
+	
 	@Query("select count(s) from Siniestro s inner join Vehiculo l on s.vehiculo.id_vehiculo = l.id_vehiculo where l.id_vehiculo = ?1")
 	public Long totalSiniestrosVehi(Long id_vehiculo);
 	

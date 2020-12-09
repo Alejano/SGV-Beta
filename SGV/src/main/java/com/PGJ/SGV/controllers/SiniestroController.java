@@ -481,7 +481,7 @@ public class SiniestroController {
 					elementof = elemento.toUpperCase(); 
 					Page<Siniestro> siniestrospage= siniestroService.FindSinElemVehiPage(id_vehi, elementof, pageRequest);
 					PageRender<Siniestro> pageRender = new PageRender<>("/formSinBuscarPv?elemento="+ elementof, siniestrospage);
-					if(siniestroService.totalSiniestro()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+					if(siniestroService.totalSinElemVehiPage(id_vehi, elementof)>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 					
 					model.addAttribute("siniestros",siniestrospage);
 					model.addAttribute("PageTitulo", "Siniestros");
@@ -524,8 +524,8 @@ public class SiniestroController {
 
 							Page<Siniestro> siniestrospage= siniestroService.FindSinElemenAreaPage(usus.getAdscripcion().getId_adscripcion(), elementof, pageRequest);
 						    PageRender<Siniestro> pageRender = new PageRender<>("/formSinBuscar?elemento="+elementof, siniestrospage);
-							if(siniestroService.totalSiniestro()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
-
+							if(siniestroService.totalSinElemen(elementof)>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+							
 						    model.addAttribute("siniestros",siniestrospage);
 						    model.addAttribute("PageTitulo", "Siniestros");
 							model.addAttribute("PageSubTitulo", "Listado de Siniestros");
@@ -539,7 +539,9 @@ public class SiniestroController {
 					elementof = elemento.toUpperCase(); 
 					Page<Siniestro> siniestrospage= siniestroService.FindSinElemenPage(elementof, pageRequest);
 					PageRender<Siniestro> pageRender = new PageRender<>("/formSinBuscar?elemento="+elementof, siniestrospage);
-					if(siniestroService.totalSiniestro()>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+					if(siniestroService.totalSinElemen(elementof)>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+
+					System.err.println("goku"+siniestroService.totalSinElemen(elementof));
 
 					model.addAttribute("siniestros",siniestrospage);
 					model.addAttribute("page",pageRender);

@@ -94,5 +94,16 @@ public class ISiniestroServiceImpl implements ISiniestroService {
 		return siniestroDao.FindSinElemenPage(elemento,pageable);
 	}
 	
+	@Override
+	public Long totalSinElemVehiPage(Long id_vehiculo,String elemento) {
+		// TODO Auto-generated method stub
+		return siniestroDao.totalSinElemVehiPage(id_vehiculo,elemento);
+	}
+	
+	@Override
+	public Long totalSinElemen(String elemento){
+		// TODO Auto-generated method stub
+		return siniestroDao.totalSinElemen(elemento);
+	}
 	
 }

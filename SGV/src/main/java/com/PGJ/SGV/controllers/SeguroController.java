@@ -166,6 +166,8 @@ public class SeguroController {
 	public String editar(@PathVariable(value="id_seguro") Long id_seguro,Map<String,Object>model) {
 		
 		editar=true;
+		user = obuserService.obtenUser();
+		model.put("usuario",user);	
 		Seguro seguro = null;
 		
 		if(!id_seguro.equals(null)) {
@@ -176,7 +178,7 @@ public class SeguroController {
 		model.put("id_vehiculo", seguro.getVehiculo().getId_vehiculo());
 		model.put("editar", editar);
 		model.put("seguros",seguro);
-		model.put("PageTitulo", "Información del Seguro");
+		model.put("PageTitulo", "Editar Seguro");
 		model.put("titulo", "Editar Seguro");
 		return "formSeg";
 	}
@@ -184,8 +186,24 @@ public class SeguroController {
 	
 	@RequestMapping(value ="/verSeguro/{id_seguro}")
 	public String ver(@PathVariable(value = "id_seguro") Long id_seguro, Map<String, Object> model) {
-
+		
+		user = obuserService.obtenUser();
+		model.put("usuario",user);	
 		Seguro seguro = null;
+		
+		if(!id_seguro.equals(null)) {
+			seguro = seguroService.findOne(id_seguro);
+		}else {
+			return "redirect:/seguros";
+		}
+		model.put("id_vehiculo", seguro.getVehiculo().getId_vehiculo());
+		model.put("aux", true);
+		model.put("seguros",seguro);
+		model.put("PageTitulo", "Información del Seguro");
+		model.put("titulo", "Editar Seguro");
+		return "formSeg";
+
+		/*Seguro seguro = null;
 		String documento = "existe";
 		if (!id_seguro.equals(null)) {
 			seguro = seguroService.findOne(id_seguro);
@@ -200,7 +218,7 @@ public class SeguroController {
 		model.put("documento", documento);
 		model.put("seguro", seguro);
 		model.put("titulo", "Ver Seguro");
-		return "verSeguro";
+		return "verSeguro";*/
 		
 	}
 	
@@ -223,7 +241,8 @@ public class SeguroController {
 					e.printStackTrace();
 				}					
 		}
-				
+		
+		
 		if(editar == true) {
 			
 			//Seguro OLD
@@ -404,15 +423,8 @@ public class SeguroController {
 	@RequestMapping(value = "/ListarSeguros/refreshImgpv")
 	public @ResponseBody String verImgpv(@RequestParam("id_seguro") Long id_seguro, Model model) {
 		
-		
-	    System.err.println("entroo");
-
-		
-		
 		Seguro seg = new Seguro();
 	    seg = seguroService.findOne(id_seguro);
-	    
-	    System.err.println("kakaroto"+seg.getId_seguro());
 	    
 		String html="";
 				if(seg.getUrl_poliza().equals(null)) {
@@ -431,16 +443,9 @@ public class SeguroController {
 	@RequestMapping(value = "/Seguros/refreshImg")
 	public @ResponseBody String verImg(@RequestParam("id_seguro") Long id_seguro, Model model) {
 		
-		
-	    System.err.println("entroo");
-
-		
-		
 		Seguro seg = new Seguro();
 	    seg = seguroService.findOne(id_seguro);
-	    
-	    System.err.println("vegeta"+seg.getId_seguro());
-	    
+	    	    
 		String html="";
 				if(seg.getUrl_poliza().equals(null)) {
 					 html="<div>No se encontro la imagen en el servidor</div>";	

@@ -470,14 +470,14 @@
 			
 		           if(Date.parse(fechainicial) > Date.parse(fechafinal)) {
 		        	   document.getElementById("H_ini").value = "";   
-		        	   swal("Error", "La fecha de inicio debe ser menor a la fecha de fin", "error");
+		        	   swal.fire("Error", "La fecha de ingreso debe ser menor a la fecha de salida", "error");
 		        	   };
 		        	   
 		        	   
 		           if(Date.parse(fechainicial) < Date.parse(fechasin)) {
 			        	   document.getElementById("H_ini").value = "";  
 			        	   document.getElementById("H_sin").value = ""; 
-			        	   swal("Error", "La fecha de inicio debe ser mayor a la fecha de siniestro", "error");
+			        	   swal.fire("Error", "La fecha de ingreso debe ser mayor a la fecha de siniestro", "error");
 			        	   };
 					 
 				 
@@ -492,7 +492,7 @@
 
 			   if(Date.parse(fechafinal) < Date.parse(fechainicial)) {
 				   document.getElementById("H_fin").value = ""
-				   swal("Error", "La fecha fin debe ser mayor a la fecha de inicio", "error");
+				   swal.fire("Error", "La fecha de salida debe ser mayor a la fecha de ingreso", "error");
 				};
 				
 			}
