@@ -137,7 +137,7 @@
 	                                                   
 	                                                    <div class="form-group col-sm-5">
 	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{calle_domicilio}"  id="calle_aseg" placeholder="Calle Aseguradora" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese la Calle"/>
+	                                                            <input th:field="*{calle_domicilio}"  id="calle_aseg" placeholder="Calle Aseguradora" class="form-control Calle" type="text" required data-error="Ingrese la Calle"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marked-alt"></i></div>
 	                                                    </div>
 	                                                    
@@ -207,7 +207,7 @@
 											        <input type="hidden" th:field="*{id_aseguradora}"/>                													
 													
 														 <div class="form-group col-sm-12 has-error has-danger" style="text-align: center;">																																	
-														 <div class="form-group last col-sm-12" th:if="${editar} == false">
+														 <div class="form-group last col-sm-12" th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SEGURO'}">
 															<button type="submit" id="guardar" class="btn btn-custom btn-stilo"><i class='fa fa-envelope' th:if="${error == 'F'}"></i> Guardar</button>
 														 </div>
 														<div class="clearfix"></div>

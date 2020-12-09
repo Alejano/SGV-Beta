@@ -84,7 +84,14 @@
     });
 
 	$(".Letrasnum").keypress(function (key) {
-        if ((key.charCode < 65 || key.charCode > 90)//letras minusculas
+        if ((key.charCode < 65 || key.charCode > 90)//letras mayusculas
+                && (key.charCode < 48 || key.charCode > 57)//numeros 
+            )
+            return false;
+    });
+	
+	$(".Calle").keypress(function (key) {
+        if ((key.charCode != 32 && key.charCode < 65 || key.charCode > 90)//letras mayusculas
                 && (key.charCode < 48 || key.charCode > 57)//numeros 
             )
             return false;

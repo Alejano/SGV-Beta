@@ -70,7 +70,9 @@
 															
 													</td>
 													<td class="celda" style="width:210px">
-													        <a class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/VerAseg/} +${aseguradorasql.id_aseguradora}" th:text="información"></a>
+													        <a th:if="${usuario == 'ROLE_USER'}" class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/VerAseg/} +${aseguradorasql.id_aseguradora}"><i class="far fa-question-circle fa-2x"></i></a>
+													        <a th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SEGURO'}" class="btn btn-primary btn-xs btn-stilo" style="font-size:smaller;" th:href="@{/formAseg/} +${aseguradorasql.id_aseguradora}"><i class="fas fa-pencil-alt fa-2x"></i></a> 
+													        
 															<!--<a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario} == 'ROLE_ADMIN' " style="font-size:smaller;" th:href="@{/formAseg/} +${aseguradorasql.id_aseguradora}" th:text="editar"></a>-->
 															<!--<a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario} == 'ROLE_ADMIN' " style="font-size:smaller;" th:href="@{/elimAseg/} +${aseguradorasql.id_aseguradora}" onclick="return confirm('Seguro que desea eliminar el registro?');" th:text="eliminar"></a>-->
 														

@@ -187,6 +187,7 @@ public class SeguroController {
 	@RequestMapping(value ="/verSeguro/{id_seguro}")
 	public String ver(@PathVariable(value = "id_seguro") Long id_seguro, Map<String, Object> model) {
 		
+		editar=true;
 		user = obuserService.obtenUser();
 		model.put("usuario",user);	
 		Seguro seguro = null;
@@ -199,6 +200,7 @@ public class SeguroController {
 		model.put("id_vehiculo", seguro.getVehiculo().getId_vehiculo());
 		model.put("aux", true);
 		model.put("seguros",seguro);
+		model.put("editar", editar);
 		model.put("PageTitulo", "Información del Seguro");
 		model.put("titulo", "Editar Seguro");
 		return "formSeg";

@@ -41,12 +41,12 @@ public class AseguradoraController {
 	public String listar(Model model) {
 		
 		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);	
 		aseguradora = asegService.findAll();
 		if(asegService.aseguradorastotales()>= 5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 		model.addAttribute("PageTitulo", "Aseguradoras");
 		model.addAttribute("PageSubTitulo","Listado de Aseguradoras");
 		model.addAttribute("titulo","Listado de Aseguradoras");
-		model.addAttribute("usuario",user);	
 		model.addAttribute("aseguradoras",aseguradora);
 		return "Aseguradoras/Aseguradoras";
 
@@ -57,6 +57,8 @@ public class AseguradoraController {
 	public String crear(Map<String,Object> model) {	
 		
 		editar=false;
+		user = obuserService.obtenUser();
+		model.put("usuario",user);	
 		Aseguradora aseguradora = new Aseguradora();		
 		model.put("editar", editar);
 		model.put("aseguradora", aseguradora);
@@ -70,6 +72,8 @@ public class AseguradoraController {
 	public String editar(@PathVariable(value="id_aseguradora") Long id_aseguradora,Map<String,Object>model) {
 		
 		editar = true;
+		user = obuserService.obtenUser();
+		model.put("usuario",user);
 		Aseguradora aseguradora = null;
 		
 		if(id_aseguradora != 0) {
