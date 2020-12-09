@@ -86,14 +86,13 @@ public class AseguradoraController {
 		model.put("aseguradora",aseguradora);
 		model.put("titulo", "Editar cliente");
 		model.put("PageTitulo", "Editar Aseguradora");
-		model.put("PageTitulo", "Información Aseguradora");
 		return "Aseguradoras/formAseg";
 		
 	}
 	
 	
 	@RequestMapping(value="/estadoAseg/{id_aseguradora}/{enabled}")
-	public String estado (@PathVariable(value="id_aseguradora")Long id_aseguradora,@PathVariable(value="enabled")boolean enabled,Authentication authentication) {
+	public String estado (@PathVariable(value="id_aseguradora")Long id_aseguradora,@PathVariable(value="enabled")boolean enabled) {
 		
 		Aseguradora aseguradora = null;
 		boolean seteo = false;

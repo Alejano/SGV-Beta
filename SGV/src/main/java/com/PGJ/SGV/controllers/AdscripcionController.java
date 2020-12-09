@@ -49,7 +49,7 @@ public class AdscripcionController {
 	}
 		
 	
-	@RequestMapping(value="/formAds")
+	@RequestMapping(value="/formAds/Ag")
 	public String crear(Map<String,Object> model) {
 		
 		Adscripcion ads = new Adscripcion();

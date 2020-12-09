@@ -58,7 +58,7 @@
 											</tbody>
 										</table>
 										<div class="form-group last col-sm-12">
-										<a class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/formAds}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>
+										<a class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/formAds/Ag}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>
 										
 										</div>
 	                                    </div>
@@ -139,12 +139,14 @@
 	            $('#coincidencias').html("");
 	        } else if (total) {
 	        	$('#coincidencias').html("Se ha encontrado "+total+" coincidencia"+((total>1)?"s":""));
+	        	if(total<5){$("#tamano").hide();}else{$("#tamano").show();}
 	           // td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
 	
 	        } else {
 	
 	            lastTR.classList.add("red");
 	            $('#coincidencias').html("No se han encontrado coincidencias")
+	             $('#tamano').show();
 	            //td.innerHTML="No se han encontrado coincidencias";
 	        }
 	        
