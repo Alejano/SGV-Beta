@@ -65,6 +65,12 @@ public class IRevistaServiceImpl implements IRevistaService {
 		
 	}
 
+	@Override
+	public Revista UltimaRevistaVehiculo(Long id_vehiculo) {
+		// TODO Auto-generated method stub
+		return revistaDao.UltimaRevistaVehiculo(id_vehiculo);
+	}
+
 	
 
 }

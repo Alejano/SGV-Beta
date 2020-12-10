@@ -454,7 +454,7 @@
 		
 		if(Date.parse(fingreso) < Date.parse(fsolicitud) || Date.parse(fingreso) < Date.parse(fsolicitud) || Date.parse(fingreso) < Date.parse(fsolicitud)) {
 			 document.getElementById("F_ent").value = ingreso; 
-			  swal("Error", "Favor de validar las fechas", "error");				 
+			 swal.fire("Error", "Favor de validar las fechas", "error");				 
 		}else{
 						
 			if(Date.parse(fingreso) != "" && Date.parse(fentrega) != ""){
@@ -532,7 +532,7 @@
 			
 		   if(Date.parse(Fentrega) < Date.parse(Fingreso)) {
 			   $("#F_ent").val(fechaingreso); 
-			   swal("Error", "La fecha de Entrega debe ser mayor a la fecha de Ingreso", "error");		 
+			   swal.fire("Error", "La fecha de Entrega debe ser mayor a la fecha de Ingreso", "error");		 
 			}else{				
 				  var startDate = new Date(Fingreso);
 				  var endDate = new Date(Fentrega);
@@ -695,8 +695,7 @@
 	<!-- <script src="/assets/js/sockjs.js"></script>
 	jQuery Library -->
 	<script src="/assets/js/jquery-3.4.1.min.js"></script>
-	<!-- jQuery Library -->
-	<script src="/assets/js/jquery.min.js"></script>
+	<!-- jQuery Library -->	
 	<script src="/assets/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Popper js -->
 	<script src="/assets/js/popper.min.js"></script>
@@ -706,7 +705,7 @@
 	<script src="/assets/js/validator.min.js"></script>
 	<!-- Contact Form Js -->
 	<script src="/assets/js/contact-form.js"></script>
-	<!-- SweetAlert -->
+	<!-- SweetAlert-->
 	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
  
 </body>

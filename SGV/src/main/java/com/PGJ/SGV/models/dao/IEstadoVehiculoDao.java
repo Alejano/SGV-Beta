@@ -12,5 +12,9 @@ public interface IEstadoVehiculoDao extends CrudRepository<VehiculoEstado, Long>
 		
 	@Query("select e from VehiculoEstado e inner join Vehiculo v on v.vehiculo_estado.id_estado = e.id_estado where v.placa = ?1")
 	public VehiculoEstado findbyplaca(String placa);
+	
+	@Query("select e from VehiculoEstado e inner join Vehiculo v on v.vehiculo_estado.id_estado = e.id_estado where v.id_vehiculo = ?1")
+	public VehiculoEstado findbyVehiculo(Long id_vehiculo);
+	
 
 }

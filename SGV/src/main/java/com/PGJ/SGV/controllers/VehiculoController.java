@@ -24,6 +24,7 @@ import com.PGJ.SGV.models.entity.Adscripcion;
 import com.PGJ.SGV.models.entity.Conductor;
 import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.Resguardante;
+import com.PGJ.SGV.models.entity.Revista;
 import com.PGJ.SGV.models.entity.Seguro;
 import com.PGJ.SGV.models.entity.TipoResguardante;
 import com.PGJ.SGV.models.entity.Usuario;
@@ -35,9 +36,11 @@ import com.PGJ.SGV.models.entity.VehiculoMarca;
 import com.PGJ.SGV.models.entity.VehiculoTransmision;
 import com.PGJ.SGV.service.IAdscripcionService;
 import com.PGJ.SGV.service.IConductorService;
+import com.PGJ.SGV.service.IEstadoVehiculoService;
 import com.PGJ.SGV.service.ILogsAuditService;
 import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IResguardanteService;
+import com.PGJ.SGV.service.IRevistaService;
 import com.PGJ.SGV.service.ISeguroService;
 import com.PGJ.SGV.service.ITipoResguardanteService;
 import com.PGJ.SGV.service.IUploadFileService;
@@ -94,6 +97,10 @@ public class VehiculoController {
 	private ILogsAuditService logsauditService;
 	@Autowired
 	private IObtenerUserService obuserService;
+	@Autowired
+	private IEstadoVehiculoService estadoService;
+	@Autowired
+	private IRevistaService revistaService;
 	
 	
 	@RequestMapping(value="/Vehiculos", method = RequestMethod.GET)
@@ -907,10 +914,12 @@ public class VehiculoController {
 	@RequestMapping(value="/info/{id_vehiculo}")
 	public String info(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {	
 		
+		Revista revista=null;
 		adscripcionlist = adscripService.findAll();
 		Vehiculo vehiculo = null;
 		VehiculoDetalle detalle = null;
-		
+		VehiculoEstado estado=null;
+		List<Resguardante> res = null;
 		List<String> marca = new ArrayList<String>();
 		String documento = "";								
 		user = obuserService.obtenUser();
@@ -923,7 +932,9 @@ public class VehiculoController {
 			funcion = vehiculoService.findAllFuncion();
 			detalle = vehiculoService.findDetalle(id_vehiculo);
 			documento = vehiculoService.findTCDetalle(id_vehiculo);
-			
+			res = reguardanteservice.findResg(vehiculo.getId_vehiculo());
+			estado = estadoService.findbyPlaca(vehiculo.getPlaca());
+			revista = revistaService.UltimaRevistaVehiculo(vehiculo.getId_vehiculo());
 			if(documento != null) {documento = "existe";}else{documento = "noexiste";};
 			
 			coche = vehiculo.getPlaca();
@@ -935,6 +946,9 @@ public class VehiculoController {
 		model.put("transmisiones", transmision);
 		model.put("funciones", funcion);
 		model.put("editando", "si");
+		model.put("Resguardante", res);
+		model.put("estado", estado);
+		model.put("revista", revista);		
 		model.put("documento", documento);
 		model.put("seguroslist", seguros);
 		model.put("adslist",adscripcionlist );		

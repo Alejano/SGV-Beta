@@ -111,6 +111,25 @@ public class TallerController {
 			Taller t=null;
 			
 			t=tallerservice.findOne(taller.getId_taller());
+			
+			tallerservice.save(t);
+			
+		    String valor_nuevo=taller.toString();
+			
+			//Auditoria
+			
+	     	LogsAudit logs = new LogsAudit();
+	     	
+	     	logs.setId_usuario(obuserService.obtenEmpl());
+	 		logs.setTipo_role(obuserService.obtenUser());
+			logs.setFecha(SystemDate.obtenFecha());
+			logs.setHora(ObtenHour.obtenHour());
+			logs.setName_table("TALLER");
+			logs.setValor_viejo(valor_nuevo);
+			logs.setTipo_accion("INSERT");
+									
+			logsauditService.save(logs);
+			
 			editar = false;	
 			return "redirect:Talleres";
 		}

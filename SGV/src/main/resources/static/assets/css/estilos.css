@@ -2,6 +2,13 @@
     background-color: #e9ecef !important;
     opacity: 1 !important;
 }
+.infoV .infobodyV tr td{
+	 border: 2px solid black;
+	
+}
+.etiqueta{
+	font-weight: 900;
+}
 .sel{
 	font-size: smaller !important;
 }
