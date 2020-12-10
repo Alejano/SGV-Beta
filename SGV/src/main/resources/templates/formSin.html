@@ -211,33 +211,31 @@
 																														
 															<div class="form-group col-sm-12"></div>
 															
-															    <p style="margin-bottom:2rem;">IDENTIFICACION FGJCDMX</p>
+															    <p id="ide" style="margin-bottom:2rem;">IDENTIFICACION FGJCDMX</p>
 																<div class="help-block with-errors"></div>
-																<input type="file" name="file_ide" class="form-control" accept="application/pdf" data-error="Ingresa el documento PDF menor a 10 MB."/>
+																<input type="file" name="file_ide" class="form-control file_ide" accept="application/pdf" onChange = "ValidarIF();" data-error="Ingresa el documento PDF menor a 10 MB."/>
 														
-                                                                <p style="margin-bottom:2rem;">INE</p>
+                                                                <p  id="ine"style="margin-bottom:2rem;margin-top: 2%;">INE</p>
                                                                 <div class="help-block with-errors"></div>
-																<input type="file" name="file_ine" class="form-control" accept="application/pdf"  data-error="Ingresa el documento PDF menor a 10 MB."/>
+																<input type="file" name="file_ine" class="form-control file_ine" accept="application/pdf"  onChange = "ValidarIN();"  data-error="Ingresa el documento PDF menor a 10 MB."/>
 
-														        <p style="margin-bottom:2rem;">LICENCIA</p>
+														        <p id="licencia" style="margin-bottom:2rem;margin-top: 2%;">LICENCIA</p>
                                                                 <div class="help-block with-errors"></div>
-																<input type="file" name="file_licencia" class="form-control" accept="application/pdf"  data-error="Ingresa el documento PDF menor a 10 MB."/>
+																<input type="file" name="file_licencia" class="form-control file_licencia"  accept="application/pdf" onChange = "ValidarLI();"  data-error="Ingresa el documento PDF menor a 10 MB."/>
 	
-														        <p style="margin-bottom:2rem;">DECLARACION UNIVERSAL</p>
+														        <p id="declaracion" style="margin-bottom:2rem;margin-top: 2%;">DECLARACION UNIVERSAL</p>
                                                                 <div class="help-block with-errors"></div>
-																<input type="file" name="file_declaracion" class="form-control" accept="application/pdf"  data-error="Ingresa el documento PDF menor a 10 MB."/>
+																<input type="file" name="file_declaracion" class="form-control file_declaracion" accept="application/pdf" onChange = "ValidarDUN();" data-error="Ingresa el documento PDF menor a 10 MB."/>
 														
-														        <p style="margin-bottom:2rem;">CONSTANCIA INGRESO</p>
+														        <p id="ingreso" style="margin-bottom:2rem;margin-top: 2%;">CONSTANCIA INGRESO</p>
                                                                 <div class="help-block with-errors"></div>
-																<input type="file" name="file_ingreso" class="form-control" accept="application/pdf"  data-error="Ingresa el documento PDF menor a 10 MB."/>
+																<input type="file" name="file_ingreso" class="form-control file_ingreso" accept="application/pdf" onChange = "ValidarCITA();"   data-error="Ingresa el documento PDF menor a 10 MB."/>
 														
-														        <p style="margin-bottom:2rem;">CONSTANCIA SALIDA</p>
+														        <p id="salida" style="margin-bottom:2rem;margin-top: 2%;">CONSTANCIA SALIDA</p>
                                                                 <div class="help-block with-errors"></div>
-																<input type="file" name="file_salida" class="form-control" accept="application/pdf"  data-error="Ingresa el documento PDF menor a 10 MB."/>
+																<input type="file" name="file_salida" class="form-control file_salida" accept="application/pdf"  onChange = "ValidarCSTA();"  data-error="Ingresa el documento PDF menor a 10 MB."/>
 														
-															</div>	
-															
-												
+															</div>
 														
 														<div id="Mdocumento" class="card-body justify-content-center col-sm-12">
 														
@@ -328,6 +326,101 @@
          
          <script type="text/javascript" th:inline="javascript">
  	
+        function ValidarIF() {
+        	
+                 swal.fire("", "Ha seleccionado un archivo", "success");
+                	 $(".file_ine").hide();
+                	 $(".file_licencia").hide();
+                	 $(".file_declaracion").hide();
+                	 $(".file_ingreso").hide();
+                	 $(".file_salida").hide();
+              
+                	 $("#ine").hide();
+                	 $("#licencia").hide();
+                	 $("#declaracion").hide();
+                	 $("#ingreso").hide();
+                	 $("#salida").hide();
+             }
+        
+        function ValidarIN() {
+        	
+            swal.fire("", "Ha seleccionado un archivo", "success");
+           	 $(".file_ide").hide();
+           	 $(".file_licencia").hide();
+           	 $(".file_declaracion").hide();
+           	 $(".file_ingreso").hide();
+           	 $(".file_salida").hide();
+           	 
+         $("#ide").hide();
+       	 $("#licencia").hide();
+       	 $("#declaracion").hide();
+       	 $("#ingreso").hide();
+       	 $("#salida").hide();
+        }
+        
+        function ValidarLI() {
+        	
+            swal.fire("", "Ha seleccionado un archivo", "success");
+           	 $(".file_ine").hide();
+           	 $(".file_ide").hide();
+           	 $(".file_declaracion").hide();
+           	 $(".file_ingreso").hide();
+           	 $(".file_salida").hide();
+           	 
+           	 $("#ide").hide();
+          	 $("#ine").hide();
+          	 $("#declaracion").hide();
+          	 $("#ingreso").hide();
+          	 $("#salida").hide();
+        }
+        
+        function ValidarDUN() {
+        	
+            swal.fire("", "Ha seleccionado un archivo", "success");
+           	 $(".file_ine").hide();
+           	 $(".file_ide").hide();
+           	 $(".file_licencia").hide();
+           	 $(".file_ingreso").hide();
+           	 $(".file_salida").hide();
+           	 
+           	 $("#ide").hide();
+           	 $("#ine").hide();
+          	 $("#licencia").hide();
+          	 $("#ingreso").hide();
+          	 $("#salida").hide();
+        }
+        
+        function ValidarCITA() {
+        	
+            swal.fire("", "Ha seleccionado un archivo", "success");
+           	 $(".file_ine").hide();
+           	 $(".file_ide").hide();
+           	 $(".file_licencia").hide();
+           	 $(".file_declaracion").hide();
+           	 $(".file_salida").hide();
+            
+           	 $("#ide").hide();
+          	 $("#ine").hide();
+         	 $("#licencia").hide();
+         	 $("#declaracion").hide();
+         	 $("#salida").hide();
+        }
+        
+        function ValidarCSTA() {
+        	
+            swal.fire("", "Ha seleccionado un archivo", "success");
+           	 $(".file_ine").hide();
+           	 $(".file_ide").hide();
+           	 $(".file_licencia").hide();
+           	 $(".file_declaracion").hide();
+           	 $(".file_ingreso").hide();
+           	 
+             $("#ide").hide();
+          	 $("#ine").hide();
+         	 $("#licencia").hide();
+         	 $("#declaracio").hide();
+         	 $("#ingreso").hide();
+        }
          
          $("#IDEdoc").show();
 	     $("#INEdoc").hide();
@@ -335,7 +428,7 @@
 	     $("#DEUdoc").hide();
 	     $("#CINdoc").hide();
 	     $("#CSAdoc").hide();
- 		
+	     
 			$('#aBtnGroup button').on('click', function() {
 				var thisBtn = $(this);
 				var btnText = thisBtn.text();
@@ -428,7 +521,7 @@
 				   }
 			   }
 			});
-			
+		
 			$('#cond').click(function(){
 				$("#resg").show();
 			});
