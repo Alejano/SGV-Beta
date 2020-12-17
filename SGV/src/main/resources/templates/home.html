@@ -250,12 +250,16 @@
                     </thead>
                     <tbody>
                       <tr>
-                       <td>Formato Resguardante</td>
+                       <td>Formato Resguardo</td>
                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="far fa-eye fa-2x"></i></button><td>
                       </tr>
                       <tr>
-                      <td>Formato Kilometraje</td>
+                      <td>FORMATO DISTRIBUCION LITROS DE GASOLINA</td>
                       <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm1"><i class="far fa-eye fa-2x"></i></button><td>
+                      </tr>
+                      <tr>
+                      <td>FOMATO TARJETA DE ACCESORIOS</td>
+                      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm2"><i class="far fa-eye fa-2x"></i></button><td>
                       </tr>
                     </tbody>
                 </table>
@@ -272,7 +276,7 @@
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content" style="height:500px;">
-        <embed th:src="@{/upload/formatos/prueba.pdf}" type="application/pdf" class="col-sm-12" style="height:715px;"/>
+        <embed th:src="@{/upload/formatos/FORMATO RESGUARDO.pdf}" type="application/pdf" class="col-sm-12" style="height:715px;"/>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button> 
       </div>
     </div>
@@ -282,7 +286,16 @@
 <div class="modal fade bd-example-modal-sm1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content"  style="height:500px;">
-         <embed th:src="@{/upload/formatos/documento.pdf}" type="application/pdf" class="col-sm-12" style="height:715px;"/>
+         <embed th:src="@{/upload/formatos/FORMATO DISTRIBUCION LITROS DE GASOLINA.pdf}" type="application/pdf" class="col-sm-12" style="height:715px;"/>
+         <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+</div>
+<!-- Modal Accesorios-->
+<div class="modal fade bd-example-modal-sm1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content"  style="height:500px;">
+         <embed th:src="@{/upload/formatos/FOMATO TARJETA DE ACCESORIOS.pdf}" type="application/pdf" class="col-sm-12" style="height:715px;"/>
          <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>

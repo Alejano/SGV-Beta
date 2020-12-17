@@ -1,7 +1,6 @@
 package com.PGJ.SGV.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,12 +45,14 @@ public class IRevistaServiceImpl implements IRevistaService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Revista> findAllFuturo() {
 		// TODO Auto-generated method stub
 		return revistaDao.findAllFuturo();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Revista> revistaEvento(Long evento) {
 		// TODO Auto-generated method stub
 		return revistaDao.revistaEvento(evento);
@@ -66,6 +67,7 @@ public class IRevistaServiceImpl implements IRevistaService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Revista UltimaRevistaVehiculo(Long id_vehiculo) {
 		// TODO Auto-generated method stub
 		return revistaDao.UltimaRevistaVehiculo(id_vehiculo);

@@ -87,11 +87,11 @@
 																<tr>
 																	<td><p class="fw-bold col-md-5 enlinea etiqueta">Estado del Vehiculo </p><p class="fw-bold col-md-5 enlinea" th:text="${estado.nombre_estado}"></p></td>																
 																	<!--  <td><p class="fw-bold col-md-5 enlinea etiqueta">Folio </p><p class="fw-bold col-md-5 enlinea" th:text="*{no_inventario}"></p></td>-->
-																	<td><p class="fw-bold col-md-5 enlinea etiqueta">Evento </p><p class="fw-bold col-md-5 enlinea" th:text="(${revista.estado} == true)?'Paso la Revista':'No Paso la Revista'"></p></td>
+																	<td><p class="fw-bold col-md-5 enlinea etiqueta">Evento </p><p class="fw-bold col-md-5 enlinea" th:text="'Revista-'+${revistaUltimaFecha}"></p></td>
 																	<td><p class="fw-bold col-md-5 enlinea etiqueta">Fecha del evento </p><p class="fw-bold col-md-5 enlinea" th:text="${revista.fecha_inicio}"></p></td>
 																</tr>
 																<tr>
-																	<td colspan="3"><p class="fw-bold col-md-5 enlinea etiqueta">Observaciones: </p><p class="fw-bold col-md-5 enlinea" th:text="*{motivo}"></p></td>
+																	<td colspan="3"><p class="fw-bold col-md-5 enlinea etiqueta">Observaciones: </p><p class="fw-bold col-md-5 enlinea" th:text="(${revista.estado} == true)?'Paso la Revista':'No Paso la Revista'"></p></td>
 																</tr>
 															</tbody>
 														</table>														

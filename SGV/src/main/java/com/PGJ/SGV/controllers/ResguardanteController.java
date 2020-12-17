@@ -72,6 +72,7 @@ public class ResguardanteController {
 		PageRender<Resguardante> pageRender = new PageRender<>("/infoResguardante/{id_vehiculo}", vehiculopage);		
 	
 		model.addAttribute("Placa", placa.getPlaca());
+		model.addAttribute("id_vehiculo", placa.getId_vehiculo());
 		model.addAttribute("Corddocu",Corddocu);		
 		model.addAttribute("Cordtabla",Cordtabla);
 		model.addAttribute("PageTitulo", "Resguardantes");
@@ -85,8 +86,8 @@ public class ResguardanteController {
 		
 	}
 	
-	@RequestMapping(value="/AddResguardo/{placa}")
-	public String Agregar(Map<String,Object> model,@PathVariable(value="placa") String placa) {
+	@RequestMapping(value="/AddResguardo/{id_vehiculo}")
+	public String Agregar(Map<String,Object> model,@PathVariable(value="id_vehiculo") Long id_vehiculo) {
 		
 		Resguardante Presguardante = new Resguardante();
 		Resguardante Sresguardante = new Resguardante();
@@ -102,7 +103,7 @@ public class ResguardanteController {
 		usuariosdb = usuarioService.findAll();
 		conductoresdb = conductorService.findAll();
 		
-		model.put("placa", placa);
+		model.put("id_vehiculo", id_vehiculo);
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);		
 		model.put("PageTitulo", "Agregar Resguardantes");
@@ -115,8 +116,8 @@ public class ResguardanteController {
 	}
 	
 	
-	@RequestMapping(value="/AddResguardo/{placa}",method = RequestMethod.POST)
-	public String saveR(Map<String,Object> model,Resguardante resguardante,@PathVariable(value="placa") String placa) {		
+	@RequestMapping(value="/AddResguardo/{id_vehiculo}",method = RequestMethod.POST)
+	public String saveR(Map<String,Object> model,Resguardante resguardante,@PathVariable(value="id_vehiculo") Long id_vehiculo) {		
 
 		String nombres = resguardante.getNombre();
 		String apellidos1 = resguardante.getApellido1();
@@ -166,7 +167,7 @@ public class ResguardanteController {
 		}
 		
 		Vehiculo vehi = new Vehiculo();
-		vehi = vehiculoService.findByPlaca(placa);
+		vehi = vehiculoService.findOne(id_vehiculo);
 		Presguardante.setVehiculo(vehi);
 		Sresguardante.setVehiculo(vehi);
 		
@@ -201,9 +202,9 @@ public class ResguardanteController {
 		return "redirect:/infoResguardante/"+vehi.getId_vehiculo();
 	}
 		
-	@RequestMapping(value="/TResguardante/{placa}{Pnombre}{Papellido1}{Papellido2}{Pcargo}{Snombre}{Sapellido1}{Sapellido2}{Scargo}" )
+	@RequestMapping(value="/TResguardante/{id_vehiculo}{Pnombre}{Papellido1}{Papellido2}{Pcargo}{Snombre}{Sapellido1}{Sapellido2}{Scargo}" )
 	public String Tres(Map<String,Object> model,
-			@PathVariable(value="placa") String placa,
+			@PathVariable(value="id_vehiculo") Long id_vehiculo,
 			@RequestParam(value="Pnombre") String Pnombre,
 			@RequestParam(value="Papellido1") String Papellido1,
 			@RequestParam(value="Papellido2") String Papellido2,
@@ -248,7 +249,7 @@ public class ResguardanteController {
 	
 		model.put("conductores", conductoresdb);
 		model.put("usuarios",usuariosdb);
-		model.put("placa", placa);					
+		model.put("id_vehiculo", id_vehiculo);					
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);
 		model.put("Tresguardante", Tresguardante);
@@ -257,9 +258,9 @@ public class ResguardanteController {
 	}
 	
 	
-	@RequestMapping(value="/TResguardante/{placa}",method = RequestMethod.POST)
+	@RequestMapping(value="/TResguardante/{id_vehiculo}",method = RequestMethod.POST)
 	public String tresPOST(Map<String,Object> model,Resguardante resguardante,
-			@PathVariable(value="placa") String placa
+			@PathVariable(value="id_vehiculo") Long id_vehiculo
 			) {
 		
 		Long id = Sresguardante.getId_resguardante();
@@ -287,7 +288,7 @@ public class ResguardanteController {
 		}
 		
 		Vehiculo vehi = new Vehiculo();
-		vehi = vehiculoService.findByPlaca(placa);
+		vehi = vehiculoService.findOne(id_vehiculo);
 		Presguardante.setVehiculo(vehi);
 		Sresguardante.setVehiculo(vehi);
 		Tresguardante.setVehiculo(vehi);

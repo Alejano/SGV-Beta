@@ -1,7 +1,6 @@
 package com.PGJ.SGV.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.PGJ.SGV.models.entity.Revista;
 

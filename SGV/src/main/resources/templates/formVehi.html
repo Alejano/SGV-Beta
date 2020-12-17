@@ -67,10 +67,8 @@
 															<!--Vale-->
 		
 															<div class="form-group col-sm-3 enlineaform">
-																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="display: inline-block;">
-																<input th:field="*{vale}"  id="vale" class="form-control soloLetras" type="text" required data-error="Ingrese El Vale">
-																</div>														
+																<div class="help-block with-errors" style="width: 261px;"></div>																
+																<input th:field="*{vale}"  id="vale" class="form-control soloLetras" type="text" required data-error="Ingrese El Vale">																													
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 															</div>
 															<div class="form-group col-sm-3 enlineaform">													
@@ -81,11 +79,11 @@
 															
 															<!--Fecha de tarjeta-->
 		
-															<div class="form-group col-sm-2 enlineaform">
+															<div class="form-group col-sm-3 enlineaform">
 																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="display: inline-block;">
+																
 																<input th:field="*{fecha_tarjeta}"  id="fecha_tarjeta" min = 01/01/1900 max = 01/01/2090 class="form-control signos" type="date" required data-error="Ingrese la fecha de tarjeta">
-																</div>														
+																														
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 															</div>
 															<div class="form-group col-sm-4 enlineaform">													
@@ -270,124 +268,122 @@
 													
 													<div class="border col-sm-12 enlineaform">
 													
-													<div class="form-group col-sm-2 enlineaform">
-																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="display: inline-block;">
-																<input th:field="*{vehiculo_detalle.rin}"  id="rin" class="form-control soloLetras" type="text" required data-error="Ingrese el tamaño de Rin">
-																</div>														
-																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-													</div>
-													<div class="form-group col-sm-2 enlineaform">													
-																<input placeholder="Tama&ntilde;o del Rin" class="form-control" disabled>														
-													</div>
-													
-													<div class="form-group col-sm-2 enlineaform">
-																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="text-align: right;">																
-											                    	<input type="color" value="*{vehiculo_detalle.color}">
-																</div>																														
-													</div>
-													<div class="form-group col-sm-2 enlineaform">													
-																<input placeholder="Color" th:field="*{vehiculo_detalle.color}" class="form-control" disabled>														
-													</div>
-													
-													<div class="form-group col-sm-3 enlineaform"></div>	
-													
-													<div class="form-group col-sm-2 enlineaform">
-																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="display: inline-block;">
-																<input th:field="*{vehiculo_detalle.no_cilindros}"  id="no_cilindros" min = 1 max = 30 class="form-control signos" type="number" required data-error="Ingrese la fecha de tarjeta">
-																</div>														
-																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-													</div>
-													<div class="form-group col-sm-3 enlineaform">													
-																<input placeholder="Numero de Clilindros" class="form-control" disabled>														
-													</div>
-													<div class="form-group col-sm-2 enlineaform">
-																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="display: inline-block;">
-																<input th:field="*{vehiculo_detalle.no_personas}"  id="no_personas" min = 1 max = 20 class="form-control signos" type="number" required data-error="Ingrese la fecha de tarjeta">
-																</div>														
-																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-													</div>
-													<div class="form-group col-sm-2 enlineaform">													
-																<input placeholder="Personas" class="form-control" disabled>														
-													</div>
-													
-													<div class="form-group col-sm-2 enlineaform"></div>	
-													
-													<div class="form-group col-sm-2 enlineaform">
-																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="display: inline-block;">
-																<input th:field="*{vehiculo_detalle.no_puertas}"  id="no_puertas" min = 0 max = 8 class="form-control signos" type="number" required data-error="Ingrese la fecha de tarjeta">
-																</div>														
-																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-													</div>
-													<div class="form-group col-sm-2 enlineaform">													
-																<input placeholder="Puertas" class="form-control" disabled>														
-													</div>
-													
-													<div class="form-group col-sm-6 enlineaform"></div>	
-													
-													<div class="form-group col-sm-2 enlineaform" style="height: 17%;">
-																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style=" text-align: right;">	
-																
-																<div class="form-check form-check-inline">
-																  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.balisado}" name="inlineRadioOptions" id="inlineRadio1" value="1">
-																  <label class="form-check-label" for="inlineRadio1" th:text="SI"></label>
-																</div>
-																
-																<div class="form-check form-check-inline">
-																  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.balisado}" name="inlineRadioOptions" id="inlineRadio2" value="0">
-																  <label class="form-check-label" for="inlineRadio1" th:text="NO"></label>
-																</div>																																											
-																																  
-																</div>														
-																
-													</div>
-													<div class="form-group col-sm-2 enlineaform">													
-																<input placeholder="Balisado" class="form-control" disabled>														
-													</div>
-													<div class="form-group col-sm-2 enlineaform">
-																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="text-align: right;">
-																<div class="form-check form-check-inline">
-																  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.blindaje}" name="inlineRadioOptions" id="inlineRadio3" value="1">
-																  <label class="form-check-label" for="inlineRadio3" th:text="SI"></label>
-																</div>
-																
-																<div class="form-check form-check-inline">
-																  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.blindaje}" name="inlineRadioOptions" id="inlineRadio4" value="0">
-																  <label class="form-check-label" for="inlineRadio4" th:text="NO"></label>
-																</div>	
-																</div>														
-																
-													</div>
-													<div class="form-group col-sm-2 enlineaform">													
-																<input placeholder="¿tiene blindaje?" class="form-control" disabled>														
-													</div>
-													
+														<div class="form-group col-sm-2 enlineaform">
+																	<div class="help-block with-errors" style="width: 261px;"></div>
+																	
+																	<input th:field="*{vehiculo_detalle.rin}"  id="rin" class="form-control soloLetras" type="text" required data-error="Ingrese el tamaño de Rin">
+																														
+																	<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+														</div>
+														<div class="form-group col-sm-3 enlineaform">													
+																	<input placeholder="Tama&ntilde;o del Rin" class="form-control" disabled>														
+														</div>
+														
+														<div class="form-group col-sm-3 enlineaform">
+																	<div class="help-block with-errors" style="width: 261px;"></div>
+																	<div style="text-align: right;">																
+												                    	<input type="text" class="form-control soloLetras" th:field="*{vehiculo_detalle.color}" >
+																	</div>																														
+														</div>
+														<div class="form-group col-sm-2 enlineaform">													
+																	<input placeholder="Color" class="form-control" disabled>														
+														</div>
+																												
+														
+														<div class="form-group col-sm-2 enlineaform">
+																	<div class="help-block with-errors" style="width: 261px;"></div>
+																	
+																	<input th:field="*{vehiculo_detalle.no_cilindros}"  id="no_cilindros" min = 1 max = 30 class="form-control signos" type="number" required data-error="Ingrese la fecha de tarjeta">
+																														
+																	<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+														</div>
+														<div class="form-group col-sm-3 enlineaform">													
+																	<input placeholder="Numero de Clilindros" class="form-control" disabled>														
+														</div>
+														<div class="form-group col-sm-3 enlineaform">
+																	<div class="help-block with-errors" style="width: 261px;"></div>
+																	
+																	<input th:field="*{vehiculo_detalle.no_personas}"  id="no_personas" min = 1 max = 20 class="form-control signos" type="number" required data-error="Ingrese la fecha de tarjeta">
+																														
+																	<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+														</div>
+														<div class="form-group col-sm-2 enlineaform">													
+																	<input placeholder="Personas" class="form-control" disabled>														
+														</div>
+																											
+														
+														<div class="form-group col-sm-2 enlineaform">
+																	<div class="help-block with-errors" style="width: 261px;"></div>
+																	
+																	<input th:field="*{vehiculo_detalle.no_puertas}"  id="no_puertas" min = 0 max = 8 class="form-control signos" type="number" required data-error="Ingrese la fecha de tarjeta">
+																															
+																	<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+														</div>
+														<div class="form-group col-sm-2 enlineaform">													
+																	<input placeholder="Puertas" class="form-control" disabled>														
+														</div>
+														
+														<div class="form-group col-sm-6 enlineaform"></div>	
+														
+														<div class="form-group col-sm-2 enlineaform" style="height: 17%;">
+																	<div class="help-block with-errors" style="width: 261px;"></div>
+																	<div style=" text-align: right;">	
+																	
+																	<div class="form-check form-check-inline">
+																	  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.balisado}" name="inlineRadioOptions" id="inlineRadio1" value="1">
+																	  <label class="form-check-label" for="inlineRadio1" th:text="SI"></label>
+																	</div>
+																	
+																	<div class="form-check form-check-inline">
+																	  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.balisado}" name="inlineRadioOptions" id="inlineRadio2" value="0">
+																	  <label class="form-check-label" for="inlineRadio1" th:text="NO"></label>
+																	</div>																																											
+																																	  
+																	</div>														
+																	
+														</div>
+														<div class="form-group col-sm-2 enlineaform">													
+																	<input placeholder="Balisado" class="form-control" disabled>														
+														</div>
+														<div class="form-group col-sm-3 enlineaform">
+																	<div class="help-block with-errors" style="width: 261px;"></div>
+																	<div style="text-align: right;">
+																	<div class="form-check form-check-inline">
+																	  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.blindaje}" name="inlineRadioOptions" id="inlineRadio3" value="1">
+																	  <label class="form-check-label" for="inlineRadio3" th:text="SI"></label>
+																	</div>
+																	
+																	<div class="form-check form-check-inline">
+																	  <input class="form-check-input" type="radio" th:field="*{vehiculo_detalle.blindaje}" name="inlineRadioOptions" id="inlineRadio4" value="0">
+																	  <label class="form-check-label" for="inlineRadio4" th:text="NO"></label>
+																	</div>	
+																	</div>														
+																	
+														</div>
+														<div class="form-group col-sm-2 enlineaform">													
+																	<input placeholder="¿tiene blindaje?" class="form-control" disabled>														
+														</div>
+														
 													
 													</div>		
 													
 													<div class="border col-sm-12 enlineaform">
 													
-													<div class="form-group col-sm-2 enlineaform">
-																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="display: inline-block;">
-																<input th:field="*{vehiculo_detalle.no_motor}"  id="no_motor"  class="form-control soloLetras" type="text" required data-error="Ingrese el numero de motor">
-																</div>														
-																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-													</div>
-													<div class="form-group col-sm-2 enlineaform">													
-																<input placeholder="Numero de Motor" class="form-control" disabled>														
-													</div>
 													<div class="form-group col-sm-3 enlineaform">
 																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="display: inline-block;">
+																
+																<input th:field="*{vehiculo_detalle.no_motor}"  id="no_motor"  class="form-control soloLetras" type="text" required data-error="Ingrese el numero de motor">
+																														
+																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+													</div>
+													<div class="form-group col-sm-3 enlineaform">													
+																<input placeholder="Numero de Motor" class="form-control" disabled>														
+													</div>
+													<div class="form-group col-sm-2 enlineaform">
+																<div class="help-block with-errors" style="width: 261px;"></div>
+																
 																<input th:field="*{vehiculo_detalle.no_economico}"  id="no_economico"  class="form-control signos" type="text" required data-error="Ingrese el numero economico">
-																</div>														
+																														
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
 													<div class="form-group col-sm-3 enlineaform">													
@@ -396,24 +392,24 @@
 													</div>
 													<div class="border col-sm-12 enlineaform">
 													
-													<div class="form-group col-sm-2 enlineaform">
+													<div class="form-group col-sm-3 enlineaform">
 																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="display: inline-block;">																
+																																
 																<input th:field="*{vehiculo_detalle.fecha_compra}"  id="fecha_compra" min = 01-01-1900 max = 01-01-2090 class="form-control signos" type="date" required data-error="Ingrese la fecha de compra">
-																</div>														
+																														
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2 enlineaform">													
+													<div class="form-group col-sm-3 enlineaform">													
 																<input placeholder="Fecha de compra" class="form-control" disabled>														
 													</div>
 													<div class="form-group col-sm-2 enlineaform">
 																<div class="help-block with-errors" style="width: 261px;"></div>
-																<div style="display: inline-block;">
+																
 																<input th:field="*{vehiculo_detalle.valor_compra}" step="any" id="valor_compra" min = 0.0 max = 1000000.0 class="form-control signos" type="number" required data-error="Ingrese el valor de la compra">
-																</div>														
+																														
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
-													<div class="form-group col-sm-2 enlineaform">													
+													<div class="form-group col-sm-3 enlineaform">													
 																<input placeholder="Valor de la compra" class="form-control" disabled>														
 													</div>
 													
@@ -434,8 +430,8 @@
 													
 													<div class="form-group col-sm-12 enlineaform" th:if="${editando} == 'no'">
 															<label for="file1" class="col-sm-2 col-form-label">Tarjeta de Circulacion</label>
-															<div class="col-sm-4">
-																<div class="help-block with-errors"></div>
+															<div class="col-sm-8">
+																<div class="help-block with-errors" style="margin-left: 20%;"></div>
 																<input id="doc1" type="file" name="file" class="form-control" accept="application/pdf" required data-error="Ingresa el documento PDF menor a 10 MB."/>
 															</div>
 													</div>	
@@ -461,16 +457,25 @@
 															 </div>														  
 															  																
 														</div>
-														<div th:if="${documento} == 'noexiste'" class="card-body d-flex justify-content-center col-sm-12" >
-																<h1>El Documento no existe en la base de datos</h1>
+														<div th:if="${documento} == 'noexiste'">
+																<div class="col-sm-12 col-form-label enlineaform">
+																	<h1>El Documento no existe en la base de datos</h1>
+																</div>
+																<div class="col-sm-12 col-form-label enlineaform">
+																	<label for="file1" class="col-sm-2 col-form-label">Tarjeta de Circulacion</label>
+																	
+																		<div class="help-block with-errors" style="margin-left: 20%;"></div>
+																		<input id="doc3" type="file" name="file" class="form-control" accept="application/pdf" required data-error="Ingresa el documento PDF menor a 10 MB."/>
+																	
+																</div>
 														</div>
 													</div>
 													
-													<div class="form-group col-sm-2 enlineaform">
+													<div class="form-group col-sm-3 enlineaform">
 																<div class="help-block with-errors" style="width: 450px;"></div>
-																<div style="display: inline-block;">
+																
 																<input th:field="*{vehiculo_detalle.vigencia_circulacion}"  id="vigencia_circulacion" min = 01/01/1900 max = 01/01/2090 class="form-control signos" type="date" required data-error="Ingrese la fecha de vigencia de circulacion">
-																</div>														
+																														
 																<div class="input-group-icon"><i class="fas fa-file-invoice-dollar"></i></div>
 													</div>
 													<div class="form-group col-sm-3 enlineaform">													
@@ -642,6 +647,41 @@
 			}
 	  	
 	  });
+	 
+	 $("#doc3").change(function(){
+		 
+			var fileSize = this.files[0].size;
+
+			if(fileSize > 3000000){
+				swal("", "El archivo no debe superar los 3MB", "error");
+				this.value = '';
+				this.files[0].name = '';
+			}else{
+				 var fileName = this.files[0].name;
+				// recuperamos la extensión del archivo
+				var ext = fileName.split('.').pop();
+				
+				// Convertimos en minúscula porque 
+				// la extensión del archivo puede estar en mayúscula
+				ext = ext.toLowerCase();
+		    
+				// console.log(ext);
+				switch (ext) {
+					case 'jpg':
+					case 'jpeg':
+					case 'png':
+					case 'pdf': break;
+					default:
+						swal("", "El archivo no tiene la extensión adecuada", "error");
+						this.value = ''; // reset del valor
+						this.files[0].name = '';
+				}
+				this.files[0].name = 'TC';
+				console.log(this.files[0].name);
+			}
+	  	
+	  });
+		
 		
 	
 	</script>

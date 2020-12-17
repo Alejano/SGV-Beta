@@ -14,7 +14,7 @@
 	                            <div class="item-wrap">
 	                                <div class="row">
 	                                    <div class="col-md-12">
-	                                    <form th:action="@{/AddResguardo/}+${placa}" method="post" id="formulario" data-toggle="validator" class="popup-form">
+	                                    <form th:action="@{/AddResguardo/}+${id_vehiculo}" method="post" id="formulario" data-toggle="validator" class="popup-form">
 	                                        <div class="col-sm-12 enlinea" style=" text-align: center;">
                                            		<h1>Selecciona el Resguardante del vehiculo</h1>
                                            	</div>	
@@ -183,7 +183,7 @@
 	                                        <button id="finishP1" type="submit" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;">Guardar</button>
 	                                        </div>
 	                                    </form>
-	                                    <form th:action="@{/TResguardante/}+${placa}" method="get" id="formulario2" data-toggle="validator" class="popup-form">
+	                                    <form th:action="@{/TResguardante/}+${id_vehiculo}" method="get" id="formulario2" data-toggle="validator" class="popup-form">
 	                                    	<input type="hidden" name="Pnombre" id="Pnombre" >	
 	                                    	<input type="hidden" name="Papellido1" id="Papellido1" >
 	                                    	<input type="hidden" name="Papellido2" id="Papellido2" >

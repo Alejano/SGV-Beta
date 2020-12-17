@@ -948,7 +948,9 @@ public class VehiculoController {
 		model.put("editando", "si");
 		model.put("Resguardante", res);
 		model.put("estado", estado);
-		model.put("revista", revista);		
+		model.put("revista", revista);	
+		String[] añoRevista=revista.getFecha_inicio().split("-");		
+		model.put("revistaUltimaFecha", añoRevista[0]);	
 		model.put("documento", documento);
 		model.put("seguroslist", seguros);
 		model.put("adslist",adscripcionlist );		
