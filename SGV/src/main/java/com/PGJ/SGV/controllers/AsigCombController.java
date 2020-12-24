@@ -96,10 +96,13 @@ public class AsigCombController {
 					
 		}else {asignacion = true;}
 		
+		if(vehiculo.getVehiculo_estado().getId_estado() != 1) {asignacion = false;asignacionext = false;}
 		combustiblePlacaHisto = AsigCombus.findidVehiculo(vehiculo.getId_vehiculo());	
 		
 		combustibleExtePlacaHisto = asigExtService.findAsigVehi(vehiculo.getId_vehiculo());
 		
+		model.addAttribute("idestado",vehiculo.getVehiculo_estado().getId_estado());
+		model.addAttribute("estado",vehiculo.getVehiculo_estado().getNombre_estado());
 		model.addAttribute("existeAsignacion",asignacionext);
 		model.addAttribute("ascombus",asignacion);
 		model.addAttribute("mes",ObtenMonth.obtenNumMes());

@@ -942,15 +942,17 @@ public class VehiculoController {
 		}else {
 			return "redirect:/Vehiculos";
 		}
+			
+		String[] añoRevista=revista.getFecha_inicio().split("-");	
+		model.put("revistaUltimaFecha", añoRevista[0]);	
 		
 		model.put("transmisiones", transmision);
 		model.put("funciones", funcion);
 		model.put("editando", "si");
 		model.put("Resguardante", res);
 		model.put("estado", estado);
-		model.put("revista", revista);	
-		String[] añoRevista=revista.getFecha_inicio().split("-");		
-		model.put("revistaUltimaFecha", añoRevista[0]);	
+		model.put("revista", revista);			
+		
 		model.put("documento", documento);
 		model.put("seguroslist", seguros);
 		model.put("adslist",adscripcionlist );		

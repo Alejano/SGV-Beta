@@ -132,6 +132,8 @@ public class MantenimintoController {
 				model.addAttribute("PageSubTitulo", "Listado de Mantenimientos de la placa: "+vehi.getPlaca());
 				model.addAttribute("placa",vehi.getPlaca());	
 				model.addAttribute("id_vehiculo",vehi.getId_vehiculo());
+				model.addAttribute("idestado",vehi.getVehiculo_estado().getId_estado());
+				model.addAttribute("estado",vehi.getVehiculo_estado().getNombre_estado());
 				model.addAttribute("mantenimientos",mantAreaPage);
 				model.addAttribute("page",mantRender);
 				model.addAttribute("Mplaca",Mplaca);
@@ -151,6 +153,8 @@ public class MantenimintoController {
 		model.addAttribute("mantenimientos",mantPage);
 		model.addAttribute("page",mantRender);
 		model.addAttribute("Mplaca",Mplaca);
+		model.addAttribute("idestado",vehi.getVehiculo_estado().getId_estado());
+		model.addAttribute("estado",vehi.getVehiculo_estado().getNombre_estado());
 		
 		return "Mantenimientos";
 		

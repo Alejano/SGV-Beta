@@ -13,6 +13,10 @@
 	                    <div class="tab-content">
 	                        <div class="col-sm-12" >
 	                            <div class="item-wrap">
+	                            	<div class="alert alert-danger" role="alert" th:if="${idestado} != 1 ">
+									 	<div th:text="'El vehiculo esta en estado de '+${estado}"></div>
+									</div>
+	                            	
 	                                <div class="row" style="text-align: center;">
 	                               	 <div class=" col-md-10 enlinea">
 	                                		<div class="col-md-1 enlinea" style="text-align: right;" ><i class="fas fa-search"></i></div>

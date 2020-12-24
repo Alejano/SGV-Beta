@@ -133,6 +133,8 @@ public class ViajeCotroller {
 		model.addAttribute("auxiliar", aux);
 		model.addAttribute("viajes",viajespageArea);
 		model.addAttribute("page",pageRenderArea);
+		model.addAttribute("idestado",vehiculo.getVehiculo_estado().getId_estado());
+		model.addAttribute("estado",vehiculo.getVehiculo_estado().getNombre_estado());
 		return "Viajes";
 	 }
 
