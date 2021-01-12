@@ -940,6 +940,7 @@ public class VehiculoController {
 	}	
 	
 	
+	@SuppressWarnings("finally")
 	@RequestMapping(value="/info/{id_vehiculo}")
 	public String info(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {	
 		
@@ -981,7 +982,6 @@ public class VehiculoController {
 					model.put("revistaUltimaFecha", "N/A");
 				}finally {
 				
-						
 				model.put("transmisiones", transmision);
 				model.put("funciones", funcion);
 				model.put("editando", "si");
@@ -995,8 +995,8 @@ public class VehiculoController {
 				model.put("vehiculo",vehiculo);
 				model.put("detalle",detalle);
 				model.put("marcas",marca);				
-				model.put("PageTitulo", "InformaciÃ³n del Vehiculo");
-				model.put("titulo", "InformaciÃ³n Vehiculo");	
+				model.put("PageTitulo", "Información del Vehiculo");
+				model.put("titulo", "Información Vehiculo");	
 				return "infoVehi";
 				
 				}//finally --Calev
