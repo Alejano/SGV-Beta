@@ -25,7 +25,7 @@ public interface IVehiculoDao extends PagingAndSortingRepository<Vehiculo,Long >
 	@Query("select p from Vehiculo p inner join Adscripcion a on p.adscripcion.id_adscripcion = a.id_adscripcion  inner join VehiculoEstado e on p.vehiculo_estado.id_estado = e.id_estado where e.id_estado != '5' and adscripcion_id_adscripcion= ?1")
 	public Page<Vehiculo> findVehiculosAreaPage(Long id_adscripcion,Pageable pageable);
 	
-	@Query("select v from Vehiculo v inner join Adscripcion a on v.adscripcion.id_adscripcion = a.id_adscripcion inner join VehiculoEstado e on v.vehiculo_estado.id_estado = e.id_estado where e.id_estado != '5' and (a.nombre_adscripcion like %?1% or v.placa like %?1% or v.no_serie like %?1% or v.no_inventario like %?1% or v.fecha_tarjeta like %?1% or v.vale like %?1%)")
+	@Query("select v from Vehiculo v inner join Adscripcion a on v.adscripcion.id_adscripcion = a.id_adscripcion inner join VehiculoEstado e on v.vehiculo_estado.id_estado = e.id_estado where e.id_estado != '5' and (a.nombre_adscripcion like %?1% or v.placa like %?1% or v.no_serie like %?1% or v.no_inventario like %?1% or v.fecha_tarjeta like %?1% or v.vale like %?1% or e.nombre_estado like %?1%)")
 	public Page<Vehiculo> findVehElemntoPage(String elemento,Pageable pageable);
 	
 	@Query("select v from Vehiculo v inner join Adscripcion a on v.adscripcion.id_adscripcion = a.id_adscripcion inner join VehiculoEstado e on v.vehiculo_estado.id_estado = e.id_estado where e.id_estado != '5' and a.id_adscripcion = ?1 and (v.placa like %?2% or v.no_serie like %?2% or v.no_inventario like %?2% or v.fecha_tarjeta like %?2% or v.vale like %?2%)")
