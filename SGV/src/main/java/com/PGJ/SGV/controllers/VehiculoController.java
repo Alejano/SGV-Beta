@@ -145,7 +145,7 @@ public class VehiculoController {
 		//vehiculo = vehiculoService.findAll();		
 		
 		
-		Page<Vehiculo> vehiculopage = vehiculoService.findTVechiulo("AUTOMOVIL", pageRequest);
+		Page<Vehiculo> vehiculopage = vehiculoService.findTVehiculo("AUTOMOVIL", pageRequest);
 		PageRender<Vehiculo> pageRender = new PageRender<>("/Vehiculos", vehiculopage);
 		int tamaño = 4;
 		if(vehiculoService.totalVehiculo()>= tamaño) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
@@ -211,7 +211,7 @@ public class VehiculoController {
 		//seguros = seguroService.findAll();
 		//vehiculo = vehiculoService.findAll();		
 		clase = vehiculoService.findallByClase();			
-		Page<Vehiculo> vehiculopage = vehiculoService.findTVechiulo(Clase, pageRequest);
+		Page<Vehiculo> vehiculopage = vehiculoService.findTVehiculo(Clase, pageRequest);
 		PageRender<Vehiculo> pageRender = new PageRender<>("/Vehiculos", vehiculopage);
 		int tamaño = 4;
 		if(vehiculoService.totalVehiculo()>= tamaño) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};

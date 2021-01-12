@@ -38,7 +38,6 @@ public interface IVehiculoService {
 	public List<String> findallTipoUnico(String nombre_marca,String nombre_submarca,String modelo);
 	public List<String> findallClaseUnico(String nombre_marca,String nombre_submarca,String modelo,String tipo);
 	public List<String> findallByClase();
-	public List<String> findallByAds();
 	
 	public VehiculoMarca findMarca(String nombre_marca,String nombre_submarca,String modelo,String tipo,String clase);
 	
@@ -62,7 +61,7 @@ public interface IVehiculoService {
 	
 	public int totalVehiculoArea(Long id_adscripcion);
 		
-	public Page<Vehiculo> findTVechiulo(String vehiculo,Pageable pageable);
+	public Page<Vehiculo> findTVehiculo(String vehiculo,Pageable pageable);
 	
 	public Page<Vehiculo> findAdsVehiculo(String vehiculo,Pageable pageable);
 	

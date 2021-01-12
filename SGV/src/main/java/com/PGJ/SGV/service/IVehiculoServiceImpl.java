@@ -129,9 +129,9 @@ public class IVehiculoServiceImpl implements IVehiculoService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<Vehiculo> findTVechiulo(String vehiculo,Pageable pageable) {
+	public Page<Vehiculo> findTVehiculo(String vehiculo,Pageable pageable) {
 		// TODO Auto-generated method stub
-		return vehiculoDao.findTVechiulo(vehiculo, pageable);
+		return vehiculoDao.findTVehiculo(vehiculo, pageable);
 		//return null;
 	}
 	
@@ -253,13 +253,6 @@ public class IVehiculoServiceImpl implements IVehiculoService {
 	public List<String> findallByClase() {
 		// TODO Auto-generated method stub
 		return marcaDao.findallClaseUnica();
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public List<String> findallByAds() {
-		// TODO Auto-generated method stub
-		return adscripcionDao.findallAds();
 	}
 
 	@Override
