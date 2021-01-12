@@ -133,6 +133,10 @@ public class VehiculoController {
 			model.addAttribute("vehiculos",vehiculoPageAra);		
 			model.addAttribute("page",pageRender);
 			model.addAttribute("PageTitulo", "Vehiculos");
+			//calev
+			adscripcionlist = adscripService.findAll();
+			model.addAttribute("adslist",adscripcionlist);
+			
 			return "Vehiculos";
 		}
 		
@@ -157,6 +161,9 @@ public class VehiculoController {
 		model.addAttribute("page",pageRender);
 		model.addAttribute("Clase","AUTOMOVIL");
 		model.addAttribute("PageTitulo", "Vehiculos");
+		//calev
+		adscripcionlist = adscripService.findAll();
+		model.addAttribute("adslist",adscripcionlist);
 		
 		return "Vehiculos";
 	}
@@ -164,6 +171,12 @@ public class VehiculoController {
 	@RequestMapping(value="/VehiculoClase", method = RequestMethod.GET)
 	public String listarporClase(@RequestParam(value="clase") String Clase,Model model,
 			@RequestParam(name="page", defaultValue = "0") int page) {	
+		
+		//calev
+				adscripcionlist = adscripService.findAll();
+				model.addAttribute("adslist",adscripcionlist);
+				model.addAttribute("elemento",Clase);
+				//---------
 		
 		var ads="";
 		ads = obuserService.obtenEmpl();
@@ -758,7 +771,14 @@ public class VehiculoController {
 		 ads = obuserService.obtenEmpl();
 		 user = obuserService.obtenUser();
 		 model.addAttribute("usuario",user);	
-		
+		//calev
+			adscripcionlist = adscripService.findAll();
+			model.addAttribute("adslist",adscripcionlist);
+			clase = vehiculoService.findallByClase();
+			model.addAttribute("marca",clase);
+			model.addAttribute("elemento",elemento);
+			System.out.println(elemento);
+		//
 		if(!elemento.isBlank()) {			
 			if(isValidDouble(elemento)) {
 					Dato = Double.parseDouble(elemento);
@@ -780,6 +800,10 @@ public class VehiculoController {
 				model.addAttribute("elemento",elemento);
 				model.addAttribute("PageTitulo", "Vehiculos");
 				model.addAttribute("PageSubTitulo", "Listado de Vehiculos");
+				//calev
+				adscripcionlist = adscripService.findAll();
+				model.addAttribute("adslist",adscripcionlist);
+				
 					return "Vehiculos";
 			};					
 			Page<Vehiculo> vehiculopage= vehiculoService.findVehElemntoPage(elemento, pageRequest);		 									
@@ -792,6 +816,10 @@ public class VehiculoController {
 			model.addAttribute("elemento",elemento);	
 			model.addAttribute("PageTitulo", "Vehiculos");
 			model.addAttribute("PageSubTitulo", "Listado de Vehiculos");
+			//calev
+			adscripcionlist = adscripService.findAll();
+			model.addAttribute("adslist",adscripcionlist);
+			
 			return "Vehiculos";
 		}else {
 			return "redirect:/Vehiculos";
@@ -944,25 +972,34 @@ public class VehiculoController {
 			return "redirect:/Vehiculos";
 		}
 			
-		String[] añoRevista=revista.getFecha_inicio().split("-");	
-		model.put("revistaUltimaFecha", añoRevista[0]);	
-		
-		model.put("transmisiones", transmision);
-		model.put("funciones", funcion);
-		model.put("editando", "si");
-		model.put("Resguardante", res);
-		model.put("estado", estado);
-		model.put("revista", revista);			
-		
-		model.put("documento", documento);
-		model.put("seguroslist", seguros);
-		model.put("adslist",adscripcionlist );		
-		model.put("vehiculo",vehiculo);
-		model.put("detalle",detalle);
-		model.put("marcas",marca);				
-		model.put("PageTitulo", "Información del Vehiculo");
-		model.put("titulo", "Información Vehiculo");	
-		return "infoVehi";
+		//Calev
+				try {
+				String[] añoRevista=revista.getFecha_inicio().split("-");
+				model.put("revistaUltimaFecha", añoRevista[0]);
+				}catch (Exception e){
+					e.printStackTrace();
+					model.put("revistaUltimaFecha", "N/A");
+				}finally {
+				
+						
+				model.put("transmisiones", transmision);
+				model.put("funciones", funcion);
+				model.put("editando", "si");
+				model.put("Resguardante", res);
+				model.put("estado", estado);
+				model.put("revista", revista);			
+				
+				model.put("documento", documento);
+				model.put("seguroslist", seguros);
+				model.put("adslist",adscripcionlist );		
+				model.put("vehiculo",vehiculo);
+				model.put("detalle",detalle);
+				model.put("marcas",marca);				
+				model.put("PageTitulo", "InformaciÃ³n del Vehiculo");
+				model.put("titulo", "InformaciÃ³n Vehiculo");	
+				return "infoVehi";
+				
+				}//finally --Calev
 	}	
 	
 	//BAJAS

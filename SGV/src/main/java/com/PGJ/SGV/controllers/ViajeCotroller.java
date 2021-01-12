@@ -27,7 +27,8 @@ import com.PGJ.SGV.service.IViajeService;
 import com.PGJ.SGV.util.paginador.PageRender;
 import com.PGJ.SGV.utilities.ObtenHour;
 import com.PGJ.SGV.utilities.SystemDate;
-
+//---------
+import java.time.*;
 
 @Controller
 public class ViajeCotroller {
@@ -96,6 +97,10 @@ public class ViajeCotroller {
 		model.addAttribute("auxiliar", aux);
 		model.addAttribute("viajes",viajespage);
 		model.addAttribute("page",pageRender);
+		//calev
+				model.addAttribute("total", String.valueOf(viajespage.getTotalElements()));
+				System.out.println("Calev" + viajespage.getTotalElements());
+				//calev
 		return "Viajes";
 		
 	}
@@ -135,6 +140,9 @@ public class ViajeCotroller {
 		model.addAttribute("page",pageRenderArea);
 		model.addAttribute("idestado",vehiculo.getVehiculo_estado().getId_estado());
 		model.addAttribute("estado",vehiculo.getVehiculo_estado().getNombre_estado());
+		//calev
+				model.addAttribute("total",String.valueOf(viajespageArea.getTotalElements()));
+			//--calev
 		return "Viajes";
 	 }
 
@@ -149,7 +157,15 @@ public class ViajeCotroller {
 		Viaje viaje = new Viaje();	
 		Vehiculo vehi= new Vehiculo();
 		editar=false;
+		//Calev - Habilitar el text de kilometraje solo los primeros 5 habiles dias del mes
 		
+				boolean activarKilometraje = true;		
+				LocalDate fechaActual = LocalDate.now(); //LocalDate.parse("2021-01-01") ;
+				if (fechaActual.getDayOfMonth() <=5 && fechaActual.getDayOfWeek().toString() != "SUNDAY" && fechaActual.getDayOfWeek().toString() != "SATURDAY") {
+					activarKilometraje = false;
+				}
+				model.put("hKilometraje",activarKilometraje);
+				//--------------Calev
 		if(!id_vehiculo.equals(null)) {
 			    vehi= vehiculoService.findOne(id_vehiculo);	
 			    id_vehi=vehi.getId_vehiculo();
@@ -292,6 +308,9 @@ public class ViajeCotroller {
 					model.addAttribute("id_vehiculo",id_vehi);
 					model.addAttribute("PageTitulo", "Viajes");
 			        model.addAttribute("PageSubTitulo", "Listado de Viajes de la placa: "+id_placa);
+			      //calev
+					model.addAttribute("total",String.valueOf(viajespage.getTotalElements()));
+				//--calev
 					return "Viajes";
 					}
 					else{
@@ -335,6 +354,9 @@ public class ViajeCotroller {
 		model.addAttribute("page",pageRender);
 		model.addAttribute("auxiliar", aux);
 		model.addAttribute("elemento",elementof);
+		//calev
+		model.addAttribute("total",String.valueOf(viajespage.getTotalElements()));
+	//--calev
 		return "Viajes";
 		};
 
@@ -351,6 +373,9 @@ public class ViajeCotroller {
 		model.addAttribute("auxiliar", aux);
 		model.addAttribute("elemento",elementof);
 		model.addAttribute("id_vehiculo",id_vehi);
+		//calev
+		model.addAttribute("total",String.valueOf(viajespage.getTotalElements()));
+	//--calev
 		return "Viajes";
 		}
 	    else{

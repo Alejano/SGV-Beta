@@ -18,7 +18,7 @@
 	                                        	<form id="Busqueda" class="col-md-8" th:action="@{/formVehBuscar}" style="display: inline-block;">		
 											         <div class="col-md-1 enlinea" style="text-align: right;" ><i class="fas fa-search"></i></div> 
 											         <div class="col-md-6 enlinea">
-											         	<input id="searchTerm" th:value=*{elemento} class="form-control " name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required"/>												           											          											           									
+											         	<input id="searchTerm" th:value="${elemento}" class="form-control " name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required"/>												           											          											           									
 											    	 </div>
 											    	 <div class="col-md-3 enlinea">
 											    	 	<button type="submit" class="btn btn-primary btn-xs btn-stilo" style="margin-left: 1%;margin-right: 1%;">Buscar</button>											    		
@@ -36,18 +36,34 @@
 											    
 											    
 											    <form class="col-md-12 " th:action="@{/VehiculoClase}" id="EnviarClase" style="text-align: -webkit-right; margin-top: 1%;">	
-																																																	
+														<div class="row">																																		
 															<!--Marcas-->
-																<div class="form-group col-sm-3" id="marca1">		
+																<div class="form-group col-md-6" id="marca1">		
 																																										
-																	<select id="clase" name="clase" class="form-control" style="left: unset !important; height: 34px;" onchange="this.form.submit()">																																    																 
-																	    <option th:value="${Clase}" th:text="${Clase}"></option>
+																	<select id="clase" name="clase" class="form-control" style="left: unset !important; height: 34px;" onchange="filtrarClase()">																																    																 
+																	    <option value="">Selecciona la Clase</option>
 																	    <option th:each="marca : ${marca}" 
 																	    th:value="${marca}" 
 																	    th:text="${marca}"></option>
 																	</select>																																																												
 																</div>
-																												
+																
+																
+																<!-- Calev filtrar por adscripcion -->
+												<div class="form-group col-md-6" id="marca1">
+													<select id="adscripcion" name="adss" class="form-control"
+														style="left: unset !important; height: 34px; whith: 127px;"
+														onchange="filtrarAdscripcion()">
+														<option value="">Selecciona una Adscripci&oacute;n</option>
+														<option th:each="adss : ${adslist}"
+															th:value="${adss.nombre_adscripcion}"
+															th:utext="${adss.nombre_adscripcion}"></option>
+													</select>
+												</div>
+												<!-- fin calev -->
+																
+																
+																		</div>										
 												</form>
   
 											        <div id="coincidencias" class="col-md-6"></div>
@@ -390,8 +406,28 @@
     $(document).ready(function() {
       $('select:not(.ignore)').niceSelect();      
       //FastClick.attach(document.body);
-      	
-    });
+      //Calev
+      $(".list").css("left","auto");
+	});
+	//calev
+	function filtrarAdscripcion() {
+		if($("#adscripcion").val()!=""){
+			$("#searchTerm").val($("#adscripcion").val());
+			$("#Busqueda").submit();
+			console.log("Entro");
+		}
+	console.log("fuera if");
+	}
+	function filtrarClase() {
+		if($("#clase").val()!=""){
+			$("#searchTerm").val($("#clase").val());
+			$("#EnviarClase").submit();
+		}
+	}
+
+      
+      //--Calev
+
            
     </script>
 </body>

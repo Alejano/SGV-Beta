@@ -82,7 +82,7 @@
 	
 	                                                        <div class="form-group col-sm-3">
 																<div class="help-block with-errors" style=" width: 393px;"></div>
-																	<input th:field="*{kilometraje_final}" id="Kfinal"  class="form-control numberdec" onchange="kilometerfinal()" required data-error="Ingrese el Kilometraje final">																
+																	<input th:field="*{kilometraje_final}" th:readonly="${hKilometraje}" id="Kfinal"  class="form-control numberdec" onchange="kilometerfinal()" required data-error="Ingrese el Kilometraje final">																
 																<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>
 																</div>
 																
