@@ -55,7 +55,7 @@
 												
                                            		
                                            	</div>	
-                                           	<div class="Paso1 col-sm-6" >
+                                           	<div class="Paso1 col-sm-5 enlinea" >
                                            		<h3>Datos de Usuarios</h3>
                                            		
                                            		<div class=" col-md-12" id="Contenedorbuscar" >
@@ -93,7 +93,7 @@
 												</table>
                                            		
                                            	</div>	                                           	                                           	
-                                           	<div class="Paso2 col-sm-6">
+                                           	<div class="Paso2 col-sm-5 enlinea">
                                            		<h3>Datos de Conductores</h3>
                                            		
                                            		<div class=" col-md-12" id="Contenedorbuscar2" >                               						 	                                				                                       
@@ -118,7 +118,7 @@
 													<tbody>
 													
 														<tr th:each="conductoresql: ${conductores}" th:if="${conductoresql.enabled} == true">
-															<th style="width:30px"><input class="check2" type="radio" th:id="${conductoresql.nombre}+' '+${conductoresql.apellido1}+' '+${conductoresql.apellido2}" th:value="${conductoresql.no_empleado}"></th>															
+															<th style="width:30px"><input class="check2" type="radio" name="SelUsu" th:id="${conductoresql.nombre}+' '+${conductoresql.apellido1}+' '+${conductoresql.apellido2}" th:value="${conductoresql.no_empleado}"></th>															
 															<td th:text="${conductoresql.no_empleado}" class="celda"></td>
 															<td th:text="${conductoresql.nombre}" class="celda"></td>
 															<td th:text="${conductoresql.apellido1}" class="celda"></td>

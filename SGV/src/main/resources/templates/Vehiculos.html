@@ -15,7 +15,7 @@
 	                                <div class="row" style="text-align: center;">
 	                                
 	                                		<div class=" col-md-12" id="Contenedorbuscar" >	                                			 	                                		
-	                                        	<form id="Busqueda" class="col-md-8" th:action="@{/formVehBuscar}" style="display: inline-block;">											       											       
+	                                        	<form id="Busqueda" class="col-md-8" th:action="@{/formVehBuscar}" style="display: inline-block;">		
 											         <div class="col-md-1 enlinea" style="text-align: right;" ><i class="fas fa-search"></i></div> 
 											         <div class="col-md-6 enlinea">
 											         	<input id="searchTerm" th:value=*{elemento} class="form-control " name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required"/>												           											          											           									
@@ -25,12 +25,15 @@
 											    	 </div>												   
 											    		
 											    </form>
-											    
+											     
 											    <form th:action="@{/Revista}"  th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" class="col-md-3" style="margin-bottom: 3px; margin-left: 5px; display: inline-block;">
+								        			<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/BajasVehiculos}"><i class="fas fa-window-close"style="margin-top: 10%;"></i></a>
 								        			<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/Vehiculos}"><i class="fas fa-sync-alt fa-1x" style="margin-top: 10%;"></i></a>
+								      
 								        			<button class="btn btn-primary btn-xs btn-stilo" type="submit" value="enviar" >Revista</button>	
 								        							    	
 						    					</form>	
+											    
 											    
 											    <form class="col-md-12 " th:action="@{/VehiculoClase}" id="EnviarClase" style="text-align: -webkit-right; margin-top: 1%;">	
 																																																	
@@ -46,7 +49,7 @@
 																</div>
 																												
 												</form>
-											    
+  
 											        <div id="coincidencias" class="col-md-6"></div>
 											</div>
 											
@@ -56,7 +59,6 @@
 												
 												<h2 class="titulotabla" id="todo"  th:text="${PageSubTitulo}"></h2>
 												
-										
 												<div class="col-md-6"></div>
 												<!-- <div class="row justify-content-end  col-md-6" style="float:right">      														        										
 												    <div class="col-md-2">
@@ -80,7 +82,7 @@
 													<!-- <th class="celda">Kilometraje</th>-->
 													<th class="celda">Adscripcion</th>
 													<th class="celda" style="width: 120px;">Opciones</th>
-													<th style="width: 1.5%;" th:if="${tamano} == 'mostrar'"></th>
+													<th style="width: 1.4%;" th:if="${tamano} == 'mostrar'"></th>
 													
 													<!-- <th>Eliminar</th>
 													<th>Asignacion</th>

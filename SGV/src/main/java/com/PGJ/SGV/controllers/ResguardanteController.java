@@ -69,8 +69,11 @@ public class ResguardanteController {
 		
 		placa = vehiculoService.findOne(id_vehiculo);
 		Page<Resguardante> vehiculopage = reguardanteservice.findAllByVehiculo(id_vehiculo, pageRequest);
-		PageRender<Resguardante> pageRender = new PageRender<>("/infoResguardante/{id_vehiculo}", vehiculopage);		
+		PageRender<Resguardante> pageRender = new PageRender<>("/infoResguardante/{id_vehiculo}", vehiculopage);
+		if(reguardanteservice.resguardantestotales()>=5) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};	
 	
+		
+		System.err.println("berserk"+reguardanteservice.resguardantestotales());
 		model.addAttribute("Placa", placa.getPlaca());
 		model.addAttribute("id_vehiculo", placa.getId_vehiculo());
 		model.addAttribute("Corddocu",Corddocu);		

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import com.PGJ.SGV.models.entity.Resguardante;
 
 
@@ -26,9 +25,8 @@ public interface IResguardanteService {
 		public List<Resguardante> findActivos();
 		
 		public List<Resguardante> findResg(Long id_vehiculo);
-
 		
-		//update
-		
+		public Long resguardantestotales();
+	
 		
 }

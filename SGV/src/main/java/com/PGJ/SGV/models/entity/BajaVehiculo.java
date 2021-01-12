@@ -23,6 +23,8 @@ public class BajaVehiculo implements Serializable {
 	private String url_acta_fnq;
 	private String url_oficio_baja;
 	private String url_dictamen;
+	private String fecha_ingreso_deposito;
+	private String fecha_compactacion;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	private Vehiculo vehiculo;
@@ -76,15 +78,33 @@ public class BajaVehiculo implements Serializable {
 		this.url_dictamen = url_dictamen;
 	}
 
+	public String getFecha_ingreso_deposito() {
+		return fecha_ingreso_deposito;
+	}
+
+	public void setFecha_ingreso_deposito(String fecha_ingreso_deposito) {
+		this.fecha_ingreso_deposito = fecha_ingreso_deposito;
+	}
+
+	public String getFecha_compactacion() {
+		return fecha_compactacion;
+	}
+
+	public void setFecha_compactacion(String fecha_compactacion) {
+		this.fecha_compactacion = fecha_compactacion;
+	}
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Override
 	public String toString() {
 		return "ID BAJA:"+id_baja_vehiculo+ ";" + "FECHA BAJA:" + fecha_baja + ";" + "ID VEHICULO:" + vehiculo.getId_vehiculo() + ";"+
 	    "PLACA:"+vehiculo.getPlaca(); 	
 	}
+	
 }
+

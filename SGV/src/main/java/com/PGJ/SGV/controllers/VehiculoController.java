@@ -216,8 +216,7 @@ public class VehiculoController {
 		model.addAttribute("PageTitulo", "Vehiculos");
 		return "Vehiculos";
 	}
-	
-	
+
 	@RequestMapping(value="/formVehiP1")
 	public String crearP1(Map<String,Object> model) {
 		
@@ -780,6 +779,7 @@ public class VehiculoController {
 				model.addAttribute("page",pageRender);
 				model.addAttribute("elemento",elemento);
 				model.addAttribute("PageTitulo", "Vehiculos");
+				model.addAttribute("PageSubTitulo", "Listado de Vehiculos");
 					return "Vehiculos";
 			};					
 			Page<Vehiculo> vehiculopage= vehiculoService.findVehElemntoPage(elemento, pageRequest);		 									
@@ -791,6 +791,7 @@ public class VehiculoController {
 			model.addAttribute("page",pageRender);
 			model.addAttribute("elemento",elemento);	
 			model.addAttribute("PageTitulo", "Vehiculos");
+			model.addAttribute("PageSubTitulo", "Listado de Vehiculos");
 			return "Vehiculos";
 		}else {
 			return "redirect:/Vehiculos";
@@ -963,5 +964,115 @@ public class VehiculoController {
 		model.put("titulo", "Información Vehiculo");	
 		return "infoVehi";
 	}	
+	
+	//BAJAS
+	
+	@RequestMapping(value="/BajasVehiculos", method = RequestMethod.GET)
+	public String listarbajas(Model model,@RequestParam(name="page", defaultValue = "0") int page) {		
+		//List<Vehiculo> vehiculoArea = new ArrayList<Vehiculo>();			
+				
+		var ads="";
+		ads = obuserService.obtenEmpl();
+		user = obuserService.obtenUser();
+		model.addAttribute("usuario",user);
+		
+		clase = vehiculoService.findallByClase();	
+		Pageable pageRequest = PageRequest.of(page, 1000);
+		
+		if(user.equals("ROLE_USER")){
+			Usuario usus = new Usuario();
+			usus = usuarioService.findbyAdscripcion(ads);								
+			
+			//vehiculoArea = vehiculoService.findVehiculosArea(usus.getAdscripcion().getId_adscripcion());
+			Page<Vehiculo> vehiculoPageAra = vehiculoService.findVehiculosBajaAreaPage(usus.getAdscripcion().getId_adscripcion(), pageRequest);
+			PageRender<Vehiculo> pageRender = new PageRender<>("/BajasVehiculos", vehiculoPageAra);
+			if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+			//model.addAttribute("vehiculos",vehiculoArea);						
+			
+			model.addAttribute("Corddocu",Corddocu);
+			model.addAttribute("Cordtabla",Cordtabla);
+			model.addAttribute("thisurl","Bajas Vehiculo");
+			model.addAttribute("PageTitulo", "Bajas Vehiculos");
+            model.addAttribute("PageSubTitulo", "Listado de Bajas Vehiculo");
+			model.addAttribute("vehiculos",vehiculoPageAra);		
+			model.addAttribute("page",pageRender);
+			return "BajasVehiculos";
+		}
+		
+		//adscripcionlist = adscripService.findAll();
+		//seguros = seguroService.findAll();
+		//vehiculo = vehiculoService.findAll();		
+		
+		
+		Page<Vehiculo> vehiculopage = vehiculoService.findTBajaVechiulo("AUTOMOVIL", pageRequest);
+		PageRender<Vehiculo> pageRender = new PageRender<>("/BajasVehiculos", vehiculopage);
+		int tamaño = 4;
+		if(vehiculoService.totalVehiculo()>= tamaño) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+
+		model.addAttribute("Corddocu",Corddocu);
+		model.addAttribute("marca",clase);
+		model.addAttribute("Cordtabla",Cordtabla);
+		model.addAttribute("thisurl","Bajas Vehiculos");
+		model.addAttribute("titulo","Listado de Vehiculos");
+		model.addAttribute("PageTitulo", "Bajas Vehiculos");
+        model.addAttribute("PageSubTitulo", "Listado de Bajas Vehiculos");
+		model.addAttribute("vehiculos",vehiculopage);
+		model.addAttribute("page",pageRender);
+		model.addAttribute("Clase","AUTOMOVIL");
+		
+		return "BajasVehiculos";
+	}
+	
+	
+	@RequestMapping(value="/formVehBajaBuscar")
+	public String Buscartablabajas(@RequestParam(name="page", defaultValue = "0") 
+	int page,@RequestParam(value="elemento") String elemento,Model model){	
+		
+		Pageable pageRequest = PageRequest.of(page, 1000);
+		 Double Dato;
+		 var ads="";
+		 ads = obuserService.obtenEmpl();
+		 user = obuserService.obtenUser();
+		 model.addAttribute("usuario",user);	
+		
+		if(!elemento.isBlank()) {			
+			if(isValidDouble(elemento)) {
+					Dato = Double.parseDouble(elemento);
+					DecimalFormat formt = new DecimalFormat("0");
+					elemento = formt.format(Dato);
+					elemento = elemento.replaceAll(",","");	
+			};
+			
+			if(user == "ROLE_USER") {
+				 Usuario usus = new Usuario();
+				usus = usuarioService.findbyAdscripcion(ads);					
+				Page<Vehiculo> vehiculopage = vehiculoService.findVehBajaElemAreaPage(usus.getAdscripcion().getId_adscripcion(), elemento, pageRequest);
+				if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+				PageRender<Vehiculo> pageRender = new PageRender<>("/formVehBajaBuscar?elemento="+elemento, vehiculopage);
+		
+				model.addAttribute("marca",clase);
+				model.addAttribute("vehiculos",vehiculopage);
+				model.addAttribute("page",pageRender);
+				model.addAttribute("elemento",elemento);
+				model.addAttribute("PageTitulo", "Bajas Vehiculos");
+				model.addAttribute("PageSubTitulo", "Listado de Bajas Vehiculos");
+					return "BajasVehiculos";
+			};					
+			Page<Vehiculo> vehiculopage= vehiculoService.findVehBajaElemntoPage(elemento, pageRequest);		 									
+			PageRender<Vehiculo> pageRender = new PageRender<>("/formVehBajaBuscar?elemento="+elemento, vehiculopage);
+			if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+
+			model.addAttribute("marca",clase);
+			model.addAttribute("vehiculos",vehiculopage);
+			model.addAttribute("page",pageRender);
+			model.addAttribute("elemento",elemento);	
+			model.addAttribute("PageTitulo", "Bajas Vehiculos");
+			model.addAttribute("PageSubTitulo", "Listado de Bajas Vehiculos");
+			return "BajasVehiculos";
+		}else {
+			return "redirect:/BajasVehiculos";
+		}
+						
+	}
 	
 }

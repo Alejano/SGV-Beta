@@ -116,7 +116,7 @@
 													<tbody>
 													
 														<tr th:each="conductoresql: ${conductores}" th:if="${conductoresql.enabled} == true">
-															<th style="width:30px"><input class="check2" type="radio" th:id="${conductoresql.nombre}+' '+${conductoresql.apellido1}+' '+${conductoresql.apellido2}" th:value="${conductoresql.no_empleado}"></th>															
+															<th style="width:30px"><input class="check2" type="radio" name="SelUsu" th:id="${conductoresql.nombre}+' '+${conductoresql.apellido1}+' '+${conductoresql.apellido2}" th:value="${conductoresql.no_empleado}"></th>															
 															<td th:text="${conductoresql.no_empleado}" class="celda"></td>
 															<td th:text="${conductoresql.nombre}" class="celda"></td>
 															<td th:text="${conductoresql.apellido1}" class="celda"></td>

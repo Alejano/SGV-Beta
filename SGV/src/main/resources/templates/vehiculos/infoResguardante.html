@@ -43,11 +43,13 @@
 												<tr>
 													<th class="celda">Placa</th>												
 													<th class="celda">Nombre</th>
-													<th class="celda">Primer Apellido</th>													
-													<th class="celda">Segundo Apellido</th>
+													<th class="celda">Apellido Paterno</th>													
+													<th class="celda">Apellido Materno</th>
 													<th class="celda">Cargo</th>
+													<th class="celda">Fecha</th>
 													<th class="celda">Activo</th>
-													<th class="celda">Tipo de Resguardo</th>													
+													<th class="celda">Tipo de Resguardo</th>	
+													<th style="width:1.4%" id="tamano" th:if="${tamano} == 'mostrar'"></th>													
 																								
 												</tr>
 											</thead>
@@ -59,9 +61,10 @@
 													<td class="celda" th:text="${vehiculossql.apellido1}"></td>
 													<td class="celda" th:text="${vehiculossql.apellido2}"></td>
 													<td class="celda" th:text="${vehiculossql.cargo}"></td>	
+													<td class="celda" th:text="${vehiculossql.fecha_inicio}"></td>	
 													<td class="celda" th:if="${vehiculossql.activo} == true " th:text="Activo"></td>
 													<td class="celda" th:if="${vehiculossql.activo} == false " th:text="Inactivo"></td>																										
-													<td class="celda" th:text="${vehiculossql.tipo_resguardante.nombre}"></td>																																						 										
+													<td class="celda" th:text="${vehiculossql.tipo_resguardante.nombre}"></td>																																					 										
 												</tr>
 											</tbody>
 										</table>
@@ -175,12 +178,14 @@
 	            $('#coincidencias').html("");
 	        } else if (total) {
 	        	$('#coincidencias').html("Se ha encontrado "+total+" coincidencia"+((total>1)?"s":""));
+	        	if(total<5){$("#tamano").hide();}else{$("#tamano").show();}
 	           // td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
 	
 	        } else {
 	
 	            lastTR.classList.add("red");
 	            $('#coincidencias').html("No se han encontrado coincidencias")
+	            $('#tamano').show();
 	            //td.innerHTML="No se han encontrado coincidencias";
 	        }
         

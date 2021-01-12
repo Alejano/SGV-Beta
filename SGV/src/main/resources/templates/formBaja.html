@@ -35,13 +35,14 @@
 														
 													</div>
 													
-													</br>
-													</br>
+												<div class="form-group col-sm-12"></div>
+												
+													<!--Fecha baja-->
 														
 														<div class="form-group col-sm-2">
 														<div class="help-block with-errors" style="width: 261px;"></div>
-														<input th:field="*{fecha_baja}" type="date" id="fecha" name="fecha" class="form-control signos"/>														
-														<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>
+														<input th:field="*{fecha_baja}" type="date" id="fecha" name="fecha" class="form-control signos" />														
+														<div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
 													</div>
 													<div class="form-group col-sm-2">
 														
@@ -49,7 +50,34 @@
 														
 													</div>
 													
+														<!--Fecha ingreso_deposito-->
 														
+														
+														<div class="form-group col-sm-2">
+														<div class="help-block with-errors" style="width: 261px;"></div>
+														<input th:field="*{fecha_ingreso_deposito}" type="date" id="fecha" name="fecha" class="form-control signos" required data-error="Ingrese Fecha de Ingreso Deposito"/>														
+														<div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
+													</div>
+													<div class="form-group col-sm-2">
+														
+														<input placeholder="Fecha de Ingreso Deposito " class="form-control" disabled>
+														
+													</div>
+													
+														<!--Fecha compactacion-->
+														
+														
+														<div class="form-group col-sm-2">
+														<div class="help-block with-errors" style="width: 261px;"></div>
+														<input th:field="*{fecha_compactacion}" type="date" id="fecha" name="fecha" class="form-control signos" required data-error="Ingrese Fecha de Compactacion"/>														
+														<div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
+													</div>
+													<div class="form-group col-sm-2">
+														
+														<input placeholder="Fecha de Compactacion " class="form-control" disabled>
+														
+													</div>
+													
 													
 														 <!--Adjuntar documento -->
 														<div class="form-group col-sm-12">

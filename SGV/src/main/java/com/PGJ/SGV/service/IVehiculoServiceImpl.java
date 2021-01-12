@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.PGJ.SGV.models.dao.IAdscripDao;
 import com.PGJ.SGV.models.dao.IVehiculoDao;
 import com.PGJ.SGV.models.dao.IVehiculoDetalleDao;
 import com.PGJ.SGV.models.dao.IVehiculoEstadoDao;
@@ -37,9 +39,9 @@ public class IVehiculoServiceImpl implements IVehiculoService {
 	private IVehiculoFuncionDao funcionDao;
    @Autowired
 	private IVehiculoTransDao tranmicionDao;
-   
-	
-   
+   @Autowired
+  	private IAdscripDao adscripcionDao;
+  
     @Override
 	@Transactional(readOnly = true)
 	public List<Vehiculo> findAll() {
@@ -130,6 +132,14 @@ public class IVehiculoServiceImpl implements IVehiculoService {
 	public Page<Vehiculo> findTVechiulo(String vehiculo,Pageable pageable) {
 		// TODO Auto-generated method stub
 		return vehiculoDao.findTVechiulo(vehiculo, pageable);
+		//return null;
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Vehiculo> findAdsVehiculo(String vehiculo,Pageable pageable) {
+		// TODO Auto-generated method stub
+		return vehiculoDao.findAdsVehiculo(vehiculo, pageable);
 		//return null;
 	}
 
@@ -247,6 +257,13 @@ public class IVehiculoServiceImpl implements IVehiculoService {
 
 	@Override
 	@Transactional(readOnly = true)
+	public List<String> findallByAds() {
+		// TODO Auto-generated method stub
+		return adscripcionDao.findallAds();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
 	public int ultimoId() {
 		// TODO Auto-generated method stub
 		return vehiculoDao.ultimoId();
@@ -282,5 +299,39 @@ public class IVehiculoServiceImpl implements IVehiculoService {
 	}
 	
 	
+	//BAJAS
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Vehiculo> findVehiculosBajaAreaPage(Long id_adscripcion, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return vehiculoDao.findVehiculosBajaAreaPage(id_adscripcion, pageable);
+		//return null;
+	}
 	
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Vehiculo> findTBajaVechiulo(String vehiculo,Pageable pageable) {
+		// TODO Auto-generated method stub
+		return vehiculoDao.findTBajaVechiulo(vehiculo, pageable);
+		//return null;
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Vehiculo> findVehBajaElemntoPage(String elemento, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return vehiculoDao.findVehBajaElemntoPage(elemento, pageable);
+		//return null;
+	}
+	
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Vehiculo> findVehBajaElemAreaPage(Long id_adscripcion, String elemento, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return vehiculoDao.findVehBajaElemAreaPage(id_adscripcion, elemento, pageable);
+		//return null;
+	}
+
 }

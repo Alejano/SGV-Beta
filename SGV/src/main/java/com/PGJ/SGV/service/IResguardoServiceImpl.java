@@ -85,5 +85,10 @@ public class IResguardoServiceImpl implements IResguardanteService {
 		return resguardoDao.findResg(id_vehiculo);
 	}
 	
+	@Override
+	public Long resguardantestotales() {
+		return resguardoDao.resguardantestotales();
+	}
+	
 
 }

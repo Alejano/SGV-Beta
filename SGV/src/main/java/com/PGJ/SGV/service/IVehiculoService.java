@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 import com.PGJ.SGV.models.entity.Vehiculo;
 import com.PGJ.SGV.models.entity.VehiculoDetalle;
@@ -37,6 +38,8 @@ public interface IVehiculoService {
 	public List<String> findallTipoUnico(String nombre_marca,String nombre_submarca,String modelo);
 	public List<String> findallClaseUnico(String nombre_marca,String nombre_submarca,String modelo,String tipo);
 	public List<String> findallByClase();
+	public List<String> findallByAds();
+	
 	public VehiculoMarca findMarca(String nombre_marca,String nombre_submarca,String modelo,String tipo,String clase);
 	
 	public Page<Vehiculo> findAllPage(Pageable pageable); 
@@ -61,10 +64,22 @@ public interface IVehiculoService {
 		
 	public Page<Vehiculo> findTVechiulo(String vehiculo,Pageable pageable);
 	
+	public Page<Vehiculo> findAdsVehiculo(String vehiculo,Pageable pageable);
+	
 	public int ultimoId();
 	
 	public Vehiculo findByPlaca(String Placa);
 	
 	public String findPlaca(long Placa);
+	
+	// BAJAS 
+	
+	public Page<Vehiculo> findVehiculosBajaAreaPage(Long id_adscripcion,Pageable pageable);
+	
+	public Page<Vehiculo> findTBajaVechiulo(String vehiculo,Pageable pageable);
+	
+	public Page<Vehiculo> findVehBajaElemntoPage(String elemento,Pageable pageable);
+	
+	public Page<Vehiculo> findVehBajaElemAreaPage(Long id_adscripcion,String elemento,Pageable pageable);
 	
 }
