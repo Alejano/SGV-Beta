@@ -38,8 +38,7 @@
 											    <form class="col-md-12 " th:action="@{/VehiculoClase}" id="EnviarClase" style="text-align: -webkit-right; margin-top: 1%;">	
 														<div class="row">																																		
 															<!--Marcas-->
-																<div class="form-group col-md-6" id="marca1">		
-																																										
+																<div class="form-group col-md-3" id="marca1">																							
 																	<select id="clase" name="clase" class="form-control" style="left: unset !important; height: 34px;" onchange="filtrarClase()">																																    																 
 																	    <option value="">Selecciona la Clase</option>
 																	    <option th:each="marca : ${marca}" 
@@ -47,7 +46,21 @@
 																	    th:text="${marca}"></option>
 																	</select>																																																												
 																</div>
+																<!-- Calev Filtrar por estado -->
+																<div class="form-group col-md-3" id="estadodiv">
+													<select id="estado" name="estado" class="form-control"
+														style="left: unset !important; height: 34px; whith: 127px;"
+														onchange="filtrarEstado()">
+														<option value="">Selecciona un estado</option>
+														<option value="Activo">Activo</option>
+														<option value="Inactivo">Inactivo</option>
+														<option value="Mantenimiento">Mantenimiento</option>
+														<option value="Siniestrado">Siniestrado</option>
+													</select>
+												</div>
 																
+																
+																<!-- fin filtrar por estado -->
 																
 																<!-- Calev filtrar por adscripcion -->
 												<div class="form-group col-md-6" id="marca1">
@@ -63,7 +76,7 @@
 												<!-- fin calev -->
 																
 																
-																		</div>										
+																		</div>		<!-- row -->								
 												</form>
   
 											        <div id="coincidencias" class="col-md-6"></div>
@@ -424,7 +437,12 @@
 			$("#EnviarClase").submit();
 		}
 	}
-
+function filtrarEstado() {
+		if($("#estado").val()!=""){
+			$("#searchTerm").val($("#estado").val());
+			$("#Busqueda").submit();
+		}
+	}
       
       //--Calev
 
