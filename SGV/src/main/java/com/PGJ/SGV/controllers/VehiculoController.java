@@ -3,10 +3,6 @@ package com.PGJ.SGV.controllers;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,7 +45,8 @@ import com.PGJ.SGV.service.IVehiculoService;
 import com.PGJ.SGV.util.paginador.PageRender;
 import com.PGJ.SGV.utilities.ObtenHour;
 import com.PGJ.SGV.utilities.SystemDate;
-
+//Calev 
+import java.util.*;
 @Controller
 public class VehiculoController {
 	
@@ -135,8 +132,13 @@ public class VehiculoController {
 			model.addAttribute("PageTitulo", "Vehiculos");
 			//calev
 			adscripcionlist = adscripService.findAll();
+			Collections.sort(adscripcionlist, new Comparator<Adscripcion>() {
+				public int compare(Adscripcion a1, Adscripcion a2) {
+					return a1.getNombre_adscripcion().compareTo(a2.getNombre_adscripcion());
+				}
+				});
 			model.addAttribute("adslist",adscripcionlist);
-			
+			//-calev
 			return "Vehiculos";
 		}
 		
@@ -151,6 +153,13 @@ public class VehiculoController {
 		if(vehiculoService.totalVehiculo()>= tamaño) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 
 		model.addAttribute("Corddocu",Corddocu);
+		//calev acomoda por clase
+		Collections.sort(clase, new Comparator<String>() {
+			public int compare(String a1, String a2) {
+				return a1.compareTo(a2);
+			}
+			});
+		//calev
 		model.addAttribute("marca",clase);
 		model.addAttribute("Cordtabla",Cordtabla);
 		model.addAttribute("thisurl","Vehiculos");
@@ -162,7 +171,13 @@ public class VehiculoController {
 		model.addAttribute("Clase","AUTOMOVIL");
 		model.addAttribute("PageTitulo", "Vehiculos");
 		//calev
+		
 		adscripcionlist = adscripService.findAll();
+		Collections.sort(adscripcionlist, new Comparator<Adscripcion>() {
+			public int compare(Adscripcion a1, Adscripcion a2) {
+				return a1.getNombre_adscripcion().compareTo(a2.getNombre_adscripcion());
+			}
+			});
 		model.addAttribute("adslist",adscripcionlist);
 		
 		return "Vehiculos";
@@ -174,6 +189,11 @@ public class VehiculoController {
 		
 		//calev
 				adscripcionlist = adscripService.findAll();
+				Collections.sort(adscripcionlist, new Comparator<Adscripcion>() {
+					public int compare(Adscripcion a1, Adscripcion a2) {
+						return a1.getNombre_adscripcion().compareTo(a2.getNombre_adscripcion());
+					}
+					});
 				model.addAttribute("adslist",adscripcionlist);
 				model.addAttribute("elemento",Clase);
 				//---------
@@ -217,6 +237,13 @@ public class VehiculoController {
 		if(vehiculoService.totalVehiculo()>= tamaño) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 	
 		model.addAttribute("Corddocu",Corddocu);
+		//calev acomoda por clase
+				Collections.sort(clase, new Comparator<String>() {
+					public int compare(String a1, String a2) {
+						return a1.compareTo(a2);
+					}
+					});
+				//calev
 		model.addAttribute("marca",clase);
 		model.addAttribute("Cordtabla",Cordtabla);
 		model.addAttribute("thisurl","Vehiculos");
@@ -306,6 +333,11 @@ public class VehiculoController {
 		Sresguardante.setFecha_inicio(formateador.format(ahora));
 		
 		adscripcionlist = adscripService.findAll();
+		Collections.sort(adscripcionlist, new Comparator<Adscripcion>() {
+			public int compare(Adscripcion a1, Adscripcion a2) {
+				return a1.getNombre_adscripcion().compareTo(a2.getNombre_adscripcion());
+			}
+			});
 		seguros = seguroService.findAll();
 	
 		Vehiculo vehi = new Vehiculo();
@@ -773,8 +805,20 @@ public class VehiculoController {
 		 model.addAttribute("usuario",user);	
 		//calev
 			adscripcionlist = adscripService.findAll();
+			Collections.sort(adscripcionlist, new Comparator<Adscripcion>() {
+				public int compare(Adscripcion a1, Adscripcion a2) {
+					return a1.getNombre_adscripcion().compareTo(a2.getNombre_adscripcion());
+				}
+				});
 			model.addAttribute("adslist",adscripcionlist);
+			//calev acomoda por clase
 			clase = vehiculoService.findallByClase();
+			Collections.sort(clase, new Comparator<String>() {
+				public int compare(String a1, String a2) {
+					return a1.compareTo(a2);
+				}
+				});
+			//calev
 			model.addAttribute("marca",clase);
 			model.addAttribute("elemento",elemento);
 			System.out.println(elemento);
@@ -794,6 +838,13 @@ public class VehiculoController {
 				if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 				PageRender<Vehiculo> pageRender = new PageRender<>("/formVehBuscar?elemento="+elemento, vehiculopage);
 		
+				//calev acomoda por clase
+				Collections.sort(clase, new Comparator<String>() {
+					public int compare(String a1, String a2) {
+						return a1.compareTo(a2);
+					}
+					});
+				//calev
 				model.addAttribute("marca",clase);
 				model.addAttribute("vehiculos",vehiculopage);
 				model.addAttribute("page",pageRender);
@@ -802,6 +853,11 @@ public class VehiculoController {
 				model.addAttribute("PageSubTitulo", "Listado de Vehiculos");
 				//calev
 				adscripcionlist = adscripService.findAll();
+				Collections.sort(adscripcionlist, new Comparator<Adscripcion>() {
+					public int compare(Adscripcion a1, Adscripcion a2) {
+						return a1.getNombre_adscripcion().compareTo(a2.getNombre_adscripcion());
+					}
+					});
 				model.addAttribute("adslist",adscripcionlist);
 				
 					return "Vehiculos";
@@ -809,7 +865,13 @@ public class VehiculoController {
 			Page<Vehiculo> vehiculopage= vehiculoService.findVehElemntoPage(elemento, pageRequest);		 									
 			PageRender<Vehiculo> pageRender = new PageRender<>("/formVehBuscar?elemento="+elemento, vehiculopage);
 			if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
-
+			//calev acomoda por clase
+			Collections.sort(clase, new Comparator<String>() {
+				public int compare(String a1, String a2) {
+					return a1.compareTo(a2);
+				}
+				});
+			//calev
 			model.addAttribute("marca",clase);
 			model.addAttribute("vehiculos",vehiculopage);
 			model.addAttribute("page",pageRender);
@@ -818,6 +880,11 @@ public class VehiculoController {
 			model.addAttribute("PageSubTitulo", "Listado de Vehiculos");
 			//calev
 			adscripcionlist = adscripService.findAll();
+			Collections.sort(adscripcionlist, new Comparator<Adscripcion>() {
+				public int compare(Adscripcion a1, Adscripcion a2) {
+					return a1.getNombre_adscripcion().compareTo(a2.getNombre_adscripcion());
+				}
+				});
 			model.addAttribute("adslist",adscripcionlist);
 			
 			return "Vehiculos";
@@ -962,13 +1029,49 @@ public class VehiculoController {
 			funcion = vehiculoService.findAllFuncion();
 			detalle = vehiculoService.findDetalle(id_vehiculo);
 			documento = vehiculoService.findTCDetalle(id_vehiculo);
+			//calev null
+			try {
 			res = reguardanteservice.findResg(vehiculo.getId_vehiculo());
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				Resguardante r1 = new Resguardante();
+				res = new ArrayList<Resguardante>();
+				r1.getTipo_resguardante().setNombre("N/A");
+				r1.setNombre("N/A");
+				r1.setApellido1("N/A");
+				r1.setApellido2("N/A");
+				res.add(r1);
+				Resguardante r2 = new Resguardante();
+				r2.getTipo_resguardante().setNombre("N/A");
+				r2.setNombre("N/A");
+				r2.setApellido1("N/A");
+				r2.setApellido2("N/A");
+				res.add(r2);
+				Resguardante r3 = new Resguardante();
+				r3.getTipo_resguardante().setNombre("N/A");
+				r3.setNombre("N/A");
+				r3.setApellido1("N/A");
+				r3.setApellido2("N/A");
+				res.add(r3);
+			}
+			//--null calev
+			try {
 			estado = estadoService.findbyPlaca(vehiculo.getPlaca());
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
 			revista = revistaService.UltimaRevistaVehiculo(vehiculo.getId_vehiculo());
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			if(documento != null) {documento = "existe";}else{documento = "noexiste";};
-			
+			try {
 			coche = vehiculo.getPlaca();
-			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else {
 			return "redirect:/Vehiculos";
 		}
@@ -988,10 +1091,47 @@ public class VehiculoController {
 				model.put("Resguardante", res);
 				model.put("estado", estado);
 				model.put("revista", revista);			
-				
 				model.put("documento", documento);
 				model.put("seguroslist", seguros);
-				model.put("adslist",adscripcionlist );		
+				model.put("adslist",adscripcionlist );	
+				//calev null vehiculo_transmision.nombre_transmision
+				System.out.println("calev123 " + vehiculo);
+				if (vehiculo.getNo_serie()==null) {vehiculo.setNo_serie("N/A");}
+				if (vehiculo.getNo_inventario()==null) {vehiculo.setNo_inventario("N/A");}
+				if (vehiculo.getPlaca()==null) {vehiculo.setPlaca("N/A");}
+				if (Double.isNaN(vehiculo.getKilometraje_inicial())) {vehiculo.setKilometraje_inicial(0);}
+				if (vehiculo.getVehiculo_detalle()==null) {
+					VehiculoDetalle vehiDetalle1 = new VehiculoDetalle();
+					vehiDetalle1.setNo_motor("N/A");
+					vehiDetalle1.setValor_compra("N/A");
+					vehiDetalle1.setColor("N/A");
+					vehiDetalle1.setTipo_combustible("N/A");
+					vehiDetalle1.setNo_puertas("N/A");
+					vehiDetalle1.setRin("N/A");
+					vehiDetalle1.setNo_cilindros("N/A");
+					vehiDetalle1.setNo_personas("N/A");
+					vehiculo.setVehiculo_detalle(vehiDetalle1);
+				}
+				if(vehiculo.getVehiculo_marca()==null) {
+					VehiculoMarca vehiMarca1 = new VehiculoMarca();
+					vehiMarca1.setNombre_marca("N/A");
+					vehiMarca1.setNombre_submarca("N/A");
+					vehiMarca1.setClase("N/A");
+					vehiMarca1.setTipo("N/A");
+					vehiculo.setVehiculo_marca(vehiMarca1);
+				}
+				if(vehiculo.getVehiculo_funcion()==null) {
+					VehiculoFuncion vehiFuncion1 = new VehiculoFuncion();
+					vehiFuncion1.setNombre_funcion("N/A");
+					vehiculo.setVehiculo_funcion(vehiFuncion1);
+				}
+				if(vehiculo.getVale()==null) {vehiculo.setVale("N/A");}
+				if(vehiculo.getVehiculo_transmision()==null) {
+					VehiculoTransmision trans1 = new VehiculoTransmision();
+					trans1.setNombre_transmision("N/A");
+					vehiculo.setVehiculo_transmision(trans1);
+				}
+				//---calev vull
 				model.put("vehiculo",vehiculo);
 				model.put("detalle",detalle);
 				model.put("marcas",marca);				
@@ -1015,6 +1155,17 @@ public class VehiculoController {
 		
 		clase = vehiculoService.findallByClase();	
 		Pageable pageRequest = PageRequest.of(page, 1000);
+		
+		//calev
+		adscripcionlist = adscripService.findAll();
+		Collections.sort(adscripcionlist, new Comparator<Adscripcion>() {
+			public int compare(Adscripcion a1, Adscripcion a2) {
+				return a1.getNombre_adscripcion().compareTo(a2.getNombre_adscripcion());
+			}
+			});
+		model.addAttribute("adslist",adscripcionlist);
+		//-calev
+		
 		
 		if(user.equals("ROLE_USER")){
 			Usuario usus = new Usuario();
@@ -1043,10 +1194,17 @@ public class VehiculoController {
 		
 		Page<Vehiculo> vehiculopage = vehiculoService.findTBajaVechiulo("AUTOMOVIL", pageRequest);
 		PageRender<Vehiculo> pageRender = new PageRender<>("/BajasVehiculos", vehiculopage);
-		int tamaño = 4;
-		if(vehiculoService.totalVehiculo()>= tamaño) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+		int tamano = 4;
+		if(vehiculoService.totalVehiculo()>= tamano) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 
 		model.addAttribute("Corddocu",Corddocu);
+		//calev acomoda por clase
+		Collections.sort(clase, new Comparator<String>() {
+			public int compare(String a1, String a2) {
+				return a1.compareTo(a2);
+			}
+			});
+		//calev
 		model.addAttribute("marca",clase);
 		model.addAttribute("Cordtabla",Cordtabla);
 		model.addAttribute("thisurl","Bajas Vehiculos");
@@ -1071,7 +1229,15 @@ public class VehiculoController {
 		 ads = obuserService.obtenEmpl();
 		 user = obuserService.obtenUser();
 		 model.addAttribute("usuario",user);	
-		
+		//calev
+			adscripcionlist = adscripService.findAll();
+			Collections.sort(adscripcionlist, new Comparator<Adscripcion>() {
+				public int compare(Adscripcion a1, Adscripcion a2) {
+					return a1.getNombre_adscripcion().compareTo(a2.getNombre_adscripcion());
+				}
+				});
+			model.addAttribute("adslist",adscripcionlist);
+			//-calev
 		if(!elemento.isBlank()) {			
 			if(isValidDouble(elemento)) {
 					Dato = Double.parseDouble(elemento);
@@ -1086,7 +1252,13 @@ public class VehiculoController {
 				Page<Vehiculo> vehiculopage = vehiculoService.findVehBajaElemAreaPage(usus.getAdscripcion().getId_adscripcion(), elemento, pageRequest);
 				if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
 				PageRender<Vehiculo> pageRender = new PageRender<>("/formVehBajaBuscar?elemento="+elemento, vehiculopage);
-		
+				//calev acomoda por clase
+				Collections.sort(clase, new Comparator<String>() {
+					public int compare(String a1, String a2) {
+						return a1.compareTo(a2);
+					}
+					});
+				//calev
 				model.addAttribute("marca",clase);
 				model.addAttribute("vehiculos",vehiculopage);
 				model.addAttribute("page",pageRender);
@@ -1098,7 +1270,13 @@ public class VehiculoController {
 			Page<Vehiculo> vehiculopage= vehiculoService.findVehBajaElemntoPage(elemento, pageRequest);		 									
 			PageRender<Vehiculo> pageRender = new PageRender<>("/formVehBajaBuscar?elemento="+elemento, vehiculopage);
 			if(vehiculoService.totalVehiculo()>=4) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
-
+			//calev acomoda por clase
+			Collections.sort(clase, new Comparator<String>() {
+				public int compare(String a1, String a2) {
+					return a1.compareTo(a2);
+				}
+				});
+			//calev
 			model.addAttribute("marca",clase);
 			model.addAttribute("vehiculos",vehiculopage);
 			model.addAttribute("page",pageRender);

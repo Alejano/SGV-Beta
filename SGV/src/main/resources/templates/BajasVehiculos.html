@@ -26,10 +26,21 @@
 											    		
 											    </form>
 											     
-								        			<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/Vehiculos}"><i class="fas fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%;"></i></a>
+								        			<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/Vehiculos}"><i class="fas fa-arrow-alt-circle-left fa-1x" style="margin-top: 10%;"></i></a>
 								        			<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/BajasVehiculos}"><i class="fas fa-sync-alt fa-1x" style="margin-top: 10%;"></i></a>
 								     								        							    	
-											    
+											    <!-- Calev filtrar por adscripcion -->
+												<div class="form-group col-md-6 offset-md-6" id="adscr">
+													<select id="adscripcion" name="adss" class="form-control"
+														style="float: right !important; height: 34px; whith: 127px;"
+														onchange="filtrarAdscripcion()">
+														<option value="">Selecciona una Adscripci&oacute;n</option>
+														<option th:each="adss : ${adslist}"
+															th:value="${adss.nombre_adscripcion}"
+															th:utext="${adss.nombre_adscripcion}"></option>
+													</select>
+												</div>
+												<!-- fin calev -->
 											        <div id="coincidencias" class="col-md-6"></div>
 											</div>
 											
@@ -315,7 +326,24 @@
       //FastClick.attach(document.body);
       	
     });
-           
+  //calev
+	function filtrarAdscripcion() {
+		if($("#adscripcion").val()!=""){
+			$("#searchTerm").val($("#adscripcion").val());
+			$("#Busqueda").submit();
+			console.log("Entro");
+		}
+	console.log("fuera if");
+	}
+	function filtrarClase() {
+		if($("#clase").val()!=""){
+			$("#searchTerm").val($("#clase").val());
+			$("#EnviarClase").submit();
+		}
+	}
+
+      
+      //--Calev    
     </script>
 </body>
 </html>
