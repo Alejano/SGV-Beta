@@ -96,6 +96,14 @@
             )
             return false;
     });
+	
+	$(".Contrato").keypress(function (key) {
+        if ((key.charCode != 45 && key.charCode < 65 || key.charCode > 90)//letras mayusculas
+                && (key.charCode < 48 || key.charCode > 57)//numeros 
+            )
+            return false;
+    });
+    
     
 	function letras(e){
 		var key=e.keyCode || e.which;

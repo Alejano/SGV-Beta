@@ -59,6 +59,7 @@ public class MantenimintoController {
 	private IObtenerUserService obuserService;
 	
 	String user;
+	int cont=0;
 	
 	@RequestMapping(value="/Mantenimientos", method = RequestMethod.GET)
 	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model, Model model2) {				
@@ -125,6 +126,13 @@ public class MantenimintoController {
 				Usuario usus = new Usuario();
 				usus = usuarioService.findbyAdscripcion(ads);	
 				
+				//BRENDA CAMBIO 19/01/2021
+				if (vehi.getVehiculo_estado().getId_estado().equals(1L)) {
+					cont=0;
+					System.err.println("prueba"+cont);
+					}
+				//
+				
 				Page<Mantenimiento> mantAreaPage = mantService.FindMantPlacaAreaPage(vehi.getId_vehiculo(), usus.getAdscripcion().getId_adscripcion(), pageRequest);
 				PageRender<Mantenimiento> mantRender = new PageRender<>("/Mantenimientos/{placa}",mantAreaPage);
 				
@@ -137,6 +145,7 @@ public class MantenimintoController {
 				model.addAttribute("mantenimientos",mantAreaPage);
 				model.addAttribute("page",mantRender);
 				model.addAttribute("Mplaca",Mplaca);
+				model.addAttribute("cont",cont);
 				
 				return "Mantenimientos";
 				
@@ -144,6 +153,14 @@ public class MantenimintoController {
 			
 			Page<Mantenimiento> mantPage = mantService.FindMantPlacaPage(vehi.getId_vehiculo(), pageRequest);
 			PageRender<Mantenimiento> mantRender = new PageRender<>("/Mantenimientos/"+vehi.getPlaca(),mantPage);
+			
+			
+			//BRENDA CAMBIO 19/01/2021
+			if (vehi.getVehiculo_estado().getId_estado().equals(1L)) {
+				cont=0;
+				System.err.println("prueba"+cont);
+				}
+			//
 				
 		model.addAttribute("PageTitulo", "Mantenimientos");
 		model.addAttribute("PageSubTitulo", "Listado de Mantenimientos de la placa: "+vehi.getPlaca());
@@ -155,6 +172,7 @@ public class MantenimintoController {
 		model.addAttribute("Mplaca",Mplaca);
 		model.addAttribute("idestado",vehi.getVehiculo_estado().getId_estado());
 		model.addAttribute("estado",vehi.getVehiculo_estado().getNombre_estado());
+		model.addAttribute("cont",cont);
 		
 		return "Mantenimientos";
 		
@@ -241,7 +259,7 @@ public class MantenimintoController {
 	
 	
 	@RequestMapping(value="/formMant",method = RequestMethod.POST)
-	public String guardar(Mantenimiento mantenimiento,@RequestParam("file") MultipartFile documento){			
+	public String guardar(Mantenimiento mantenimiento,@RequestParam("file") MultipartFile documento,Map<String,Object> model){			
 			Vehiculo vehiculoselect =new Vehiculo();
 			
 			if (!documento.isEmpty()) {
@@ -289,8 +307,22 @@ public class MantenimintoController {
 					
 					vehiculoselect = vehiculoService.findOne(mantenimiento.getVehiculo().getId_vehiculo());							
 					mantenimiento.setVehiculo(vehiculoselect);
-					mantenimiento.setKilometraje(vehiculoselect.getKilometraje_inicial());					
-					mantService.save(mantenimiento);
+					mantenimiento.setKilometraje(vehiculoselect.getKilometraje_inicial());	
+					
+					
+					//BRENDA CAMBIO 19/01/2021
+					
+					if(mantenimiento.getVehiculo().getVehiculo_estado().getId_estado().equals(4L)) {
+						
+						System.err.println("entro:");
+						mantService.save(mantenimiento);
+						cont = cont + 1;
+						model.put("cont", cont);
+						
+					}
+					
+					//
+
 					String valor_nuevo=mantenimiento.toString();
 					
 					//Auditoria

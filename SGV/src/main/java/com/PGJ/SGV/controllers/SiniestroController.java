@@ -60,6 +60,7 @@ public class SiniestroController {
 	Long id_sin;
 	String user;
 	String id_placa;
+	int cont=0;
 	
 	@RequestMapping(value="/Siniestros", method = RequestMethod.GET)
 	public String listar(@RequestParam(name="page", defaultValue = "0") int page,Model model) {	
@@ -120,6 +121,13 @@ public class SiniestroController {
 			vehiculo = vehiculoService.findOne(id_vehiculo);
 			id_placa=vehiculo.getPlaca();
 			
+			//BRENDA CAMBIO 19/01/2021
+			if (vehiculo.getVehiculo_estado().getId_estado().equals(1L)) {
+				cont=0;
+				System.err.println("prueba"+cont);
+				}
+			//
+			
 			Page<Siniestro> SiniestroPage = siniestroService.FindsegVehi(vehiculo.getId_vehiculo(), pageRequest);
 			PageRender<Siniestro> SiniestroRenderArea = new PageRender<>("/Siniestros",SiniestroPage);
 			if(siniestroService.totalSiniestrosVehi(id_vehiculo)>=6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
@@ -132,6 +140,7 @@ public class SiniestroController {
 			model.addAttribute("auxiliar", aux);
 			model.addAttribute("siniestros",SiniestroPage);
 			model.addAttribute("page",SiniestroRenderArea);
+			model.addAttribute("cont",cont);
 			return "Siniestros";
 
 	}
@@ -194,7 +203,7 @@ public class SiniestroController {
 	@RequestMapping(value="/formSin",method = RequestMethod.POST)
 	public String guardar(Siniestro siniestro, @RequestParam("file_ide") MultipartFile identificacion,@RequestParam("file_ine") MultipartFile ine,
 			@RequestParam("file_licencia") MultipartFile licencia, @RequestParam("file_declaracion") MultipartFile declaracion_universal,
-			@RequestParam("file_ingreso") MultipartFile constancia_ingreso, @RequestParam("file_salida") MultipartFile constancia_salida) {
+			@RequestParam("file_ingreso") MultipartFile constancia_ingreso, @RequestParam("file_salida") MultipartFile constancia_salida,Map<String,Object> model) {
 		
 			Vehiculo vehiculoselect =new Vehiculo();
 			
@@ -377,6 +386,7 @@ public class SiniestroController {
 				
 				//Siniestro OLD
 			    
+				
 				Siniestro siniestro_old = null;
 				siniestro_old = siniestroService.findOne(siniestro.getId_siniestro());
 			    String valor_old = siniestro_old.toString();
@@ -408,7 +418,20 @@ public class SiniestroController {
 		
 			vehiculoselect = vehiculoService.findOne(siniestro.getVehiculo().getId_vehiculo());							
 			siniestro.setVehiculo(vehiculoselect);
-			siniestroService.save(siniestro);
+			
+			//BRENDA CAMBIO 19/01/2021
+			
+			if(siniestro.getVehiculo().getVehiculo_estado().getId_estado().equals(3L)) {
+				
+				System.err.println("entro:");
+				siniestroService.save(siniestro);
+				cont = cont + 1;
+				model.put("cont", cont);
+				
+			}
+			
+			//
+			
 			String valor_nuevo=siniestro.toString();
 			
 			//Auditoria
