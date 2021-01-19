@@ -5,7 +5,6 @@
 <body>
 	<header th:replace="/layout/layoutHead :: header"></header>
 
-	
 	<section>
 	 <div class="tab-content">
 	      <div class="form-group last col-sm-12 fondolistado">
@@ -13,6 +12,10 @@
 	                    <div class="tab-content">
 	                        <div class="col-sm-12">
 	                            <div class="item-wrap">
+	                               <div class="alert alert-danger" role="alert"
+									 th:if="${idestado} != 1 and ${idestado} != null">
+									 <div th:text="'El vehiculo esta en estado de '+${estado}"></div>
+								   </div>
 	                                <div class="row" style="text-align: center;" >
 	                                       
 	                                        <div class=" col-md-12" id="Contenedorbuscar" >
@@ -84,7 +87,7 @@
 										<div style="margin-left: 44%;margin-right: 40%;"><nav th:replace="paginator-nav :: paginator"></nav></div>
 										
 							            <div class="form-group last col-sm-12" th:if="${auxiliar == true and (usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SINIESTRO')}">
-									    <a class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/formSin/Ag/} + ${id_vehiculo}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>							
+									    <a th:if="${idestado} == 1" class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/formSin/Ag/} + ${id_vehiculo}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>							
 										</div>
 	                                    </div>
 	                                </div>	                                	                              

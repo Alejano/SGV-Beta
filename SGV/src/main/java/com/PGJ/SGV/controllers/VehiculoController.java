@@ -523,7 +523,10 @@ public class VehiculoController {
 	
 	@RequestMapping(value="/formVehi/{id_vehiculo}")
 	public String editar(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {		
+		
 		adscripcionlist = adscripService.findAll();
+		estado = estadoService.findEstados();
+		
 		Vehiculo vehiculo = null;
 		VehiculoDetalle detalle = null;
 		
@@ -558,7 +561,8 @@ public class VehiculoController {
 		model.put("editando", "si");
 		model.put("documento", documento);
 		model.put("seguroslist", seguros);
-		model.put("adslist",adscripcionlist );		
+		model.put("adslist",adscripcionlist);	
+		model.put("estado", estado);
 		model.put("vehiculo",vehiculo);		
 		model.put("detalle",detalle);	
 		model.put("marcas",marca);			

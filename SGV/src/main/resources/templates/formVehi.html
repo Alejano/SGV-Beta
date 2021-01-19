@@ -15,20 +15,52 @@
 	                                <div class="row">
 	                                    <div class="col-md-12">
 	                                        <form th:action="@{/formVehi}" th:object="${vehiculo}" enctype="multipart/form-data" method="post" id="formulario"  data-toggle="validator" class="popup-form">
-	                                            <div class="row">	                                            		
+	                                            <div class="row">	
+	                                                                                        		
 														<div class="border col-sm-12">
-			                                            <!--Numero de placa-->
+														
+			                                        <!--Numero de placa-->
 															<div class="form-group col-sm-3 enlineaform">
 																<div class="help-block with-errors" style="width: 261px;"></div>									
 																<input th:field="*{placa}" name="fname" id="N_Placa" placeholder="Placa" class="form-control soloLetras" type="text" required data-error="Ingrese El Numero de Placa">
 																<div class="input-group-icon"><i class="fa fa-user"></i></div>														
 															</div>
-															<div class="form-group col-sm-3 enlineaform">													
+															<div class="form-group col-sm-2 enlineaform">													
 																<input placeholder="Placa" class="form-control" disabled>														
 															</div>
 															
 															<div class="form-group col-sm-5 enlineaform"></div>	
 															
+													<!-- Estado -->
+													    <div class="form-group col-sm-4 enlineaform">
+														<select th:field="*{vehiculo_estado}" class="form-control" style=" height: 34px;" required data-error="Ingrese la Adscripcion">									
+										                         <option value=""  th:if="${editando == 'no'}"> Seleccione un estado </option>
+										                         <option th:value="${vehiculo_estado.nombre_estado}" th:text="${vehiculo_estado.nombre_estado}" th:if="${editar} == true"></option>
+										                         <option th:each="estados : ${estado} "
+										                            th:value="${estados.id_estado}"
+										                            th:utext="${estados.nombre_estado}" />
+										                    </select>
+										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
+													</div>
+												
+
+												    <!--Adscripción-->
+
+													<div class="form-group col-sm-6 enlineaform">
+														<select th:field="*{adscripcion}" class="form-control" style=" height: 34px;" required data-error="Ingrese la Adscripcion">
+														
+										                         <option value=""  th:if="${editando == 'no'}"> Seleccione una adscripcion </option>
+										                         <option th:value="${adscripcion.nombre_adscripcion}" th:text="${adscripcion.nombre_adscripcion}" th:if="${editar} == true"></option>
+										                         <option th:each="adss : ${adslist} "
+										                            th:value="${adss.id_adscripcion}"
+										                            th:utext="${adss.nombre_adscripcion}" />
+										                    </select>
+										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
+													</div>		
+													
+													</div>
+														<div class="form-group col-sm-12 enlineaform" th:if="${editando} == 'si'"><h3>Datos Generales</h3>																
+													
 															<!--kilometros -->	
 															
 															<div class="form-group col-sm-3 enlineaform">
@@ -47,7 +79,7 @@
 																<input th:field="*{no_serie}"  id="N_serie" placeholder="Numero de Serie" class="form-control signos" type="text" required data-error="Ingrese El Numero de Serie">
 																<div class="input-group-icon"><i class="fas fa-ad"></i></div>
 															</div>	
-															<div class="form-group col-sm-3 enlineaform">													
+															<div class="form-group col-sm-2 enlineaform">													
 																<input placeholder="Numero de serie" class="form-control" disabled>														
 															</div>
 															
@@ -471,6 +503,7 @@
 														</div>
 													</div>
 													
+													
 													<div class="form-group col-sm-3 enlineaform">
 																<div class="help-block with-errors" style="width: 450px;"></div>
 																
@@ -480,27 +513,9 @@
 													</div>
 													<div class="form-group col-sm-3 enlineaform">													
 																<input placeholder="Vigencia de circulacion" class="form-control" disabled>														
-													</div>																								
-
-												<!--Adscripción-->
-
-													<div class="form-group col-sm-12 enlineaform">
-														<select th:field="*{adscripcion}" class="form-control" style=" height: 34px;" required data-error="Ingrese la Adscripcion">
-														
-														
-										                         <option value=""  th:if="${editando == 'no'}"> Seleccione una adscripcion </option>
-										                         <option th:value="${adscripcion.nombre_adscripcion}" th:text="${adscripcion.nombre_aseguradora}" th:if="${editar} == true"></option>
-										                         <option th:each="adss : ${adslist} "
-										                            th:value="${adss.id_adscripcion}"
-										                            th:utext="${adss.nombre_adscripcion}" />
-										                    </select>
-										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
 													</div>		
-													
-													
-												  	<input type="hidden" th:field="*{id_vehiculo}"/>
-																							  	
-												  	<input type="hidden" th:field="*{vehiculo_estado.id_estado}"/>
+
+												  	<input type="hidden" th:field="*{id_vehiculo}"/>					  	
 												  	<div id="marcaid">
 												  		<input type="hidden" th:field="*{vehiculo_marca.id_marca}"/>
 												  	</div>

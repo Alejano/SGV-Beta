@@ -131,6 +131,8 @@ public class SeguroController {
 			model.addAttribute("PageSubTitulo", "Listado de Seguros de la placa: "+vehiculo.getPlaca());
 			model.addAttribute("id_vehiculo",vehiculo.getId_vehiculo());
 			model.addAttribute("auxiliar", aux);
+			model.addAttribute("idestado",vehiculo.getVehiculo_estado().getId_estado());
+			model.addAttribute("estado",vehiculo.getVehiculo_estado().getNombre_estado());
 			model.addAttribute("seguros",SeguroPage);
 			model.addAttribute("page",SeguroRenderArea);
 			return "SegurosVehi";

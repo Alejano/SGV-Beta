@@ -82,6 +82,8 @@ public class ResguardanteController {
 		model.addAttribute("PageSubTitulo", "Listado de Resguardantes de la placa: "+placa.getPlaca());
 		model.addAttribute("thisurl","infoResguardante");
 		model.addAttribute("titulo","Listado de Resguardos");
+		model.addAttribute("idestado",placa.getVehiculo_estado().getId_estado());
+		model.addAttribute("estado",placa.getVehiculo_estado().getNombre_estado());
 		model.addAttribute("Resguardantes",vehiculopage);
 		model.addAttribute("page",pageRender);				
 		

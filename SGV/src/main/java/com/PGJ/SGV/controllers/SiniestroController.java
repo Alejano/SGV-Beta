@@ -127,6 +127,8 @@ public class SiniestroController {
 			model.addAttribute("PageTitulo", "Siniestros");
 			model.addAttribute("PageSubTitulo", "Listado de Siniestros de la placa: "+vehiculo.getPlaca());
 			model.addAttribute("id_vehiculo",vehiculo.getId_vehiculo());
+			model.addAttribute("idestado",vehiculo.getVehiculo_estado().getId_estado());
+			model.addAttribute("estado",vehiculo.getVehiculo_estado().getNombre_estado());
 			model.addAttribute("auxiliar", aux);
 			model.addAttribute("siniestros",SiniestroPage);
 			model.addAttribute("page",SiniestroRenderArea);

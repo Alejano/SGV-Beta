@@ -1,5 +1,7 @@
 package com.PGJ.SGV.service;
 
+import java.util.List;
+
 import com.PGJ.SGV.models.entity.VehiculoEstado;
 
 
@@ -14,5 +16,7 @@ public interface IEstadoVehiculoService {
 	public VehiculoEstado findbyVehiculo(Long id_vehiculo);
 	
 	public VehiculoEstado findall();
+	
+	public List<VehiculoEstado> findEstados();
 	
 	}

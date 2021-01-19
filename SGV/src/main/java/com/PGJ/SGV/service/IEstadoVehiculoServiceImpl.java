@@ -1,5 +1,7 @@
 package com.PGJ.SGV.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,8 +48,12 @@ public class IEstadoVehiculoServiceImpl implements IEstadoVehiculoService{
 		return EstadoDao.findbyVehiculo(id_vehiculo);
 	}
 
-	
-
-
+	@Override
+	@Transactional(readOnly = true)
+	public List<VehiculoEstado> findEstados() {
+		// TODO Auto-generated method stub
+    	return (List<VehiculoEstado>) EstadoDao.findEstados();
+    	//return null;
+	}
 
 }
