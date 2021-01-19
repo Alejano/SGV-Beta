@@ -25,6 +25,74 @@ public class Resguardante implements Serializable {
 	private String cargo;
 	private String fecha_inicio;
 	private String fecha_fin;
+	//CAlev Extras resguardantes
+
+	public String getNo_licencia() {
+		return no_licencia;
+	}
+
+	public void setNo_licencia(String no_licencia) {
+		this.no_licencia = no_licencia;
+	}
+
+	public String getRfc() {
+		return rfc;
+	}
+
+	public void setRfc(String rfc) {
+		this.rfc = rfc;
+	}
+
+	public String getIne() {
+		return ine;
+	}
+
+	public void setIne(String ine) {
+		this.ine = ine;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDomicilio() {
+		return domicilio;
+	}
+
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
+	}
+
+	
+	public Adscripcion getAdscripcion() {
+		return adscripcion;
+	}
+
+	public void setAdscripcion(Adscripcion adscripcion) {
+		this.adscripcion = adscripcion;
+	}
+
+	public String getIds_adscripcion() {
+		return ids_adscripcion;
+	}
+
+	public void setIds_adscripcion(String ids_adscripcion) {
+		this.ids_adscripcion = ids_adscripcion;
+	}
+	
+	private String ids_adscripcion;//PAra obtener los id del formulario
+	private String no_licencia;
+	private String rfc;
+	private String ine;
+	private String telefono;
+	private String domicilio;
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Adscripcion adscripcion;
+	//fin extras resguardantes
 	private boolean activo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -141,5 +209,7 @@ public class Resguardante implements Serializable {
 	           "NOMBRE:"+nombre+ " "+apellido1+" "+apellido2 + " "+
 				"FECHA INI:"+ fecha_inicio + " " + "ENABLED:" + activo + " ";
 	}
+
+	
 	
 }

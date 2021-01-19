@@ -15,7 +15,7 @@
 	                            <div class="item-wrap">
 	                                <div class="row">
 	                                    <div class="col-md-12">
-	                                    <form th:action="@{/TResguardante/}+${placa}" th:object="${Tresguardante}" method="post" id="formulario" data-toggle="validator" class="popup-form">
+	                                    <form th:action="@{/TResguardante/}+${id_vehiculo}" th:object="${Tresguardante}" method="post" id="formulario" style="text-align: center;" data-toggle="validator" class="popup-form">
 	                                        <div class="col-sm-12">
                                            		<h1>Selecciona el Tercer Resguardante del vehiculo</h1>
                                            	</div>	
@@ -29,7 +29,7 @@
 														<!--Nombre-->
 														<div class="form-group col-sm-4">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input onchange="limpiarTR()" th:field="${Tresguardante.nombre}" th:value="${Tresguardante.nombre}" name="nombre3" id="Nombre3" placeholder="Nombre" class="form-control Letras" type="text" data-error="Ingrese El Nombre">
+															<input th:field="${Tresguardante.nombre}" th:value="${Tresguardante.nombre}" name="nombre3" id="Nombre3" onchange="limpiarTR()"  placeholder="Nombre" class="form-control Letras" type="text" data-error="Ingrese El Nombre">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Apellido1-->
@@ -45,12 +45,62 @@
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Cargo-->
-														<div class="form-group col-sm-12">
+														<div class="form-group col-sm-4">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
 															<input onchange="limpiarTR()" th:field="${Tresguardante.cargo}" th:value="${Tresguardante.cargo}" name="cargo3" id="cargo3"  placeholder="Cargo" class="form-control Letras" type="text" data-error="Ingrese El cargo">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
-														
+														<!-- calev -->
+														<!--no_licencia-->
+														<div class="form-group col-sm-4 enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input th:field="${Tresguardante.no_licencia}" th:value="${Tresguardante.no_licencia}" name="Tno_licencia" id="Tno_licencia" onchange="limpiarTR()" placeholder="Numero de licencia" class="form-control Letras" type="text" required data-error="Ingrese El Numero de licencia">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<!--rfc-->
+														<div class="form-group col-sm-4 enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input th:field="${Tresguardante.rfc}" th:value="${Tresguardante.rfc}" name="Trfc" id="Trfc" onchange="limpiarTR()" placeholder="RFC" class="form-control Letras" type="text" required data-error="Ingrese El RFC">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<!--INE-->
+														<div class="form-group col-sm-4 enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input th:field="${Tresguardante.ine}" th:value="${Tresguardante.ine}" name="TineT" id="Tine" onchange="limpiarTR()" placeholder="INE" class="form-control Letras" type="text" required data-error="Ingrese El INE">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<!--telefono-->
+														<div class="form-group col-sm-4 enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input th:field="${Tresguardante.telefono}" th:value="${Tresguardante.telefono}" name="Ttelefono" id="Ttelefono" onchange="limpiarTR()" placeholder="Numero de telefono" class="form-control Letras" type="text" required data-error="Ingrese El eltelefono">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<!--domicilio-->
+														<div class="form-group col-sm-4 enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															<input th:field="${Tresguardante.domicilio}" th:value="${Tresguardante.domicilio}" name="Tdomicilio" id="Tdomicilio" onchange="limpiarTR()" placeholder="Domicilio" class="form-control Letras" type="text" required data-error="Ingrese El domicilio">
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<!--adscripcion-->
+														<div class="form-group col-sm-4 enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>														
+															
+															<select id="Tadscripcion" name="Padscripcion" th:field="${Tresguardante.adscripcion}" class="form-control Letras"onchange="limpiarTR()" required>
+															<option value="">Selecciona una Adscripci&oacute;n</option>
+															<option th:each="adss : ${adscripciones}"
+															th:value="${adss.id_adscripcion}"
+															th:utext="${adss.nombre_adscripcion}"></option>
+															</select>
+															
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														<div class="form-group col-sm-6  enlineaform">
+															<button id="cleanT" type="button"
+																class="btn btn-primary btn-xs btn-stilo"
+																>Limpiar</button>
+
+														</div>
+														<!--fin calev -->
 													</div>
 												
                                            		
@@ -137,7 +187,7 @@
 													
 	                                        
 	                                                                                
-	                                        <button id="finishP1" type="submit" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;">Guardar</button>
+	                                        <button id="finishP1" type="submit" class="btn btn-primary btn-xs col-sm-3 btn-stilo">Guardar</button>
 	                                        </div>
 	                                    </form>
 	                                       	                                        
@@ -311,6 +361,9 @@
     	    			$("#clean3").show();    	    			
     	    			
     	    	});
+    	    	$("#cleanT").on("click",function(){
+    				datos();
+    			});
     	    });
               
     function limpiarTR()
@@ -323,10 +376,19 @@
     }
     
     function datos(){
-    	$("#Nombre3").val(" ");
-    	$("#A_pa3").val(" ");
-    	$("#A_ma3").val(" ");
-    	$("#cargo3").val(" ");
+    	$("#Nombre3").val("");
+    	$("#A_pa3").val("");
+    	$("#A_ma3").val("");
+    	$("#cargo3").val("");
+    	//CALEV
+    	$("#Tno_licencia").val("");
+    	$("#Trfc").val("");
+    	$("#Tine").val("");
+    	$("#Ttelefono").val("");
+    	$("#Tdomicilio").val("");
+    	$("#Tadscripcion").val("");
+    	$("#Tadscripcion option[value=\"\"]").attr("selected",true);
+    	//--CALEV
     }
 
     </script>
