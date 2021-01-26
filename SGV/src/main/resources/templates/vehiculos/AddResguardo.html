@@ -32,7 +32,7 @@
 															<div class="help-block with-errors" style="width: 230px;"></div>
 															<input th:field="${Presguardante.nombre}"
 																th:value="${Presguardante.nombre}" name="nombre1"
-																id="Nombre" onchange="limpiarPR()" placeholder="Nombre"
+																id="Nombre" onchange="limpiarPR()" onkeypress="return letras(event);" placeholder="Nombre"
 																class="form-control Letras" type="text" required
 																data-error="Ingrese El Nombre">
 															<div class="input-group-icon">
@@ -42,7 +42,7 @@
 														<!--Apellido1-->
 														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>
-															<input th:field="${Presguardante.apellido1}"
+															<input th:field="${Presguardante.apellido1}" onkeypress="return letras(event);"
 																th:value="${Presguardante.apellido1}" name="apellidoP1"
 																id="A_pa" onchange="limpiarPR()"
 																placeholder="Apellido Paterno"
@@ -55,7 +55,7 @@
 														<!--Apellido2-->
 														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>
-															<input th:field="${Presguardante.apellido2}"
+															<input th:field="${Presguardante.apellido2}" onkeypress="return letras(event);"
 																th:value="${Presguardante.apellido2}" name="apellidoM1"
 																id="A_ma" onchange="limpiarPR()"
 																placeholder="Apellido Materno"
@@ -68,7 +68,7 @@
 														<!--Cargo-->
 														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>
-															<input th:field="${Presguardante.cargo}"
+															<input th:field="${Presguardante.cargo}" onkeypress="return letras(event);"
 																th:value="${Presguardante.cargo}" name="cargo1"
 																id="cargo" onchange="limpiarPR()" placeholder="Cargo"
 																class="form-control Letras" type="text" required
@@ -85,7 +85,7 @@
 																th:value="${Presguardante.no_licencia}"
 																name="no_licencia1" id="Pno_licencia"
 																onchange="limpiarPR()" placeholder="Numero de licencia"
-																class="form-control Letras" type="text" required
+																class="form-control Letrasnum" type="text" required
 																data-error="Ingrese El Numero de licencia">
 															<div class="input-group-icon">
 																<i class="fa fa-user"></i>
@@ -97,7 +97,7 @@
 															<input th:field="${Presguardante.rfc}"
 																th:value="${Presguardante.rfc}" name="rfc1" id="Prfc"
 																onchange="limpiarPR()" placeholder="RFC"
-																class="form-control Letras" type="text" required
+																class="form-control Letrasnum" type="text" required
 																data-error="Ingrese El RFC">
 															<div class="input-group-icon">
 																<i class="fa fa-user"></i>
@@ -109,7 +109,7 @@
 															<input th:field="${Presguardante.ine}"
 																th:value="${Presguardante.ine}" name="ine1" id="Pine"
 																onchange="limpiarPR()" placeholder="INE"
-																class="form-control Letras" type="text" required
+																class="form-control Letrasnum" type="text" required
 																data-error="Ingrese El INE">
 															<div class="input-group-icon">
 																<i class="fa fa-user"></i>
@@ -122,7 +122,7 @@
 																th:value="${Presguardante.telefono}" name="telefono1"
 																id="Ptelefono" onchange="limpiarPR()"
 																placeholder="Numero de telefono"
-																class="form-control Letras" type="text" required
+																class="form-control numguion" type="text" required
 																data-error="Ingrese El eltelefono">
 															<div class="input-group-icon">
 																<i class="fa fa-user"></i>
@@ -134,7 +134,7 @@
 															<input th:field="${Presguardante.domicilio}"
 																th:value="${Presguardante.domicilio}" name="domicilio1"
 																id="Pdomicilio" onchange="limpiarPR()"
-																placeholder="Domicilio" class="form-control Letras"
+																placeholder="Domicilio" class="form-control Calle"
 																type="text" required data-error="Ingrese El domicilio">
 
 															<div class="input-group-icon">
@@ -149,7 +149,7 @@
 															<select id="Padscripcion" name="Padscripcion"
 																th:field="${Presguardante.ids_adscripcion}"
 																class="form-control Letras" required
-																onchange="limpiarPR()">
+																onchange="limpiarPR()" data-error="Ingrese Un Elemento">
 																<option value="">Selecciona una
 																	Adscripci&oacute;n</option>
 																<option th:each="adss : ${adscripciones}"
@@ -212,6 +212,15 @@
 																<td th:text="${usuariosql.nombre}" class="celda"></td>
 																<td th:text="${usuariosql.apellido1}" class="celda"></td>
 																<td th:text="${usuariosql.apellido2}" class="celda"></td>
+																<!-- Calev datos extras-->
+																<td style="display:none;" th:text="${usuariosql.cargo}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.no_licencia}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.rfc}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.ine}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.telefono}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.domicilio}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.adscripcion.id_adscripcion}" class="celda"></td>
+																<!-- fin calev -->
 															</tr>
 
 
@@ -243,8 +252,8 @@
 															<div class="help-block with-errors" style="width: 230px;"></div>
 															<input th:field="${Sresguardante.nombre}"
 																th:value="${Sresguardante.nombre}" name="nombre2"
-																id="Nombre2" onchange="limpiarSR()" placeholder="Nombre"
-																class="form-control Letras" type="text" required
+																id="Nombre2" onchange="limpiarSR()" onkeypress="return letras(event);" placeholder="Nombre"
+																class="form-control" type="text" required
 																data-error="Ingrese El Nombre">
 															<div class="input-group-icon">
 																<i class="fa fa-user"></i>
@@ -255,7 +264,7 @@
 															<div class="help-block with-errors" style="width: 230px;"></div>
 															<input th:field="${Sresguardante.apellido1}"
 																th:value="${Sresguardante.apellido1}" name="apellidoP2"
-																id="A_pa2" onchange="limpiarSR()"
+																id="A_pa2" onchange="limpiarSR()"onkeypress="return letras(event);"
 																placeholder="Apellido Paterno"
 																class="form-control Letras" type="text" required
 																data-error="Ingrese El primer Apellido">
@@ -268,7 +277,7 @@
 															<div class="help-block with-errors" style="width: 230px;"></div>
 															<input th:field="${Sresguardante.apellido2}"
 																th:value="${Sresguardante.apellido2}" name="apellidoM2"
-																id="A_ma2" onchange="limpiarSR()"
+																id="A_ma2" onchange="limpiarSR()" onkeypress="return letras(event);"
 																placeholder="Apellido Materno"
 																class="form-control Letras" type="text" required
 																data-error="Ingrese El segundo Apellido">
@@ -282,7 +291,7 @@
 															<div class="help-block with-errors" style="width: 230px;"></div>
 															<input th:field="${Sresguardante.cargo}"
 																th:value="${Sresguardante.cargo}" name="cargo2"
-																id="cargo2" onchange="limpiarSR()" placeholder="Cargo"
+																id="cargo2" onchange="limpiarSR()" onkeypress="return letras(event);" placeholder="Cargo"
 																class="form-control Letras" type="text" required
 																data-error="Ingrese El cargo">
 															<div class="input-group-icon">
@@ -298,7 +307,7 @@
 																th:value="${Sresguardante.no_licencia}"
 																name="no_licencia2" id="Sno_licencia"
 																onchange="limpiarSR()" placeholder="Numero de licencia"
-																class="form-control Letras" type="text" required
+																class="form-control Letrasnum" type="text" required
 																data-error="Ingrese El Numero de licencia">
 															<div class="input-group-icon">
 																<i class="fa fa-user"></i>
@@ -310,7 +319,7 @@
 															<input th:field="${Sresguardante.rfc}"
 																th:value="${Sresguardante.rfc}" name="rfc2" id="Srfc"
 																onchange="limpiarSR()" placeholder="RFC"
-																class="form-control Letras" type="text" required
+																class="form-control Letrasnum" type="text" required
 																data-error="Ingrese El RFC">
 															<div class="input-group-icon">
 																<i class="fa fa-user"></i>
@@ -322,7 +331,7 @@
 															<input th:field="${Sresguardante.ine}"
 																th:value="${Sresguardante.ine}" name="ine2" id="Sine"
 																onchange="limpiarSR()" placeholder="INE"
-																class="form-control Letras" type="text" required
+																class="form-control Letrasnum" type="text" required
 																data-error="Ingrese El INE">
 															<div class="input-group-icon">
 																<i class="fa fa-user"></i>
@@ -335,7 +344,7 @@
 																th:value="${Sresguardante.telefono}" name="telefono2"
 																id="Stelefono" onchange="limpiarSR()"
 																placeholder="Numero de telefono"
-																class="form-control Letras" type="text" required
+																class="form-control numguion" type="text" required
 																data-error="Ingrese El eltelefono">
 															<div class="input-group-icon">
 																<i class="fa fa-user"></i>
@@ -347,7 +356,7 @@
 															<input th:field="${Sresguardante.domicilio}"
 																th:value="${Sresguardante.domicilio}" name="domicilio2"
 																id="Sdomicilio" onchange="limpiarSR()"
-																placeholder="Domicilio" class="form-control Letras"
+																placeholder="Domicilio" class="form-control Calle"
 																type="text" required data-error="Ingrese El domicilio">
 															<div class="input-group-icon">
 																<i class="fa fa-user"></i>
@@ -361,7 +370,7 @@
 															<select id="Sadscripcion"
 																th:field="${Sresguardante.ids_adscripcion}" required
 																name="Sadscripcion" class="form-control Letras"
-																onchange="limpiarSR()">
+																onchange="limpiarSR()" data-error="Ingrese Un Elemento">
 																<option value="">Selecciona una
 																	Adscripci&oacute;n</option>
 																<option th:each="adss : ${adscripciones}"
@@ -428,6 +437,15 @@
 																<td th:text="${conductoresql.nombre}" class="celda"></td>
 																<td th:text="${conductoresql.apellido1}" class="celda"></td>
 																<td th:text="${conductoresql.apellido2}" class="celda"></td>
+																<!-- Calev datos extras-->
+																
+																<td style="display:none;" th:text="${conductoresql.no_licencia}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.rfc}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.no_ine}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.telefono}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.domicilio}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.adscripcion.id_adscripcion}" class="celda"></td>
+																<!-- fin calev -->
 															</tr>
 
 
@@ -436,7 +454,7 @@
 
 												</div>
 											</div>
-											<div class="col-sm-12  enlineaform">
+											<div class="col-sm-12  enlineaform" style="text-align:center">
 
 												<input type="hidden"
 													th:field="${Presguardante.id_resguardante}"
@@ -457,7 +475,7 @@
 										</form>
 										<form th:action="@{/TResguardante/}+${id_vehiculo}"
 											method="get" id="formulario2" data-toggle="validator"
-											class="popup-form">
+											class="popup-form" style="text-align:center">
 											<input type="hidden" name="Pnombre" id="Pnombre"> <input
 												type="hidden" name="Papellido1" id="Papellido1"> <input
 												type="hidden" name="Papellido2" id="Papellido2"> <input
@@ -473,7 +491,7 @@
 												type="hidden" name="HPtelefono" id="HPtelefono"> <input
 												type="hidden" name="HPdomicilio" id="HPdomicilio"> <input
 												type="hidden" name="HPadscripcion_id_adscripcion"
-												id="HPadscripcion_id_adscripcion">
+												id="HPadscripcion">
 											<!-- segundo -->
 											<input type="hidden" name="HSno_licencia" id="HSno_licencia">
 											<input type="hidden" name="HSrfc" id="HSrfc"> <input
@@ -481,7 +499,7 @@
 												type="hidden" name="HStelefono" id="HStelefono"> <input
 												type="hidden" name="HSdomicilio" id="HSdomicilio"> <input
 												type="hidden" name="HSadscripcion_id_adscripcion"
-												id="HSadscripcion_id_adscripcion">
+												id="HSadscripcion">
 											<!-- fin calev -->
 											<button id="Tresguar"
 												class="btn btn-primary btn-xs col-sm-6 btn-stilo"
@@ -708,6 +726,18 @@
 				$("#A_pa").val(A1);
 				$("#A_ma").val(A2);
 				$("#clean").show();
+				//CALEV llenar fomulario
+				const celdas  = $(this).parent().parent().children();
+				console.log(celdas[2].innerHTML);
+				$("#cargo").val(celdas[5].innerHTML);
+				$("#Pno_licencia").val(celdas[6].innerHTML);
+				$("#Prfc").val(celdas[7].innerHTML);
+				$("#Pine").val(celdas[8].innerHTML);
+				$("#Ptelefono").val(celdas[9].innerHTML);
+				$("#Pdomicilio").val(celdas[10].innerHTML);
+				$("#Padscripcion option[value=\"" + celdas[11].innerHTML +  "\"]").attr("selected", true);
+				
+				//--calev
 			});
 		});
 
@@ -727,7 +757,17 @@
 				$("#clean2").show();
 				$("#Tresguar").show();
 				$("#finishP1").show();
-
+				//CALEV llenar fomulario
+				const celdas  = $(this).parent().parent().children();
+				console.log(celdas[2].innerHTML);
+				$("#Sno_licencia").val(celdas[5].innerHTML);
+				$("#Srfc").val(celdas[6].innerHTML);
+				$("#Sine").val(celdas[7].innerHTML);
+				$("#Stelefono").val(celdas[8].innerHTML);
+				$("#Sdomicilio").val(celdas[9].innerHTML);
+				$("#Sadscripcion option[value=\"" + celdas[10].innerHTML +  "\"]").attr("selected", true);
+				
+				//--calev
 			});
 			//calev
 			$("#Tresguar").on("click", function() {
@@ -870,7 +910,8 @@
 	<script src="/assets/js/validator.min.js"></script>
 	<!-- Contact Form Js -->
 	<script src="/assets/js/contact-form.js"></script>
-
+	<!-- SweetAlert -->
+	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
 
 
 </body>

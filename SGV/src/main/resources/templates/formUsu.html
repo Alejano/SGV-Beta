@@ -2,232 +2,371 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <title>Formulario Usuario</title>
 <meta charset="utf-8">
-	<head th:replace="/layout/layoutHeadMetaData :: head"></head>
-<body >
+<head th:replace="/layout/layoutHeadMetaData :: head"></head>
+<body>
 	<header th:replace="/layout/layoutHeadMetaData :: header"></header>
-<section>
-	 <div class="tab-content">
-	      <div class="form-group last col-sm-12 formfondo">
-	                <div class="row">
-	                    <div class="tab-content">
-	                        <div class="col-sm-12">
-	                            <div class="item-wrap">
-	                                <div class="row">
-	                                    <div class="col-md-12">
-	                                        <form th:action="@{/formUsu}" th:object="${usuarios}" method="post" id="formulario" name="usuarios"  data-toggle="validator" class="popup-form">
-	                                            <div class="row">
-														        
-	                                                   <!--  <!--Fecha de Alta-->
-	                                            	    <div class="form-group col-sm-4">
-														   <div class="help-block with-errors"></div>
-															   <input th:field="*{fecha_alta}" name="F_al" id="F_al" placeholder="Fecha de alta" class="form-control" type="date"  required data-error="Ingrese Fecha de alta" disabled>
-														       <div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
-														</div>
-									
-														<div style=" width:20%;display: inline-block;">
-															<input type="text" readonly="readonly" placeholder="Fecha de Alta" class="form-control">
-														</div>
-														
-														<div class="form-group col-sm-5"></div>
-														
-														<!--Numero de empleado-->
-														
-														<div class="form-group col-sm-4">
-														   <div class="help-block with-errors"></div>
-															 <input th:field="*{no_empleado}" name="N_Em" id="N_Em" placeholder="Numero de Empleado" class="form-control signos" type="text" required data-error="Ingrese El Numero de Empleado">																
-														   <div class="input-group-icon"><i class="fas fa-id-badge"></i></div>
-														</div>
-											
-                                                        <div class="form-group col-sm-5"></div> 
-                         
-										     			<!--Nombre-->
-											     		<div class="form-group col-sm-4">
-												    		<div class="help-block with-errors"></div>
-													     	  <input th:field="*{nombre}" name="Nombre" id="Nombre" placeholder="Nombre" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese El Nombre en Mayúsculas">
-														    <div class="input-group-icon"><i class="fa fa-user"></i></div>
-													    </div>
-													    
-													    <!--Apellido paterno-->
-													    <div class="form-group col-sm-4">
-														 <div class="help-block with-errors"></div>
-														   <input th:field="*{apellido1}" name="A_pa" id="A_pa" placeholder="Apellido Paterno" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese el Apellido Paterno en Mayúsculas">
-														 <div class="input-group-icon"><i class="fa fa-user"></i></div>
-													    </div>
-													      
-													      
-													     <!--Apellido materno-->
-													    <div class="form-group col-sm-4">
-														    <div class="help-block with-errors"></div>
-														     <input th:field="*{apellido2}" name="A_ma" id="A_ma" placeholder="Apellido Materno" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese el Apellido Materno en Mayúsculas">
-														    <div class="input-group-icon"><i class="fa fa-user"></i></div>
-													    </div>
-													
-													
-													   <!--Adscripción-->
-													   <div class="form-group col-sm-10">
-															<div class="help-block with-errors"></div>
-															  <select th:field="*{adscripcion.id_adscripcion}" class="form-control" style=" height: 33px;" required data-error="Ingrese la Adscripcion">
-										                         
-										                         <option th:each="adss : ${adslist}"
-										                            th:value="${adss.id_adscripcion}"
-										                            th:utext="${adss.nombre_adscripcion}" />
-										                      </select>
-										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
-													   </div>
-													
-													
-													  <!--Tipo de Usuario-->
-													  <div class="form-group col-sm-4">
-														<div class="help-block with-errors"></div>														
-														  <select th:field="*{enabled}" id="estado" class="form-control" style="height: 34px;" required data-error="Ingrese el estado del usuario">																												
-														    <option value=false>-Inactivo</option>
-														    <option value=true>-Activo</option>
-														  </select>	
-														<div class="input-group-icon"><i class="fa fa-user-tag"></i></div>
-													  </div>
-													 
-													  <div class="form-group col-sm-4">
-														<div class="help-block with-errors"></div>														
-														  <select th:field="*{authority.id}" id="autoridad" class="form-control" style="height: 34px;" required data-error="Ingrese el estado del usuario">																												
-														    <option value="1">-Administrador</option>
-														    <option value="2">-Usuario</option>
-														    <option value="4">-Siniestro</option>	
-														    <option value="5">-Seguro</option>									
-														  </select>	
-														  <div class="input-group-icon"><i class="fa fa-user-tag"></i></div>
-													  </div>
-											
-													   
-													   <div class="form-group col-sm-4"></div>
-													   
-													 
-												       <!--Contraseña-->
-														<div class="form-group col-sm-4">
-															<div class="help-block with-errors"></div>
-															   <input th:field="*{contrasena}" pattern=".{6,}" min=6 max=10 name="pass1"  id="contrasena" onkeypress="Pvalor()" onchange="coincidencia()" onkeyup="vlidar()"  placeholder="Contraseña" class="form-control" type="password" required data-error="Ingrese la Contraseña">
-															<div class="input-group-icon"><i class="fa fa-key"></i></div>
-														</div>
-	
-													   <!--Confirmar Contraseña-->
-														
-													    <div class="form-group col-sm-4">															
-														    <div class="help-block with-errors"></div>
-															   <input  id="contrasenaCP" pattern=".{6,}" min=6 max=10 name="pass2" placeholder="Vuelva a escribir la contraseña" onkeypress="Svalor()" onchange="coincidencia()" onkeyup="vlidar()" class="form-control" type="password" required data-error="Ingrese la Contraseña">
-															<div class="input-group-icon"><i class="fa fa-key"></i></div>
-														</div>
-														
-														<div class="form-group col-sm-12">
-															<span id="span" class="col-sm-6" style="display: none"></span>
-														</div>
-														
+	<section>
+		<div class="tab-content">
+			<div class="form-group last col-sm-12 formfondo">
+				<div class="row">
+					<div class="tab-content">
+						<div class="col-sm-12">
+							<div class="item-wrap">
+								<div class="row">
+									<div class="col-md-12">
+										<form th:action="@{/formUsu}" th:object="${usuarios}"
+											method="post" id="formulario" name="usuarios"
+											data-toggle="validator" class="popup-form">
+											<div class="row">
 
-													    <!--Boton de guardar-->
+												<!--Fecha de Alta-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{fecha_alta}" name="F_al" id="F_al"
+														placeholder="Fecha de alta" class="form-control"
+														type="date" required data-error="Ingrese Fecha de alta"
+														disabled>
+													<div class="input-group-icon">
+														<i class="fas fa-calendar-alt"></i>
+													</div>
+												</div>
 
-														<div  class="text-center col-sm-12">
-															<button type="submit" id="guardar" class="btn btn-custom btn-stilo" style="float: right;"><i class='fa fa-envelope' th:if="${error == 'F'}"></i> Guardar</button>
-															<div class="clearfix"></div>
-												    	</div>
+												<div style="width: 20%; display: inline-block;">
+													<input type="text" readonly="readonly"
+														placeholder="Fecha de Alta" class="form-control">
+												</div>
 
-											   </div>
-	                                        </form>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-			</div>			
+												<div class="form-group col-sm-5"></div>
+
+												<!--Numero de empleado-->
+
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{no_empleado}" name="N_Em" id="N_Em"
+														placeholder="Numero de Empleado"
+														class="form-control signos" type="text" required
+														data-error="Ingrese El Numero de Empleado">
+													<div class="input-group-icon">
+														<i class="fas fa-id-badge"></i>
+													</div>
+												</div>
+
+												<!--Adscripción-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<select th:field="*{adscripcion.id_adscripcion}"
+														class="form-control" required
+														data-error="Ingrese la Adscripcion">
+														<option value="">Selecciona una adscripcion</option>
+														<option th:each="adss : ${adslist}"
+															th:value="${adss.id_adscripcion}"
+															th:utext="${adss.nombre_adscripcion}" />
+													</select>
+													<div class="input-group-icon">
+														<i class="far fa-building"></i>
+													</div>
+												</div>
+
+												<!--Cargo-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{cargo}" name="cargo" id="cargo"
+														placeholder="Cargo" onkeypress="return letras(event);"
+														class="form-control" type="text" required
+														data-error="Ingrese el Cargo">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+
+													<div class="input-group-icon">
+														<i class="far fa-building"></i>
+													</div>
+												</div>
+
+
+												<!--Nombre-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{nombre}" name="Nombre" id="Nombre"
+														placeholder="Nombre" onkeypress="return letras(event);"
+														class="form-control" type="text" required
+														data-error="Ingrese El Nombre en Mayúsculas">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!--Apellido paterno-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{apellido1}" name="A_pa" id="A_pa"
+														placeholder="Apellido Paterno"
+														onkeypress="return letras(event);" class="form-control"
+														type="text" required
+														data-error="Ingrese el Apellido Paterno en Mayúsculas">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+
+												<!--Apellido materno-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{apellido2}" name="A_ma" id="A_ma"
+														placeholder="Apellido Materno"
+														onkeypress="return letras(event);" class="form-control"
+														type="text" required
+														data-error="Ingrese el Apellido Materno en Mayúsculas">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!-- Calev -->
+
+												<!--rfc-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{rfc}" name="rfc" id="rfc"
+														placeholder="RFC" class="form-control Letrasnum"
+														type="text" required data-error="Ingrese El RFC">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!--INE-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="*{ine}" name="ine" id="ine"
+														placeholder="INE" class="form-control Letrasnum" type="text"
+														required data-error="Ingrese El INE">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!--telefono-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="*{telefono}" name="Ttelefono"
+														id="Ttelefono" placeholder="Numero de telefono"
+														class="form-control numguion" type="text" required
+														data-error="Ingrese El eltelefono">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!--domicilio-->
+												<div class="form-group col-sm-4 ">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="*{domicilio}" name="Tdomicilio"
+														id="Tdomicilio" placeholder="Domicilio"
+														class="form-control Calle" type="text" required
+														data-error="Ingrese El domicilio">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!-- fin calev -->
+
+												<!--Tipo de Usuario-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<select th:field="*{enabled}" id="estado"
+														class="form-control" required
+														data-error="Ingrese el estado del usuario">
+														<option value=false>Inactivo</option>
+														<option value=true>Activo</option>
+													</select>
+													<div class="input-group-icon">
+														<i class="fa fa-user-tag"></i>
+													</div>
+												</div>
+
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<select th:field="*{authority.id}" id="autoridad"
+														class="form-control" required
+														data-error="Ingrese el estado del usuario">
+														<option value="1">Administrador</option>
+														<option value="2">Usuario</option>
+														<option value="4">Siniestro</option>
+														<option value="5">Seguro</option>
+													</select>
+													<div class="input-group-icon">
+														<i class="fa fa-user-tag"></i>
+													</div>
+												</div>
+
+
+												<!--NO_LICENCIA -->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="*{no_licencia}" name="ine" id="ine"
+														placeholder="Licencia" class="form-control Letrasnum" type="text"
+														required data-error="Ingrese el Numero de licencia">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+
+												<!--Contraseña-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{contrasena}" pattern=".{6,}" min=6
+														max=10 name="pass1" id="contrasena" onkeypress="Pvalor()"
+														onchange="coincidencia()" onkeyup="vlidar()"
+														placeholder="Contraseña" class="form-control"
+														type="password" required
+														data-error="Ingrese la Contraseña">
+													<div class="input-group-icon">
+														<i class="fa fa-key"></i>
+													</div>
+												</div>
+
+												<!--Confirmar Contraseña-->
+
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input id="contrasenaCP" pattern=".{6,}" min=6 max=10
+														name="pass2" placeholder="Vuelva a escribir la contraseña"
+														onkeypress="Svalor()" onchange="coincidencia()"
+														onkeyup="vlidar()" class="form-control" type="password"
+														required data-error="Ingrese la Contraseña">
+													<div class="input-group-icon">
+														<i class="fa fa-key"></i>
+													</div>
+												</div>
+
+												<div class="form-group col-sm-12">
+													<span id="span" class="col-sm-6" style="display: none"></span>
+												</div>
+
+
+												<!--Boton de guardar-->
+
+												<div class="text-center col-sm-12">
+													<button type="submit" id="guardar"
+														class="btn btn-custom btn-stilo" style="float: right;">
+														<i class='fa fa-envelope'></i>
+														Guardar
+													</button>
+													<div class="clearfix"></div>
+												</div>
+
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-</section>
-	
-	<script type="text/javascript"  th:inline="javascript">	
-	var confirmacion = "Las contraseñas si coinciden";
-	var longitud = "La contraseña debe estar formada entre 6-10 caracteres)";
-	var negacion = "No coinciden las contraseñas";
-     var valor1="";
-	 var valor2="";
-	
-	 $("body").bind('cut copy paste',function(j){
-		 j.preventDefault();
-	 })
-	
-	 function Pvalor(){
-			valor1 = document.getElementById("contrasena").value;	
-			if((valor1.length<6) || (valor1.length>10)){
-				if(valor1 != valor2){
-				$("#guardar").hide();
-				};
-			};
-		}
-		function Svalor(){
-			valor2 = document.getElementById("contrasenaCP").value;	
-			if((valor2.length<6) || (valor2.length>10)){
-				if(valor1 != valor2){
+	</section>
+
+	<script type="text/javascript" th:inline="javascript">
+		var confirmacion = "Las contraseñas si coinciden";
+		var longitud = "La contraseña debe estar formada entre 6-10 caracteres)";
+		var negacion = "No coinciden las contraseñas";
+		var valor1 = "";
+		var valor2 = "";
+
+		$("body").bind('cut copy paste', function(j) {
+			j.preventDefault();
+		})
+
+		function Pvalor() {
+			valor1 = document.getElementById("contrasena").value;
+			if ((valor1.length < 6) || (valor1.length > 10)) {
+				if (valor1 != valor2) {
 					$("#guardar").hide();
-					};				
-			};
-		}
-		function vlidar(){
-			valor1 = document.getElementById("contrasena").value;
-			valor2 = document.getElementById("contrasenaCP").value;	
-			if((valor2.length<6) || (valor2.length>10) && (valor1.length<6) || (valor1.length>10)){
-				if(valor1 == valor2){
-					validartamañoeigualdad();
-					};				
-			};
-		}
-		
-		function coincidencia(){	
-			valor1 = document.getElementById("contrasena").value;
-			valor2 = document.getElementById("contrasenaCP").value;	
-			console.log("V1: "+valor1+" V2: "+valor2);
-			
-			if(valor1 != "" && valor2 != ""){
-				
-				validartamañoeigualdad();			
+				}
+				;
 			}
-			else{
+			;
+		}
+		function Svalor() {
+			valor2 = document.getElementById("contrasenaCP").value;
+			if ((valor2.length < 6) || (valor2.length > 10)) {
+				if (valor1 != valor2) {
+					$("#guardar").hide();
+				}
+				;
+			}
+			;
+		}
+		function vlidar() {
+			valor1 = document.getElementById("contrasena").value;
+			valor2 = document.getElementById("contrasenaCP").value;
+			if ((valor2.length < 6) || (valor2.length > 10)
+					&& (valor1.length < 6) || (valor1.length > 10)) {
+				if (valor1 == valor2) {
+					validartamañoeigualdad();
+				}
+				;
+			}
+			;
+		}
+
+		function coincidencia() {
+			valor1 = document.getElementById("contrasena").value;
+			valor2 = document.getElementById("contrasenaCP").value;
+			console.log("V1: " + valor1 + " V2: " + valor2);
+
+			if (valor1 != "" && valor2 != "") {
+
+				validartamañoeigualdad();
+			} else {
 				$("#span").hide();
 				console.log("no ha entrado");
-			};		
-																											
-		 }
-		
-		function validartamañoeigualdad(){
-			if((valor1.length<6) || (valor1.length>10)){
+			}
+			;
+
+		}
+
+		function validartamañoeigualdad() {
+			if ((valor1.length < 6) || (valor1.length > 10)) {
 				$("#span").show();
-				document.getElementById("span").innerHTML =longitud;	
-			
-			}else{
-				if(valor1 != valor2){
+				document.getElementById("span").innerHTML = longitud;
+
+			} else {
+				if (valor1 != valor2) {
 					$("#span").show();
-					document.getElementById("span").innerHTML= negacion;	
+					document.getElementById("span").innerHTML = negacion;
 					swal.fire("Error", "No coinciden las contraseñas", "error");
 					$("#guardar").hide();
 					limpiar();
+				} else {
+					confirmar();
 				}
-				else{confirmar();
-				};
-			};
+				;
+			}
+			;
 		}
-			
-		function confirmar(){
-			if(valor1 == valor2){
-				$("#span").show();		
-				document.getElementById("span").innerHTML= confirmacion;
+
+		function confirmar() {
+			if (valor1 == valor2) {
+				$("#span").show();
+				document.getElementById("span").innerHTML = confirmacion;
 				swal.fire("", "Las contraseñas coinciden", "success");
 				$("#guardar").show();
-			};	
+			}
+			;
 		}
-		
+
 		function limpiar() {
-			if(valor2 != ""){
-				document.getElementById("contrasenaCP").value = "";        
-	        valor2 = "";      
-			};
-	    }
-		
-		
+			if (valor2 != "") {
+				document.getElementById("contrasenaCP").value = "";
+				valor2 = "";
+			}
+			;
+		}
 	</script>
 	<script src="/assets/js/CambiosEstado.js"></script>
 	<!-- jQuery Library -->
@@ -235,13 +374,13 @@
 	<!-- Popper js -->
 	<script src="/assets/js/popper.min.js"></script>
 	<!-- Bootstrap Js -->
-	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>	
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 	<!-- Form Validator -->
 	<script src="/assets/js/validator.min.js"></script>
 	<!-- Contact Form Js -->
 	<script src="/assets/js/contact-form.js"></script>
-    <!-- SweetAlert -->
+	<!-- SweetAlert -->
 	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
-	
+
 </body>
 </html>

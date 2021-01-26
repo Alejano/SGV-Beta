@@ -3,472 +3,872 @@
 <title>Vehiculos</title>
 <head th:replace="/layout/layoutHeadMetaData :: head"></head>
 <body>
-	<head th:replace="/layout/layoutHeadMetaData :: header"></head>
+<head th:replace="/layout/layoutHeadMetaData :: header"></head>
 <section>
-	 <div class="tab-content">
-	      <div class="form-group last col-sm-12 formfondo">
-	                <div class="row">
-	                    <div class="tab-content">
-	                        <div class="col-sm-12">
-	                            <div class="item-wrap">
-	                                <div class="row">
-	                                    <div class="col-md-12">
-	                                    <form th:action="@{/formVehiP2}" method="post" id="formulario" data-toggle="validator" class="popup-form">
-	                                        <div class="col-sm-12">
-                                           		<h1>Selecciona el Resguardante del vehiculo</h1>
-                                           	</div>	
-                                           	
-                                           	<div class="Paso1 col-sm-5 enlinea" th:object="${Presguardante}">
-                                           		<h3>Primer Resguardante</h3>
-                                           		
-                                           		
-		                                            <div class="row rowresguardantes">
-															
-														<!--Nombre-->
-														<div class="form-group col-sm-7">
-															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Presguardante.nombre}" th:value="${Presguardante.nombre}" name="nombre1" id="Nombre" onchange="limpiarPR()" placeholder="Nombre" class="form-control Letras" type="text" required data-error="Ingrese El Nombre">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-														<!--Apellido1-->
-														<div class="form-group col-sm-7">
-															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Presguardante.apellido1}" th:value="${Presguardante.apellido1}" name="apellidoP1" id="A_pa" onchange="limpiarPR()" placeholder="Apellido Paterno" class="form-control Letras" type="text" required data-error="Ingrese El primer Apellido">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-														<!--Apellido2-->
-														<div class="form-group col-sm-7">
-															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Presguardante.apellido2}" th:value="${Presguardante.apellido2}" name="apellidoM1" id="A_ma" onchange="limpiarPR()" placeholder="Apellido Materno" class="form-control Letras" type="text" required data-error="Ingrese El segundo Apellido">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-														<!--Cargo-->
-														<div class="form-group col-sm-12">
-															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Presguardante.cargo}" th:value="${Presguardante.cargo}" name="cargo1" id="cargo" onchange="limpiarPR()" placeholder="Cargo" class="form-control Letras" type="text" required data-error="Ingrese El cargo">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-														<button id="clean" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;">Limpiar</button>		
+	<div class="tab-content">
+		<div class="form-group last col-sm-12 formfondo">
+			<div class="row">
+				<div class="tab-content">
+					<div class="col-sm-12">
+						<div class="item-wrap">
+							<div class="row">
+								<div class="col-md-12">
+									<form th:action="@{/formVehiP2}" method="post" id="formulario"
+										data-toggle="validator" style="text-align: center;"
+										class="popup-form">
+										<div class="col-sm-12">
+											<h1>Selecciona el Resguardante del vehiculo</h1>
+										</div>
+
+										<div class="Paso1 col-sm-12 enlinea"
+											th:object="${Presguardante}">
+											<h3>Primer Resguardante</h3>
+
+
+											<div class="row rowresguardantes">
+
+												<!--Nombre-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Presguardante.nombre}"
+														th:value="${Presguardante.nombre}" name="nombre1"
+														id="Nombre" onchange="limpiarPR()"
+														onkeypress="return letras(event);" placeholder="Nombre"
+														class="form-control Letras" type="text" required
+														data-error="Ingrese El Nombre">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
 													</div>
-												
-                                           		
-                                           	</div>	
-                                           	<div class="Paso1 col-sm-6 enlinea" >
-                                           		<h3>Datos de Usuarios</h3>
-                                           		
-                                           		<div class=" col-md-12" id="Contenedorbuscar" >                               						
-									    			<div id="Busqueda" class="col-md-6 enlinea">											       											       
-												         <input id="searchTerm" th:value=*{elemento} class="form-control" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)"/>												           												           
-												    </div>
-									        		<div class="col-md-2 enlinea" ><i class="fas fa-search"></i></div>
-									        		<div id="coincidencias" class="col-md-6"></div>
-									        		
 												</div>
-                                           		
-                                           		<table class="table table-striped table-bordered fixed_header " id="UsuariosT">
-													<thead class="table-success">
-														<tr>
-															<th style="width:30px"></th>
-															<th><div class="celda">Numero de Empleado</div></th>
-															<th><div class="celda">Nombre</div></th>
-															<th><div class="celda">Primer Apellido</div></th>
-															<th><div class="celda">Segundo Apellido</div></th>
-															<th style="width:10px" id="cuadrito"></th>																																
-														</tr>
-													</thead>
-													<tbody>
-													
-														<tr th:each="usuariosql: ${usuarios}" th:if="${usuariosql.enabled} == true">
-															<th style="width:30px"><input class="check" type="radio" name="SelUsu" th:id="${usuariosql.nombre}+' '+${usuariosql.apellido1}+' '+${usuariosql.apellido2}" th:value="${usuariosql.no_empleado}"></th>															
-															<td th:text="${usuariosql.no_empleado}" class="celda"></td>
-															<td th:text="${usuariosql.nombre}" class="celda"></td>
-															<td th:text="${usuariosql.apellido1}" class="celda"></td>
-															<td th:text="${usuariosql.apellido2}" class="celda"></td>																																																
-														</tr>
-																									
-														
-													</tbody>
-												</table>
-                                           		
-                                           	</div>	
-                                           	
-                                           	<div class="Paso2 col-sm-5 enlinea" style="display:none" >
-                                           		<h3>Segundo Resguardante</h3>
-                                           		
-                                           		<div class="row rowresguardantes" th:object="${Sresguardante}">
-															
-														<!--Nombre-->
-														<div class="form-group col-sm-7">
-															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Sresguardante.nombre}" th:value="${Sresguardante.nombre}" name="nombre2" id="Nombre2" onchange="limpiarSR()" placeholder="Nombre" class="form-control Letras" type="text" required data-error="Ingrese El Nombre">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-														<!--Apellido1-->
-														<div class="form-group col-sm-7">
-															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Sresguardante.apellido1}" th:value="${Sresguardante.apellido1}" name="apellidoP2" id="A_pa2" onchange="limpiarSR()" placeholder="Apellido Paterno" class="form-control Letras" type="text" required data-error="Ingrese El primer Apellido">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-														<!--Apellido2-->
-														<div class="form-group col-sm-7">
-															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Sresguardante.apellido2}" th:value="${Sresguardante.apellido2}" name="apellidoM2" id="A_ma2" onchange="limpiarSR()" placeholder="Apellido Materno" class="form-control Letras" type="text" required data-error="Ingrese El segundo Apellido">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-														
-														<!--Cargo-->
-														<div class="form-group col-sm-12">
-															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Sresguardante.cargo}" th:value="${Sresguardante.cargo}" name="cargo2" id="cargo2" onchange="limpiarSR()" placeholder="Cargo" class="form-control Letras" type="text" required data-error="Ingrese El cargo">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-														<button id="clean2" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;margin: 5px;">Limpiar</button>
-													</div>												
-																						
-                                           	</div>	
-                                           	<div class="Paso2 col-sm-6 enlinea" style="display:none">
-                                           		<h3>Datos de Conductores</h3>
-                                           		
-                                           		<div class=" col-md-12" id="Contenedorbuscar2" >
-                               							                                				                                        
-									    			<div id="Busqueda2" class="col-md-6 enlinea">											       											       
-												         <input id="searchTerm2" class="form-control" name="elemento" type="text" onkeyup="doSearch2()" onkeypress="return pulsar(event)"/>												           												           
-												    </div>
-									        		<div class="col-md-2 enlinea" ><i class="fas fa-search"></i></div> 
-									        		<div id="coincidencias2" class="col-md-6"></div>
-									        		
+												<!--Apellido1-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Presguardante.apellido1}"
+														th:value="${Presguardante.apellido1}" name="apellidoP1"
+														id="A_pa" onchange="limpiarPR()"
+														onkeypress="return letras(event);"
+														placeholder="Apellido Paterno" class="form-control Letras"
+														type="text" required
+														data-error="Ingrese El primer Apellido">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
 												</div>
-                                           		
-                                           		<table class="table table-striped table-bordered fixed_header " id="ConductoresT">
-													<thead class="table-success">
-														<tr>
-															<th style="width:30px"></th>
-															<th><div class="celda">Numero de Empleado</div></th>
-															<th><div class="celda">Nombre</div></th>
-															<th><div class="celda">Primer Apellido</div></th>
-															<th><div class="celda">Segundo Apellido</div></th>
-															<th style="width:10px" id="cuadrito2"></th>																																
-														</tr>
-													</thead>
-													<tbody>
-													
-														<tr th:each="conductoresql: ${conductores}" th:if="${conductoresql.enabled} == true">
-															<th style="width:30px"><input class="check2" name="SelUsu" type="radio" th:id="${conductoresql.nombre}+' '+${conductoresql.apellido1}+' '+${conductoresql.apellido2}" th:value="${conductoresql.no_empleado}"></th>															
-															<td th:text="${conductoresql.no_empleado}" class="celda"></td>
-															<td th:text="${conductoresql.nombre}" class="celda"></td>
-															<td th:text="${conductoresql.apellido1}" class="celda"></td>
-															<td th:text="${conductoresql.apellido2}" class="celda"></td>																																																
-														</tr>
-																									
-														
-													</tbody>
-												</table>
-                                           		
-                                           	</div>	
-                                           	<div class="col-sm-12" >
-	                                        
-	                                        <input type="hidden" th:field="${Presguardante.id_resguardante}" th:value="${Presguardante.id_resguardante}"/>
-	                                        <input type="hidden" th:field="${Sresguardante.id_resguardante}" th:value="${Sresguardante.id_resguardante}"/>	                                       
-													
-													
-	                                        <button class="btn-minimize btn btn-primary btn-xs col-sm-3 btn-stilo">Continuar</button>
-	                                        <button id="volverPR" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;">Regresar</button>	                                        
-	                                        <button id="finishP1" type="submit" class="btn btn-primary btn-xs col-sm-3 btn-stilo" style="display:none;">Guardar</button>
-	                                        </div>
-	                                    </form>
-	                                    <form th:action="@{/formVehiTResguardante}" method="get" id="formulario2" data-toggle="validator" class="popup-form">
-	                                    	<input type="hidden" name="Pnombre" id="Pnombre" >	
-	                                    	<input type="hidden" name="Papellido1" id="Papellido1" >
-	                                    	<input type="hidden" name="Papellido2" id="Papellido2" >
-	                                    	<input type="hidden" name="Pcargo" id="Pcargo" >
-	                                    	<input type="hidden" name="Snombre" id="Snombre" >	
-	                                    	<input type="hidden" name="Sapellido1" id="Sapellido1" >
-	                                    	<input type="hidden" name="Sapellido2" id="Sapellido2" >
-	                                    	<input type="hidden" name="Scargo" id="Scargo" >	
-	                                    	<button id="Tresguar" class="btn btn-primary btn-xs col-sm-6 btn-stilo" style="display:none;margin: 5px;">Agregar un tercer Resguardante </button> 
-	                                    </form>	
-	                                    	   	                                       
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
+												<!--Apellido2-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Presguardante.apellido2}"
+														th:value="${Presguardante.apellido2}" name="apellidoM1"
+														id="A_ma" onchange="limpiarPR()"
+														placeholder="Apellido Materno"
+														onkeypress="return letras(event);"
+														class="form-control Letras" type="text" required
+														data-error="Ingrese El segundo Apellido">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--Cargo-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Presguardante.cargo}"
+														th:value="${Presguardante.cargo}" name="cargo1" id="cargo"
+														onchange="limpiarPR()" placeholder="Cargo"
+														onkeypress="return letras(event);"
+														class="form-control Letras" type="text" required
+														data-error="Ingrese El cargo">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!-- calev -->
+												<!--no_licencia-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Presguardante.no_licencia}"
+														th:value="${Presguardante.no_licencia}"
+														name="no_licencia1" id="Pno_licencia"
+														onchange="limpiarPR()" placeholder="Numero de licencia"
+														class="form-control Letrasnum" type="text" required
+														data-error="Ingrese El Numero de licencia">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--rfc-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Presguardante.rfc}"
+														th:value="${Presguardante.rfc}" name="rfc1" id="Prfc"
+														onchange="limpiarPR()" placeholder="RFC"
+														class="form-control Letrasnum" type="text" required
+														data-error="Ingrese El RFC">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--INE-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Presguardante.ine}"
+														th:value="${Presguardante.ine}" name="ine1" id="Pine"
+														onchange="limpiarPR()" placeholder="INE"
+														class="form-control Letrasnum" type="text" required
+														data-error="Ingrese El INE">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--telefono-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Presguardante.telefono}"
+														th:value="${Presguardante.telefono}" name="telefono1"
+														id="Ptelefono" onchange="limpiarPR()"
+														placeholder="Numero de telefono"
+														class="form-control numguion" type="text" required
+														data-error="Ingrese el Telefono">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--domicilio-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Presguardante.domicilio}"
+														th:value="${Presguardante.domicilio}" name="domicilio1"
+														id="Pdomicilio" onchange="limpiarPR()"
+														placeholder="Domicilio" class="form-control Calle"
+														type="text" required data-error="Ingrese el Domicilio">
+
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+
+												</div>
+												<!--adscripcion-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+
+													<select id="Padscripcion" name="Padscripcion"
+														th:field="${Presguardante.ids_adscripcion}"
+														class="form-control Letras" required
+														onchange="limpiarPR()" data-error="Ingrese Un Elemento">
+														<option value="">Selecciona una
+															Adscripci&oacute;n</option>
+														<option th:each="adss : ${adscripciones}"
+															th:value="${adss.id_adscripcion}"
+															th:utext="${adss.nombre_adscripcion}"></option>
+													</select>
+
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--fin calev -->
+												<div class="form-group col-sm-6 enlineaform">
+													<button id="clean" class="btn btn-primary btn-xs btn-stilo"
+														style="display: none;">Limpiar</button>
+												</div>
+											</div>
+
+
+										</div>
+										<div class="Paso1 col-sm-6 enlinea">
+											<h3>Datos de Usuarios</h3>
+
+											<div class=" col-md-12" id="Contenedorbuscar">
+												<div id="Busqueda" class="col-md-6 enlinea">
+													<input id="searchTerm" th:value=*{elemento}
+														class="form-control" name="elemento" type="text"
+														onkeyup="doSearch()" onkeypress="return pulsar(event)" />
+												</div>
+												<div class="col-md-2 enlinea">
+													<i class="fas fa-search"></i>
+												</div>
+												<div id="coincidencias" class="col-md-6"></div>
+
+											</div>
+
+											<table
+												class="table table-striped table-bordered fixed_header "
+												id="UsuariosT">
+												<thead class="table-success">
+													<tr>
+														<th style="width: 30px"></th>
+														<th><div class="celda">Numero de Empleado</div></th>
+														<th><div class="celda">Nombre</div></th>
+														<th><div class="celda">Primer Apellido</div></th>
+														<th><div class="celda">Segundo Apellido</div></th>
+														<th style="width: 10px" id="cuadrito"></th>
+													</tr>
+												</thead>
+												<tbody>
+
+													<tr th:each="usuariosql: ${usuarios}"
+														th:if="${usuariosql.enabled} == true">
+														<th style="width: 30px"><input class="check"
+															type="radio" name="SelUsu"
+															th:id="${usuariosql.nombre}+' '+${usuariosql.apellido1}+' '+${usuariosql.apellido2}"
+															th:value="${usuariosql.no_empleado}"></th>
+														<td th:text="${usuariosql.no_empleado}" class="celda"></td>
+														<td th:text="${usuariosql.nombre}" class="celda"></td>
+														<td th:text="${usuariosql.apellido1}" class="celda"></td>
+														<td th:text="${usuariosql.apellido2}" class="celda"></td>
+														<!-- Calev datos extras-->
+																<td style="display:none;" th:text="${usuariosql.cargo}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.no_licencia}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.rfc}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.ine}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.telefono}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.domicilio}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.adscripcion.id_adscripcion}" class="celda"></td>
+																<!-- fin calev -->
+													</tr>
+
+
+												</tbody>
+											</table>
+
+										</div>
+
+										<div class="Paso2 col-sm-12 enlinea" style="display: none">
+											<h3>Segundo Resguardante</h3>
+
+											<div class="row rowresguardantes"
+												th:object="${Sresguardante}">
+
+												<!--Nombre-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Sresguardante.nombre}"
+														th:value="${Sresguardante.nombre}" name="nombre2"
+														onkeypress="return letras(event);" id="Nombre2"
+														onchange="limpiarSR()" placeholder="Nombre"
+														class="form-control Letras" type="text" required
+														data-error="Ingrese El Nombre">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--Apellido1-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Sresguardante.apellido1}"
+														onkeypress="return letras(event);"
+														th:value="${Sresguardante.apellido1}" name="apellidoP2"
+														id="A_pa2" onchange="limpiarSR()"
+														placeholder="Apellido Paterno" class="form-control Letras"
+														type="text" required
+														data-error="Ingrese El primer Apellido">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--Apellido2-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Sresguardante.apellido2}"
+														onkeypress="return letras(event);"
+														th:value="${Sresguardante.apellido2}" name="apellidoM2"
+														id="A_ma2" onchange="limpiarSR()"
+														placeholder="Apellido Materno" class="form-control Letras"
+														type="text" required
+														data-error="Ingrese El segundo Apellido">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!--Cargo-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Sresguardante.cargo}"
+														onkeypress="return letras(event);"
+														th:value="${Sresguardante.cargo}" name="cargo2"
+														id="cargo2" onchange="limpiarSR()" placeholder="Cargo"
+														class="form-control Letras" type="text" required
+														data-error="Ingrese El cargo">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!-- calev -->
+												<!--no_licencia-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Sresguardante.no_licencia}"
+														th:value="${Sresguardante.no_licencia}"
+														name="no_licencia2" id="Sno_licencia"
+														onchange="limpiarSR()" placeholder="Numero de licencia"
+														class="form-control Letrasnum" type="text" required
+														data-error="Ingrese El Numero de licencia">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--rfc-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Sresguardante.rfc}"
+														th:value="${Sresguardante.rfc}" name="rfc2" id="Srfc"
+														onchange="limpiarSR()" placeholder="RFC"
+														class="form-control Letrasnum" type="text" required
+														data-error="Ingrese El RFC">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--INE-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Sresguardante.ine}"
+														th:value="${Sresguardante.ine}" name="ine2" id="Sine"
+														onchange="limpiarSR()" placeholder="INE"
+														class="form-control Letrasnum" type="text" required
+														data-error="Ingrese El INE">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--telefono-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Sresguardante.telefono}"
+														th:value="${Sresguardante.telefono}" name="telefono2"
+														id="Stelefono" onchange="limpiarSR()"
+														placeholder="Numero de telefono"
+														class="form-control numguion" type="text" required
+														data-error="Ingrese el Telefono">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--domicilio-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="${Sresguardante.domicilio}"
+														th:value="${Sresguardante.domicilio}" name="domicilio2"
+														id="Sdomicilio" onchange="limpiarSR()"
+														placeholder="Domicilio" class="form-control Calle"
+														type="text" required data-error="Ingrese el Domicilio">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--adscripcion-->
+												<div class="form-group col-sm-4 enlineaform">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+
+
+													<select id="Sadscripcion"
+														th:field="${Sresguardante.ids_adscripcion}" required
+														name="Sadscripcion" class="form-control Letras"
+														onchange="limpiarSR()" data-error="Ingrese Un Elemento">
+														<option value="">Selecciona una
+															Adscripci&oacute;n</option>
+														<option th:each="adss : ${adscripciones}"
+															th:value="${adss.id_adscripcion}"
+															th:utext="${adss.nombre_adscripcion}"></option>
+													</select>
+
+
+
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<!--fin calev -->
+
+												<div class="form-group col-sm-6  enlineaform">
+													<button id="clean2"
+														class="btn btn-primary btn-xs btn-stilo"
+														style="display: none;">Limpiar</button>
+												</div>
+											</div>
+
+										</div>
+										<div class="
+														Paso2 col-sm-6 enlinea" style="display: none">
+														<h3>Datos de Conductores</h3>
+
+														<div class=" col-md-12" id="Contenedorbuscar2">
+
+															<div id="Busqueda2" class="col-md-6 enlinea">
+																<input id="searchTerm2" class="form-control"
+																	name="elemento" type="text" onkeyup="doSearch2()"
+																	onkeypress="return pulsar(event)" />
+															</div>
+															<div class="col-md-2 enlinea">
+																<i class="fas fa-search"></i>
+															</div>
+															<div id="coincidencias2" class="col-md-6"></div>
+
+														</div>
+
+														<table
+															class="table table-striped table-bordered fixed_header "
+															id="ConductoresT">
+															<thead class="table-success">
+																<tr>
+																	<th style="width: 30px"></th>
+																	<th><div class="celda">Numero de Empleado</div></th>
+																	<th><div class="celda">Nombre</div></th>
+																	<th><div class="celda">Primer Apellido</div></th>
+																	<th><div class="celda">Segundo Apellido</div></th>
+																	<th style="width: 10px" id="cuadrito2"></th>
+																</tr>
+															</thead>
+															<tbody>
+
+																<tr th:each="conductoresql: ${conductores}"
+																	th:if="${conductoresql.enabled} == true">
+																	<th style="width: 30px"><input class="check2"
+																		name="SelUsu" type="radio"
+																		th:id="${conductoresql.nombre}+' '+${conductoresql.apellido1}+' '+${conductoresql.apellido2}"
+																		th:value="${conductoresql.no_empleado}"></th>
+																	<td th:text="${conductoresql.no_empleado}"
+																		class="celda"></td>
+																	<td th:text="${conductoresql.nombre}" class="celda"></td>
+																	<td th:text="${conductoresql.apellido1}" class="celda"></td>
+																	<td th:text="${conductoresql.apellido2}" class="celda"></td>
+																	<!-- Calev datos extras-->
+																
+																<td style="display:none;" th:text="${conductoresql.no_licencia}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.rfc}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.no_ine}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.telefono}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.domicilio}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.adscripcion.id_adscripcion}" class="celda"></td>
+																<!-- fin calev -->
+																</tr>
+
+
+															</tbody>
+														</table>
+												</div>
+												<div class="col-sm-12" style="text-align: center;">
+
+													<input type="hidden"
+														th:field="${Presguardante.id_resguardante}"
+														th:value="${Presguardante.id_resguardante}" /> <input
+														type="hidden" th:field="${Sresguardante.id_resguardante}"
+														th:value="${Sresguardante.id_resguardante}" />
+
+
+													<button
+														class="btn-minimize btn btn-primary btn-xs col-sm-3 btn-stilo">Continuar</button>
+													<button id="volverPR"
+														class="btn btn-primary btn-xs col-sm-3 btn-stilo"
+														style="display: none;">Regresar</button>
+													<button id="finishP1" type="submit"
+														class="btn btn-primary btn-xs col-sm-3 btn-stilo"
+														style="display: none;">Guardar</button>
+												</div>
+									</form>
+									<form th:action="@{/formVehiTResguardante}" method="get"
+										id="formulario2" data-toggle="validator"
+										style="text-align: center;" class="popup-form">
+										<input type="hidden" name="Pnombre" id="Pnombre"> <input
+											type="hidden" name="Papellido1" id="Papellido1"> <input
+											type="hidden" name="Papellido2" id="Papellido2"> <input
+											type="hidden" name="Pcargo" id="Pcargo"> <input
+											type="hidden" name="Snombre" id="Snombre"> <input
+											type="hidden" name="Sapellido1" id="Sapellido1"> <input
+											type="hidden" name="Sapellido2" id="Sapellido2"> <input
+											type="hidden" name="Scargo" id="Scargo">
+
+										<!-- calev -->
+										<input type="hidden" name="HPno_licencia" id="HPno_licencia">
+										<input type="hidden" name="HPrfc" id="HPrfc"> <input
+											type="hidden" name="HPine" id="HPine"> <input
+											type="hidden" name="HPtelefono" id="HPtelefono"> <input
+											type="hidden" name="HPdomicilio" id="HPdomicilio"> <input
+											type="hidden" name="HPadscripcion_id_adscripcion"
+											id="HPadscripcion">
+										<!-- segundo -->
+										<input type="hidden" name="HSno_licencia" id="HSno_licencia">
+										<input type="hidden" name="HSrfc" id="HSrfc"> <input
+											type="hidden" name="HSine" id="HSine"> <input
+											type="hidden" name="HStelefono" id="HStelefono"> <input
+											type="hidden" name="HSdomicilio" id="HSdomicilio"> <input
+											type="hidden" name="HSadscripcion_id_adscripcion"
+											id="HSadscripcion">
+										<!-- fin calev -->
+										<button id="Tresguar"
+											class="btn btn-primary btn-xs col-sm-6 btn-stilo"
+											style="display: none; margin: 5px;">Agregar un
+											tercer Resguardante</button>
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			
 		</div>
-	</section>	
-	
-	<script type="text/javascript"  th:inline="javascript">
-	
-	function limpiarPR()
-    {
+
+	</div>
+</section>
+ 
+<script type="text/javascript" th:inline="javascript">
+	function limpiarPR() {
 		$("#clean").show();
-		if($("#Nombre").val() != "" && $("#A_pa").val() != "" && $("#A_ma").val() != "" && $("#cargo").val() != "" ){
-			var nombre=$("#Nombre").val();
-			var ap1=$("#A_pa").val();
-			var ap2=$("#A_ma").val();
-			var cargo=$("#cargo").val();
-			$("#Pnombre").val(nombre);	
-			$("#Papellido1").val(ap1);	
-			$("#Papellido2").val(ap2);	
-			$("#Pcargo").val(cargo);	
-		};
-    }
-	
-	function limpiarSR()
-    {
+		if ($("#Nombre").val() != "" && $("#A_pa").val() != ""
+				&& $("#A_ma").val() != "" && $("#cargo").val() != "") {
+			var nombre = $("#Nombre").val();
+			var ap1 = $("#A_pa").val();
+			var ap2 = $("#A_ma").val();
+			var cargo = $("#cargo").val();
+			$("#Pnombre").val(nombre);
+			$("#Papellido1").val(ap1);
+			$("#Papellido2").val(ap2);
+			$("#Pcargo").val(cargo);
+		}
+		;
+	}
+
+	function limpiarSR() {
 		$("#clean2").show();
-		if($("#Nombre2").val() != "" && $("#A_pa2").val() != "" && $("#A_ma2").val() != "" && $("#cargo2").val() != "" ){
-			var nombre=$("#Nombre2").val();
-			var ap1=$("#A_pa2").val();
-			var ap2=$("#A_ma2").val();
-			var cargo=$("#cargo2").val();
-			$("#Snombre").val(nombre);	
-			$("#Sapellido1").val(ap1);	
-			$("#Sapellido2").val(ap2);	
+		if ($("#Nombre2").val() != "" && $("#A_pa2").val() != ""
+				&& $("#A_ma2").val() != "" && $("#cargo2").val() != "") {
+			var nombre = $("#Nombre2").val();
+			var ap1 = $("#A_pa2").val();
+			var ap2 = $("#A_ma2").val();
+			var cargo = $("#cargo2").val();
+			$("#Snombre").val(nombre);
+			$("#Sapellido1").val(ap1);
+			$("#Sapellido2").val(ap2);
 			$("#Scargo").val(cargo);
-			
+
 			$("#Tresguar").show();
 			$("#finishP1").show();
-		};
-    }
-	
+		}
+		;
+	}
 
-	function doSearch()
-    {
-        const tableReg = document.getElementById('UsuariosT');
-        const searchText = document.getElementById('searchTerm').value.toLowerCase();
-        let total = 0;
+	function doSearch() {
+		const tableReg = document.getElementById('UsuariosT');
+		const searchText = document.getElementById('searchTerm').value
+				.toLowerCase();
+		let total = 0;
 
-        // Recorremos todas las filas con contenido de la tabla
-	        for (let i = 1; i < tableReg.rows.length; i++) {
-	
-	            // Si el td tiene la clase "noSearch" no se busca en su cntenido
-	
-	            if (tableReg.rows[i].classList.contains("noSearch")) {
-	                continue;
-	            }
-	
-	            let found = false;
-	
-	            const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-	
-	            // Recorremos todas las celdas
-	
-	            for (let j = 0; j < cellsOfRow.length && !found; j++) {
-	                const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
-	                // Buscamos el texto en el contenido de la celda
-	                if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
-	                    found = true;
-	                    total++;
-	                }
-	            }
-	            if (found) {
-	                tableReg.rows[i].style.display = '';
-	            } else {
-	                tableReg.rows[i].style.display = 'none';
-	           }
-	        }
-	        // mostramos las coincidencias
-	
-	        const lastTR=tableReg.rows[tableReg.rows.length-1];
-	
-	        const td=lastTR.querySelector("td");
-	
-	        lastTR.classList.remove("hide", "red");
-	
-	        if (searchText == "") {
-	            //lastTR.classList.add("hide");
-	            $('#coincidencias').html("");
-	        } else if (total) {
-	        	$('#coincidencias').html("Se ha encontrado "+total+" coincidencia"+((total>1)?"s":""));
-	        	if(total<10){$("#cuadrito").hide();}else{$("#cuadrito").show();}
-	           // td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
-	        } else {
-	            lastTR.classList.add("red");
-	            $('#coincidencias').html("No se han encontrado coincidencias")
-	            $("#cuadrito").show();
-	            //td.innerHTML="No se han encontrado coincidencias";
-	        }
-    }
-	
-	function doSearch2()
-    {
-        const tableReg = document.getElementById('ConductoresT');
-        const searchText = document.getElementById('searchTerm2').value.toLowerCase();
-        let total = 0;
+		// Recorremos todas las filas con contenido de la tabla
+		for (let i = 1; i < tableReg.rows.length; i++) {
 
-        // Recorremos todas las filas con contenido de la tabla
-	        for (let i = 1; i < tableReg.rows.length; i++) {
-	
-	            // Si el td tiene la clase "noSearch" no se busca en su cntenido
-	
-	            if (tableReg.rows[i].classList.contains("noSearch2")) {
-	                continue;
-	            }
-	
-	            let found = false;
-	
-	            const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-	
-	            // Recorremos todas las celdas
-	
-	            for (let j = 0; j < cellsOfRow.length && !found; j++) {
-	                const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
-	                // Buscamos el texto en el contenido de la celda
-	                if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
-	                    found = true;
-	                    total++;
-	                }
-	            }
-	            if (found) {
-	                tableReg.rows[i].style.display = '';
-	            } else {
-	                tableReg.rows[i].style.display = 'none';
-	           }
-	        }
-	        // mostramos las coincidencias
-	
-	        const lastTR=tableReg.rows[tableReg.rows.length-1];
-	
-	        const td=lastTR.querySelector("td");
-	
-	        lastTR.classList.remove("hide", "red");
-	
-	        if (searchText == "") {
-	            //lastTR.classList.add("hide");
-	            $('#coincidencias2').html("");
-	        } else if (total) {
-	        	$('#coincidencias2').html("Se ha encontrado "+total+" coincidencia"+((total>1)?"s":""));
-	        	if(total<10){$("#cuadrito2").hide();}else{$("#cuadrito2").show();}
-	           // td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
-	        } else {
-	            lastTR.classList.add("red");
-	            $('#coincidencias2').html("No se han encontrado coincidencias")
-	            $("#cuadrito2").show();
-	            //td.innerHTML="No se han encontrado coincidencias";
-	        }
-    }
-    
-    function pulsar(e) {
-    	  tecla = (document.all) ? e.keyCode :e.which;
-    	  return (tecla!=13);
-    	} 
-    
-    	
-    $(document).ready(function()
-    {
-    	$(".check").click(function () {	 
-    		     		
-    			var seleccion = $(this).attr('id');
-          		console.log(seleccion);
-          		var datos = seleccion.split(" ");
-          		var nombre = seleccion.split(" ")[0];
-          		var A1 = seleccion.split(" ")[1];
-          		var A2 = seleccion.split(" ")[2];          		          	
-          		
-          		$("#Nombre").val(nombre);
-          		$("#A_pa").val(A1);
-          		$("#A_ma").val(A2);    		    	
-    			$("#clean").show();
-    	});
-    });
-    
-    $(document).ready(function()
-    	    {
-    	    	$(".check2").click(function () {	 
-    	    		     		
-    	    			var seleccion = $(this).attr('id');
-    	          		console.log(seleccion);
-    	          		var datos = seleccion.split(" ");
-    	          		var nombre = seleccion.split(" ")[0];
-    	          		var A1 = seleccion.split(" ")[1];
-    	          		var A2 = seleccion.split(" ")[2];          		          	
-    	          		
-    	          		$("#Nombre2").val(nombre);
-    	          		$("#A_pa2").val(A1);
-    	          		$("#A_ma2").val(A2);    		    	
-    	    			$("#clean2").show();
-    	    			$("#Tresguar").show();
-    	    			$("#finishP1").show();
-    	    			
-    	    	});
-    	    });
-    
-    $(".btn-minimize").click(function(){    
-       if($("#Nombre").val() != "" && $("#A_pa").val() != "" && $("#A_ma").val() != "" && $("#cargo").val() != "" ){
-    	   $(this).toggleClass('btn-plus');       
-        	$(".Paso1").slideToggle();
-        	$(".Paso2").slideToggle();
-        	$(".btn-minimize").hide();
-        	$("#volverPR").show();
-       }
-      });
-    
-    $("#volverPR").click(function(){
-        $(this).toggleClass('btn-plus');
-        $(".Paso1").slideToggle();
-        $(".Paso2").slideToggle();
-        $(".btn-minimize").show();
-        $("#volverPR").hide();
-      });
-       
-    
-    $("#Trescancel").click(function(){
-        $(this).toggleClass('btn-plus');        
-        $("#Extra").slideToggle(function(){        	
-        	$(".check2").prop("disabled",false);
-        	$("#Nombre2").prop("disabled",false);
-      		$("#A_pa2").prop("disabled",false);
-      		$("#A_ma2").prop("disabled",false);       		
-      		$("#Tresguar").show();
-        });        
-      });
-    
-    $("#clean").click(function(){
-    	$("#Nombre").val("");
-  		$("#A_pa").val("");
-  		$("#A_ma").val(""); 
-        $(".check").prop("checked",false);
-        $(this).hide();
-      });
-    
-    $("#clean2").click(function(){
-    	$("#Nombre2").val("");
-  		$("#A_pa2").val("");
-  		$("#A_ma2").val(""); 
-        $(".check2").prop("checked",false);
-        $(this).hide();
-        $("#Tresguar").hide();
-        $("#finishP1").hide();
-      });
-    $("#clean3").click(function(){
-    	$("#Nombre3").val("");
-  		$("#A_pa3").val("");
-  		$("#A_ma3").val(""); 
-        
-        
-      });
-    
-   
+			// Si el td tiene la clase "noSearch" no se busca en su cntenido
 
-    </script>
-	
-	
-	<script src="/assets/js/CambiosEstado.js"></script>
-	<!-- jQuery Library -->
-	<script src="/assets/js/jquery-3.4.1.min.js"></script>
-	<!-- Popper js -->
-	<script src="/assets/js/popper.min.js"></script>
-	<!-- Bootstrap Js -->
-	<script src="/assets/js/bootstrap.min.js"></script>
-	<!-- Form Validator -->
-	<script src="/assets/js/validator.min.js"></script>
-	<!-- Contact Form Js -->
-	<script src="/assets/js/contact-form.js"></script>
-	
-	
- 
+			if (tableReg.rows[i].classList.contains("noSearch")) {
+				continue;
+			}
+
+			let found = false;
+
+			const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+
+			// Recorremos todas las celdas
+
+			for (let j = 0; j < cellsOfRow.length && !found; j++) {
+				const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+				// Buscamos el texto en el contenido de la celda
+				if (searchText.length == 0
+						|| compareWith.indexOf(searchText) > -1) {
+					found = true;
+					total++;
+				}
+			}
+			if (found) {
+				tableReg.rows[i].style.display = '';
+			} else {
+				tableReg.rows[i].style.display = 'none';
+			}
+		}
+		// mostramos las coincidencias
+
+		const lastTR = tableReg.rows[tableReg.rows.length - 1];
+
+		const td = lastTR.querySelector("td");
+
+		lastTR.classList.remove("hide", "red");
+
+		if (searchText == "") {
+			//lastTR.classList.add("hide");
+			$('#coincidencias').html("");
+		} else if (total) {
+			$('#coincidencias').html(
+					"Se ha encontrado " + total + " coincidencia"
+							+ ((total > 1) ? "s" : ""));
+			if (total < 10) {
+				$("#cuadrito").hide();
+			} else {
+				$("#cuadrito").show();
+			}
+			// td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
+		} else {
+			lastTR.classList.add("red");
+			$('#coincidencias').html("No se han encontrado coincidencias")
+			$("#cuadrito").show();
+			//td.innerHTML="No se han encontrado coincidencias";
+		}
+	}
+
+	function doSearch2() {
+		const tableReg = document.getElementById('ConductoresT');
+		const searchText = document.getElementById('searchTerm2').value
+				.toLowerCase();
+		let total = 0;
+
+		// Recorremos todas las filas con contenido de la tabla
+		for (let i = 1; i < tableReg.rows.length; i++) {
+
+			// Si el td tiene la clase "noSearch" no se busca en su cntenido
+
+			if (tableReg.rows[i].classList.contains("noSearch2")) {
+				continue;
+			}
+
+			let found = false;
+
+			const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+
+			// Recorremos todas las celdas
+
+			for (let j = 0; j < cellsOfRow.length && !found; j++) {
+				const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+				// Buscamos el texto en el contenido de la celda
+				if (searchText.length == 0
+						|| compareWith.indexOf(searchText) > -1) {
+					found = true;
+					total++;
+				}
+			}
+			if (found) {
+				tableReg.rows[i].style.display = '';
+			} else {
+				tableReg.rows[i].style.display = 'none';
+			}
+		}
+		// mostramos las coincidencias
+
+		const lastTR = tableReg.rows[tableReg.rows.length - 1];
+
+		const td = lastTR.querySelector("td");
+
+		lastTR.classList.remove("hide", "red");
+
+		if (searchText == "") {
+			//lastTR.classList.add("hide");
+			$('#coincidencias2').html("");
+		} else if (total) {
+			$('#coincidencias2').html(
+					"Se ha encontrado " + total + " coincidencia"
+							+ ((total > 1) ? "s" : ""));
+			if (total < 10) {
+				$("#cuadrito2").hide();
+			} else {
+				$("#cuadrito2").show();
+			}
+			// td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
+		} else {
+			lastTR.classList.add("red");
+			$('#coincidencias2').html("No se han encontrado coincidencias")
+			$("#cuadrito2").show();
+			//td.innerHTML="No se han encontrado coincidencias";
+		}
+	}
+
+	function pulsar(e) {
+		tecla = (document.all) ? e.keyCode : e.which;
+		return (tecla != 13);
+	}
+
+	$(document).ready(function() {
+		$(".check").click(function() {
+
+			var seleccion = $(this).attr('id');
+			console.log(seleccion);
+			var datos = seleccion.split(" ");
+			var nombre = seleccion.split(" ")[0];
+			var A1 = seleccion.split(" ")[1];
+			var A2 = seleccion.split(" ")[2];
+
+			$("#Nombre").val(nombre);
+			$("#A_pa").val(A1);
+			$("#A_ma").val(A2);
+			$("#clean").show();
+			//CALEV llenar fomulario
+			const celdas  = $(this).parent().parent().children();
+			console.log(celdas[2].innerHTML);
+			$("#cargo").val(celdas[5].innerHTML);
+			$("#Pno_licencia").val(celdas[6].innerHTML);
+			$("#Prfc").val(celdas[7].innerHTML);
+			$("#Pine").val(celdas[8].innerHTML);
+			$("#Ptelefono").val(celdas[9].innerHTML);
+			$("#Pdomicilio").val(celdas[10].innerHTML);
+			$("#Padscripcion option[value=\"" + celdas[11].innerHTML +  "\"]").attr("selected", true);
+			
+			//--calev
+		});
+		//calev
+		$("#Tresguar").on("click", function() {
+			//--Agregar el valor de los campos en el form hide
+			//Primer resguardante
+			var nombre = $("#Nombre").val();
+			var ap1 = $("#A_pa").val();
+			var ap2 = $("#A_ma").val();
+			var cargo = $("#cargo").val();
+			$("#Pnombre").val(nombre);
+			$("#Papellido1").val(ap1);
+			$("#Papellido2").val(ap2);
+			$("#Pcargo").val(cargo);
+			//CALEV - Pone los valores en el formulario hidden
+			$("#HPno_licencia").val($("#Pno_licencia").val());
+			$("#HPrfc").val($("#Prfc").val());
+			$("#HPine").val($("#Pine").val());
+			$("#HPtelefono").val($("#Ptelefono").val());
+			$("#HPdomicilio").val($("#Pdomicilio").val());
+			$("#HPadscripcion").val($("#Padscripcion").val());
+
+			//--calev
+			//Segundo resguardante
+			var nombre = $("#Nombre2").val();
+			var ap1 = $("#A_pa2").val();
+			var ap2 = $("#A_ma2").val();
+			var cargo = $("#cargo2").val();
+			$("#Snombre").val(nombre);
+			$("#Sapellido1").val(ap1);
+			$("#Sapellido2").val(ap2);
+			$("#Scargo").val(cargo);
+
+			$("#Tresguar").show();
+			$("#finishP1").show();
+			//calev
+			//segundo
+			$("#HSno_licencia").val($("#Sno_licencia").val());
+			$("#HSrfc").val($("#Srfc").val());
+			$("#HSine").val($("#Sine").val());
+			$("#HStelefono").val($("#Stelefono").val());
+			$("#HSdomicilio").val($("#Sdomicilio").val());
+			$("#HSadscripcion").val($("#Sadscripcion").val());
+			//--calev
+		});
+		//--calev
+	});
+
+	$(document).ready(function() {
+		$(".check2").click(function() {
+
+			var seleccion = $(this).attr('id');
+			console.log(seleccion);
+			var datos = seleccion.split(" ");
+			var nombre = seleccion.split(" ")[0];
+			var A1 = seleccion.split(" ")[1];
+			var A2 = seleccion.split(" ")[2];
+
+			$("#Nombre2").val(nombre);
+			$("#A_pa2").val(A1);
+			$("#A_ma2").val(A2);
+			$("#clean2").show();
+			$("#Tresguar").show();
+			$("#finishP1").show();
+			
+			//CALEV llenar fomulario
+			const celdas  = $(this).parent().parent().children();
+			console.log(celdas[2].innerHTML);
+			$("#Sno_licencia").val(celdas[5].innerHTML);
+			$("#Srfc").val(celdas[6].innerHTML);
+			$("#Sine").val(celdas[7].innerHTML);
+			$("#Stelefono").val(celdas[8].innerHTML);
+			$("#Sdomicilio").val(celdas[9].innerHTML);
+			$("#Sadscripcion option[value=\"" + celdas[10].innerHTML +  "\"]").attr("selected", true);
+			
+			//--calev
+
+		});
+	});
+
+	$(".btn-minimize").click(
+			function() {
+				if ($("#Nombre").val() != "" && $("#A_pa").val() != ""
+						&& $("#A_ma").val() != "" && $("#cargo").val() != "") {
+					$(this).toggleClass('btn-plus');
+					$(".Paso1").slideToggle();
+					$(".Paso2").slideToggle();
+					$(".btn-minimize").hide();
+					$("#volverPR").show();
+				}
+			});
+
+	$("#volverPR").click(function() {
+		$(this).toggleClass('btn-plus');
+		$(".Paso1").slideToggle();
+		$(".Paso2").slideToggle();
+		$(".btn-minimize").show();
+		$("#volverPR").hide();
+	});
+
+	$("#Trescancel").click(function() {
+		$(this).toggleClass('btn-plus');
+		$("#Extra").slideToggle(function() {
+			$(".check2").prop("disabled", false);
+			$("#Nombre2").prop("disabled", false);
+			$("#A_pa2").prop("disabled", false);
+			$("#A_ma2").prop("disabled", false);
+			$("#Tresguar").show();
+		});
+	});
+
+	$("#clean").click(function() {
+		$("#Nombre").val("");
+		$("#A_pa").val("");
+		$("#A_ma").val("");
+		$(".check").prop("checked", false);
+		//CALEV
+		$("#cargo").val("");
+		$("#Pno_licencia").val("");
+		$("#Prfc").val("");
+		$("#Pine").val("");
+		$("#Ptelefono").val("");
+		$("#Pdomicilio").val("");
+		$("#Padscripcion").val("");
+		$("#Padscripcion option[value=\"\"]").attr("selected", true);
+		//--CALEV
+		$(this).hide();
+	});
+
+	$("#clean2").click(function() {
+		$("#Nombre2").val("");
+		$("#A_pa2").val("");
+		$("#A_ma2").val("");
+		$(".check2").prop("checked", false);
+		$(this).hide();
+		$("#Tresguar").hide();
+		$("#finishP1").hide();
+	});
+	$("#clean3").click(function() {
+		$("#Nombre3").val("");
+		$("#A_pa3").val("");
+		$("#A_ma3").val("");
+
+	});
+</script>
+
+<script src="/assets/js/CambiosEstado.js"></script>
+<!-- jQuery Library -->
+<script src="/assets/js/jquery-3.4.1.min.js"></script>
+<!-- Popper js -->
+<script src="/assets/js/popper.min.js"></script>
+<!-- Bootstrap Js -->
+<script src="/assets/js/bootstrap.min.js"></script>
+<!-- Form Validator -->
+<script src="/assets/js/validator.min.js"></script>
+<!-- Contact Form Js -->
+<script src="/assets/js/contact-form.js"></script>
+<!-- SweetAlert -->
+<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
+
+
 </body>
 </html>

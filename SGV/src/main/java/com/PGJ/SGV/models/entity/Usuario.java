@@ -23,6 +23,31 @@ public class Usuario implements Serializable {
 	private String contrasena;
 	private String fecha_alta;
 	private String fecha_baja;
+	private String cargo;
+	private String no_licencia;
+	private String rfc;
+	
+	private String ine;
+	public String getIne() {
+		return ine;
+	}
+	public void setIne(String ine) {
+		this.ine = ine;
+	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	public String getDomicilio() {
+		return domicilio;
+	}
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
+	}
+	private String telefono;
+	private String domicilio;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Authority authority;
@@ -102,6 +127,24 @@ public class Usuario implements Serializable {
 	public String toString() {
 		return "NO EMPLEADO:"+no_empleado+ ";" +"NOMBRE:" + nombre + " " + apellido1 + " " + apellido2 + ";"  +
 	           "ENABLED:" + enabled + ";" + "FECHA ALTA:"+ fecha_alta + ";" + "FECHA BAJA:"+ fecha_baja;
+	}
+	public String getCargo() {
+		return cargo;
+	}
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+	public String getNo_licencia() {
+		return no_licencia;
+	}
+	public void setNo_licencia(String no_licencia) {
+		this.no_licencia = no_licencia;
+	}
+	public String getRfc() {
+		return rfc;
+	}
+	public void setRfc(String rfc) {
+		this.rfc = rfc;
 	}
 	
 }

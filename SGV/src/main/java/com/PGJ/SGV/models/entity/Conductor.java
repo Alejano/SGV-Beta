@@ -29,7 +29,35 @@ public class Conductor implements Serializable {
 	private String vig_ine;
 	private String no_licencia;
 	private String vig_licencia;
+	//-
+	private String rfc;
+	private String telefono;
+	private String domicilio;
+	public String getRfc() {
+		return rfc;
+	}
 
+	public void setRfc(String rfc) {
+		this.rfc = rfc;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDomicilio() {
+		return domicilio;
+	}
+
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
+	}
+
+	
 	public Adscripcion getAdscripcion() {
 		return adscripcion;
 	}

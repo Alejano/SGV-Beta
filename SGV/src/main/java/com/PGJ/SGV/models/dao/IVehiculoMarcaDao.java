@@ -26,10 +26,10 @@ public interface IVehiculoMarcaDao extends CrudRepository<VehiculoMarca, Long> {
 	@Query("select distinct v.tipo from VehiculoMarca v where v.nombre_marca like ?1 and v.nombre_submarca like ?2 and v.modelo like ?3")
 	public List<String> findallTipoUnico(String nombre_marca, String nombre_submarca, String modelo);
 	
-	@Query("select distinct v.tipo from VehiculoMarca v where v.nombre_marca like ?1 and v.nombre_submarca like ?2 and v.modelo like ?3 and v.tipo like ?4")
+	@Query("select distinct v.clase from VehiculoMarca v where v.nombre_marca like ?1 and v.nombre_submarca like ?2 and v.modelo like ?3 and v.tipo like ?4")
 	public List<String> findallClaseUnico(String nombre_marca,String nombre_submarca,String modelo,String tipo);	
 	
-	@Query("select v from VehiculoMarca v where v.nombre_marca like ?1 and v.nombre_submarca like ?2 and v.modelo like ?3 and v.tipo like ?4 and v.tipo like ?5")
+	@Query("select v from VehiculoMarca v where v.nombre_marca like ?1 and v.nombre_submarca like ?2 and v.modelo like ?3 and v.tipo like ?4 and v.clase like ?5")
 	public VehiculoMarca findMarca(String nombre_marca,String nombre_submarca,String modelo,String tipo,String clase);	
 	
 }

@@ -29,63 +29,63 @@
 														<!--Nombre-->
 														<div class="form-group col-sm-4">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Tresguardante.nombre}" th:value="${Tresguardante.nombre}" name="nombre3" id="Nombre3" onchange="limpiarTR()"  placeholder="Nombre" class="form-control Letras" type="text" data-error="Ingrese El Nombre">
+															<input th:field="${Tresguardante.nombre}" th:value="${Tresguardante.nombre}" onkeypress="return letras(event);" name="nombre3" id="Nombre3" onchange="limpiarTR()"  placeholder="Nombre" class="form-control Letras" type="text" data-error="Ingrese El Nombre">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Apellido1-->
 														<div class="form-group col-sm-4">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input onchange="limpiarTR()" th:field="${Tresguardante.apellido1}" th:value="${Tresguardante.apellido1}" name="apellidoP2" id="A_pa3" placeholder="Apellido Paterno" class="form-control Letras" type="text" data-error="Ingrese El primer Apellido">
+															<input onchange="limpiarTR()" th:field="${Tresguardante.apellido1}" onkeypress="return letras(event);" th:value="${Tresguardante.apellido1}" name="apellidoP2" id="A_pa3" placeholder="Apellido Paterno" class="form-control Letras" type="text" data-error="Ingrese El primer Apellido">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Apellido2-->
 														<div class="form-group col-sm-4">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input onchange="limpiarTR()" th:field="${Tresguardante.apellido2}" th:value="${Tresguardante.apellido2}" name="apellidoM2" id="A_ma3"  placeholder="Apellido Materno" class="form-control Letras" type="text" data-error="Ingrese El segundo Apellido">
+															<input onchange="limpiarTR()" th:field="${Tresguardante.apellido2}" onkeypress="return letras(event);" th:value="${Tresguardante.apellido2}" name="apellidoM2" id="A_ma3"  placeholder="Apellido Materno" class="form-control Letras" type="text" data-error="Ingrese El segundo Apellido">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--Cargo-->
 														<div class="form-group col-sm-4">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input onchange="limpiarTR()" th:field="${Tresguardante.cargo}" th:value="${Tresguardante.cargo}" name="cargo3" id="cargo3"  placeholder="Cargo" class="form-control Letras" type="text" data-error="Ingrese El cargo">
+															<input onchange="limpiarTR()" th:field="${Tresguardante.cargo}" onkeypress="return letras(event);" th:value="${Tresguardante.cargo}" name="cargo3" id="cargo3"  placeholder="Cargo" class="form-control Letras" type="text" data-error="Ingrese El cargo">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!-- calev -->
 														<!--no_licencia-->
 														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Tresguardante.no_licencia}" th:value="${Tresguardante.no_licencia}" name="Tno_licencia" id="Tno_licencia" onchange="limpiarTR()" placeholder="Numero de licencia" class="form-control Letras" type="text" required data-error="Ingrese El Numero de licencia">
+															<input th:field="${Tresguardante.no_licencia}" th:value="${Tresguardante.no_licencia}" name="Tno_licencia" id="Tno_licencia" onchange="limpiarTR()" placeholder="Numero de licencia" class="form-control Letrasnum" type="text" required data-error="Ingrese El Numero de licencia">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--rfc-->
 														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Tresguardante.rfc}" th:value="${Tresguardante.rfc}" name="Trfc" id="Trfc" onchange="limpiarTR()" placeholder="RFC" class="form-control Letras" type="text" required data-error="Ingrese El RFC">
+															<input th:field="${Tresguardante.rfc}" th:value="${Tresguardante.rfc}" name="Trfc" id="Trfc" onchange="limpiarTR()" placeholder="RFC" class="form-control Letrasnum" type="text" required data-error="Ingrese El RFC">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--INE-->
 														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Tresguardante.ine}" th:value="${Tresguardante.ine}" name="TineT" id="Tine" onchange="limpiarTR()" placeholder="INE" class="form-control Letras" type="text" required data-error="Ingrese El INE">
+															<input th:field="${Tresguardante.ine}" th:value="${Tresguardante.ine}" name="TineT" id="Tine" onchange="limpiarTR()" placeholder="INE" class="form-control Letrasnum" type="text" required data-error="Ingrese El INE">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--telefono-->
 														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Tresguardante.telefono}" th:value="${Tresguardante.telefono}" name="Ttelefono" id="Ttelefono" onchange="limpiarTR()" placeholder="Numero de telefono" class="form-control Letras" type="text" required data-error="Ingrese El eltelefono">
+															<input th:field="${Tresguardante.telefono}" th:value="${Tresguardante.telefono}" name="Ttelefono" id="Ttelefono" onchange="limpiarTR()" placeholder="Numero de telefono" class="form-control numguion" type="text" required data-error="Ingrese El eltelefono">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--domicilio-->
 														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
-															<input th:field="${Tresguardante.domicilio}" th:value="${Tresguardante.domicilio}" name="Tdomicilio" id="Tdomicilio" onchange="limpiarTR()" placeholder="Domicilio" class="form-control Letras" type="text" required data-error="Ingrese El domicilio">
+															<input th:field="${Tresguardante.domicilio}" th:value="${Tresguardante.domicilio}" name="Tdomicilio" id="Tdomicilio" onchange="limpiarTR()" placeholder="Domicilio" class="form-control Calle" type="text" required data-error="Ingrese El domicilio">
 															<div class="input-group-icon"><i class="fa fa-user"></i></div>
 														</div>
 														<!--adscripcion-->
 														<div class="form-group col-sm-4 enlineaform">
 															<div class="help-block with-errors" style="width: 230px;"></div>														
 															
-															<select id="Tadscripcion" name="Padscripcion" th:field="${Tresguardante.adscripcion}" class="form-control Letras"onchange="limpiarTR()" required>
+															<select id="Tadscripcion" data-error="Ingrese Un Elemento" name="Padscripcion" th:field="${Tresguardante.adscripcion}" class="form-control Letras"onchange="limpiarTR()" required>
 															<option value="">Selecciona una Adscripci&oacute;n</option>
 															<option th:each="adss : ${adscripciones}"
 															th:value="${adss.id_adscripcion}"
@@ -135,7 +135,16 @@
 															<td th:text="${usuariosql.no_empleado}" class="celda"></td>
 															<td th:text="${usuariosql.nombre}" class="celda"></td>
 															<td th:text="${usuariosql.apellido1}" class="celda"></td>
-															<td th:text="${usuariosql.apellido2}" class="celda"></td>																																																
+															<td th:text="${usuariosql.apellido2}" class="celda"></td>
+															<!-- Calev datos extras-->
+																<td style="display:none;" th:text="${usuariosql.cargo}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.no_licencia}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.rfc}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.ine}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.telefono}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.domicilio}" class="celda"></td>
+																<td style="display:none;" th:text="${usuariosql.adscripcion.id_adscripcion}" class="celda"></td>
+																<!-- fin calev -->																																																
 														</tr>
 																									
 														
@@ -172,7 +181,16 @@
 															<td th:text="${conductoresql.no_empleado}" class="celda"></td>
 															<td th:text="${conductoresql.nombre}" class="celda"></td>
 															<td th:text="${conductoresql.apellido1}" class="celda"></td>
-															<td th:text="${conductoresql.apellido2}" class="celda"></td>																																																
+															<td th:text="${conductoresql.apellido2}" class="celda"></td>
+															<!-- Calev datos extras-->
+																
+																<td style="display:none;" th:text="${conductoresql.no_licencia}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.rfc}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.no_ine}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.telefono}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.domicilio}" class="celda"></td>
+																<td style="display:none;" th:text="${conductoresql.adscripcion.id_adscripcion}" class="celda"></td>
+																<!-- fin calev -->																																																
 														</tr>
 																									
 														
@@ -341,6 +359,18 @@
           		$("#A_pa3").val(A1);
           		$("#A_ma3").val(A2);    		    	
     			$("#clean3").show();
+    			//CALEV llenar fomulario
+				const celdas  = $(this).parent().parent().children();
+				console.log(celdas[2].innerHTML);
+				$("#cargo3").val(celdas[5].innerHTML);
+				$("#Tno_licencia").val(celdas[6].innerHTML);
+				$("#Trfc").val(celdas[7].innerHTML);
+				$("#Tine").val(celdas[8].innerHTML);
+				$("#Ttelefono").val(celdas[9].innerHTML);
+				$("#Tdomicilio").val(celdas[10].innerHTML);
+				$("#Tadscripcion option[value=\"" + celdas[11].innerHTML +  "\"]").attr("selected", true);
+				
+				//--calev
     	});
     });
     
@@ -358,7 +388,18 @@
     	          		$("#Nombre3").val(nombre);
     	          		$("#A_pa3").val(A1);
     	          		$("#A_ma3").val(A2);    		    	
-    	    			$("#clean3").show();    	    			
+    	    			$("#clean3").show();   
+    	    			//CALEV llenar fomulario
+    					const celdas  = $(this).parent().parent().children();
+    					console.log(celdas[2].innerHTML);
+    					$("#Tno_licencia").val(celdas[5].innerHTML);
+    					$("#Trfc").val(celdas[6].innerHTML);
+    					$("#Tine").val(celdas[7].innerHTML);
+    					$("#Ttelefono").val(celdas[8].innerHTML);
+    					$("#Tdomicilio").val(celdas[9].innerHTML);
+    					$("#Tadscripcion option[value=\"" + celdas[10].innerHTML +  "\"]").attr("selected", true);
+    					
+    					//--calev
     	    			
     	    	});
     	    	$("#cleanT").on("click",function(){
@@ -405,7 +446,8 @@
 	<script src="/assets/js/validator.min.js"></script>
 	<!-- Contact Form Js -->
 	<script src="/assets/js/contact-form.js"></script>
-	
+	<!-- SweetAlert -->
+	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
 	
  
 </body>

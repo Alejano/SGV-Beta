@@ -358,6 +358,7 @@ public class ResguardanteController {
 		model.put("Presguardante", Presguardante);
 		model.put("Sresguardante", Sresguardante);
 		model.put("Tresguardante", Tresguardante);
+		model.put("PageTitulo", "Agregar Un Tercer Resguardante");
 
 		return "vehiculos/AddTResguardante";
 	}

@@ -2,6 +2,8 @@ package com.PGJ.SGV.controllers;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -116,6 +118,11 @@ public class ConductorController {
 		
 		//ADMINISTRADOR
 		adscripcion = adscripService.findAll();
+		Collections.sort(adscripcion, new Comparator<Adscripcion>() {
+			public int compare(Adscripcion a1, Adscripcion a2) {
+				return a1.getNombre_adscripcion().compareTo(a2.getNombre_adscripcion());
+			}
+		});
 		Conductor cond = new Conductor();	
 		cond.setFecha_alta(SystemDate.obtenFecha());
 		falta_conductor=cond.getFecha_alta();

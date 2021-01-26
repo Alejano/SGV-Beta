@@ -31,7 +31,12 @@ public class Vehiculo implements Serializable {
 		private String vale;		
 		private String motivo;
 		private double kilometraje_inicial;
-		
+		//-
+		private String fecha_alta;
+		private String no_tarjeta;
+		private String fecha_estado;
+		private String fecha_tenencia;
+		//---
 		@ManyToOne(fetch = FetchType.LAZY)
 		private VehiculoEstado vehiculo_estado;
 
@@ -298,6 +303,38 @@ public class Vehiculo implements Serializable {
 			return "ID VEHI:"  +id_vehiculo+ ";" +"PLACA:" + placa + ";" + "NO SERIE:" + no_serie + ";" +
 					"NO INVENTARIO:" + no_inventario + ";" + "FECHA TARJETA:"+ fecha_tarjeta + ";" +"VALE:"+ vale + ";" +
 					"KILO INI:"+ kilometraje_inicial + ";";
+		}
+
+		public String getFecha_alta() {
+			return fecha_alta;
+		}
+
+		public void setFecha_alta(String fecha_alta) {
+			this.fecha_alta = fecha_alta;
+		}
+
+		public String getNo_tarjeta() {
+			return no_tarjeta;
+		}
+
+		public void setNo_tarjeta(String no_tarjeta) {
+			this.no_tarjeta = no_tarjeta;
+		}
+
+		public String getFecha_estado() {
+			return fecha_estado;
+		}
+
+		public void setFecha_estado(String fecha_estado) {
+			this.fecha_estado = fecha_estado;
+		}
+
+		public String getFecha_tenencia() {
+			return fecha_tenencia;
+		}
+
+		public void setFecha_tenencia(String fecha_tenencia) {
+			this.fecha_tenencia = fecha_tenencia;
 		}				
 		
 }

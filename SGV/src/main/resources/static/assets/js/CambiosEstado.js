@@ -104,6 +104,16 @@
             return false;
     });
     
+	//calev
+	$(".numguion").keypress(function (key) {
+        if ((key.charCode < 48 || key.charCode > 57)&&(key.charCode != 45))//numeros 
+            return false;
+    });
+	$(".numpunto").keypress(function (key) {
+        if ((key.charCode < 48 || key.charCode > 57)&&(key.charCode != 46))//numeros 
+            return false;
+    });
+	//-calev
     
 	function letras(e){
 		var key=e.keyCode || e.which;

@@ -1,179 +1,281 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <title>Formulario Conductor</title>
-	<meta charset="utf-8">
-	<head th:replace="/layout/layoutHead :: head"></head>
+<meta charset="utf-8">
+<head th:replace="/layout/layoutHead :: head"></head>
 <body>
 	<header th:replace="/layout/layoutHead :: header"></header>
-<section>
-	 <div class="tab-content">
-	      <div class="form-group last col-sm-12 formfondo">
-	                <div class="row">
-	                    <div class="tab-content">
-	                        <div class="col-sm-12">
-	                            <div class="item-wrap">
-	                                <div class="row">
-	                                    <div class="col-md-12">
-	                                        <form th:action="@{/FormCond}" th:object="${conductor}" method="post" id="formulario"  name="visitas" data-toggle="validator" class="popup-form">
-	                                            <div class="row">	
-	                                            
-	                                            		<div class="form-group col-sm-11" th:if="${usuario} == 'ROLE_USER'" style="text-align: center;">																																								                
-															<h4 th:text="${nombreAds}" style="margin-left: 43px;"></h4>													    										                        
-										                    <div class="input-group-icon"><i class="far fa-building fa-2x"></i></div>
-										                    <input type="hidden" th:field="*{adscripcion}">
-														</div>	      
-															
-														<!--Numero de Empleado-->
-														<div class="form-group col-sm-3">
-															<div class="help-block with-errors"></div>
-															  <input th:field="*{no_empleado}" name="fname" id="N_em" placeholder="Numero de Empleado" class="form-control signos" type="text" required data-error="Ingrese su Numero de Empleado">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>	
-																											
-	                                                    <div class="form-group col-sm-6"></div> 
-	                                                    
-	                                                    <!--Nombre-->
-														<div class="form-group col-sm-4">
-															<div class="help-block with-errors"></div>
-															  <input th:field="*{nombre}" name="Name" id="Name" placeholder="Nombre" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese el Nombre en Mayúsculas">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-	
-	                                                    <!--Apellido paterno-->
-														<div class="form-group col-sm-4">
-															<div class="help-block with-errors"></div>
-															  <input th:field="*{apellido1}" name="Ap_Ma" id="Ap_Pa" placeholder="Apellido Paterno" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese el apellido paterno en Mayúsculas">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-	                                                    
-	                                                    <!--Apellido materno-->    
-														<div class="form-group col-sm-4">
-															<div class="help-block with-errors"></div>
-															  <input th:field="*{apellido2}" name="Ap_Ma" id="Ap_Ma" placeholder="Apellido Materno" onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese el apellido materno en Mayúsculas">
-															<div class="input-group-icon"><i class="fa fa-user"></i></div>
-														</div>
-														
-	                                                    <!-- Adscripcion-->
-														<div class="form-group col-sm-10" th:if="${usuario} == 'ROLE_ADMIN'">
-															<div class="help-block with-errors"></div>
-															  <select th:field="*{adscripcion}" class="form-control" style=" height: 33px;" required data-error="Ingrese la Adscripcion">
-										                         <option th:each="adss : ${adslist}"
-										                            th:value="${adss.id_adscripcion}"
-										                            th:utext="${adss.nombre_adscripcion}" />
-										                      </select>
-										                    <div class="input-group-icon"><i class="far fa-building"></i></div>
-														</div>
-																	
-																	
-														 <!--Fecha de Alta-->
-	                                            	    <div class="form-group col-sm-4">
-														   <div class="help-block with-errors"></div>
-															   <input th:field="*{fecha_alta}" name="F_al" id="F_al" placeholder="Fecha de alta" class="form-control" type="date"  required data-error="Ingrese Fecha de alta" disabled>
-														       <div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
-														</div>
-									
-														<div style=" width:20%;display: inline-block;">
-															<input type="text" readonly="readonly" placeholder="Fecha de Alta" class="form-control">
-														</div>
-																	
-														<div class="form-group col-sm-5"></div>		
-														
-														<!--No INE-->
-														<div class="form-group col-sm-3">
-															<div class="help-block with-errors"></div>
-															  <input th:field="*{no_ine}" name="No_ine" id="No_ine" placeholder="Numero de INE" class="form-control signos" type="text" required data-error="Ingrese su Numero de INE">
-															<div class="input-group-icon"><i class="fas fa-address-card"></i></div>
-														</div>		
-														
-														<div style=" width:20%;display: inline-block;">
-															<input type="text" readonly="readonly" placeholder="No INE" class="form-control">
-														</div>
-														
-														<!--Vig INE-->
-														<div class="form-group col-sm-3">
-															<div class="help-block with-errors"></div>
-															  <input th:field="*{vig_ine}" name="Vig_ine" id="Vig_ine" placeholder="Vigencia de INE" class="form-control" type="date" required data-error="Ingrese su vigencia de INE">
-															<div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
-														</div>	
-														
-														<div style=" width:20%;display: inline-block;">
-															<input type="text" readonly="readonly" placeholder="Vigencia INE" class="form-control">
-														</div>
-														
-															
-														<!--No Licencia-->
-														<div class="form-group col-sm-3">
-															<div class="help-block with-errors"></div>
-															  <input th:field="*{no_licencia}" name="No_lic" id="No_lic" placeholder="Numero de Licencia" class="form-control signos" type="text" required data-error="Ingrese su Numero de Licencia">
-															<div class="input-group-icon"><i class="fas fa-address-card"></i></div>
-														</div>		
-														
-														<div style=" width:20%;display: inline-block;">
-															<input type="text" readonly="readonly" placeholder="No Licencia" class="form-control">
-														</div>
-														
-														<!--Vig Licencia-->
-														<div class="form-group col-sm-3">
-															<div class="help-block with-errors"></div>
-															  <input th:field="*{vig_licencia}" name="Vig_lic" id="Vig_lic" placeholder="Numero de Licencia" class="form-control" type="date" required data-error="Ingrese su vigencia de Licencia">
-															<div class="input-group-icon"><i class="fas fa-calendar-alt"></i></div>
-														</div>	
-														
-														<div style=" width:20%;display: inline-block;">
-															<input type="text" readonly="readonly" placeholder="Vigencia Licencia" class="form-control">
-														</div>
-																	
-														<!--Estado--> 		
-													    <div class="form-group col-sm-4">
-														    <div class="help-block with-errors"></div>														
-																<select th:field="*{enabled}" id="estado" class="form-control" style="height: 34px;" required data-error="Ingrese el estado del usuario">																												
-																   <option value=0>-Inactivo</option>
-																   <option value=1>-Activo</option>
-																</select>	
-															<div class="input-group-icon"><i class="fa fa-user-tag"></i></div>
-														</div>
-																			
-														<!--Boton Guardar-->
-														<div class="form-group last col-sm-12" th:if="${usuario == 'ROLE_ADMIN' or usuario =='ROLE_USER'}">
-															<button type="submit" id="guardar" class="btn btn-custom btn-stilo" style="float: right;"><i class='fa fa-envelope'></i> Guardar</button>
-														</div>
-														<div class="clearfix"></div>														                                                    
-	                                            </div>
-	                                        </form>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
+	<section>
+		<div class="tab-content">
+			<div class="form-group last col-sm-12 formfondo">
+				<div class="row">
+					<div class="tab-content">
+						<div class="col-sm-12">
+							<div class="item-wrap">
+								<div class="row">
+									<div class="col-md-12">
+										<form th:action="@{/FormCond}" th:object="${conductor}"
+											method="post" id="formulario" name="visitas"
+											data-toggle="validator" class="popup-form">
+											<div class="row">
+
+												<div class="form-group col-sm-11"
+													th:if="${usuario} == 'ROLE_USER'"
+													style="text-align: center;">
+													<h4 th:text="${nombreAds}" style="margin-left: 43px;"></h4>
+													<div class="input-group-icon">
+														<i class="far fa-building fa-2x"></i>
+													</div>
+													<input type="hidden" th:field="*{adscripcion}">
+												</div>
+
+												<!--Numero de Empleado-->
+												<div class="form-group col-sm-3">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{no_empleado}" name="fname" id="N_em"
+														placeholder="Numero de Empleado"
+														class="form-control signos" type="text" required
+														data-error="Ingrese su Numero de Empleado">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<div class="form-group col-sm-6"></div>
+
+												<!--Nombre-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{nombre}" name="Name" id="Name"
+														placeholder="Nombre" onkeypress="return letras(event);"
+														class="form-control" type="text" required
+														data-error="Ingrese el Nombre en Mayúsculas">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!--Apellido paterno-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{apellido1}" name="Ap_Ma" id="Ap_Pa"
+														placeholder="Apellido Paterno"
+														onkeypress="return letras(event);" class="form-control"
+														type="text" required
+														data-error="Ingrese el apellido paterno en Mayúsculas">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!--Apellido materno-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{apellido2}" name="Ap_Ma" id="Ap_Ma"
+														placeholder="Apellido Materno"
+														onkeypress="return letras(event);" class="form-control"
+														type="text" required
+														data-error="Ingrese el apellido materno en Mayúsculas">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!-- Adscripcion-->
+												<div class="form-group col-sm-12"
+													th:if="${usuario} == 'ROLE_ADMIN'">
+													<div class="help-block with-errors"></div>
+													<select th:field="*{adscripcion}" class="form-control"
+														required
+														data-error="Ingrese la Adscripcion">
+														<option value="">Selecciona una adscripcion</option>
+														<option th:each="adss : ${adslist}"
+															th:value="${adss.id_adscripcion}"
+															th:utext="${adss.nombre_adscripcion}" />
+													</select>
+													<div class="input-group-icon">
+														<i class="far fa-building"></i>
+													</div>
+												</div>
+												<!--domicilio-->
+												<div class="form-group col-sm-4 ">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="*{domicilio}" name="Tdomicilio"
+														id="Tdomicilio" placeholder="Domicilio"
+														class="form-control Calle" type="text" required
+														data-error="Ingrese El domicilio">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!--telefono-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors" style="width: 230px;"></div>
+													<input th:field="*{telefono}" name="Ttelefono"
+														id="Ttelefono" placeholder="Numero de telefono"
+														class="form-control numguion" type="text" required
+														data-error="Ingrese El eltelefono">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!--rfc-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{rfc}" name="rfc" id="rfc"
+														placeholder="RFC" class="form-control Letrasnum"
+														type="text" required data-error="Ingrese El RFC">
+													<div class="input-group-icon">
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+
+												<!--Fecha de Alta-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{fecha_alta}" name="F_al" id="F_al"
+														placeholder="Fecha de alta" class="form-control"
+														type="date" required data-error="Ingrese Fecha de alta"
+														disabled>
+													<div class="input-group-icon">
+														<i class="fas fa-calendar-alt"></i>
+													</div>
+												</div>
+
+												<div style="width: 20%; display: inline-block;">
+													<input type="text" readonly="readonly"
+														placeholder="Fecha de Alta" class="form-control">
+												</div>
+
+												<div class="form-group col-sm-5"></div>
+
+												<!--No INE-->
+												<div class="form-group col-sm-3">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{no_ine}" name="No_ine" id="No_ine"
+														placeholder="Numero de INE" class="form-control Letrasnum"
+														type="text" required data-error="Ingrese su Numero de INE">
+													<div class="input-group-icon">
+														<i class="fas fa-address-card"></i>
+													</div>
+												</div>
+
+												<div style="width: 20%; display: inline-block;">
+													<input type="text" readonly="readonly" placeholder="No INE"
+														class="form-control">
+												</div>
+
+												<!--Vig INE-->
+												<div class="form-group col-sm-3">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{vig_ine}" name="Vig_ine" id="Vig_ine"
+														placeholder="Vigencia de INE" class="form-control"
+														type="date" required
+														data-error="Ingrese su vigencia de INE">
+													<div class="input-group-icon">
+														<i class="fas fa-calendar-alt"></i>
+													</div>
+												</div>
+
+												<div style="width: 20%; display: inline-block;">
+													<input type="text" readonly="readonly"
+														placeholder="Vigencia INE" class="form-control">
+												</div>
+
+
+												<!--No Licencia-->
+												<div class="form-group col-sm-3">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{no_licencia}" name="No_lic" id="No_lic"
+														placeholder="Numero de Licencia"
+														class="form-control Letrasnum" type="text" required
+														data-error="Ingrese su Numero de Licencia">
+													<div class="input-group-icon">
+														<i class="fas fa-address-card"></i>
+													</div>
+												</div>
+
+												<div style="width: 20%; display: inline-block;">
+													<input type="text" readonly="readonly"
+														placeholder="No Licencia" class="form-control">
+												</div>
+
+												<!--Vig Licencia-->
+												<div class="form-group col-sm-3">
+													<div class="help-block with-errors"></div>
+													<input th:field="*{vig_licencia}" name="Vig_lic"
+														id="Vig_lic" placeholder="Numero de Licencia"
+														class="form-control" type="date" required
+														data-error="Ingrese su vigencia de Licencia">
+													<div class="input-group-icon">
+														<i class="fas fa-calendar-alt"></i>
+													</div>
+												</div>
+
+												<div style="width: 20%; display: inline-block;">
+													<input type="text" readonly="readonly"
+														placeholder="Vigencia Licencia" class="form-control">
+												</div>
+
+												<!--Estado-->
+												<div class="form-group col-sm-4">
+													<div class="help-block with-errors"></div>
+													<select th:field="*{enabled}" id="estado"
+														class="form-control" style="height: 34px;" required
+														data-error="Ingrese el estado del usuario">
+														<option value=0>Inactivo</option>
+														<option value=1>Activo</option>
+													</select>
+													<div class="input-group-icon">
+														<i class="fa fa-user-tag"></i>
+													</div>
+												</div>
+
+												<!--Boton Guardar-->
+												<div class="form-group last col-sm-12"
+													th:if="${usuario == 'ROLE_ADMIN' or usuario =='ROLE_USER'}">
+													<button type="submit" id="guardar"
+														class="btn btn-custom btn-stilo" style="float: right;">
+														<i class='fa fa-envelope'></i> Guardar
+													</button>
+												</div>
+												<div class="clearfix"></div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			
+
 		</div>
 	</section>
-	
-	
-	<script type="text/javascript"  th:inline="javascript">	
 
-	 $("body").bind('cut copy paste',function(j){
-		 j.preventDefault();
-	 })
-	 
+
+	<script type="text/javascript" th:inline="javascript">
+		$("body").bind('cut copy paste', function(j) {
+			j.preventDefault();
+		})
 	</script>
-	
-	
-	<script src="/assets/js/CambiosEstado.js"></script> 
+
+
+	<script src="/assets/js/CambiosEstado.js"></script>
 	<!-- jQuery Library -->
 	<script src="/assets/js/jquery-3.4.1.min.js"></script>
 	<!-- Popper js -->
 	<script src="/assets/js/popper.min.js"></script>
 	<!-- Bootstrap Js -->
-	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>	
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 	<!-- Form Validator -->
 	<script src="/assets/js/validator.min.js"></script>
 	<!-- Contact Form Js -->
 	<script src="/assets/js/contact-form.js"></script>
-    <!-- SweetAlert -->
+	<!-- SweetAlert -->
 	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
-	
+
 </body>
 </html>
