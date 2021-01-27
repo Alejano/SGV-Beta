@@ -18,6 +18,7 @@ public class OdometroAcombusExt implements Serializable {
 	private long id_odo;
 	private long id_asignacion;
 	private String odometro;
+	private String url_oficio_ext;
 
 	public long getId_odo() {
 		return id_odo;
@@ -42,9 +43,18 @@ public class OdometroAcombusExt implements Serializable {
 	public void setOdometro(String odometro) {
 		this.odometro = odometro;
 	}
+	
+	public String getUrl_oficio_ext() {
+		return url_oficio_ext;
+	}
+
+	public void setUrl_oficio_ext(String url_oficio_ext) {
+		this.url_oficio_ext = url_oficio_ext;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 
 }

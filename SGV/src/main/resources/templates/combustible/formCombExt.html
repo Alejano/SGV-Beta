@@ -55,12 +55,20 @@
 	                                                     <!--Adjuntar documento -->
 	                                                     
             										   <div class="form-group col-sm-12 enlineaform" th:if="${editar} == false">
-															<p style="margin-bottom:2rem;">Foto del Odometro</p>
+															<p style="margin-bottom:2rem;">FOTO ODOMETRO</p>
 															<div class="col-sm-4"  id="Ndocumento">
 																<div class="help-block with-errors"></div>
 																<input id="doc" type="file" name="file" class="form-control" accept="image/png, image/jpg, image/jpeg" required data-error="Ingresa una imagen menor a 10 MB."/>																
 															</div>
+															
+															<p style="margin-bottom:2rem;">OFICIO DE SOLICITUD EXTRAORDINARIA</p>
+															<div class="col-sm-4"  id="Ndocumento">
+																<div class="help-block with-errors"></div>
+																<input id="doc" type="file" name="file_ext" class="form-control" accept="application/pdf" required data-error="Ingresa una imagen menor a 10 MB."/>																
+															</div>
+
 														</div>
+														
 														
 													   <div class="form-group col-sm-12" th:if="${editar} == true">																														
 															<div id="aBtnGroup" class="btn-group">
@@ -68,19 +76,44 @@
 															    <button type="button" value="N" class="btn btn-default">Nuevo Documento</button>															    
 															  </div>
 															  
-															<div class="col-sm-6" id="Ndocumento"  style="margin-top: 20px; display: none;">
+															<div class="col-sm-6" id="Ndocumento" th:if="${usuario == 'ROLE_ADMIN'}"   style="display:none;">
+																														
+															<div class="form-group col-sm-12"></div>
+															
+															    <p id="odo" style="margin-bottom:2rem;">FOTO ODOMETRO</p>
 																<div class="help-block with-errors"></div>
-																<input id="doc2" type="file" name="file" class="form-control" accept="image/png, image/jpg, image/jpeg" data-error="Ingresa una imagen menor a 10 MB."/>
-															</div>															
+																<input type="file" name="file" class="form-control file" accept="image/png, image/jpg, image/jpeg" data-error="Ingresa una imagen menor a 10 MB."/>
+															    														
 														
+															    <p id="oficio" style="margin-bottom:2rem;margin-top:2rem;">OFICIO DE SOLICITUD EXTRAORDINARIA</p>
+																<div class="help-block with-errors"></div>
+																<input type="file" name="file_ext" class="form-control file_ext" accept="application/pdf"  data-error="Ingresa el documento PDF menor a 10 MB."/>
+													
+															</div>	
 														
-														<div id="Mdocumento" class=" col-sm-12">
-															<div class="card-body d-flex justify-content-center enlinea" >
-																	<embed th:src="@{'/upload/' + ${Odometro.odometro}}" type="application/pdf" class="col-sm-12" style="height:715px;"/>
+														<div id="Mdocumento" class="card-body justify-content-center col-sm-12">
+														
+														<div id="aBtnGroupD" class="btn-group">
+															    <button type="button" value="ODO" class="btn btn-default">FOTO ODOMETRO</button>
+															    <button type="button" value="EXT" class="btn btn-default">OFICIO DE SOLICITUD EXTRAORDINARIA</button>																    
+															  </div>
+														
+															<div id="ODOdoc" class="card-body justify-content-center col-sm-12">
+															<div  class="card-body d-flex justify-content-center col-sm-12" >
+															         <embed th:src="@{'/upload/' + ${Odometro.odometro}}" type="application/pdf" class="col-sm-12" style="height:715px;"/>  
 															</div>
+															</div>
+															
+															
+			                                                <div id="EXTdoc" class="card-body justify-content-center col-sm-12">
+															<div class="card-body d-flex justify-content-center col-sm-12" >
+																	<embed th:src="@{'/upload/' + ${Odometro.url_oficio_ext}}" type="application/pdf" class="col-sm-12" style="height:600px;"/>
+															</div>
+															</div>
+															
 														</div>
-														</div>			
-	                                                    
+														</div>											
+	                                                 			
 	                                                    
 	                                                    <input type="hidden" th:field="${Odometro.id_odo}"/>	                                                    
 	                                                    <input type="hidden" th:field="*{id_asignacion}"/>
@@ -117,6 +150,9 @@
 			$("#Ffin").val(output);
 		}
 		
+		     $("#ODOdoc").show();
+		     $("#EXTdoc").hide();
+		     
 		$('#aBtnGroup button').on('click', function() {
 			var thisBtn = $(this);
 			var btnText = thisBtn.text();
@@ -135,6 +171,27 @@
 		    };
 		});
 		
+		$('#aBtnGroupD button').on('click', function() {
+			var thisBtn = $(this);
+			var btnText = thisBtn.text();
+			var btnValue = thisBtn.val();
+			console.log(btnText +" "+ btnValue);
+			thisBtn.addClass('active').siblings().removeClass('active');
+		    if(btnValue == "ODO"){ 
+		    	
+		    	$("#ODOdoc").show();
+		    	$("#EXTdoc").hide();
+		    
+		    }else{
+			    if(btnValue == "EXT"){ 
+			    	
+			    	$("#ODOdoc").hide();
+			    	$("#EXTdoc").show();
+		
+			   }						   
+		    } 
+		});
+
 		$("#doc").change(function(){
 			 
 			var fileSize = this.files[0].size;

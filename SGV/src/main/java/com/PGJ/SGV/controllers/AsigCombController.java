@@ -165,7 +165,6 @@ public class AsigCombController {
 		extra.setAsigCombustible(combustible);		
 		extra.setKilometraje_ext(vehiculo.getKilometraje_inicial());
 		extra.setId_asignacion((long) (ultimoid+1));
-		
 		model.put("editar", editar);
 		model.put("Odometro", odometro);
 		model.put("combustible",combustible );	
@@ -180,17 +179,21 @@ public class AsigCombController {
 	
 	@RequestMapping(value="/formComb/{id_asignacion}")
 	public String editar(@PathVariable(value="id_asignacion") Long id_asignacion,Map<String,Object> model ) {
+		
+		user = obuserService.obtenUser();
+		model.put("usuario",user);
 		AsigCombustible combustible = null;	
 		OdometroAcombus odo = null;
 		editar = true;
 		if(!id_asignacion.equals(null)) {			
 			combustible = AsigCombus.findOne(id_asignacion);
+			System.err.println("gatts"+combustible.getId_asignacion());
 			odo = OdometroService.ObtenerAsignacion(id_asignacion);
 		}else {
 			return "redirect:/ListarCombustible";
 		}
 		model.put("Odometro", odo);
-		model.put("combustible",combustible );	
+		model.put("combustible",combustible);	
 		model.put("editar", editar);	
 		model.put("titulo", "Editar Combustible");
 		model.put("PageTitulo", "Editar Asig de Combustible Ordinaria");
@@ -199,6 +202,9 @@ public class AsigCombController {
 	
 	@RequestMapping(value="/formCombext/{id_asignacion}")
 	public String editarext(@PathVariable(value="id_asignacion") Long id_asignacion,Map<String,Object> model ) {		
+
+		user = obuserService.obtenUser();
+		model.put("usuario",user);
 		AsigCombustibleExt combusext=null;
 		OdometroAcombusExt odox=null;
 		
@@ -211,7 +217,7 @@ public class AsigCombController {
 			return "redirect:/ListarCombustible";
 		}
 		model.put("Odometro", odox);
-		model.put("combustible",combusext );	
+		model.put("combustibleExt",combusext );	
 		model.put("editar", editar);	
 		model.put("titulo", "Editar Combustible");
 		model.put("PageTitulo", "Agregar Asig de Combustible Extraordinaria");
@@ -311,7 +317,7 @@ public class AsigCombController {
 	}
 	
 	@RequestMapping(value="/formCombExt",method = RequestMethod.POST)
-	public String guardarExt(AsigCombustibleExt combustibleext,@RequestParam("file") MultipartFile documento,@RequestParam(value="id_odo")Long id_odo){
+	public String guardarExt(AsigCombustibleExt combustibleext,@RequestParam("file") MultipartFile documento,@RequestParam("file_ext") MultipartFile oficio,@RequestParam(value="id_odo")Long id_odo){
 			OdometroAcombusExt odomex = new OdometroAcombusExt();	
 			if (!documento.isEmpty()) {
 					var existe= false;
@@ -325,6 +331,7 @@ public class AsigCombController {
 						}
 				if(existe) {					
 					uploadFileService.delete(odomex.getOdometro());
+					uploadFileService.delete(odomex.getUrl_oficio_ext());
 					odomeext.setId_asignacion(odomex.getId_asignacion());
 					odomeext.setId_odo(odomex.getId_odo());					
 				}else {
@@ -332,10 +339,13 @@ public class AsigCombController {
 					odomeext.setId_asignacion(combustibleext.getId_asignacion());
 					
 				};
-				String nombreUnico = "";						
+				String nombreUnico = "";				
+				String nombreExt="";
 					try {
 						nombreUnico = uploadFileService.copy(documento);
+						nombreExt = uploadFileService.copy(oficio);
 						odomeext.setOdometro(nombreUnico);
+						odomeext.setUrl_oficio_ext(nombreExt);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
