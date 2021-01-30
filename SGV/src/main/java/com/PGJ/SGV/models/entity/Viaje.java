@@ -30,6 +30,9 @@ public class Viaje implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Vehiculo vehiculo;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private TipoAsignacion tipo_asignacion;
 
 	public Long getId_viaje() {
 		return id_viaje;
@@ -79,6 +82,13 @@ public class Viaje implements Serializable {
 		this.vehiculo = vehiculo;
 	}
 	
+	public TipoAsignacion getTipo_Asignacion() {
+		return tipo_asignacion;
+	}
+	public void setTipo_Asignacion(TipoAsignacion tipo_asignacion) {
+		this.tipo_asignacion = tipo_asignacion;
+	}
+
 	@Override
 	public String toString() {
 		return "ID_VIAJE:"+id_viaje+ ";" + ";" + "KILOMETRAJE INICIAL:" + kilometraje_inicial + ";" +

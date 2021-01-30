@@ -15,12 +15,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.PGJ.SGV.models.entity.Adscripcion;
 import com.PGJ.SGV.models.entity.LogsAudit;
+import com.PGJ.SGV.models.entity.TipoAsignacion;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.models.entity.Vehiculo;
 import com.PGJ.SGV.models.entity.Viaje;
+import com.PGJ.SGV.service.IAdscripcionService;
 import com.PGJ.SGV.service.ILogsAuditService;
 import com.PGJ.SGV.service.IObtenerUserService;
+import com.PGJ.SGV.service.ITipoAsignacionService;
 import com.PGJ.SGV.service.IUsuarioService;
 import com.PGJ.SGV.service.IVehiculoService;
 import com.PGJ.SGV.service.IViajeService;
@@ -35,6 +40,7 @@ public class ViajeCotroller {
 	
 	List<Vehiculo> vehiculo = new ArrayList<Vehiculo>();	
 	List<Viaje> viajeslist = new ArrayList<Viaje>();
+	List<TipoAsignacion> asignaciones = new ArrayList<TipoAsignacion>();
 	
 	@Autowired
 	private IViajeService viajeService;
@@ -46,6 +52,8 @@ public class ViajeCotroller {
 	private ILogsAuditService logsauditService;
 	@Autowired
 	private IObtenerUserService obuserService;
+	@Autowired
+	private ITipoAsignacionService asignacionesService;
 	
 	boolean editar = false;
 	boolean aux=false;
@@ -157,6 +165,10 @@ public class ViajeCotroller {
 		Viaje viaje = new Viaje();	
 		Vehiculo vehi= new Vehiculo();
 		editar=false;
+		
+	     asignaciones = asignacionesService.findAll();
+		 model.put("asignaciones", asignaciones);
+
 		//Calev - Habilitar el text de kilometraje solo los primeros 5 habiles dias del mes
 		
 				boolean activarKilometraje = true;		
@@ -166,6 +178,7 @@ public class ViajeCotroller {
 				}
 				model.put("hKilometraje",activarKilometraje);
 				//--------------Calev
+				
 		if(!id_vehiculo.equals(null)) {
 			    vehi= vehiculoService.findOne(id_vehiculo);	
 			    id_vehi=vehi.getId_vehiculo();
@@ -177,12 +190,14 @@ public class ViajeCotroller {
 	    		viaje.setFfinal_registro(fecha_max);
 	
 	    		model.put("viaje", viaje);
+	    		model.put("editar",editar);
 	    		model.put("titulo", "Formulario de Viajes");
 	    		model.put("PageTitulo", "Agregar Viaje Mensual");
 	    		return "formViaj";
 	    		}else {
 	    			return "formViaj";
 	    			}
+		
 	}
 	
 	
@@ -193,6 +208,9 @@ public class ViajeCotroller {
 		editar = true;
 		//rolaction(ads);
 		
+		asignaciones = asignacionesService.findAll();
+		model.put("asignaciones", asignaciones);
+		 
 		if(!id_viaje.equals(null)) {
 			viaje = viajeService.findOne(id_viaje);
 			//id_vehi_edit=viaje.getVehiculo().getId_vehiculo();
@@ -200,6 +218,7 @@ public class ViajeCotroller {
 			return "redirect:/Viajes";
 			}
 		model.put("viaje",viaje);
+		model.put("editar",editar);
 		model.put("titulo", "Editar cliente");
 		model.put("PageTitulo", "Editar Viaje Mensual");
 		return "formViajEditar";

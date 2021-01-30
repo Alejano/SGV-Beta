@@ -32,10 +32,20 @@
 															   
 											                    
 															  <div class="form-group col-sm-6"></div> 
-															  
-															  
+													      
+													        <!-- Asignacion -->
+													        <div class="form-group col-sm-3">
+														      <select th:field="*{Tipo_Asignacion}" class="form-control" style="height: 39px;" required data-error="Seleccione tipo de Asignacion">
+															    <option value="" th:if="${editar == false}">Seleccione un tipo de asignacion</option>
+															    <option th:value="${nombre_asignacion}" th:text="${nombre_asignacion}" th:if="${editar} == true"></option>
+															    <option th:each="asignaciones : ${asignaciones} " th:value="${asignaciones.id_tipo}" th:utext="${asignaciones.nombre_asignacion}" />
+														      </select>
+														    <div class="input-group-icon"><i class="far fa-building"></i></div>
+													      </div>
+			
+													       <div class="form-group col-sm-7"></div> 
+
 														   <!--Fecha inicial del Registro-->
-														
 															
 															<div class="form-group col-sm-3">
 															    <div class="help-block with-errors"></div>	
@@ -76,15 +86,14 @@
 																<div class="col-sm-3" style=" width:40%; padding-left: 3px;">
 																	<input  type="text" readonly="readonly"  placeholder="Kilometraje Inicial" class="form-control" disabled>
 																</div>
-																
-															 
-															<!--kilometraje final-->
+																 
+															 <!--kilometraje final-->
 	
-	                                                        <div class="form-group col-sm-3">
+	                                                         <div class="form-group col-sm-3">
 																<div class="help-block with-errors" style=" width: 393px;"></div>
 																	<input th:field="*{kilometraje_final}" th:readonly="${hKilometraje}" id="Kfinal"  class="form-control numberdec" onchange="kilometerfinal()" required data-error="Ingrese el Kilometraje final">																
 																<div class="input-group-icon"><i class="fas fa-tachometer-alt"></i></div>
-																</div>
+																</div> 
 																
 																<div class="col-sm-3" style=" width:40%; padding-left: 3px;">
 																	<input  type="text" readonly="readonly"  placeholder="Kilometraje Final" class="form-control" disabled>

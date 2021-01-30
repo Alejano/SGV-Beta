@@ -111,30 +111,30 @@
 													<th class="celda">Placa</th>
 													<th th:if="${usuario} == 'ROLE_ADMIN'" class="celda"
 														style="width: 300px">Adscripción</th>
+												    <th class="celda">Tipo de Asignación</th>
 													<th class="celda">Fecha Inicio</th>
 													<th class="celda">Fecha Fin</th>
 													<th class="celda">Kilometraje Inicial</th>
 													<th class="celda">Kilometraje Final</th>
 													<!-- <th th:if="${usuario} == 'ROLE_ADMIN'" class="noSearch celda" >Opciones</th> -->
-													<th style="width: 1.4%;" id="tamano"
-														th:if="${tamano} == 'mostrar'"></th>
+													<th class="celda">Opciones</th>	
+													<th style="width:1.4%" id="tamano" th:if="${tamano} == 'mostrar'"></th>		
 												</tr>
 											</thead>
 											<tbody>
 												<tr th:each="viajessql: ${viajes}">
 													<td th:text="${viajessql.vehiculo.placa}" class="celda"></td>
-													<td th:if="${usuario} == 'ROLE_ADMIN'"
-														th:text="${viajessql.vehiculo.adscripcion.nombre_adscripcion}"
-														style="width: 300px" class="celda"></td>
+													<td th:if="${usuario} == 'ROLE_ADMIN'" th:text="${viajessql.vehiculo.adscripcion.nombre_adscripcion}" style="width: 300px" class="celda"></td>
+													<td th:text="${viajessql.Tipo_Asignacion.nombre_asignacion}" class="celda"></td>
 													<td th:text="${viajessql.finicial_registro}" class="celda"></td>
 													<td th:text="${viajessql.ffinal_registro}" class="celda"></td>
 													<td th:text="${viajessql.kilometraje_inicial}"
 														class="celda"></td>
 													<td th:text="${viajessql.kilometraje_final}" class="celda"></td>
-													<!--<td class="noSearch celda"  th:if="${usuario} == 'ROLE_ADMIN'">
-															<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/formViajEditar/} +${viajessql.id_viaje}" th:text="editar" ></a>
-															<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/elimViaj/} +${viajessql.id_viaje}" onclick="return confirm('Seguro que desea eliminar el registro?');" th:text="eliminar" ></a>													
-													</td> -->
+												    <td class="noSearch celda"  th:if="${usuario} == 'ROLE_ADMIN'">
+															<a class="btn btn-primary btn-xs btn-stilo sel" th:href="@{/formViajEditar/} +${viajessql.id_viaje}"><i class="fas fa-pencil-alt fa-2x"></i></a>															
+															<!--<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/elimViaj/} +${viajessql.id_viaje}" onclick="return confirm('Seguro que desea eliminar el registro?');" th:text="eliminar" ></a> -->													
+													</td>  
 												</tr>
 
 											</tbody>
