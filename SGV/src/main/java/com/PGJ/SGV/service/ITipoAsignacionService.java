@@ -6,7 +6,7 @@ import com.PGJ.SGV.models.entity.TipoAsignacion;
 
 public interface ITipoAsignacionService {
 	
-public List<TipoAsignacion> findAll(); 
+    public List<TipoAsignacion> findAll(); 
 		
 	public TipoAsignacion findOne(long id_tipo);
 	

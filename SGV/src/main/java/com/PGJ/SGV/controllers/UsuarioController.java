@@ -128,12 +128,7 @@ public class UsuarioController {
 			  return "redirect:/Usuarios";
 		}
 		
-		System.err.println("PRUEBA"+empleado);
-		
-		ealta_usuario=usuario.getFecha_alta();
-		
-		System.err.println("coy"+ealta_usuario);
-		
+		ealta_usuario=usuario.getFecha_alta();		
 		adscripcion = adscripService.findAll();
 		
 		model.put("adslist", adscripcion);
