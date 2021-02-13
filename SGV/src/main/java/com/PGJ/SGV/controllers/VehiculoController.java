@@ -23,6 +23,7 @@ import com.PGJ.SGV.models.entity.Resguardante;
 import com.PGJ.SGV.models.entity.Revista;
 import com.PGJ.SGV.models.entity.Seguro;
 import com.PGJ.SGV.models.entity.TipoResguardante;
+import com.PGJ.SGV.models.entity.TipoVale;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.models.entity.Vehiculo;
 import com.PGJ.SGV.models.entity.VehiculoDetalle;
@@ -40,6 +41,7 @@ import com.PGJ.SGV.service.IResguardanteService;
 import com.PGJ.SGV.service.IRevistaService;
 import com.PGJ.SGV.service.ISeguroService;
 import com.PGJ.SGV.service.ITipoResguardanteService;
+import com.PGJ.SGV.service.ITipoValeService;
 import com.PGJ.SGV.service.IUploadFileService;
 import com.PGJ.SGV.service.IUsuarioService;
 import com.PGJ.SGV.service.IVehiculoPlacasService;
@@ -62,6 +64,7 @@ public class VehiculoController {
 	List<VehiculoEstado> estado = new ArrayList<VehiculoEstado>();
 	List<VehiculoTransmision> transmision = new ArrayList<VehiculoTransmision>();
 	List<VehiculoFuncion> funcion = new ArrayList<VehiculoFuncion>();
+	List<TipoVale> vales = new ArrayList<TipoVale>();
 	List<String> clase = new ArrayList<String>();
 
 	public static Resguardante Presguardante = new Resguardante();
@@ -104,6 +107,9 @@ public class VehiculoController {
 	private IRevistaService revistaService;
 	@Autowired
 	private IVehiculoPlacasService vehiculoplacaService;
+	@Autowired
+	private ITipoValeService tipovaleService;
+	
 	
 	@RequestMapping(value = "/Vehiculos", method = RequestMethod.GET)
 	public String listar(Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
@@ -332,6 +338,7 @@ public class VehiculoController {
 		model.put("usuario", user);
 
 		transmision = vehiculoService.findAllTransmision();
+		vales = tipovaleService.findAll();
 		funcion = vehiculoService.findAllFuncion();
 		editar = false;
 		List<String> marca = new ArrayList<String>();
@@ -431,6 +438,7 @@ public class VehiculoController {
 		model.put("estado", estado);
 		model.put("id", id_vehiculo);
 		model.put("transmisiones", transmision);
+		model.put("vales", vales);
 		model.put("funciones", funcion);
 		model.put("editando", "no");
 		model.put("seguroslist", seguros);
@@ -576,6 +584,7 @@ public class VehiculoController {
 		// Tresguardante.setId_resguardante(id+1);
 
 		transmision = vehiculoService.findAllTransmision();
+		vales = tipovaleService.findAll();
 		funcion = vehiculoService.findAllFuncion();
 		editar = false;
 		List<String> marca = new ArrayList<String>();
@@ -604,6 +613,7 @@ public class VehiculoController {
 		model.put("estado", estado);
 		model.put("id", id_vehiculo);
 		model.put("transmisiones", transmision);
+		model.put("vales", vales);
 		model.put("funciones", funcion);
 		model.put("editando", "no");
 		model.put("seguroslist", seguros);
@@ -627,6 +637,8 @@ public class VehiculoController {
 	@RequestMapping(value = "/formVehi")
 	public String crear(Map<String, Object> model) {
 		transmision = vehiculoService.findAllTransmision();
+		vales = tipovaleService.findAll();
+
 		funcion = vehiculoService.findAllFuncion();
 		editar = false;
 		List<String> marca = new ArrayList<String>();
@@ -639,6 +651,7 @@ public class VehiculoController {
 		VehiculoDetalle detalle = new VehiculoDetalle();
 		vehi.setMotivo("Alta de Vehiculo");
 		model.put("transmisiones", transmision);
+		model.put("vales", vales);
 		model.put("funciones", funcion);
 		model.put("editando", "no");
 		model.put("seguroslist", seguros);
@@ -673,6 +686,7 @@ public class VehiculoController {
 			vehiculo = vehiculoService.findOne(id_vehiculo);
 			marca = vehiculoService.findAllMarcaUnica();
 			transmision = vehiculoService.findAllTransmision();
+			vales = tipovaleService.findAll();
 			funcion = vehiculoService.findAllFuncion();
 			detalle = vehiculoService.findDetalle(id_vehiculo);
 			documento = vehiculoService.findTCDetalle(id_vehiculo);
@@ -694,6 +708,7 @@ public class VehiculoController {
 		detalle_old.setVehiculo_detalle(detalle);
 
 		model.put("transmisiones", transmision);
+		model.put("vales", vales);
 		model.put("funciones", funcion);
 		model.put("editando", "si");
 		model.put("documento", documento);
@@ -1171,6 +1186,7 @@ public class VehiculoController {
 			vehiculo = vehiculoService.findOne(id_vehiculo);
 			marca = vehiculoService.findAllMarcaUnica();
 			transmision = vehiculoService.findAllTransmision();
+			vales = tipovaleService.findAll();
 			funcion = vehiculoService.findAllFuncion();
 			detalle = vehiculoService.findDetalle(id_vehiculo);
 			documento = vehiculoService.findTCDetalle(id_vehiculo);
@@ -1234,6 +1250,7 @@ public class VehiculoController {
 		model.put("revistaUltimaFecha", añoRevista[0]);
 
 		model.put("transmisiones", transmision);
+		model.put("vales", vales);
 		model.put("funciones", funcion);
 		model.put("editando", "si");
 		model.put("Resguardante", res);
@@ -1290,6 +1307,11 @@ public class VehiculoController {
 			VehiculoTransmision trans1 = new VehiculoTransmision();
 			trans1.setNombre_transmision("N/A");
 			vehiculo.setVehiculo_transmision(trans1);
+		}
+		if(vehiculo.getTipo_vale() == null) {
+			TipoVale tipovale1 = new TipoVale();
+			tipovale1.setDescr_vale("N/A");
+			vehiculo.setTipo_vale(tipovale1);
 		}
 		// ---calev vull
 		// Contar los dias que lleva deshabilitado

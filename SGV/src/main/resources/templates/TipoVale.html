@@ -21,7 +21,7 @@
 	                                        		   
 											        <input id="searchTerm" th:value=*{elemento} class="form-control col-md-3" name="elemento" type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" required="required" style=display:inline-block;/>													         										           
 											        
-											        <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Aseguradoras}' style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a> 
+											        <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/ListarVales}' style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a> 
 											        <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}' style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a> 
 											    </form>
 											    </div>
@@ -39,8 +39,8 @@
 													<th class="celda">Mes con 29</th>
 													<th class="celda">Mes con 30</th>
 													<th class="celda">Mes con 31</th>
-											    	<th class="celda">Año Min</th>
-													<th class="celda">Año Max</th>
+											    	<th class="celda">A&ntilde;o Min</th>
+													<th class="celda">A&ntilde;o Max</th>
 													<th class="celda">Estatus</th>
 													<th class="celda" style="width:210px">Opciones</th>													
 													<th style="width: 1.4%" id="tamano" th:if="${tamano} == 'mostrar'"></th>									

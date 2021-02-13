@@ -2,9 +2,17 @@ package com.PGJ.SGV.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +27,12 @@ import com.PGJ.SGV.utilities.ObtenMonth;
 import com.PGJ.SGV.utilities.SystemDate;
 import com.PGJ.SGV.models.entity.AsigCombustible;
 import com.PGJ.SGV.models.entity.AsigCombustibleExt;
+import com.PGJ.SGV.models.entity.Evento;
 import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.OdometroAcombus;
 import com.PGJ.SGV.models.entity.OdometroAcombusExt;
+import com.PGJ.SGV.models.entity.Revista;
+import com.PGJ.SGV.models.entity.TipoVale;
 import com.PGJ.SGV.models.entity.Vehiculo;
 import com.PGJ.SGV.service.IAsigComExtService;
 import com.PGJ.SGV.service.IAsigComService;
@@ -29,6 +40,7 @@ import com.PGJ.SGV.service.ILogsAuditService;
 import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IOdomExtService;
 import com.PGJ.SGV.service.IOdomService;
+import com.PGJ.SGV.service.ITipoValeService;
 import com.PGJ.SGV.service.IUploadFileService;
 import com.PGJ.SGV.service.IVehiculoService;
 
@@ -51,12 +63,20 @@ public class AsigCombController {
 	private IObtenerUserService obuserService;
 	@Autowired
 	private IUploadFileService uploadFileService;
+	@Autowired
+	private ITipoValeService tipovaleService;
 	
 	public static OdometroAcombus odome = new OdometroAcombus();
 	public static OdometroAcombusExt odomeext = new OdometroAcombusExt();
 	public static String placaURL; 
 	boolean editar = false;
 	String user;
+	Long id_vehiculo;
+	
+	List<Long> vehiculoall = new ArrayList<Long>();
+	List<Vehiculo> vehiculos= new ArrayList<Vehiculo>();
+	
+	
 	
 	@RequestMapping(value="/ListarCombustible/{id_vehiculo}", method = RequestMethod.GET)
 	public String listar(@PathVariable(value="id_vehiculo") Long id_vehiculo,Model model) {
@@ -119,6 +139,8 @@ public class AsigCombController {
 		model.addAttribute("combustibleExtHisto",combustibleExtePlacaHisto);	
 		model.addAttribute("id_vehiculo",vehiculo.getId_vehiculo());
 		
+		id_vehiculo=vehiculo.getId_vehiculo();
+		
 		return "Combustibles";
 	}
 		
@@ -127,22 +149,41 @@ public class AsigCombController {
 	public String crear(@PathVariable(value="id_vehiculo") Long id_vehiculo, Map<String,Object> model) {
 		
 		int ultimoid = AsigCombus.ultimoId();
+        int totaldias = 0;
+		
+		totaldias = ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio());
 	
 		editar=false;
 		AsigCombustible combustible = new AsigCombustible();
 		OdometroAcombus odometro = new OdometroAcombus();
 		Vehiculo vehiculo = new Vehiculo();
-		vehiculo = vehiculoService.findOne(id_vehiculo);		
+
+		vehiculo = vehiculoService.findOne(id_vehiculo);
+		
 		combustible.setVehiculo(vehiculo);
 		combustible.setKilometraje_ord(vehiculo.getKilometraje_inicial());
 		combustible.setFecha_ini_ord(SystemDate.obtenFecha());
 	    combustible.setId_asignacion(ultimoid+1);
 	    
+	    if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 28) {
+			combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_28());	
+		}else 
+			if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 29) {
+			combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_29());	
+		}else 
+			if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 30) {
+			combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_30());	
+		}else 
+			if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 31) {
+			combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_31());	
+		}
+
 		model.put("editar", editar);
 		model.put("Odometro", odometro);
 		model.put("placa", vehiculo.getPlaca());
 		model.put("kilometraje", vehiculo.getKilometraje_inicial());
-		model.put("combustible",combustible );				
+		model.put("combustible",combustible );	
+		model.put("totaldias", totaldias);
 		model.put("titulo", "Formulario de Combustible");
 		model.put("PageTitulo", "Agregar Asig de Combustible Ordinaria");
 		model.put("mes", ObtenMonth.obtenMes());
@@ -184,10 +225,29 @@ public class AsigCombController {
 		model.put("usuario",user);
 		AsigCombustible combustible = null;	
 		OdometroAcombus odo = null;
+		int totaldias = 0;
+		
+		totaldias = ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio());
+		
 		editar = true;
-		if(!id_asignacion.equals(null)) {			
+		if(!id_asignacion.equals(null)) {		
+			
 			combustible = AsigCombus.findOne(id_asignacion);
-			System.err.println("gatts"+combustible.getId_asignacion());
+			
+			if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 28) {
+				combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_28());	
+			}else 
+				if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 29) {
+				combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_29());	
+			}else 
+				if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 30) {
+				combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_30());	
+			}else 
+				if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 31) {
+				combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_31());	
+			}
+
+			System.err.print("totaldias: "+totaldias);
 			odo = OdometroService.ObtenerAsignacion(id_asignacion);
 		}else {
 			return "redirect:/ListarCombustible";
@@ -195,6 +255,7 @@ public class AsigCombController {
 		model.put("Odometro", odo);
 		model.put("combustible",combustible);	
 		model.put("editar", editar);	
+		model.put("totaldias", totaldias);
 		model.put("titulo", "Editar Combustible");
 		model.put("PageTitulo", "Editar Asig de Combustible Ordinaria");
 		return "combustible/formComb";
@@ -492,4 +553,103 @@ public class AsigCombController {
 	}	
 	
 	
+	@RequestMapping(value = "/Ejecutar")
+	//@ResponseBod
+	public String inser(Model model) {
+		
+	    model.addAttribute("PageTitulo","Asignación Ordinaria Mensual");
+
+	    return "AsignacionesAutomaticas";
+	}
+
+	
+	@RequestMapping(value = "/EjecutarAsigMensual")
+	//@ResponseBody
+	public String insertWithQuery(Model model) {
+		   	
+		user = obuserService.obtenUser(); 
+		
+		List<AsigCombustible> prueba = new ArrayList<AsigCombustible>();
+		
+		//vehiculoall = vehiculoService.findAllVehi();
+        //Collections.sort(vehiculoall);
+		
+		vehiculoall.add(400L);
+		vehiculoall.add(500L);
+ 
+        System.err.println("TOTAL: "+vehiculoall.size());
+    
+        for (int i=0;i<vehiculoall.size();i++) {
+        
+		long id = vehiculoall.get(i);	
+		System.err.println("ID: "+vehiculoall.get(i));
+		System.err.println("PR: "+id);
+		
+		int ultimoid = AsigCombus.ultimoId();
+		AsigCombustible combustible = new AsigCombustible();
+		Vehiculo vehiculo = new Vehiculo();
+		vehiculo = vehiculoService.findOne(id);		
+		
+        System.err.println("PRUEBA ID: "+ vehiculo.getId_vehiculo());
+        
+		combustible.setVehiculo(vehiculo);
+		
+        System.err.println("PRUEBA ID COMBUS: "+ combustible.getVehiculo().getId_vehiculo());
+
+		combustible.setKilometraje_ord(vehiculo.getKilometraje_inicial());
+		combustible.setFecha_ini_ord(SystemDate.obtenFechaIni());
+		combustible.setFecha_fin_ord(SystemDate.obtenFechaFin());
+		combustible.setId_asignacion(ultimoid+1);
+		
+        System.err.println("PRUEBA ID ASI: "+ (ultimoid+1));
+
+	    combustible.setNo_tarjeta("2021");
+	    
+	    
+	    if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 28) {
+			combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_28());
+		}else 
+			if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 29) {
+			combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_29());
+		}else 
+			if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 30) {
+			combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_30());
+		}else 
+			if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 31) {
+			combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_31());
+		}
+	    
+	    AsigCombus.save(combustible);	
+	    prueba.add(combustible);
+	    //model.addAttribute("nregistro",combustible);
+	    
+	    id=0;
+	    
+	   
+
+	  //  model.addAttribute("usuario",user);
+
+		
+        }
+        
+        
+	    model.addAttribute("nregistro",prueba);
+	    model.addAttribute("PageTitulo","Asignación Ordinaria Mensual");
+	    
+	    System.err.println("sakura"+prueba.size());
+	    
+	
+	    return "AsignacionesAutomaticas";
+        
+	}
+	
+
 }
+	
+	
+		
+	
+		
+	
+	
+

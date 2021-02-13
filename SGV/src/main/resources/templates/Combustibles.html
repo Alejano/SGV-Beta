@@ -20,12 +20,14 @@
 	                                <div class="row" style="text-align: center;">
 	                               	 <div class=" col-md-10 enlinea">
 	                                		<div class="col-md-1 enlinea" style="text-align: right;" ><i class="fas fa-search"></i></div>
+	                                		
 	                                		<a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/ListarVales}' style="width: 47px; height: 42px; float: right; margin-right: -14%;padding : 6px 6px;"><i class="far fa-file" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
 	                                        <form class="col-md-6 enlinea">											       											       
 										       <input id="searchTerm" class="form-control"  type="text" onkeyup="doSearch()" onkeypress="return pulsar(event)" />																		   
 											</form>
 											       <div id="coincidencias" class="col-md-8"></div>
 									</div>
+									
 	                                    <div class="col-md-12 enlinea">
 	                                        <h2 th:text="${titulo}"  style="text-align: center; color:#001e4c; font-weight: 600;  "  ></h2>
 										<table class="table fixed_header fixed_Comb" id="combustibleT" style="height: 250px !important;">

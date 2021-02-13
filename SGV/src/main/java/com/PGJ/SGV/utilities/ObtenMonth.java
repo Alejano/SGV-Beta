@@ -1,6 +1,7 @@
 package com.PGJ.SGV.utilities;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class ObtenMonth {
 	
@@ -48,6 +49,7 @@ public class ObtenMonth {
 	     return name;
 	   }
 	
+	
 	public static String obtenNumMes() {
 		Calendar calen = Calendar.getInstance();
 		int mes = 0;
@@ -88,5 +90,50 @@ public class ObtenMonth {
 	   	    
 	     return name;
 	   }
+	
+	
+	public static int numeroDeDiasMes(String mes, int anio) {
+	
+	    int numeroDias = -1;
+	    switch (mes.toLowerCase().trim()) {
+	        case "enero":
+	        case "marzo":
+	        case "mayo":
+	        case "julio":
+	        case "agosto":
+	        case "octubre":
+	        case "diciembre":
+	            numeroDias = 31;
+	            break;
+	        case "abril":
+	        case "junio":
+	        case "septiembre":
+	        case "noviembre":
+	            numeroDias = 30;
+	            break;
+	        case "febrero":
+	 
+	     if (esBisiesto(anio)) {
+	                numeroDias = 29;
+	            } else {
+	                numeroDias = 28;
+	            }
+	            break;
+	    }
+	    return numeroDias;
+	}
+	
+	public static boolean esBisiesto(int anio) {
+		 
+	    GregorianCalendar calendar = new GregorianCalendar();
+	    boolean esBisiesto = false;
+	    if (calendar.isLeapYear(anio)) {
+	        esBisiesto = true;
+	    }
+	    return esBisiesto;
+	 
+	}
+	
+	
 
 }

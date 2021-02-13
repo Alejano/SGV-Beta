@@ -34,7 +34,10 @@ public class TipoVale implements Serializable {
 	private Long ano_max;
 	private boolean status;
 	
-	
+
+	@OneToMany(mappedBy = "tipo_vale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Vehiculo> vehiculos;
+
 	public Long getId_vale() {
 		return id_vale;
 	}
@@ -107,6 +110,18 @@ public class TipoVale implements Serializable {
 		this.status = status;
 	}
 	
+	public List<Vehiculo> getVehiculos() {
+		return vehiculos;
+	}
+
+	public void setVehiculos(List<Vehiculo> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "ID_VIAJE:"+id_vale ;

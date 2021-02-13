@@ -49,6 +49,9 @@ public class Vehiculo implements Serializable {
 		@ManyToOne(fetch = FetchType.LAZY)
 		private VehiculoTransmision vehiculo_transmision;
 		
+		@ManyToOne(fetch = FetchType.LAZY)
+		private TipoVale tipo_vale;
+		
 		@OneToOne(cascade = CascadeType.ALL)	
 		@JoinColumn(name ="id_vehiculo")
 		private VehiculoDetalle vehiculo_detalle;
@@ -141,6 +144,7 @@ public class Vehiculo implements Serializable {
 			vehiculo_funcion = new VehiculoFuncion();
 			vehiculo_marca = new VehiculoMarca();
 			vehiculo_transmision = new VehiculoTransmision();
+			tipo_vale = new TipoVale();
 			resguardante = new ArrayList<Resguardante>();
 		}
 		
@@ -280,6 +284,14 @@ public class Vehiculo implements Serializable {
 
 		public void setVehiculo_transmision(VehiculoTransmision vehiculo_transmision) {
 			this.vehiculo_transmision = vehiculo_transmision;
+		}
+		
+		public TipoVale getTipo_vale() {
+			return tipo_vale;
+		}
+
+		public void setTipo_vale(TipoVale tipo_vale) {
+			this.tipo_vale = tipo_vale;
 		}
 
 		public String getMotivo() {

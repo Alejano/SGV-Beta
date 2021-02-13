@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Asignaciones automaticas</title>
+<head th:replace="/layout/layoutHead :: head"></head>
+<body>
+	<header th:replace="/layout/layoutHead :: header"></header>
+
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 fondolistado">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row" style="text-align: center;" >
+	                                       
+	                                        <div class=" col-md-12" id="Contenedorbuscar" >
+	                                            <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/EjecutarAsigMensual}'>Generar Asignacion Automatica</a>
+											    </div>
+											
+										
+	                                    <div class="col-md-12">	                                    		
+	                                        <h2 id="titulo" class="titulotabla" th:text="${PageSubTitulo}"></h2>
+										<table class="table table-striped table-bordered fixed_header " id="miTabla1" style="font-size: 14px;">
+											<thead class="table-success">
+												<tr>		
+												    <th class="celda">Placa</th>	
+													<th class="celda">Tipo Vale</th>
+													<th class="celda">Presupuesto</th>
+													<th class="celda">Fecha Inicio</th>
+													<th class="celda">Fecha Fin</th>															
+												</tr>
+											</thead>
+											<tbody>											
+												    <tr th:each="asignacionsql: ${nregistro}">
+												    <td class="celda" th:text="${asignacionsql.vehiculo.placa}"></td>
+												    <td class="celda" th:text="${asignacionsql.vehiculo.tipo_vale.descr_vale}"></td>
+												    <td class="celda" th:text="${asignacionsql.presupuesto_ord}"></td>
+												    <td class="celda" th:text="${asignacionsql.fecha_ini_ord}"></td>
+												    <td class="celda" th:text="${asignacionsql.fecha_fin_ord}"></td>
+												</tr>
+											</tbody>										
+										</table>
+
+	                                    </div>
+	                                    </div>
+	                                </div>	                                	                              
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+	</section>
+	    
+    
+    <script>
+
+    
+    $(function () {
+    	 if (existen_registros(miTabla1)) {
+    	  console.log('La primera tabla tiene registros');
+    	  location.reload
+    	 }
+    	 else {
+    	  console.log('La primera tabla no tiene registros');
+    	 }
+    	 
+ 
+    
+    	function existen_registros (tabla) {
+    	  let filas = $(tabla).find('tbody tr').length;
+    	  console.log('sdsds'+filas);
+    	  
+    	  if(filas > 0) {
+    	    return 1;
+    	  }
+    	  else {
+    	    return 0;
+    	  }
+    	}
+    </script>
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="/assets/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+		<!-- SweetAlert -->
+	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
+	<script src='/assets/calendario/moment.min.js'></script>
+	<script src='/assets/calendario/fullcalendar.min.js'></script>
+	
+ 
+</body>
+</html>

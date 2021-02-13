@@ -29,7 +29,12 @@
 											    <form th:action="@{/Revista}"  th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" class="col-md-3" style="margin-bottom: 3px; margin-left: 5px; display: inline-block;">
 								        			<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/BajasVehiculos}"><i class="fas fa-window-close"style="margin-top: 10%;"></i></a>
 								        			<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/Vehiculos}"><i class="fas fa-sync-alt fa-1x" style="margin-top: 10%;"></i></a>
-								      
+								        		    <a class="btn btn-primary btn-xs col-sm-4 btn-stilo"   th:if="${usuario == 'ROLE_ADMIN'}" th:href='@{/Ejecutar}' style="width: 47px; height: 42px; float: right; margin-right: -14%;padding : 6px 6px;"><i class="fas fa-database" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
+								        			
+								        			<!-- <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:if="${usuario == 'ROLE_ADMIN'}"  style="width: 47px; height: 42px; float: right; margin-right: -14%;padding : 6px 6px;"><i class="fas fa-database" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a> -->
+								        			<!-- <button type="button" th:if="${usuario == 'ROLE_ADMIN'}" class="btn btn-info btn-lg" style="width: 47px; height: 42px; float: right; margin-right: -14%;padding : 6px 6px;" data-toggle="modal" data-target="#myModal2" ><i class="fas fa-database"></i></button> -->
+								        			
+								       
 								        			<button class="btn btn-primary btn-xs btn-stilo" type="submit" value="enviar" >Revista</button>	
 								        							    	
 						    					</form>	
@@ -248,6 +253,48 @@
   </div>
 </div>
 	
+<div class="modal fade right" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <h1 class="heading lead " id="tituloPlaca"></h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="far fa-times-circle fa-2x"></i>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="text-center">          
+          <p>
+            <strong>Asignacion de Combustible </strong>
+          </p>                  
+        </div>
+
+        <hr>
+
+        <!-- opction -->
+        
+        <div class="modal-body btnModal">
+          	<div class="col-sm-12">	
+				<div th:if="${usuario} == 'ROLE_ADMIN'" class="optionModal ">
+					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href='@{/EjecutarAsigMensual}' th:text="'Generar Asignaciones Automaticas'" id="gen" ></a>
+				</div>																															 		
+			</div>
+        </div>
+        
+
+        <p class="text-center">
+          <strong>...</strong>
+        </p>        
+
+      </div>
+     
+    </div>
+  </div>
+</div>
 	
 	<script type="text/javascript"  th:inline="javascript">
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +54,29 @@ public class ITipoValeServiceImpl implements ITipoValeService {
 		// TODO Auto-generated method stub
 		return tipovaleDao.tipovalestotales();
 	}
+
+	@Override
+	public String month28(Long id_vale) {
+		// TODO Auto-generated method stub
+		return tipovaleDao.month28(id_vale);
+	}
 	
+	@Override
+	public String month29(Long id_vale) {
+		// TODO Auto-generated method stub
+		return tipovaleDao.month29(id_vale);
+	}
+	
+	@Override
+	public String month30(Long id_vale) {
+		// TODO Auto-generated method stub
+		return tipovaleDao.month30(id_vale);
+	}
+	
+	@Override
+	public String month31(Long id_vale) {
+		// TODO Auto-generated method stub
+		return tipovaleDao.month31(id_vale);
+	}
 
 }

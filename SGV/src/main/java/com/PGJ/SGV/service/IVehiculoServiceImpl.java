@@ -291,7 +291,20 @@ public class IVehiculoServiceImpl implements IVehiculoService {
 		return vehiculoDao.findPlaca(id_vehiculo);
 	}
 	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Vehiculo> findAllVehiculos() {
+		// TODO Auto-generated method stub
+		return vehiculoDao.findAllVehiculos();
+	}
 	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Long> findAllVehi(){
+		// TODO Auto-generated method stub
+		return vehiculoDao.findAllVehi();
+	}
+
 	//BAJAS
 
 	@Override

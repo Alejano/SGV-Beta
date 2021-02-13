@@ -46,6 +46,12 @@ public interface IVehiculoDao extends PagingAndSortingRepository<Vehiculo,Long >
 	@Query("select v.placa from Vehiculo v where v.id_vehiculo = ?1 ")
 	public String findPlaca(long id_vehiculo);
 	
+	@Query("select v.id_vehiculo from Vehiculo v ")
+	public List<Vehiculo> findAllVehiculos();
+	
+	@Query("select v.id_vehiculo from Vehiculo v ")
+	public List<Long> findAllVehi();
+
 	//BAJAS 
 	
 	@Query("select p from Vehiculo p inner join Adscripcion a on p.adscripcion.id_adscripcion = a.id_adscripcion  inner join VehiculoEstado e on p.vehiculo_estado.id_estado = e.id_estado where adscripcion_id_adscripcion= ?1 and e.id_estado='5'")

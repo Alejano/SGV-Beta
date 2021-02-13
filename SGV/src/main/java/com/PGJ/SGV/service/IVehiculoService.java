@@ -71,6 +71,10 @@ public interface IVehiculoService {
 	
 	public String findPlaca(long Placa);
 	
+	public List<Vehiculo> findAllVehiculos();
+	
+	public List<Long> findAllVehi();
+	
 	// BAJAS 
 	
 	public Page<Vehiculo> findVehiculosBajaAreaPage(Long id_adscripcion,Pageable pageable);
