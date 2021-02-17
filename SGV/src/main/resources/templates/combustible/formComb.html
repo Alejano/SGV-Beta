@@ -29,6 +29,8 @@
 																		<input  type="text" readonly="readonly"  placeholder="Placa" class="form-control" disabled>
 															   </div>
 															   
+															   <div class="form-group col-sm-7"></div>
+															    
 											                   <!--Vale-->
 	
 															   <div class="form-group col-sm-2">
@@ -43,7 +45,7 @@
 															   
 															   <!--Presupuesto-->
 	
-															   <div class="form-group col-sm-2">
+															  <!-- <div class="form-group col-sm-2">
 																<div class="help-block with-errors" ></div>
 																		<input th:if="${totaldias == 28}" th:field="*{vehiculo.tipo_vale.month_28}"  name="vale" id="vale" class="form-control" type="text" disabled>
 																		<input th:if="${totaldias == 29}" th:field="*{vehiculo.tipo_vale.month_29}"  name="vale" id="vale" class="form-control" type="text" disabled>
@@ -54,24 +56,30 @@
 												               
 												               <div class="col-sm-2" style=" width:40%; padding-left: 3px;">
 																		<input  type="text" readonly="readonly"  placeholder="Presupuesto" class="form-control" disabled>
-															   </div>
-							    											
+															   </div>  -->
+							    								
 	                                                    <!--Presupuesto-->
 	
-	                                                    <div class="form-group col-sm-4">
-															<div class="help-block with-errors"></div>
-															<input th:field="*{presupuesto_ord}"  id="pres" placeholder="Presupuesto"  min="1" max="10000" class="form-control signos" type="number" required data-error="Presupuesto">
-															<div class="input-group-icon"><i class="fas fa-hashtag"></i></div>
-														</div>
-														
-														<div class="form-group col-sm-6"></div>
-	
+	                                                   <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{presupuesto_ord}"  id="presu" placeholder="Presupuesto" class="form-control signos" type="number" required data-error="Ingrese el Presupuesto" disabled/>
+	                                                            <div class="input-group-icon"><i class="fas fa-hashtag"></i></div>
+	                                                    </div>
+	                                                    
+	                                                     <div class="col-sm-2" style=" width:40%; padding-left: 3px;">
+																		<input  type="text" readonly="readonly"  placeholder="Presupuesto" class="form-control" disabled>
+													     </div>
+	                                              
 	                                                    <!--no_tarjeta-->
 	                                                    <div class="form-group col-sm-4">
 	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{no_tarjeta}"  id="Num" placeholder="Numero de Tarjeta" class="form-control signos" type="number" required data-error="Ingrese el Numero Tarjeta"/>
+	                                                            <input th:field="*{no_tarjeta}"  id="Num" placeholder="Numero de Tarjeta" class="form-control signos" type="text" required data-error="Ingrese el Numero Tarjeta" disabled/>
 	                                                            <div class="input-group-icon"><i class="fas fa-hashtag"></i></div>
 	                                                    </div>
+	                                                    
+	                                                     <div class="col-sm-2" style=" width:40%; padding-left: 3px;">
+																		<input  type="text" readonly="readonly"  placeholder="No Tarjeta" class="form-control" disabled>
+													     </div>
 	                                                    
 	                                                    <div class="form-group col-sm-6"></div>
 	                                                    
@@ -82,62 +90,87 @@
 	                                                            <div class="input-group-icon"><i class="fas fa-car-side"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-8"></div>
+	                                                    <div class="col-sm-2" style=" width:40%; padding-left: 3px;">
+																		<input  type="text" readonly="readonly"  placeholder="Kilometraje" class="form-control" disabled>
+													     </div>
+	                                                    
+	                                                    <div class="form-group col-sm-6"></div>
 	                                                
 	 													<!--Fecha inicial-->
 	                                                    <div class="form-group col-sm-2">
 	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{fecha_ini_ord}" id="FIn" step="1" min="2010-01-01" max="2050-12-31" placeholder="Fecha de inicio" class="form-control signos" type="date" required data-error="Ingrese la fecha Inicial"/>
+	                                                            <input th:field="*{fecha_ini_ord}" id="FIn" min="2010-01-01" max="2050-12-31" placeholder="Fecha de inicio" class="form-control signos" type="date" required data-error="Ingrese la fecha Inicial"/>
 	                                                            <div class="input-group-icon"><i class="far fa-calendar-alt"></i></div>
 	                                                    </div>
+
+	                                                    <div class="col-sm-2" style=" width:40%; padding-left: 3px;">
+																		<input  type="text" readonly="readonly"  placeholder="Fecha Inicio" class="form-control" disabled>
+													     </div>
+													     
+	                                                    <div class="form-group col-sm-8 enlineaform"></div>
 	                                                    
-	                                                    <!--Fecha final-->
-	                                                    <div class="form-group col-sm-2">
+	                                                    <!--Fecha inicial-->
+	                                                    
+	                                                     <div class="form-group col-sm-2">
 	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{fecha_fin_ord}" id="Ffin" step="1" min="2010-01-01" max="2050-12-31" placeholder="Fecha de Fin" class="form-control signos" type="date" required data-error="Ingrese la fecha final"/>
+	                                                            <input th:field="*{fecha_fin_ord}" id="FIn" min="2010-01-01" max="2050-12-31" placeholder="Fecha de inicio" class="form-control signos" type="date" required data-error="Ingrese la fecha Inicial"/>
 	                                                            <div class="input-group-icon"><i class="far fa-calendar-alt"></i></div>
 	                                                    </div>
 	                                                    
-	                                                    <div class="form-group col-sm-12 enlineaform"></div>
-	                                                     
-	                                                     
-	                                                    <h3 style="margin-left:1%;margin-top:.3%;margin-bottom: 3%;">Documento</h3>
-	                                                     
+	                                                       <div class="col-sm-2" style=" width:40%; padding-left: 3px;">
+																		<input  type="text" readonly="readonly"  placeholder="Fecha Fin" class="form-control" disabled>
+													     </div>
+													     
+													     <div class="form-group col-sm-8 enlineaform"></div>
+	                                                
+	                                                     <h3 style="margin-left:1%;margin-top:.3%;margin-bottom: 3%;">Documento</h3> 
+	                                                          
 	                                                     <!--Adjuntar documento -->
 	                                                     
-            										   <div class="form-group col-sm-12 enlineaform" th:if="${editar} == false">
+            										     <div class="form-group col-sm-12 enlineaform" th:if="${editar == false}">
 															<p style="margin-bottom:2rem;">Foto del Odometro</p>
 															<div class="col-sm-4"  id="Ndocumento">
 																<div class="help-block with-errors"></div>
 																<input id="doc" type="file" name="file" class="form-control" accept="image/png, image/jpg, image/jpeg" required data-error="Ingresa una imagen menor a 10 MB."/>																
 															</div>
-														</div>
-														
-													   <div class="form-group col-sm-12" th:if="${editar} == true">																														
+														</div> 
+									
+													     <div class="form-group col-sm-12" th:if="${editar == true}">	
+													     																													
 															<div id="aBtnGroup" class="btn-group">
-															    <button type="button" value="D" class="btn btn-default">Documento</button>
-															    <button type="button" value="N" class="btn btn-default">Nuevo Documento</button>															    
-															  </div>
-															  
-															<div class="col-sm-6" id="Ndocumento"  style="margin-top: 20px; display: none;">
-																<div class="help-block with-errors"></div>
+															    <button  th:if="${existe} == true" type="button" value="D" class="btn btn-default">Documento</button>
+															    <button  th:if="${existe} == true" type="button" value="N" class="btn btn-default">Nuevo Documento</button>															    
+															  </div> 
+								
+															<div th:if="${existe} == false" class="col-sm-6" id="Ndocumentodo">
+															<p>Foto del Odometro</p>
+																<div   class="help-block with-errors"></div>
+																<input id="doc2" type="file" name="file" class="form-control" accept="image/png, image/jpg, image/jpeg" data-error="Ingresa una imagen menor a 10 MB."/>
+															</div>	
+															 
+															<div th:if="${existe} == true" class="col-sm-6" id="Ndocumento"  style="margin-top: 20px; display: none;">
+															<p>Foto del Odometro</p>
+																<div   class="help-block with-errors"></div>
 																<input id="doc2" type="file" name="file" class="form-control" accept="image/png, image/jpg, image/jpeg" data-error="Ingresa una imagen menor a 10 MB."/>
 															</div>															
 														
 														
-														<div id="Mdocumento" class=" col-sm-12">
-															<div class="card-body d-flex justify-content-center enlinea" >
+													    	<div th:if="${existe} == true" id="Mdocumento" class=" col-sm-12" style="margin-top: 20px;">
+															<div   class="card-body d-flex justify-content-center enlinea" >
 																	<embed th:src="@{'/upload/' + ${Odometro.odometro}}" type="application/pdf" class="col-sm-12" style="height:715px;"/>
 															</div>
-														</div>
-								
 														
-														</div>			
+														</div>
+														</div>	
 							
-	                                                    <input type="hidden" th:field="${Odometro.id_odo}"/>	                                                    
+	                                                    <input type="hidden" th:field="${Odometro.id_odo}"/>                                                     
 	                                                    <input type="hidden" th:field="*{id_asignacion}"/>
 														<input type="hidden" th:field="*{vehiculo}"/>
-														<input type="hidden" th:field="${Odometro.odometro}"/>
+														<input type="hidden" th:field="${Odometro.odometro}"/> 
+														<input type="hidden" th:field="*{presupuesto_ord}"/>
+														<input type="hidden" th:field="*{no_tarjeta}"/>
+													
+													    <div class="form-group col-sm-8 enlineaform"></div>
 														
 	                                                    <!--Boton Guardar-->
 	                                                    

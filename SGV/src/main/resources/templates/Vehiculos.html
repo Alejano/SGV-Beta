@@ -131,7 +131,7 @@
 													<td class="celda" th:text="${vehiculossql.no_serie}"></td>
 													<td class="celda" th:text="${vehiculossql.no_inventario}"></td>
 													<td class="celda" th:text="${vehiculossql.fecha_tarjeta}"></td>
-													<td class="celda" th:text="${vehiculossql.vale}"></td>																										
+													<td class="celda" th:text="${vehiculossql.Tipo_vale.descr_vale}"></td>																										
 													<td class="celda" th:text="${vehiculossql.vehiculo_estado.nombre_estado}">	
 																									
 															<!--<a th:id="estadoV+${vehiculossql.placa}" th:if="${vehiculossql.VehiculoEstado.nombre_estado} == 'DISPONIBLE'" class="btn btn-success btn-xs Sel" th:href="@{/estadoVehi/} +${vehiculossql.placa}+'/'+${vehiculossql.VehiculoEstado.nombre_estado}+'/'+${thisurl}" onclick="scroller(this.id,'No Disponible');" th:text="SI" style="width: 50px;"></a>
@@ -252,50 +252,7 @@
     </div>
   </div>
 </div>
-	
-<div class="modal fade right" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
-    <div class="modal-content">
-      <!--Header-->
-      <div class="modal-header">
-        <h1 class="heading lead " id="tituloPlaca"></h1>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="far fa-times-circle fa-2x"></i>
-        </button>
-      </div>
 
-      <!--Body-->
-      <div class="modal-body">
-        <div class="text-center">          
-          <p>
-            <strong>Asignacion de Combustible </strong>
-          </p>                  
-        </div>
-
-        <hr>
-
-        <!-- opction -->
-        
-        <div class="modal-body btnModal">
-          	<div class="col-sm-12">	
-				<div th:if="${usuario} == 'ROLE_ADMIN'" class="optionModal ">
-					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href='@{/EjecutarAsigMensual}' th:text="'Generar Asignaciones Automaticas'" id="gen" ></a>
-				</div>																															 		
-			</div>
-        </div>
-        
-
-        <p class="text-center">
-          <strong>...</strong>
-        </p>        
-
-      </div>
-     
-    </div>
-  </div>
-</div>
-	
 	<script type="text/javascript"  th:inline="javascript">
 
 	function doSearch()

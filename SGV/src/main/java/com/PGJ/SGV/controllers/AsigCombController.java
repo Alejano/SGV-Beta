@@ -70,14 +70,13 @@ public class AsigCombController {
 	public static OdometroAcombusExt odomeext = new OdometroAcombusExt();
 	public static String placaURL; 
 	boolean editar = false;
+	boolean terminar = false;
 	String user;
 	Long id_vehiculo;
 	
-	List<Long> vehiculoall = new ArrayList<Long>();
 	List<Vehiculo> vehiculos= new ArrayList<Vehiculo>();
 	
-	
-	
+
 	@RequestMapping(value="/ListarCombustible/{id_vehiculo}", method = RequestMethod.GET)
 	public String listar(@PathVariable(value="id_vehiculo") Long id_vehiculo,Model model) {
 		
@@ -164,6 +163,7 @@ public class AsigCombController {
 		combustible.setKilometraje_ord(vehiculo.getKilometraje_inicial());
 		combustible.setFecha_ini_ord(SystemDate.obtenFecha());
 	    combustible.setId_asignacion(ultimoid+1);
+	    combustible.setNo_tarjeta(vehiculo.getNo_tarjeta());
 	    
 	    if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 28) {
 			combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_28());	
@@ -223,6 +223,9 @@ public class AsigCombController {
 		
 		user = obuserService.obtenUser();
 		model.put("usuario",user);
+		boolean existeodo = false;
+		//String documento = "existe";
+		
 		AsigCombustible combustible = null;	
 		OdometroAcombus odo = null;
 		int totaldias = 0;
@@ -233,7 +236,6 @@ public class AsigCombController {
 		if(!id_asignacion.equals(null)) {		
 			
 			combustible = AsigCombus.findOne(id_asignacion);
-			
 			if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 28) {
 				combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_28());	
 			}else 
@@ -246,14 +248,29 @@ public class AsigCombController {
 				if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 31) {
 				combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_31());	
 			}
-
+			
 			System.err.print("totaldias: "+totaldias);
-			odo = OdometroService.ObtenerAsignacion(id_asignacion);
+			
+			if(OdometroService.ObtenerAsignacion(id_asignacion) == null) {
+			existeodo=false;
+			OdometroAcombus odometro = new OdometroAcombus();
+			model.put("Odometro",odometro);
+			System.err.print("EXISTE ODO: "+existeodo);
+
+			}else {
+				existeodo=true;
+				odo = OdometroService.ObtenerAsignacion(id_asignacion);
+				System.err.print("EXISTE ODO: "+existeodo);
+				model.put("Odometro", odo);
+
+			}
+	     
 		}else {
 			return "redirect:/ListarCombustible";
 		}
-		model.put("Odometro", odo);
+		
 		model.put("combustible",combustible);	
+		model.put("existe", existeodo);
 		model.put("editar", editar);	
 		model.put("totaldias", totaldias);
 		model.put("titulo", "Editar Combustible");
@@ -554,28 +571,32 @@ public class AsigCombController {
 	
 	
 	@RequestMapping(value = "/Ejecutar")
-	//@ResponseBod
-	public String inser(Model model) {
+	public String insert(Model model) {
 		
-	    model.addAttribute("PageTitulo","Asignación Ordinaria Mensual");
+		terminar=false;
+		user = obuserService.obtenUser();
 
+		model.addAttribute("terminar",terminar);
+		System.err.println("hola"+terminar);
+	    model.addAttribute("usuario","user");
+	    model.addAttribute("PageTitulo","Asignación Ordinaria Mensual");
 	    return "AsignacionesAutomaticas";
+	    
 	}
 
 	
 	@RequestMapping(value = "/EjecutarAsigMensual")
-	//@ResponseBody
-	public String insertWithQuery(Model model) {
+	public String insertReg(Model model) {
 		   	
-		user = obuserService.obtenUser(); 
+		user = obuserService.obtenUser();
+		List<AsigCombustible> asigauto = new ArrayList<AsigCombustible>();
 		
-		List<AsigCombustible> prueba = new ArrayList<AsigCombustible>();
+		List<Long> vehiculoall = new ArrayList<Long>();
+		vehiculoall = vehiculoService.findAllVehi();
+        Collections.sort(vehiculoall);
 		
-		//vehiculoall = vehiculoService.findAllVehi();
-        //Collections.sort(vehiculoall);
-		
-		vehiculoall.add(400L);
-		vehiculoall.add(500L);
+		//vehiculoall.add(400L);
+		//vehiculoall.add(500L);
  
         System.err.println("TOTAL: "+vehiculoall.size());
     
@@ -589,22 +610,13 @@ public class AsigCombController {
 		AsigCombustible combustible = new AsigCombustible();
 		Vehiculo vehiculo = new Vehiculo();
 		vehiculo = vehiculoService.findOne(id);		
-		
-        System.err.println("PRUEBA ID: "+ vehiculo.getId_vehiculo());
-        
+		        
 		combustible.setVehiculo(vehiculo);
-		
-        System.err.println("PRUEBA ID COMBUS: "+ combustible.getVehiculo().getId_vehiculo());
-
 		combustible.setKilometraje_ord(vehiculo.getKilometraje_inicial());
 		combustible.setFecha_ini_ord(SystemDate.obtenFechaIni());
 		combustible.setFecha_fin_ord(SystemDate.obtenFechaFin());
 		combustible.setId_asignacion(ultimoid+1);
-		
-        System.err.println("PRUEBA ID ASI: "+ (ultimoid+1));
-
-	    combustible.setNo_tarjeta("2021");
-	    
+		combustible.setNo_tarjeta(vehiculo.getNo_tarjeta());	    
 	    
 	    if(ObtenMonth.numeroDeDiasMes(ObtenMonth.obtenMes(), SystemDate.obtenAnio()) == 28) {
 			combustible.setPresupuesto_ord(combustible.getVehiculo().getTipo_vale().getMonth_28());
@@ -620,25 +632,18 @@ public class AsigCombController {
 		}
 	    
 	    AsigCombus.save(combustible);	
-	    prueba.add(combustible);
-	    //model.addAttribute("nregistro",combustible);
-	    
+	    asigauto.add(combustible);	    
 	    id=0;
 	    
-	   
-
-	  //  model.addAttribute("usuario",user);
-
-		
         }
         
-        
-	    model.addAttribute("nregistro",prueba);
+        terminar=true;
+	    model.addAttribute("nregistro",asigauto);
+	    model.addAttribute("usuario","user");
+	    model.addAttribute("terminar",terminar);
 	    model.addAttribute("PageTitulo","Asignación Ordinaria Mensual");
-	    
-	    System.err.println("sakura"+prueba.size());
-	    
-	
+	    System.err.println("tamano"+asigauto.size());
+	   
 	    return "AsignacionesAutomaticas";
         
 	}

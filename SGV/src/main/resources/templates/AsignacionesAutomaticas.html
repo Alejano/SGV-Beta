@@ -15,9 +15,11 @@
 	                                <div class="row" style="text-align: center;" >
 	                                       
 	                                        <div class=" col-md-12" id="Contenedorbuscar" >
-	                                            <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/EjecutarAsigMensual}'>Generar Asignacion Automatica</a>
+	                                            <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" id="pinicio" th:href='@{/EjecutarAsigMensual}' th:if="${terminar == false}">Generar Asignacion Automatica</a>
+	                                            <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" id="fin" th:href='@{/Ejecutar}' th:if="${terminar == true}">Se termino el proceso</a>
+	                                            <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Vehiculos}' style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="far fa-arrow-alt-circle-left fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
+	                                            <a class="btn btn-primary btn-xs col-sm-4 btn-stilo" th:href='@{/Ejecutar}' style="width: 47px; height: 42px; float: right; margin-right: 2%;padding : 6px 6px;"><i class="fas fa-sync-alt fa-2x" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
 											    </div>
-											
 										
 	                                    <div class="col-md-12">	                                    		
 	                                        <h2 id="titulo" class="titulotabla" th:text="${PageSubTitulo}"></h2>
@@ -27,6 +29,7 @@
 												    <th class="celda">Placa</th>	
 													<th class="celda">Tipo Vale</th>
 													<th class="celda">Presupuesto</th>
+													<th class="celda">No Tarjeta</th>
 													<th class="celda">Fecha Inicio</th>
 													<th class="celda">Fecha Fin</th>															
 												</tr>
@@ -36,6 +39,7 @@
 												    <td class="celda" th:text="${asignacionsql.vehiculo.placa}"></td>
 												    <td class="celda" th:text="${asignacionsql.vehiculo.tipo_vale.descr_vale}"></td>
 												    <td class="celda" th:text="${asignacionsql.presupuesto_ord}"></td>
+												    <td class="celda" th:text="${asignacionsql.no_tarjeta}"></td>
 												    <td class="celda" th:text="${asignacionsql.fecha_ini_ord}"></td>
 												    <td class="celda" th:text="${asignacionsql.fecha_fin_ord}"></td>
 												</tr>
@@ -52,33 +56,36 @@
 			</div>
 	</section>
 	    
-    
-    <script>
+	<script type="text/javascript" th:inline="javascript">
+	
+	
+    	$(function () {
+    		 if (existen_registros(miTabla1)) {
+    		  console.log('La primera tabla tiene registros');
+    		 // location.reload();
+    		 }
+    		 else {
+    		  console.log('La primera tabla no tiene registros');
+    		 }
+    		 
+    		});
+    	
 
-    
-    $(function () {
-    	 if (existen_registros(miTabla1)) {
-    	  console.log('La primera tabla tiene registros');
-    	  location.reload
-    	 }
-    	 else {
-    	  console.log('La primera tabla no tiene registros');
-    	 }
-    	 
- 
-    
-    	function existen_registros (tabla) {
-    	  let filas = $(tabla).find('tbody tr').length;
-    	  console.log('sdsds'+filas);
-    	  
-    	  if(filas > 0) {
-    	    return 1;
-    	  }
-    	  else {
-    	    return 0;
-    	  }
-    	}
-    </script>
+    		function existen_registros (tabla) {
+    		  let filas = $(tabla).find('tbody tr').length;
+    		  console.log('La primera tabla no tiene registros'+filas);
+    		  
+    		  if(filas > 0) {
+    		    return 1;
+    		  }
+    		  else {
+    		    return 0;
+    		  }
+    		}
+    		
+    	
+     </script>
+    	
 	<!-- jQuery Library -->
 	<script src="/assets/js/jquery-3.4.1.min.js"></script>
 	<script src="/assets/jquery-ui/jquery-ui.min.js"></script>
