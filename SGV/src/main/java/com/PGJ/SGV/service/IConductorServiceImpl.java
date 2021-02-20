@@ -163,7 +163,13 @@ public class IConductorServiceImpl implements IConductorService {
 		// TODO Auto-generated method stub
 		return conductorDao.findConductorEstado();
 	}
+	
 
+	@Override
+	public List<Conductor> NotifyVigLic(String fecha1, String fecha2) {
+		// TODO Auto-generated method stub
+		return conductorDao.NotifyVigLic(fecha1,fecha2);
+	}
 
 
 }

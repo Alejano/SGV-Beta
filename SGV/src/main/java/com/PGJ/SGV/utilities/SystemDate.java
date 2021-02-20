@@ -1,6 +1,8 @@
 package com.PGJ.SGV.utilities;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class SystemDate {
 	   
@@ -66,5 +68,48 @@ public class SystemDate {
 	     //System.err.println("FECHA FIN: "+fecha);
 	     return fecha;
 	   }
+	
+	 
+	   public static String obtefechaprevru(){
+		   
+		  Calendar fec = new GregorianCalendar();
+		  String fecha="";
+		  fec.add(Calendar.DAY_OF_MONTH, 5);
+		  
+			 fecha = Integer.toString(fec.get(Calendar.YEAR));
+			 
+		     if(fec.get(Calendar.MONTH)<9){
+		         fecha = fecha + "-" + "0" + Integer.toString(fec.get(Calendar.MONTH)+1);
+		     }else
+		         fecha = fecha + "-" + Integer.toString(fec.get(Calendar.MONTH)+1);
+		     if(fec.get(Calendar.DAY_OF_MONTH)<10){
+		         fecha = fecha + "-" + "0" + (Integer.toString(fec.get(Calendar.DAY_OF_MONTH)));
+		     }else
+		         fecha = fecha + "-" + Integer.toString(fec.get(Calendar.DAY_OF_MONTH));
+	
+	       return fecha; 
+	  }
+
+	   
+	   public static String obtefechaprevrd(){
+		   
+			  Calendar fec = new GregorianCalendar();
+			  String fecha="";
+			  fec.add(Calendar.DAY_OF_MONTH, 10);
+			  
+				 fecha = Integer.toString(fec.get(Calendar.YEAR));
+				 
+			     if(fec.get(Calendar.MONTH)<9){
+			         fecha = fecha + "-" + "0" + Integer.toString(fec.get(Calendar.MONTH)+1);
+			     }else
+			         fecha = fecha + "-" + Integer.toString(fec.get(Calendar.MONTH)+1);
+			     if(fec.get(Calendar.DAY_OF_MONTH)<10){
+			         fecha = fecha + "-" + "0" + (Integer.toString(fec.get(Calendar.DAY_OF_MONTH)));
+			     }else
+			         fecha = fecha + "-" + Integer.toString(fec.get(Calendar.DAY_OF_MONTH));
+		
+		       return fecha; 
+		  }
+
 
 }

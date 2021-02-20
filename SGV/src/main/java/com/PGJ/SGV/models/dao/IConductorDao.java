@@ -68,5 +68,7 @@ public interface IConductorDao extends PagingAndSortingRepository<Conductor, Str
 	@Query("select p from Conductor p where fecha_baja is not null")
 	public Page<Conductor> findByCNn(Pageable pageable);
 	
-	
+	@Query("select p from Conductor p where vig_licencia between ?1 and ?2 order by no_empleado asc")
+	public List<Conductor> NotifyVigLic(String fecha1, String fecha2);
+
 }

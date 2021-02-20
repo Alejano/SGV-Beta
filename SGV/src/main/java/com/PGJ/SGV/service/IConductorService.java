@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import com.PGJ.SGV.models.entity.Conductor;
 
 
@@ -57,5 +56,7 @@ public interface IConductorService {
 	public List<Conductor> findConductorAreaEstado(Long id_adscripcion);
 	
 	public List<Conductor> findConductorEstado();
+	
+	public List<Conductor> NotifyVigLic(String fecha1, String fecha2);
 	
 }
