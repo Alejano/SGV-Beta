@@ -166,9 +166,16 @@ public class IConductorServiceImpl implements IConductorService {
 	
 
 	@Override
-	public List<Conductor> NotifyVigLic(String fecha1, String fecha2) {
+	public List<Conductor> NotifyCVigLic(String fecha1, String fecha2) {
 		// TODO Auto-generated method stub
-		return conductorDao.NotifyVigLic(fecha1,fecha2);
+		return conductorDao.NotifyCVigLic(fecha1,fecha2);
+	}
+	
+	
+	@Override
+	public List<Conductor> NotifyCVigIne(String fecha1, String fecha2) {
+		// TODO Auto-generated method stub
+		return conductorDao.NotifyCVigIne(fecha1,fecha2);
 	}
 
 

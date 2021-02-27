@@ -57,6 +57,8 @@ public interface IConductorService {
 	
 	public List<Conductor> findConductorEstado();
 	
-	public List<Conductor> NotifyVigLic(String fecha1, String fecha2);
+	public List<Conductor> NotifyCVigLic(String fecha1, String fecha2);
 	
+	public List<Conductor> NotifyCVigIne(String fecha1, String fecha2);
+
 }

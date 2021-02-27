@@ -33,10 +33,12 @@ public class Conductor implements Serializable {
 	private String rfc;
 	private String telefono;
 	private String domicilio;
+	private String cargo;
+	
 	public String getRfc() {
 		return rfc;
 	}
-
+	
 	public void setRfc(String rfc) {
 		this.rfc = rfc;
 	}
@@ -152,6 +154,14 @@ public class Conductor implements Serializable {
 
 	public void setVig_licencia(String vig_licencia) {
 		this.vig_licencia = vig_licencia;
+	}
+
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
 	}
 	
 	public static long getSerialversionuid() {

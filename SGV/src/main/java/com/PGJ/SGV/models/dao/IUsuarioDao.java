@@ -1,9 +1,12 @@
 package com.PGJ.SGV.models.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
 import com.PGJ.SGV.models.entity.Usuario;
 
 
@@ -41,5 +44,11 @@ public interface IUsuarioDao extends PagingAndSortingRepository<Usuario, String>
 	
 	@Query("select p from Usuario p where fecha_alta is not null")
 	public Page<Usuario> findByReg(Pageable pageable);
+	
+	@Query("select p from Usuario p where vig_licencia between ?1 and ?2 order by vig_licencia asc")
+	public List<Usuario> NotifyUVigLic(String fecha1, String fecha2);
+	
+	@Query("select p from Usuario p where vig_ine between ?1 and ?2 order by vig_ine asc")
+	public List<Usuario> NotifyUVigIne(String fecha1, String fecha2);
 	
 }

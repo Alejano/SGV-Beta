@@ -113,6 +113,18 @@ public class IUsuarioServiceImpl implements IUsuarioService {
 		return usuarioDao.totalfinUsuElemntBajas(elemento);
 	}
 
+	@Override
+	public List<Usuario> NotifyUVigLic(String fecha1, String fecha2) {
+		// TODO Auto-generated method stub
+		return usuarioDao.NotifyUVigLic(fecha1,fecha2);
+	}
+	
+	@Override
+	public List<Usuario> NotifyUVigIne(String fecha1, String fecha2) {
+		// TODO Auto-generated method stub
+		return usuarioDao.NotifyUVigIne(fecha1,fecha2);
+	}
+
 }
 
 

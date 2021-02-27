@@ -10,6 +10,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="CSS/home.css" />
 		<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	    <script src="/assets/notifications/push.min.js"></script>
+	    
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
 		<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
 		<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
@@ -209,24 +211,40 @@
 		</div>
 </div>
 
-<div th:if="${usuario} == 'ROLE_ADMIN'" id="Notify" style="word-wrap: break-word;position: fixed;z-index: 2;bottom: 18px;background: white;width: 50px;float: right;">       
+<div th:if="${usuario} == 'ROLE_ADMIN'" id="Notify" style="word-wrap: break-word;position: fixed;z-index: 2;bottom: 500px;background: white;width: 50px;float: right;">       
     <table id="conversation" class="table table-striped">
                 <thead>
                 <tr>
                     <th>
                     <a href="#" id="cerrar" onclick="cerraer()" class="badge badge-danger" style="float: right; display:none;">X</a>
                     <a href="#" id="abrir" onclick="abrir()" class="badge badge-danger" style="float: right; "><i class="fas fa-bell fa-2x"></i></a>
-                    <div id="MantRegistros" class="notifytext" style="display:none; color: black;">
-                    <br>
+                    <!--<div id="MantRegistros" class="notifytext" style="display:none; color: black;">
+                     <br>
                     	<!--  <h6>Mantenimientos: </h6>
                     	<h6>Altas: <span th:text="${EntroMant}"></span> </h6>
                     	<h6>Salidas: <span th:text="${SalioMant}"></span> </h6>
                     	-->
-                    </div>
+                    <!--</div> --> 
+                    <!--<div id="CondRegistros" class="notifytext" style="display:none; color: black;">
+                     <br>
+                    	<!--  <h6>Mantenimientos: </h6>
+                    	<h6>Altas: <span th:text="${EntroMant}"></span> </h6>
+                    	<h6>Salidas: <span th:text="${SalioMant}"></span> </h6>-->
+                    
+                     <!--</div> -->  
                     </th>
-                </tr>
-                </thead>
-                <tbody id="greetings">
+                  </tr>
+                  
+                  <tr id="vig" style="display:none; background:#e9ecef;">
+                    <td><a id="option1" class="notifytext" style="color: black;border-bottom-color:transparent;">VIGENCIAS</a></td>
+                  </tr>
+              
+                  <tr id="reg" style="display:none; background:#e9ecef;">
+                    <td><a id="option2" class="notifytext" data-toggle="modal"  data-target="#left_modal" style="color: black; border-bottom-color:transparent;">REGISTROS</a></td>
+                  </tr>
+              
+               </thead>
+                <tbody id="greetings">           
                 </tbody>                
             </table>            
 </div>
@@ -301,9 +319,153 @@
     </div>
 </div>
 
+
+<!-- Modal: VIGENCIAS -->
+      <div class="modal left fade" id="left_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+         <div class="modal-dialog modal-lg" role="document">
+           <div class="modal-content">
+             <!--Header-->
+               <div class="modal-header" >
+               <h4 class="modal-title">Vigencias proximas a vencer</h4> 
+               
+               <div class="form-group col-sm-5">
+               <select name="option" id="option" class="form-control" onchange="ShowSelected();">
+                <option value="1" selected="selected" style="background: #2c5ea9;">CONDUCTORES / LICENCIA</option>
+                <option value="2" style="background: #2c5ea9;">CONDUCTORES / INE</option>
+                <option value="3" style="background: #2c5ea9;">USUARIOS / LICENCIA</option>
+                <option value="4" style="background: #2c5ea9;">USUARIOS / INE</option>
+               </select>     
+               </div>
+                      
+               </div>
+             <!--Body-->  
+               <div class="modal-body">
+
+                                          <table class="table table-hover" id="cvigenciaslic" style="font-size: 14px;">
+											<thead class="table-success" style="background-color:#004085;">
+												<tr>
+													<th class="celda">PLACA</th>
+													<th class="celda">NOMBRE</th>	
+													<th class="celda">APELLIDO PATERNO</th>	
+													<th class="celda">APELLIDO MATERNO</th>
+													<th class="celda">VIGENCIA</th>		
+																		
+												</tr>
+											</thead>
+											<tbody>											
+												    <tr th:each="condlic : ${condlic}">
+												    <td class="celda" th:text="${condlic.no_empleado}"></td>
+												    <td class="celda" th:text="${condlic.nombre}"></td>
+												    <td class="celda" th:text="${condlic.apellido1}"></td>
+												    <td class="celda" th:text="${condlic.apellido2}"></td>
+												    <td class="celda" th:text="${condlic.vig_licencia}"></td>
+												</tr>
+											</tbody>										
+										</table>
+										
+										
+										  <table class="table table-hover" id="cvigenciasine" style="font-size: 14px;">
+											<thead class="table-success" style="background-color:#004085;">
+												<tr>
+													<th class="celda">PLACA</th>
+													<th class="celda">NOMBRE</th>	
+													<th class="celda">APELLIDO PATERNO</th>	
+													<th class="celda">APELLIDO MATERNO</th>
+													<th class="celda">VIGENCIA</th>		
+																		
+												</tr>
+											</thead>
+											<tbody>											
+												    <tr th:each="condine : ${condine}">
+												    <td class="celda" th:text="${condine.no_empleado}"></td>
+												    <td class="celda" th:text="${condine.nombre}"></td>
+												    <td class="celda" th:text="${condine.apellido1}"></td>
+												    <td class="celda" th:text="${condine.apellido2}"></td>
+												    <td class="celda" th:text="${condine.vig_ine}"></td>
+												</tr>
+											</tbody>										
+										</table>
+										
+				                       <table class="table table-hover" id="uvigenciaslic" style="font-size: 14px;">
+											<thead class="table-success" style="background-color:#004085;">
+												<tr>
+													<th class="celda">PLACA</th>
+													<th class="celda">NOMBRE</th>	
+													<th class="celda">APELLIDO PATERNO</th>	
+													<th class="celda">APELLIDO MATERNO</th>
+													<th class="celda">VIGENCIA</th>		
+																		
+												</tr>
+											</thead>
+											<tbody>											
+												    <tr th:each="usulic : ${usulic}">
+												    <td class="celda" th:text="${usulic.no_empleado}"></td>
+												    <td class="celda" th:text="${usulic.nombre}"></td>
+												    <td class="celda" th:text="${usulic.apellido1}"></td>
+												    <td class="celda" th:text="${usulic.apellido2}"></td>
+												    <td class="celda" th:text="${usulic.vig_licencia}"></td>
+												</tr>
+											</tbody>										
+										</table>						
+										
+										 <table class="table table-hover" id="uvigenciasine" style="font-size: 14px;">
+											<thead class="table-success" style="background-color:#004085;">
+												<tr>
+													<th class="celda">PLACA</th>
+													<th class="celda">NOMBRE</th>	
+													<th class="celda">APELLIDO PATERNO</th>	
+													<th class="celda">APELLIDO MATERNO</th>
+													<th class="celda">VIGENCIA</th>		
+																		
+												</tr>
+											</thead>
+											<tbody>											
+												    <tr th:each="usuine : ${usuine}">
+												    <td class="celda" th:text="${usuine.no_empleado}"></td>
+												    <td class="celda" th:text="${usuine.nombre}"></td>
+												    <td class="celda" th:text="${usuine.apellido1}"></td>
+												    <td class="celda" th:text="${usuine.apellido2}"></td>
+												    <td class="celda" th:text="${usuine.vig_ine}"></td>
+												</tr>
+											</tbody>										
+										</table>
+				
+               </div>
+             <div class="modal-footer">
+   </div>
+ </div>
+</div>
+</div>
+
 <script type="text/javascript">
+	
+	
+	Push.create("REVISA NOTIFICACIONES",{
+		body:"DA CLIC EN EL ANUNCIO",
+		icon:"images/bell.png",
+		timeout:7000,
+		 onClick:function abrir(){
+			
+		  $(".mensaje").show();
+		  $("#abrir").hide();
+
+		  $("#vig").show();
+		  $("#reg").show();
+		  
+		  $("#cerrar").show();
+		  $("#Notify").css("width"," 200px");
+		  $(".notifytext").show();
+	}
+	
+	});
+	
+$("#cvigenciaslic").show();
+$("#cvigenciasine").hide();  
+$("#uvigenciaslic").hide();
+$("#uvigenciasine").hide();
 
 function setConnected(connected) {
+	
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
@@ -313,6 +475,7 @@ function setConnected(connected) {
         $("#conversation").hide();
     }
     $("#greetings").html("");
+    
 }
 
 function connect() {
@@ -327,6 +490,7 @@ function connect() {
         stompClient.subscribe('/topic/MantTimeReal', function (greeting) {
             showMantRegistros(JSON.parse(greeting.body).content);
         });
+      
     });
     
   
@@ -361,26 +525,36 @@ function showMantRegistros(message2) {
 }
 
 function showGreeting(message) {
-	 $(".mensaje").remove();
-   $("#Notify").show();
+	$(".mensaje").remove();
+    $("#Notify").show();
 	$("#greetings").append("<tr><td class='mensaje'>" + message + "</td></tr>");
 	$("#Notify").css("width"," 200px");
 	$("#abrir").hide();	
 	$("#cerrar").show();
 	$(".notifytext").show();
 }
+
 function cerraer(){
-	 $(".mensaje2").remove();
+	  $(".mensaje2").remove();
 	  $(".mensaje").hide();	
 	  $("#cerrar").hide();	
+	  
+	  $("#vig").hide();
+	  $("#reg").hide();
+	  
 	  $("#abrir").show();
 	  $("#Notify").css("width"," 50px");
 	  $(".notifytext").hide();
 }
+
 function abrir(){
 		sendName2();
-	 $(".mensaje").show();	
-	  $("#abrir").hide();	
+	  $(".mensaje").show();
+	  $("#abrir").hide();
+
+	  $("#vig").show();
+	  $("#reg").show();
+	  
 	  $("#cerrar").show();
 	  $("#Notify").css("width"," 200px");
 	  $(".notifytext").show();
@@ -501,7 +675,43 @@ $("#btimg8").hover(function(){
 	   });
 	});
   
+  
+   function ShowSelected(){
+     /* Para obtener el valor */
+      var cond = document.getElementById("option").value;
+      //alert(cond);
+ 
+      
+     if(cond==1){
+        $("#cvigenciaslic").show();
+        $("#cvigenciasine").hide();  
+    	$("#uvigenciaslic").hide();
+        $("#uvigenciasine").hide()
 
+     }
+    
+    if(cond==2){
+    	$("#cvigenciaslic").hide();
+        $("#cvigenciasine").show();
+        $("#uvigenciaslic").hide();
+        $("#uvigenciasine").hide()
+    }
+    
+    if(cond==3){
+    	$("#cvigenciaslic").hide();
+        $("#cvigenciasine").hide(); 
+    	$("#uvigenciaslic").show();
+        $("#uvigenciasine").hide();   
+    }
+    
+    if(cond==4){
+    	$("#cvigenciaslic").hide();
+        $("#cvigenciasine").hide(); 
+    	$("#uvigenciaslic").hide();
+        $("#uvigenciasine").show();   
+    }
+   }
+   
 </script>
 	
 		<!-- Scripts -->
