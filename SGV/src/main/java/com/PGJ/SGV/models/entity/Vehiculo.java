@@ -84,9 +84,11 @@ public class Vehiculo implements Serializable {
 		
 		@OneToMany(mappedBy = "vehiculo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		private List<Resguardante> resguardante;
-
 		
-	
+		@OneToMany(mappedBy = "vehiculo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		private List<Notificacion> notificaciones;
+
+
 		
 		//SQL			
 		
@@ -138,7 +140,8 @@ public class Vehiculo implements Serializable {
 			
 			viajes = new ArrayList<Viaje>();
 			mantenimientos = new ArrayList<Mantenimiento>();
-			asignaciones = new ArrayList<AsigCombustible>();	
+			asignaciones = new ArrayList<AsigCombustible>();
+			notificaciones = new ArrayList<Notificacion>();
 			vehiculo_detalle = new VehiculoDetalle();
 			vehiculo_estado = new VehiculoEstado();
 			vehiculo_funcion = new VehiculoFuncion();
@@ -220,6 +223,17 @@ public class Vehiculo implements Serializable {
 		}
 		public void adAsignaciones (AsigCombustible asignacion) {
 			asignaciones.add(asignacion);
+		}		
+		
+		public List<Notificacion> getNotificaciones() {
+			return notificaciones;
+		}
+
+		public void setNotificaciones(List<Notificacion> notificaciones) {
+			this.notificaciones = notificaciones;
+		}
+		public void adNotificaciones (Notificacion notificacion) {
+			notificaciones.add(notificacion);
 		}		
 	
 		public String getPlaca_anterior() {

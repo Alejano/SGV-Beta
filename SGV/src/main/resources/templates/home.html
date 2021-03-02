@@ -236,11 +236,12 @@
                   </tr>
                   
                   <tr id="vig" style="display:none; background:#e9ecef;">
-                    <td><a id="option1" class="notifytext" style="color: black;border-bottom-color:transparent;">VIGENCIAS</a></td>
+                    <td><a id="option1" class="notifytext" data-toggle="modal"  data-target="#vigencias" style="color: black; border-bottom-color:transparent;">VIGENCIAS</a></td>
+                    
                   </tr>
               
                   <tr id="reg" style="display:none; background:#e9ecef;">
-                    <td><a id="option2" class="notifytext" data-toggle="modal"  data-target="#left_modal" style="color: black; border-bottom-color:transparent;">REGISTROS</a></td>
+                    <td><a id="option2" class="notifytext" data-toggle="modal"  data-target="#registros" style="color: black; border-bottom-color:transparent;">REGISTROS</a></td>
                   </tr>
               
                </thead>
@@ -321,7 +322,7 @@
 
 
 <!-- Modal: VIGENCIAS -->
-      <div class="modal left fade" id="left_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+      <div class="modal left fade" id="vigencias" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
          <div class="modal-dialog modal-lg" role="document">
            <div class="modal-content">
              <!--Header-->
@@ -329,7 +330,7 @@
                <h4 class="modal-title">Vigencias proximas a vencer</h4> 
                
                <div class="form-group col-sm-5">
-               <select name="option" id="option" class="form-control" onchange="ShowSelected();">
+               <select name="option" id="option" class="form-control" onchange="ShowSelectedVig();">
                 <option value="1" selected="selected" style="background: #2c5ea9;">CONDUCTORES / LICENCIA</option>
                 <option value="2" style="background: #2c5ea9;">CONDUCTORES / INE</option>
                 <option value="3" style="background: #2c5ea9;">USUARIOS / LICENCIA</option>
@@ -428,7 +429,77 @@
 												    <td class="celda" th:text="${usuine.vig_ine}"></td>
 												</tr>
 											</tbody>										
+										</table>									
+	               </div>
+             <div class="modal-footer">
+   </div>
+ </div>
+</div>
+</div>
+
+
+
+<!-- Modal:REGISTROS -->
+      <div class="modal left fade" id="registros" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+         <div class="modal-dialog modal-lg" role="document">
+           <div class="modal-content">
+             <!--Header-->
+               <div class="modal-header" >
+               <h4 class="modal-title">Registros dados de alta</h4> 
+               
+               <div class="form-group col-sm-5">
+               <select name="optionreg" id="optionreg" class="form-control" onchange="ShowSelectedReg();">
+                <option value="1" selected="selected" style="background: #2c5ea9;">MANTENIMIENTOS</option>
+                <option value="2" style="background: #2c5ea9;">SINIESTROS</option>
+               </select>     
+               </div>
+                      
+               </div>
+             <!--Body-->  
+               <div class="modal-body">
+
+                                          <table class="table table-hover" id="notify_siniestros" style="font-size: 14px;">
+											<thead class="table-success" style="background-color:#004085;">
+												<tr>
+													<th class="celda">PLACA</th>
+													<th class="celda">NO SINIESTRO</th>	
+													<th class="celda">FECHA SINIESTRO</th>	
+													<th class="celda">FECHA ACTUAL</th>																		
+												</tr>
+											</thead>
+											<tbody>											
+												    <tr th:each="notisin : ${notisin}">
+												    <td class="celda" th:text="${notisin.vehiculo.placa}"></td>
+												    <td class="celda" th:text="${notisin.numero}"></td>
+												    <td class="celda" th:text="${notisin.fecha}"></td>
+												    <td class="celda" th:text="${notisin.fecha_actual}"></td>
+										
+												</tr>
+											</tbody>										
 										</table>
+										
+										
+										 <table class="table table-hover" id="notify_mantenimientos" style="font-size: 14px;">
+											<thead class="table-success" style="background-color:#004085;">
+												<tr>
+													<th class="celda">PLACA</th>
+													<th class="celda">NO OFICIO</th>	
+													<th class="celda">FECHA OFICIO</th>	
+													<th class="celda">FECHA ACTUAL</th>																		
+												</tr>
+											</thead>
+											<tbody>											
+												    <tr th:each="notimant : ${notimant}">
+												    <td class="celda" th:text="${notimant.vehiculo.placa}"></td>
+												    <td class="celda" th:text="${notimant.numero}"></td>
+												    <td class="celda" th:text="${notimant.fecha}"></td>
+												    <td class="celda" th:text="${notimant.fecha_actual}"></td>
+										
+												</tr>
+											</tbody>										
+										</table>
+										
+										
 				
                </div>
              <div class="modal-footer">
@@ -436,6 +507,7 @@
  </div>
 </div>
 </div>
+
 
 <script type="text/javascript">
 	
@@ -463,6 +535,67 @@ $("#cvigenciaslic").show();
 $("#cvigenciasine").hide();  
 $("#uvigenciaslic").hide();
 $("#uvigenciasine").hide();
+
+
+$("#notify_mantenimientos").show();
+$("#notify_siniestros").hide();
+
+function ShowSelectedVig(){
+    /* Para obtener el valor */
+     var cond = document.getElementById("option").value;
+     //alert(cond);
+
+     
+    if(cond==1){
+       $("#cvigenciaslic").show();
+       $("#cvigenciasine").hide();  
+       $("#uvigenciaslic").hide();
+       $("#uvigenciasine").hide();
+    }
+   
+   if(cond==2){
+   	   $("#cvigenciaslic").hide();
+       $("#cvigenciasine").show();
+       $("#uvigenciaslic").hide();
+       $("#uvigenciasine").hide();
+   }
+   
+   if(cond==3){
+   	   $("#cvigenciaslic").hide();
+       $("#cvigenciasine").hide(); 
+   	   $("#uvigenciaslic").show();
+       $("#uvigenciasine").hide(); 
+   }
+   
+   if(cond==4){
+   	   $("#cvigenciaslic").hide();
+       $("#cvigenciasine").hide(); 
+   	   $("#uvigenciaslic").hide();
+       $("#uvigenciasine").show();
+   }
+  
+  }
+  
+  
+function ShowSelectedReg(){
+    /* Para obtener el valor */
+     var condi = document.getElementById("optionreg").value;
+     
+    if(condi==1){
+    	
+       $("#notify_mantenimientos").show();
+       $("#notify_siniestros").hide();
+
+    }
+   
+   if(condi==2){
+	   
+	   $("#notify_mantenimientos").hide();
+       $("#notify_siniestros").show();
+
+     }
+    }
+
 
 function setConnected(connected) {
 	
@@ -674,44 +807,7 @@ $("#btimg8").hover(function(){
 	     }
 	   });
 	});
-  
-  
-   function ShowSelected(){
-     /* Para obtener el valor */
-      var cond = document.getElementById("option").value;
-      //alert(cond);
- 
-      
-     if(cond==1){
-        $("#cvigenciaslic").show();
-        $("#cvigenciasine").hide();  
-    	$("#uvigenciaslic").hide();
-        $("#uvigenciasine").hide()
-
-     }
-    
-    if(cond==2){
-    	$("#cvigenciaslic").hide();
-        $("#cvigenciasine").show();
-        $("#uvigenciaslic").hide();
-        $("#uvigenciasine").hide()
-    }
-    
-    if(cond==3){
-    	$("#cvigenciaslic").hide();
-        $("#cvigenciasine").hide(); 
-    	$("#uvigenciaslic").show();
-        $("#uvigenciasine").hide();   
-    }
-    
-    if(cond==4){
-    	$("#cvigenciaslic").hide();
-        $("#cvigenciasine").hide(); 
-    	$("#uvigenciaslic").hide();
-        $("#uvigenciasine").show();   
-    }
-   }
-   
+     
 </script>
 	
 		<!-- Scripts -->

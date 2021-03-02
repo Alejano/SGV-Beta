@@ -28,10 +28,12 @@ import com.PGJ.SGV.models.entity.AsigCombustible;
 import com.PGJ.SGV.models.entity.Conductor;
 import com.PGJ.SGV.models.entity.Greeting;
 import com.PGJ.SGV.models.entity.MessageNotify;
+import com.PGJ.SGV.models.entity.Notificacion;
 import com.PGJ.SGV.models.entity.Usuario;
 import com.PGJ.SGV.models.entity.Vehiculo;
 import com.PGJ.SGV.service.IConductorService;
 import com.PGJ.SGV.service.IMantenimientoService;
+import com.PGJ.SGV.service.INotificacionService;
 import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IUsuarioService;
 import com.PGJ.SGV.utilities.ObtenMonth;
@@ -46,6 +48,9 @@ public class HomeController {
 	List<Conductor> conductoresine = new ArrayList<Conductor>();
 	List<Usuario> usuarioslic = new ArrayList<Usuario>();
 	List<Usuario> usuariosine = new ArrayList<Usuario>();
+	List<Notificacion> notificacionsin = new ArrayList<Notificacion>();
+	List<Notificacion> notificacionmant = new ArrayList<Notificacion>();
+
 
 	@Autowired
 	private IUsuarioService usuarioService;
@@ -55,6 +60,8 @@ public class HomeController {
 	private IMantenimientoService mantenimientoService;
 	@Autowired
 	private IObtenerUserService obuserService;
+	@Autowired
+	private INotificacionService notiService;
 
 	String user;
 	@RequestMapping(value={"/","/home"}, method = RequestMethod.GET)
@@ -77,12 +84,17 @@ public class HomeController {
 		List<Conductor> condine = new ArrayList<Conductor>();
 		List<Usuario> usulic = new ArrayList<Usuario>();
 		List<Usuario> usuine = new ArrayList<Usuario>();
+		List<Notificacion> notisin = new ArrayList<Notificacion>();
+		List<Notificacion> notimant = new ArrayList<Notificacion>();
 	
 	    //conductores= conductorService.NotifyVigLic(SystemDate.obtefechaprevru(), SystemDate.obtefechaprevrd());
 	    conductoreslic= conductorService.NotifyCVigLic("2021-03-01", "2021-03-05");
 	    conductoresine = conductorService.NotifyCVigIne("2021-03-01", "2021-03-05");
 	    usuarioslic=  usuarioService.NotifyUVigLic("2021-03-01", "2021-03-05");
 	    usuariosine =  usuarioService.NotifyUVigIne("2021-03-01", "2021-03-05");
+	    notificacionsin = notiService.NotifyRegSin();
+	    notificacionmant = notiService.NotifyRegMant();
+	    
 
 	    //CONDUCTORES LICENCIAS
 	    
@@ -131,6 +143,31 @@ public class HomeController {
          model.addAttribute("usuine",usuine);
          model.addAttribute("num",num);
 	     
+         //NOTIFICACION
+         
+         for (int i=0;i<notificacionsin.size();i++) {
+              notisin.add(notificacionsin.get(i));
+	          System.err.print("NOTIFICACIONSIN: "+notisin.get(i).getId_notificacion());
+	          System.err.print("\n");
+         }
+        
+        System.err.print("NOTIFICACIONSIN: "+notisin.size());
+        System.err.print("\n");
+        model.addAttribute("notisin",notisin);
+        model.addAttribute("num",num);
+         
+        
+        for (int i=0;i<notificacionmant.size();i++) {
+            notimant.add(notificacionmant.get(i));
+	          System.err.print("NOTIFICACIONMANT: "+notimant.get(i).getId_notificacion());
+	          System.err.print("\n");
+       }
+      
+      System.err.print("NOTIFICACIONMANT: "+notimant.size());
+      System.err.print("\n");
+      model.addAttribute("notimant",notimant);
+      model.addAttribute("num",num);
+         
 	     return "home";
 	     
 	}

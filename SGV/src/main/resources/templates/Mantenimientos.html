@@ -43,7 +43,7 @@
 												<tr>
 													<th class="celda">Placa</th>
 													<th class="celda">Kilometraje</th>
-													<th class="celda">Costo De Mantenimiento</th>
+													<th class="celda">No de Oficio</th>
 													<th class="celda">No de Orden</th>
 													<th class="celda">Fecha De Solicitud</th>
 													<th class="celda">Fecha De Ingreso</th>
@@ -56,7 +56,7 @@
 												<tr th:each="mantenimientossql: ${mantenimientos}">													
 													<td th:text="${mantenimientossql.vehiculo.placa}" class="celda"></td>
 													<td th:text="${mantenimientossql.kilometraje}" class="celda"></td>
-													<td th:text="${mantenimientossql.costo_mantenimiento}" class="celda"></td>
+													<td th:text="${mantenimientossql.no_oficio}" class="celda"></td>
 													<td th:text="${mantenimientossql.no_orden}" class="celda"></td>
 													<td th:text="${mantenimientossql.fecha_solicitud}" class="celda"></td>
 													<td th:text="${mantenimientossql.fecha_ingreso}" class="celda"></td>
