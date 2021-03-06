@@ -232,6 +232,56 @@
 														<div class="form-group col-sm-2 enlineaform"></div>
 
 													</div>
+													
+													<!-- fecha compactacion -->
+													
+													<div>
+
+														<div class="form-group col-sm-3 enlineaform">
+															<div class="help-block with-errors" style="width: 261px;"></div>
+
+															<input th:field="*{fecha_compactacion}" id="fecha_compactacion"
+																min="01/01/1900" max="01/01/2090"
+																class="form-control signos" type="date" disabled
+																>
+
+															<div class="input-group-icon">
+																<i class="fas fa-file-invoice-dollar"></i>
+															</div>
+														</div>
+														<div class="form-group col-sm-4 enlineaform">
+															<input placeholder="Fecha de Compactacion" class="form-control"
+																disabled>
+														</div>
+
+														<div class="form-group col-sm-2 enlineaform"></div>
+
+													</div>
+													
+													<!-- Fecha ingreso a deposito -->
+													
+													<div>
+
+														<div class="form-group col-sm-3 enlineaform">
+															<div class="help-block with-errors" style="width: 261px;"></div>
+
+															<input th:field="*{fecha_ingreso_deposito}" id="fecha_deposito"
+																min="01/01/1900" max="01/01/2090"
+																class="form-control signos" type="date" disabled
+																>
+
+															<div class="input-group-icon">
+																<i class="fas fa-file-invoice-dollar"></i>
+															</div>
+														</div>
+														<div class="form-group col-sm-4 enlineaform">
+															<input placeholder="Fecha de Ingreso a Deposito" class="form-control"
+																disabled>
+														</div>
+
+														<div class="form-group col-sm-2 enlineaform"></div>
+
+													</div>
 
 													<!--Fecha de tarjeta-->
 
