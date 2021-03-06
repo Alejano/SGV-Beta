@@ -51,4 +51,11 @@ public interface IUsuarioDao extends PagingAndSortingRepository<Usuario, String>
 	@Query("select p from Usuario p where vig_ine between ?1 and ?2 order by vig_ine asc")
 	public List<Usuario> NotifyUVigIne(String fecha1, String fecha2);
 	
+	@Query("select count(p) from Usuario p where vig_licencia between ?1 and ?2")
+	public Long TotalUVigLic(String fecha1, String fecha2);
+	
+	@Query("select count(p) from Usuario p where vig_ine between ?1 and ?2")
+	public Long TotalUVigIne(String fecha1, String fecha2);
+	
+	
 }

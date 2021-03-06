@@ -46,4 +46,17 @@ public class INotificacionServiceImpl implements INotificacionService {
 		return notiDao.NotifyRegMant();
 	}
 
+	@Override
+	public Long TotalRegSin() {
+		// TODO Auto-generated method stub
+		return notiDao.TotalRegSin();
+	}
+
+
+	@Override
+	public Long TotalRegMant() {
+		// TODO Auto-generated method stub
+		return notiDao.TotalRegMant();
+	}
+	
 }

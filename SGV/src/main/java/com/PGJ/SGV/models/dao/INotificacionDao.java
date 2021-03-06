@@ -14,5 +14,10 @@ public interface INotificacionDao extends PagingAndSortingRepository<Notificacio
 	
 	@Query("select n from Notificacion n where CAST(n.fecha_actual as date) = current_date and n.tipo like 'mantenimiento' order by n.id_notificacion asc")
 	public List<Notificacion> NotifyRegMant();
+
+	@Query("select count(n) from Notificacion n where CAST(n.fecha_actual as date) = current_date and n.tipo like 'siniestro'")
+	public Long TotalRegSin();
 	
+	@Query("select count(n) from Notificacion n where CAST(n.fecha_actual as date) = current_date and n.tipo like 'mantenimiento'")
+	public Long TotalRegMant();
 }

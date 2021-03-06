@@ -124,7 +124,19 @@ public class IUsuarioServiceImpl implements IUsuarioService {
 		// TODO Auto-generated method stub
 		return usuarioDao.NotifyUVigIne(fecha1,fecha2);
 	}
-
+	
+	@Override
+	public Long TotalUVigLic(String fecha1, String fecha2) {
+		// TODO Auto-generated method stub
+		return usuarioDao.TotalUVigLic(fecha1,fecha2);
+	}
+	
+	@Override
+	public Long TotalUVigIne(String fecha1, String fecha2) {
+		// TODO Auto-generated method stub
+		return usuarioDao.TotalUVigIne(fecha1,fecha2);
+	}	
+	
 }
 
 

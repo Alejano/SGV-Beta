@@ -21,4 +21,7 @@ public interface IEstadoVehiculoDao extends CrudRepository<VehiculoEstado, Long>
 	@Query("select e from VehiculoEstado e where e.id_estado != 5")
 	public List<VehiculoEstado> findEstados();
 	
+	@Query("select e from VehiculoEstado e where e.id_estado = 5")
+	public List<VehiculoEstado> findEstadoBaja();
+	
 }

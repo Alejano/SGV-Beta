@@ -74,4 +74,11 @@ public interface IConductorDao extends PagingAndSortingRepository<Conductor, Str
 	@Query("select p from Conductor p where vig_ine between ?1 and ?2 order by vig_ine asc")
 	public List<Conductor> NotifyCVigIne(String fecha1, String fecha2);
 
+	@Query("select count(p) from Conductor p where vig_licencia between ?1 and ?2")
+	public Long TotalCVigLic(String fecha1, String fecha2);
+	
+	@Query("select count(p) from Conductor p where vig_ine between ?1 and ?2")
+	public Long TotalCVigIne(String fecha1, String fecha2);
+
+	
 }

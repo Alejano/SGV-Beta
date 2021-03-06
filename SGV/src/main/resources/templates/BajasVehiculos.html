@@ -143,8 +143,11 @@
         
         <div class="modal-body btnModal">
           	<div class="col-sm-12">	
-				<div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" data-value="8" class="optionModal">
+				<div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" data-value="1" class="optionModal">
 					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{/info/}" th:text="'Ver la Informacion del vehiculo'" id="inf" ></a>
+				</div>
+				<div th:if="${usuario} == 'ROLE_ADMIN'" data-value="2" class="optionModal">
+					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{/formVehiBaja/} " id="baj" th:text="'Informacion de la baja del vehiculo'" ></a>
 				</div>
 			</div>
         </div>
@@ -302,6 +305,7 @@
 		 var estado = Nombre_estado;
 		 $("#tituloPlaca").text("Vehiculo con placa:  "+placa);
 		 $("#inf").prop("href","/info/"+id);
+		 $("#baj").prop("href","/formVehiBaja/"+id);
 	
 	 }
 	 

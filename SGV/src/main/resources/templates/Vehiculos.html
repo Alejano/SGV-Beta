@@ -27,7 +27,7 @@
 											    </form>
 											     
 											    <form th:action="@{/Revista}"  th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" class="col-md-3" style="margin-bottom: 3px; margin-left: 5px; display: inline-block;">
-								        			<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/BajasVehiculos}"><i class="fas fa-window-close"style="margin-top: 10%;"></i></a>
+								        			<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/BajasVehiculos}"><i class="fas fa-car-alt" style="margin-top: 10%;"></i></a>
 								        			<a class="btn btn-primary btn-xs btn-stilo" th:href="@{/Vehiculos}"><i class="fas fa-sync-alt fa-1x" style="margin-top: 10%;"></i></a>
 								        		    <a class="btn btn-primary btn-xs col-sm-4 btn-stilo"   th:if="${usuario == 'ROLE_ADMIN'}" th:href='@{/Ejecutar}' style="width: 47px; height: 42px; float: right; margin-right: -14%;padding : 6px 6px;"><i class="fas fa-database" style="margin-top: 10%; padding: unset; font-size:25px;"></i></a>
 								        			
@@ -238,7 +238,10 @@
 				</div>
 				<div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" data-value="9" class="optionModal">
 					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{/infoResguardante/}" id="resg" th:text="'Ver y asignar resguardantes del vehiculo'" ></a>
-				</div>																															 		
+				</div>
+				<div th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_USER'}" data-value="10" class="optionModal">
+					<a class="btn btn-primary btn-xs btn-stilo btnModalb" th:href="@{/infoPlacas/}" id="placas" th:text="'Ver historico de placas del vehiculo'" ></a>
+				</div>																																 		
 			</div>
         </div>
         
@@ -402,6 +405,7 @@
 		 $("#inf").prop("href","/info/"+id);
 		 $("#resg").prop("href","/infoResguardante/"+id);
 		 $("#sin").prop("href","/ListarSiniestros/"+id);
+		 $("#placas").prop("href","/infoPlacas/"+id);
 	 }
 	 
 	

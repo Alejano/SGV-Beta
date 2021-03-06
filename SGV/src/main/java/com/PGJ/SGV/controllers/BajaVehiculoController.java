@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.PGJ.SGV.models.dao.IBajaVehiculoDao;
 import com.PGJ.SGV.models.entity.BajaVehiculo;
 import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.Vehiculo;
+import com.PGJ.SGV.models.entity.VehiculoDetalle;
 import com.PGJ.SGV.models.entity.VehiculoEstado;
+import com.PGJ.SGV.service.IBajaVehiculoService;
 import com.PGJ.SGV.service.ILogsAuditService;
 import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IUploadFileService;
@@ -38,6 +39,9 @@ public class BajaVehiculoController {
 	private ILogsAuditService logsauditService;
 	@Autowired
 	private IObtenerUserService obuserService;
+	@Autowired
+	private IBajaVehiculoService bajaVehiculoService;
+	
 	
 	@RequestMapping(value="/formBaja/{id_vehiculo}")
 	public String bajaform(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String,Object>model) {	
@@ -142,4 +146,81 @@ public class BajaVehiculoController {
 		return "redirect:Vehiculos";
 	}
 	
+	
+	@RequestMapping(value="/formVehiBaja/{id_vehiculo}", method = RequestMethod.GET)
+	public String VehiBaja(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String, Object> model) {		
+		
+		String user;
+		Vehiculo vehiculo = null;
+		VehiculoDetalle detalle = null;
+		BajaVehiculo baja = null;
+		String tcirculacion = "";
+		String actafnq = "";
+		String oficiobaja = "";
+		String dictamen = "";
+
+		user = obuserService.obtenUser();
+		model.put("usuario", user);
+
+		if (id_vehiculo != null) {
+			vehiculo = vehiculoService.findOne(id_vehiculo);		
+			detalle = vehiculoService.findDetalle(id_vehiculo);
+			baja = bajaVehiculoService.findBaja(id_vehiculo);
+			tcirculacion = vehiculoService.findTCDetalle(id_vehiculo);
+			actafnq = bajaVehiculoService.findActaFNQ(id_vehiculo);
+		    oficiobaja = bajaVehiculoService.findOficio(id_vehiculo);
+		    dictamen = bajaVehiculoService.findDictamen(id_vehiculo);
+			
+			if (tcirculacion != null) {
+				tcirculacion = "existe";
+			} else {
+				tcirculacion = "noexiste";
+			};
+			
+
+			if (actafnq != null) {
+				actafnq = "existe";
+			} else {
+				actafnq = "noexiste";
+			};
+			
+
+			if (oficiobaja != null) {
+				oficiobaja = "existe";
+			} else {
+				oficiobaja = "noexiste";
+			};
+			
+
+			if (dictamen != null) {
+				dictamen = "existe";
+			} else {
+				dictamen = "noexiste";
+			};
+
+
+		} else {
+			return "redirect:/Vehiculos";
+		}
+
+		vehiculo.setVehiculo_detalle(detalle);
+	    baja.setVehiculo(vehiculo);
+
+		model.put("editando", "si");
+		model.put("tcirculacion", tcirculacion);
+		model.put("actafnq", actafnq);
+		model.put("oficiobaja", oficiobaja);
+		model.put("dictamen", dictamen);
+		model.put("vehiculo", vehiculo);
+		model.put("detalle", detalle);
+		model.put("baja", baja);
+		model.put("PageTitulo", "Baja Vehiculo");
+		model.put("titulo", "Baja Vehiculo");
+		
+			return "formVehiBaja";
+			
+
+	} //BRENDA
+	
+
 }

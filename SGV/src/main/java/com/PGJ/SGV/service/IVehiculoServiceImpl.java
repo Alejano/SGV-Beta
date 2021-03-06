@@ -1,16 +1,11 @@
 package com.PGJ.SGV.service;
 
 import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.PGJ.SGV.models.dao.IAdscripDao;
 import com.PGJ.SGV.models.dao.IVehiculoDao;
 import com.PGJ.SGV.models.dao.IVehiculoDetalleDao;
 import com.PGJ.SGV.models.dao.IVehiculoEstadoDao;
@@ -39,9 +34,7 @@ public class IVehiculoServiceImpl implements IVehiculoService {
 	private IVehiculoFuncionDao funcionDao;
    @Autowired
 	private IVehiculoTransDao tranmicionDao;
-   @Autowired
-  	private IAdscripDao adscripcionDao;
-  
+
     @Override
 	@Transactional(readOnly = true)
 	public List<Vehiculo> findAll() {

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 
-
 <html 
 	xmlns:th= "http://www.thymeleaf.org" >	
-	
+		
 	<head>
 		<title>SGV</title>
 		<meta charset="utf-8" />
@@ -17,10 +16,7 @@
 		<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
 		<script src="/assets/fontawesome/js/all.js"></script>
 		 <script src="/webjars/stomp-websocket/stomp.min.js"></script>		
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">		
-	
-   
-                
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">		            
 	</head>
 	<body onload="connect()" class="is-preload" >
 	
@@ -163,7 +159,6 @@
 						    </div>					  
 						 </div>
 								
-						 
 						 <div th:if="${usuario == 'ROLE_ADMIN' or usuario== 'ROLE_USER' or usuario== 'ROLE_TALLER'}" class="card-image">
 							   <img id="img6" src="images/Mantenimiento.png" class=" imgboton" alt="..." style="border-radius: inherit; width: 120px;">
 							   <form th:action="@{/Mantenimientos}" class="F" name="salir">		 		
@@ -211,7 +206,7 @@
 		</div>
 </div>
 
-<div th:if="${usuario} == 'ROLE_ADMIN'" id="Notify" style="word-wrap: break-word;position: fixed;z-index: 2;bottom: 500px;background: white;width: 50px;float: right;">       
+<!-- <div th:if="${usuario} == 'ROLE_ADMIN'" id="Notify" style="word-wrap: break-word;position: fixed;z-index: 2;bottom: 500px;background: white;width: 50px;float: right;">       
     <table id="conversation" class="table table-striped">
                 <thead>
                 <tr>
@@ -232,7 +227,7 @@
                     	<h6>Salidas: <span th:text="${SalioMant}"></span> </h6>-->
                     
                      <!--</div> -->  
-                    </th>
+     <!--                </th>
                   </tr>
                   
                   <tr id="vig" style="display:none; background:#e9ecef;">
@@ -248,7 +243,39 @@
                 <tbody id="greetings">           
                 </tbody>                
             </table>            
-</div>
+</div> -->
+
+<a href="#" id="cerrar" onclick="cerraer()" class="badge badge-danger" style="position:absolute;right:200px;top:60px;"><i class="fas fa-bell fa-2x"></i></a>
+<div id='total' th:text="${total}" class="badge badge-danger" style="position:absolute;right:180px;top:49px"></div>
+<a href="#" id="abrir" onclick="abrir()" class="badge badge-danger" style="position:absolute;right:200px;top:60px;"><i class="fas fa-bell fa-2x"></i></a> 
+
+ 
+<section id='sec' style="border:groove;display:none;word-wrap: break-word;position: absolute;right:200px;top:90px;z-index: 2;bottom: 500px;background: white;height:196px;width: 367px;float: right;">
+
+  <header style="text-align:left;font-size:14px;line-height:40px;padding:10px 24px;display:flex;font-weight:500;justify-content:space-between;">NOTIFICACIONES</header>
+  
+  <ul  style="line-height:1.2;overflow-y:auto;padding:0px;margin:0px;">
+  
+  <li style="position:relative;background-color:rgb(240,243,245);list-style:none;border-bottom:5px solid rgba(0,0,0,0.15);min-heigh:40px;line-height:60px;font-size:14px;box-shadow:none;transition:background-color 3s ease 0s, box-shadow 100 ms ease 0s;margin-bottom:-3px;">
+     <div>
+        <div id='nvig' th:text="${totalvig}" class="badge badge-danger" style="position:absolute;right:264px;top:5px"></div>
+        <img src="/images/vigencia.png" style="width:58px;height:58px;margin-right:16px;margin-top:4px">
+        <a id="option1" class="notifytext" data-toggle="modal"  data-target="#vigencias" style="color: black; border-bottom-color:transparent;">Vigencias proximas a vencer</a>
+     </div>
+  </li>
+  
+  <li style="position:relative;background-color:rgb(240,243,245);list-style:none;border-bottom:5px solid rgba(0,0,0,0.15);min-heigh:40px;line-height:60px;font-size:14px;box-shadow:none;transition:background-color 3s ease 0s, box-shadow 100 ms ease 0s;margin-bottom:-3px;">
+     <div>
+        <div id='nreg' th:text="${totalreg}" class="badge badge-danger" style="position:absolute;right:264px;top:5px"></div>
+        <img src="/images/registro.png" style="width:58px;height:58px;margin-right:16px;margin-top:4px">
+        <a id="option2" class="notifytext" data-toggle="modal"  data-target="#registros" style="color: black; border-bottom-color:transparent;">Registros de alta </a>
+     </div>
+  </li>
+  
+  </ul>
+  <footer style="line-height:40px;text-align:center;border-radius:0px 0px 4px 4px;"></footer>
+</section>
+
 
 <!-- Modal: FORMATOS -->
       <div class="modal fade" id="formatos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -345,7 +372,7 @@
                                           <table class="table table-hover" id="cvigenciaslic" style="font-size: 14px;">
 											<thead class="table-success" style="background-color:#004085;">
 												<tr>
-													<th class="celda">PLACA</th>
+													<th class="celda">NO EMPLEADO</th>
 													<th class="celda">NOMBRE</th>	
 													<th class="celda">APELLIDO PATERNO</th>	
 													<th class="celda">APELLIDO MATERNO</th>
@@ -368,7 +395,7 @@
 										  <table class="table table-hover" id="cvigenciasine" style="font-size: 14px;">
 											<thead class="table-success" style="background-color:#004085;">
 												<tr>
-													<th class="celda">PLACA</th>
+													<th class="celda">NO EMPLEADO</th>
 													<th class="celda">NOMBRE</th>	
 													<th class="celda">APELLIDO PATERNO</th>	
 													<th class="celda">APELLIDO MATERNO</th>
@@ -390,7 +417,7 @@
 				                       <table class="table table-hover" id="uvigenciaslic" style="font-size: 14px;">
 											<thead class="table-success" style="background-color:#004085;">
 												<tr>
-													<th class="celda">PLACA</th>
+													<th class="celda">NO EMPLEADO</th>
 													<th class="celda">NOMBRE</th>	
 													<th class="celda">APELLIDO PATERNO</th>	
 													<th class="celda">APELLIDO MATERNO</th>
@@ -412,7 +439,7 @@
 										 <table class="table table-hover" id="uvigenciasine" style="font-size: 14px;">
 											<thead class="table-success" style="background-color:#004085;">
 												<tr>
-													<th class="celda">PLACA</th>
+													<th class="celda">NO EMPLEADO</th>
 													<th class="celda">NOMBRE</th>	
 													<th class="celda">APELLIDO PATERNO</th>	
 													<th class="celda">APELLIDO MATERNO</th>
@@ -436,7 +463,6 @@
  </div>
 </div>
 </div>
-
 
 
 <!-- Modal:REGISTROS -->
@@ -510,42 +536,36 @@
 
 
 <script type="text/javascript">
-	
-	
+
+$(".notifytext").hide();
+$("#cvigenciaslic").show();
+$("#cvigenciasine").hide();  
+$("#uvigenciaslic").hide();
+$("#uvigenciasine").hide();
+$("#notify_mantenimientos").show();
+$("#notify_siniestros").hide();
+
+
 	Push.create("REVISA NOTIFICACIONES",{
-		body:"DA CLIC EN EL ANUNCIO",
+		body:"ES IMPORTANTE DAR SEGUIMIENTO",
 		icon:"images/bell.png",
 		timeout:7000,
 		 onClick:function abrir(){
 			
 		  $(".mensaje").show();
 		  $("#abrir").hide();
-
-		  $("#vig").show();
-		  $("#reg").show();
-		  
+		  $("#sec").show();
 		  $("#cerrar").show();
 		  $("#Notify").css("width"," 200px");
 		  $(".notifytext").show();
 	}
-	
 	});
-	
-$("#cvigenciaslic").show();
-$("#cvigenciasine").hide();  
-$("#uvigenciaslic").hide();
-$("#uvigenciasine").hide();
-
-
-$("#notify_mantenimientos").show();
-$("#notify_siniestros").hide();
 
 function ShowSelectedVig(){
     /* Para obtener el valor */
      var cond = document.getElementById("option").value;
      //alert(cond);
 
-     
     if(cond==1){
        $("#cvigenciaslic").show();
        $("#cvigenciasine").hide();  
@@ -579,20 +599,15 @@ function ShowSelectedVig(){
   
 function ShowSelectedReg(){
     /* Para obtener el valor */
-     var condi = document.getElementById("optionreg").value;
-     
+    var condi = document.getElementById("optionreg").value;
+    
     if(condi==1){
-    	
        $("#notify_mantenimientos").show();
        $("#notify_siniestros").hide();
-
     }
-   
-   if(condi==2){
-	   
+   if(condi==2){  
 	   $("#notify_mantenimientos").hide();
        $("#notify_siniestros").show();
-
      }
     }
 
@@ -626,7 +641,6 @@ function connect() {
       
     });
     
-  
 }
 
 function disconnect() {
@@ -671,11 +685,8 @@ function cerraer(){
 	  $(".mensaje2").remove();
 	  $(".mensaje").hide();	
 	  $("#cerrar").hide();	
-	  
-	  $("#vig").hide();
-	  $("#reg").hide();
-	  
 	  $("#abrir").show();
+	  $("#sec").hide();
 	  $("#Notify").css("width"," 50px");
 	  $(".notifytext").hide();
 }
@@ -684,11 +695,8 @@ function abrir(){
 		sendName2();
 	  $(".mensaje").show();
 	  $("#abrir").hide();
-
-	  $("#vig").show();
-	  $("#reg").show();
-	  
 	  $("#cerrar").show();
+	  $("#sec").show();
 	  $("#Notify").css("width"," 200px");
 	  $(".notifytext").show();
 }
@@ -824,8 +832,6 @@ $("#btimg8").hover(function(){
 			<script src="/assets/js/popper.min.js"></script>
 			<!-- Bootstrap Js -->
 			<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-			
-                       
-                           
+	                 
 	</body>
 </html>

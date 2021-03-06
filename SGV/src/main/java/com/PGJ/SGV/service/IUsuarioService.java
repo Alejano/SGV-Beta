@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import com.PGJ.SGV.models.entity.Usuario;
 
 public interface IUsuarioService {
@@ -44,4 +45,8 @@ public interface IUsuarioService {
 	
 	public List<Usuario> NotifyUVigIne(String fecha1, String fecha2);
 	
+	public Long TotalUVigLic(String fecha1, String fecha2);
+	
+	public Long TotalUVigIne(String fecha1, String fecha2);
+		
 }

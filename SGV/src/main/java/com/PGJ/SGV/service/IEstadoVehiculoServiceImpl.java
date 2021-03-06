@@ -56,4 +56,12 @@ public class IEstadoVehiculoServiceImpl implements IEstadoVehiculoService{
     	//return null;
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<VehiculoEstado> findEstadoBaja(){
+		// TODO Auto-generated method stub
+    	return (List<VehiculoEstado>) EstadoDao.findEstadoBaja();
+    	//return null;
+	}
+	
 }

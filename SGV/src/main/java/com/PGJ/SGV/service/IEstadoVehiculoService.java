@@ -19,4 +19,6 @@ public interface IEstadoVehiculoService {
 	
 	public List<VehiculoEstado> findEstados();
 	
+	public List<VehiculoEstado> findEstadoBaja();
+	
 	}

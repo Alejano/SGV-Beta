@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+
 import com.PGJ.SGV.models.entity.Conductor;
 
 
@@ -61,4 +63,8 @@ public interface IConductorService {
 	
 	public List<Conductor> NotifyCVigIne(String fecha1, String fecha2);
 
+    public Long TotalCVigLic(String fecha1, String fecha2);
+	
+	public Long TotalCVigIne(String fecha1, String fecha2);
+	
 }

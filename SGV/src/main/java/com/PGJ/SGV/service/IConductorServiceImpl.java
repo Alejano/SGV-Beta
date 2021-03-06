@@ -178,5 +178,20 @@ public class IConductorServiceImpl implements IConductorService {
 		return conductorDao.NotifyCVigIne(fecha1,fecha2);
 	}
 
+	
+	@Override
+    public Long TotalCVigLic(String fecha1, String fecha2) {
+		// TODO Auto-generated method stub
+		return conductorDao.TotalCVigLic(fecha1,fecha2);
+	}
 
+	
+	@Override
+	public Long TotalCVigIne(String fecha1, String fecha2) {
+		// TODO Auto-generated method stub
+		return conductorDao.TotalCVigIne(fecha1,fecha2);
+	}
+
+
+	
 }
