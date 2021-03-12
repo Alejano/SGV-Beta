@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<title>Vehiculos</title>
+<title>Formulario Baja Vehiculos</title>
 <meta charset="utf-8">
 <head th:replace="/layout/layoutHeadMetaData :: head"></head>
 <body>
@@ -14,7 +14,7 @@
 							<div class="item-wrap">
 								<div class="row">
 									<div class="col-md-12">
-										<form th:action="@{/formVehiBaja}" th:object="${baja}"
+										<form th:action="@{/formVehiBaja}" th:object="${vehiculo}"
 											enctype="multipart/form-data" method="post" id="formulario"
 											data-toggle="validator" class="popup-form">
 											<div class="row">
@@ -24,7 +24,7 @@
 													<!--Numero de placa-->
 													<div class="form-group col-sm-3 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
-														<input th:field="*{vehiculo.placa}" name="fname" id="N_Placa"
+														<input th:field="*{placa}" name="fname" id="N_Placa"
 															placeholder="Placa" class="form-control Letrasnum"
 															type="text" required
 															data-error="Ingrese El Numero de Placa">
@@ -43,7 +43,7 @@
 													
 													<div class="form-group col-sm-4 enlineaform">
 													  <div class="help-block with-errors" style="width: 261px;"></div>
-														<input th:field="*{vehiculo.vehiculo_estado.nombre_estado}" name="fname" id="N_Placa"
+														<input th:field="*{vehiculo_estado.nombre_estado}" name="fname" id="N_Placa"
 															placeholder="Placa" class="form-control Letrasnum"
 															type="text" required
 															data-error="Ingrese El Numero de Placa">
@@ -57,7 +57,7 @@
 
 													<div class="form-group col-sm-6 enlineaform">
 													   <div class="help-block with-errors" style="width: 261px;"></div>
-														<input th:field="*{vehiculo.adscripcion.nombre_adscripcion}" name="fname" id="N_Placa"
+														<input th:field="*{adscripcion.nombre_adscripcion}" name="fname" id="N_Placa"
 															placeholder="Placa" class="form-control Letrasnum"
 															type="text" required
 															data-error="Ingrese El Numero de Placa">
@@ -75,7 +75,7 @@
 
 													<div class="form-group col-sm-3 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
-														<input th:field="*{vehiculo.kilometraje_inicial}" id="D_re"
+														<input th:field="*{kilometraje_inicial}" id="D_re"
 															class="form-control numpunto" type="number" min="0.0"
 															max="100000000000000" required step="any"
 															data-error="Ingrese La Distancia Recorrida">
@@ -92,7 +92,7 @@
 
 													<div class="form-group col-sm-3 enlineaform">
 														<div class="help-block with-errors"></div>
-														<input th:field="*{vehiculo.no_serie}" id="N_serie"
+														<input th:field="*{no_serie}" id="N_serie"
 															placeholder="Numero de Serie" class="form-control signos"
 															type="text" required
 															data-error="Ingrese El Numero de Serie">
@@ -109,7 +109,7 @@
 
 													<div class="form-group col-sm-3 enlineaform">
 														<div class="help-block with-errors"></div>
-														<input th:field="*{vehiculo.no_inventario}" id="N_serie"
+														<input th:field="*{no_inventario}" id="N_serie"
 															placeholder="Numero de Inventario"
 															class="form-control signos" type="text" required
 															data-error="Ingrese El Numero de Inventario">
@@ -142,7 +142,7 @@
 												<div class="form-group col-sm-3 enlineaform">
 												
 												<div class="help-block with-errors"></div>
-														<input th:field="*{vehiculo.tipo_vale.descr_vale}" id="N_serie"
+														<input th:field="*{tipo_vale.descr_vale}" id="N_serie"
 															placeholder="Numero de Inventario"
 															class="form-control signos" type="text" required
 															data-error="Ingrese El Numero de Inventario">
@@ -165,7 +165,7 @@
 													<div class="form-group col-sm-3 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.no_tarjeta}" id="no_tarjeta"
+														<input th:field="*{no_tarjeta}" id="no_tarjeta"
 															placeholder="Numero de Tarjeta"
 															class="form-control signos" type="text" required
 															data-error="Ingrese el Numero de Tarjeta">
@@ -186,12 +186,12 @@
 													<!--Fecha de alta-->
 													<!-- BRENDA -->
 
-													<div>
+													<div th:if="${editando} == 'si'">
 
 														<div class="form-group col-sm-3 enlineaform">
 															<div class="help-block with-errors" style="width: 261px;"></div>
 
-															<input th:field="*{vehiculo.fecha_alta}" id="fecha_alta"
+															<input th:field="*{fecha_alta}" id="fecha_alta"
 																min="01/01/1900" max="01/01/2090"
 																class="form-control signos" type="date" disabled
 																>
@@ -210,12 +210,12 @@
 													</div>
 													<!-- BRENDA -->
 													
-													<div>
+													<div th:if="${sinbaja} == 'si'">
 
 														<div class="form-group col-sm-3 enlineaform">
 															<div class="help-block with-errors" style="width: 261px;"></div>
 
-															<input th:field="*{fecha_baja}" id="fecha_alta"
+															<input th:field="*{bajavehiculo.fecha_baja}" id="fecha_alta"
 																min="01/01/1900" max="01/01/2090"
 																class="form-control signos" type="date" disabled
 																>
@@ -235,12 +235,12 @@
 													
 													<!-- fecha compactacion -->
 													
-													<div>
+													<div th:if="${sinbaja} == 'si'">
 
 														<div class="form-group col-sm-3 enlineaform">
 															<div class="help-block with-errors" style="width: 261px;"></div>
 
-															<input th:field="*{fecha_compactacion}" id="fecha_compactacion"
+															<input th:field="*{bajavehiculo.fecha_compactacion}" id="fecha_compactacion"
 																min="01/01/1900" max="01/01/2090"
 																class="form-control signos" type="date" disabled
 																>
@@ -260,15 +260,14 @@
 													
 													<!-- Fecha ingreso a deposito -->
 													
-													<div>
+													<div th:if="${sinbaja} == 'si'">
 
 														<div class="form-group col-sm-3 enlineaform">
 															<div class="help-block with-errors" style="width: 261px;"></div>
 
-															<input th:field="*{fecha_ingreso_deposito}" id="fecha_deposito"
+															<input th:field="*{bajavehiculo.fecha_ingreso_deposito}" id="fecha_deposito"
 																min="01/01/1900" max="01/01/2090"
-																class="form-control signos" type="date" disabled
-																>
+																class="form-control signos" type="date" disabled>
 
 															<div class="input-group-icon">
 																<i class="fas fa-file-invoice-dollar"></i>
@@ -288,7 +287,7 @@
 													<div class="form-group col-sm-3 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.fecha_tarjeta}" id="fecha_tarjeta"
+														<input th:field="*{fecha_tarjeta}" id="fecha_tarjeta"
 															min=01/01/1900 max=01/01/2090 class="form-control signos"
 															type="date" required
 															data-error="Ingrese la fecha de tarjeta">
@@ -366,7 +365,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.vehiculo_transmision.nombre_transmision}" id="transmision" class="form-control soloLetras" type="text" required data-error="Ingrese la transmision">
+														<input th:field="*{vehiculo_transmision.nombre_transmision}" id="transmision" class="form-control soloLetras" type="text" required data-error="Ingrese la transmision">
 														<div class="input-group-icon">
 															<i class="fas fa-file-invoice-dollar"></i>
 														</div>
@@ -383,7 +382,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.vehiculo_funcion.id_funcion}" id="funcion" class="form-control soloLetras" type="text" required data-error="Ingrese la funcion">
+														<input th:field="*{vehiculo_funcion.id_funcion}" id="funcion" class="form-control soloLetras" type="text" required data-error="Ingrese la funcion">
 														<div class="input-group-icon">
 															<i class="fas fa-file-invoice-dollar"></i>
 														</div>
@@ -401,7 +400,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.vehiculo_detalle.rin}" id="rin"
+														<input th:field="*{vehiculo_detalle.rin}" id="rin"
 															class="form-control soloLetras" type="number" required
 															data-error="Ingrese el tamaño de Rin">
 
@@ -419,7 +418,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 														<div style="text-align: right;">
-															<input type="text" class="form-control soloLetras"  th:field="*{vehiculo.vehiculo_detalle.color}">
+															<input type="text" class="form-control soloLetras"  th:field="*{vehiculo_detalle.color}">
 														</div>
 														<div class="input-group-icon">
 															<i class="fas fa-file-invoice-dollar"></i>
@@ -437,7 +436,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.vehiculo_detalle.no_cilindros}"
+														<input th:field="*{vehiculo_detalle.no_cilindros}"
 															id="no_cilindros" min=1 max=30
 															class="form-control signos" type="number" required
 															data-error="Ingrese la Cantidad de Cilindros">
@@ -456,7 +455,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.vehiculo_detalle.no_personas}"
+														<input th:field="*{vehiculo_detalle.no_personas}"
 															id="no_personas" min=1 max=20 class="form-control signos"
 															type="number" required
 															data-error="Ingrese la fecha de tarjeta">
@@ -477,7 +476,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.vehiculo_detalle.no_puertas}"
+														<input th:field="*{vehiculo_detalle.no_puertas}"
 															id="no_puertas" min=0 max=8 class="form-control signos"
 															type="number" required
 															data-error="Ingrese la fecha de tarjeta">
@@ -502,7 +501,7 @@
 
 															<div class="form-check form-check-inline">
 																<input class="form-check-input" type="radio"
-																	th:field="*{vehiculo.vehiculo_detalle.balisado}"
+																	th:field="*{vehiculo_detalle.balisado}"
 																	name="inlineRadioOptions" id="inlineRadio1" value="1">
 																<label class="form-check-label" for="inlineRadio1"
 																	th:text="SI"></label>
@@ -510,7 +509,7 @@
 
 															<div class="form-check form-check-inline">
 																<input class="form-check-input" type="radio"
-																	th:field="*{vehiculo.vehiculo_detalle.balisado}"
+																	th:field="*{vehiculo_detalle.balisado}"
 																	name="inlineRadioOptions" id="inlineRadio2" value="0">
 																<label class="form-check-label" for="inlineRadio1"
 																	th:text="NO"></label>
@@ -531,7 +530,7 @@
 														<div style="text-align: right;">
 															<div class="form-check form-check-inline">
 																<input class="form-check-input" type="radio"
-																	th:field="*{vehiculo.vehiculo_detalle.blindaje}"
+																	th:field="*{vehiculo_detalle.blindaje}"
 																	name="inlineRadioOptions" id="inlineRadio3" value="1">
 																<label class="form-check-label" for="inlineRadio3"
 																	th:text="SI"></label>
@@ -539,7 +538,7 @@
 
 															<div class="form-check form-check-inline">
 																<input class="form-check-input" type="radio"
-																	th:field="*{vehiculo.vehiculo_detalle.blindaje}"
+																	th:field="*{vehiculo_detalle.blindaje}"
 																	name="inlineRadioOptions" id="inlineRadio4" value="0">
 																<label class="form-check-label" for="inlineRadio4"
 																	th:text="NO"></label>
@@ -560,7 +559,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.vehiculo_detalle.no_motor}"
+														<input th:field="*{vehiculo_detalle.no_motor}"
 															id="no_motor" class="form-control soloLetras" type="text"
 															required data-error="Ingrese el numero de motor">
 
@@ -578,7 +577,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.vehiculo_detalle.no_economico}"
+														<input th:field="*{vehiculo_detalle.no_economico}"
 															id="no_economico" class="form-control signos" type="text"
 															required data-error="Ingrese el numero economico">
 
@@ -598,7 +597,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.vehiculo_detalle.fecha_compra}"
+														<input th:field="*{vehiculo_detalle.fecha_compra}"
 															id="fecha_compra" min=01-01-1900 max=01-01-2090
 															class="form-control signos" type="date" required
 															data-error="Ingrese la fecha de compra">
@@ -617,7 +616,7 @@
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo.vehiculo_detalle.valor_compra}"
+														<input th:field="*{vehiculo_detalle.valor_compra}"
 															step="any" id="valor_compra" min=0.0 max=1000000.0
 															class="form-control signos" type="number" required
 															data-error="Ingrese el valor de la compra">
@@ -637,7 +636,7 @@
 
 													<div class="form-group col-sm-2 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
-														<input th:field="*{vehiculo.vehiculo_detalle.tipo_combustible}"
+														<input th:field="*{vehiculo_detalle.tipo_combustible}"
 															class="form-control soloLetras" type="text" required
 															data-error="Ingrese el valor de la compra">
 															
@@ -674,7 +673,7 @@
 															  
 														<div th:if="${tcirculacion} == 'existe'" id="TCdoc" class="card-body justify-content-center col-sm-12">
 															<div  class="card-body d-flex justify-content-center col-sm-12" >
-																<embed th:src="@{'/upload/' + *{vehiculo.vehiculo_detalle.tarjeta_circulacion}}" type="application/pdf" class="col-sm-12" style="height: 715px;" />
+																<embed th:src="@{'/upload/' + *{vehiculo_detalle.tarjeta_circulacion}}" type="application/pdf" class="col-sm-12" style="height: 715px;" />
 															</div>
 														</div>	 
 														
@@ -685,7 +684,7 @@
 														
 														<div th:if="${actafnq} == 'existe'" id="AFdoc" class="card-body justify-content-center col-sm-12">
 															<div  class="card-body d-flex justify-content-center col-sm-12" >
-																<embed th:src="@{'/upload/' + *{url_acta_fnq}}" type="application/pdf" class="col-sm-12" style="height: 715px;" />
+																<embed th:src="@{'/upload/' + *{baja.url_acta_fnq}}" type="application/pdf" class="col-sm-12" style="height: 715px;" />
 															</div>
 														</div>	
 														
@@ -695,7 +694,7 @@
 														
 														<div th:if="${oficiobaja} == 'existe'" id="OBdoc" class="card-body justify-content-center col-sm-12">
 															<div  class="card-body d-flex justify-content-center col-sm-12" >
-																<embed th:src="@{'/upload/' + *{url_oficio_baja}}" type="application/pdf" class="col-sm-12" style="height: 715px;" />
+																<embed th:src="@{'/upload/' + *{baja.url_oficio_baja}}" type="application/pdf" class="col-sm-12" style="height: 715px;" />
 															</div>
 														</div>	
 														
@@ -705,7 +704,7 @@
 														
 														<div th:if="${dictamen} == 'existe'" id="DIdoc" class="card-body justify-content-center col-sm-12">
 															<div  class="card-body d-flex justify-content-center col-sm-12" >
-																<embed th:src="@{'/upload/' + *{url_dictamen}}" type="application/pdf" class="col-sm-12" style="height: 715px;" />
+																<embed th:src="@{'/upload/' + *{baja.url_dictamen}}" type="application/pdf" class="col-sm-12" style="height: 715px;" />
 															</div>
 														</div>	
 														
@@ -724,7 +723,7 @@
 												<div class="form-group col-sm-2 enlineaform">
 													<div class="help-block with-errors" style="width: 450px;"></div>
 
-													<input th:field="*{vehiculo.vehiculo_detalle.vigencia_circulacion}"
+													<input th:field="*{vehiculo_detalle.vigencia_circulacion}"
 														id="vigencia_circulacion" min=01/01/1900 max=01/01/2090
 														class="form-control signos" type="date" required
 														data-error="Ingrese la fecha de vigencia de circulacion">
@@ -733,7 +732,7 @@
 														<i class="fas fa-file-invoice-dollar"></i>
 													</div>
 												</div>
-												<div class="form-group col-sm-2 enlineaform">
+												<div class="form-group col-sm-3 enlineaform">
 													<input placeholder="Vigencia de circulacion"
 														class="form-control" disabled>
 												</div>
@@ -741,7 +740,7 @@
 												<div class="form-group col-sm-2 enlineaform">
 													<div class="help-block with-errors" style="width: 450px;"></div>
 
-													<input th:field="*{vehiculo.fecha_tenencia}" id="fecha_tenencia"
+													<input th:field="*{fecha_tenencia}" id="fecha_tenencia"
 														min=01/01/1900 max=01/01/2090 class="form-control signos"
 														type="date" required
 														data-error="Ingrese la fecha de la ultima tenencia">
@@ -755,15 +754,15 @@
 														disabled>
 												</div>
 												<!-- calev fin fecha tenencia -->
-												<input type="hidden" th:field="*{vehiculo.id_vehiculo}" />
+												<input type="hidden" th:field="*{id_vehiculo}" />
 												<div id="marcaid">
-													<input type="hidden" th:field="*{vehiculo.vehiculo_marca.id_marca}" />
+													<input type="hidden" th:field="*{vehiculo_marca.id_marca}" />
 												</div>
-												<input type="hidden" th:field="*{vehiculo.vehiculo_funcion}" /> 
-												<input	type="hidden" th:field="*{vehiculo.vehiculo_transmision}" /> 
-												<input type="hidden" th:field="*{vehiculo.vehiculo_detalle}" /> 
-												<input type="hidden" th:field="*{vehiculo.placa_anterior}" /> 
-												<input type="hidden" th:field="*{vehiculo.adscripcion}" />
+												<input type="hidden" th:field="*{vehiculo_funcion}" /> 
+												<input	type="hidden" th:field="*{vehiculo_transmision}" /> 
+												<input type="hidden" th:field="*{vehiculo_detalle}" /> 
+												<input type="hidden" th:field="*{placa_anterior}" /> 
+												<input type="hidden" th:field="*{adscripcion}" />
 
 											       </div>
 											       </div>

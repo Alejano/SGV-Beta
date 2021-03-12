@@ -151,6 +151,10 @@ public class BajaVehiculoController {
 	public String VehiBaja(@PathVariable(value="id_vehiculo") Long id_vehiculo,Map<String, Object> model) {		
 		
 		String user;
+    	String auxfa = null;
+    	String auxfb = null;
+    	String sinbaja=null;
+
 		Vehiculo vehiculo = null;
 		VehiculoDetalle detalle = null;
 		BajaVehiculo baja = null;
@@ -170,6 +174,18 @@ public class BajaVehiculoController {
 			actafnq = bajaVehiculoService.findActaFNQ(id_vehiculo);
 		    oficiobaja = bajaVehiculoService.findOficio(id_vehiculo);
 		    dictamen = bajaVehiculoService.findDictamen(id_vehiculo);
+		    
+		    
+		    if(vehiculo.getFecha_alta() == null) {
+		    	auxfa = "no";
+		    }else {
+		    	auxfa = "si";
+		    }
+		    
+		    try {
+		    if(baja == null) {auxfb = "no";}else {auxfb = "si";}
+		    }catch (Exception e) {
+			}
 			
 			if (tcirculacion != null) {
 				tcirculacion = "existe";
@@ -204,22 +220,32 @@ public class BajaVehiculoController {
 		}
 
 		vehiculo.setVehiculo_detalle(detalle);
-	    baja.setVehiculo(vehiculo);
+	    
+		try {if(baja.getId_baja_vehiculo() != null)
+		{
+		vehiculo.setBajavehiculo(baja);
+		System.err.println("FECHA ALTA"+vehiculo.getBajavehiculo().getFecha_baja());
+		sinbaja = "si";}
+		
+		}catch(Exception e) {
+		}
 
 		model.put("editando", "si");
 		model.put("tcirculacion", tcirculacion);
 		model.put("actafnq", actafnq);
 		model.put("oficiobaja", oficiobaja);
 		model.put("dictamen", dictamen);
+		model.put("sinbaja", sinbaja);
 		model.put("vehiculo", vehiculo);
 		model.put("detalle", detalle);
+		model.put("auxfa", auxfa);
+		model.put("auxfa", auxfb);
 		model.put("baja", baja);
 		model.put("PageTitulo", "Baja Vehiculo");
 		model.put("titulo", "Baja Vehiculo");
 		
 			return "formVehiBaja";
 			
-
 	} //BRENDA
 	
 
