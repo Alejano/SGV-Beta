@@ -226,14 +226,17 @@ public class ResguardanteController {
 		Presguardante.setActivo(true);
 		Sresguardante.setActivo(true);
 
+		
+		
 		List<Resguardante> res = new ArrayList<Resguardante>();
 		res = reguardanteservice.findActivos();
 
 		for (Resguardante re : res) {
 			re.setActivo(false);
+			re.setFecha_fin(SystemDate.obtenFecha());
 			reguardanteservice.save(re);
 		}
-
+		
 		Vehiculo vehi = new Vehiculo();
 		vehi = vehiculoService.findOne(id_vehiculo);
 		Presguardante.setVehiculo(vehi);
@@ -381,16 +384,13 @@ public class ResguardanteController {
 		Presguardante.setActivo(true);
 		Sresguardante.setActivo(true);
 		Tresguardante.setActivo(true);
-
-		// Calev
+		
 		Tresguardante.setNo_licencia(resguardante.getNo_licencia());
 		Tresguardante.setRfc(resguardante.getRfc());
 		Tresguardante.setIne(resguardante.getIne());
 		Tresguardante.setTelefono(resguardante.getTelefono());
 		Tresguardante.setDomicilio(resguardante.getDomicilio());
-		System.out.println("Calev123" + resguardante.getAdscripcion());
 		Tresguardante.setAdscripcion(resguardante.getAdscripcion());
-		// --calev
 
 		List<Resguardante> res = new ArrayList<Resguardante>();
 		res = reguardanteservice.findActivos();
@@ -398,6 +398,7 @@ public class ResguardanteController {
 		for (Resguardante re : res) {
 			re.setFecha_fin(formateador.format(ahora));
 			re.setActivo(false);
+			re.setFecha_fin(SystemDate.obtenFecha());
 			reguardanteservice.save(re);
 		}
 

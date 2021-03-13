@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<title>Formulario Baja Vehiculos</title>
+<title>Formulario de Baja Vehiculos</title>
 <meta charset="utf-8">
 <head th:replace="/layout/layoutHeadMetaData :: head"></head>
 <body>
@@ -300,6 +300,51 @@
 														<input placeholder="Fecha de Tarjeta" class="form-control"
 															disabled>
 													</div>
+													
+													<div class="form-group col-sm-3 enlineaform"></div>
+													
+													<!-- calev fecha TENENCIA -->
+												<div class="form-group col-sm-2 enlineaform">
+													<div class="help-block with-errors" style="width: 450px;"></div>
+
+													<input th:field="*{fecha_tenencia}" id="fecha_tenencia"
+														min=01/01/1900 max=01/01/2090 class="form-control signos"
+														type="date" required
+														data-error="Ingrese la fecha de la ultima tenencia">
+
+													<div class="input-group-icon">
+														<i class="fas fa-file-invoice-dollar"></i>
+													</div>
+												</div>
+												<div class="form-group col-sm-2 enlineaform">
+													<input placeholder="Fecha Tenencia" class="form-control"
+														disabled>
+												</div>
+												
+												<div class="form-group col-sm-7 enlineaform"></div>
+												
+												<!-- calev fin fecha tenencia -->
+												
+												<!--Vigencia-->
+
+												<div class="form-group col-sm-2 enlineaform">
+													<div class="help-block with-errors" style="width: 450px;"></div>
+
+													<input th:field="*{vehiculo_detalle.vigencia_circulacion}"
+														id="vigencia_circulacion" min=01/01/1900 max=01/01/2090
+														class="form-control signos" type="date" required
+														data-error="Ingrese la fecha de vigencia de circulacion">
+
+													<div class="input-group-icon">
+														<i class="fas fa-file-invoice-dollar"></i>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 enlineaform">
+													<input placeholder="Vigencia de circulacion"
+														class="form-control" disabled>
+												</div>
+													
+													
 
 												</div>
 
@@ -372,24 +417,24 @@
 													</div>
 													
 													<div class="form-group col-sm-2 enlineaform">
-														<input placeholder="Transmision del vehiculo" class="form-control"
+														<input placeholder="Transmision" class="form-control"
 															disabled>
 													</div>
 													
 													
 												<!--Funcion-->
 
-													<div class="form-group col-sm-2 enlineaform">
+													<div class="form-group col-sm-3 enlineaform">
 														<div class="help-block with-errors" style="width: 261px;"></div>
 
-														<input th:field="*{vehiculo_funcion.id_funcion}" id="funcion" class="form-control soloLetras" type="text" required data-error="Ingrese la funcion">
+														<input th:field="*{vehiculo_funcion.nombre_funcion}" id="funcion" class="form-control soloLetras" type="text" required data-error="Ingrese la funcion">
 														<div class="input-group-icon">
 															<i class="fas fa-file-invoice-dollar"></i>
 														</div>
 													</div>
 													
 													<div class="form-group col-sm-2 enlineaform">
-														<input placeholder="Funcion a desempe&ntilde;ar" class="form-control"
+														<input placeholder="Funcion" class="form-control"
 															disabled>
 													</div>
 													
@@ -651,7 +696,7 @@
 													
 													</div>
 													
-													<!--Tarjeta de circulacion-->
+																											<!--Tarjeta de circulacion-->
 
 												<div class="col-sm-12 enlineaform" th:if="${editando}=='si'">
 													<div class="col-sm-12">
@@ -676,7 +721,6 @@
 																<embed th:src="@{'/upload/' + *{vehiculo_detalle.tarjeta_circulacion}}" type="application/pdf" class="col-sm-12" style="height: 715px;" />
 															</div>
 														</div>	 
-														
 														
 													    <div th:if="${tcirculacion} == 'noexiste'" id="TCdoc" class="card-body justify-content-center col-sm-12">
 															<h1>El Documento no existe en la base de datos</h1>
@@ -718,42 +762,6 @@
 														
 										     	</div>
 
-												<!--Vigencia-->
-
-												<div class="form-group col-sm-2 enlineaform">
-													<div class="help-block with-errors" style="width: 450px;"></div>
-
-													<input th:field="*{vehiculo_detalle.vigencia_circulacion}"
-														id="vigencia_circulacion" min=01/01/1900 max=01/01/2090
-														class="form-control signos" type="date" required
-														data-error="Ingrese la fecha de vigencia de circulacion">
-
-													<div class="input-group-icon">
-														<i class="fas fa-file-invoice-dollar"></i>
-													</div>
-												</div>
-												<div class="form-group col-sm-3 enlineaform">
-													<input placeholder="Vigencia de circulacion"
-														class="form-control" disabled>
-												</div>
-												<!-- calev fecha TENENCIA -->
-												<div class="form-group col-sm-2 enlineaform">
-													<div class="help-block with-errors" style="width: 450px;"></div>
-
-													<input th:field="*{fecha_tenencia}" id="fecha_tenencia"
-														min=01/01/1900 max=01/01/2090 class="form-control signos"
-														type="date" required
-														data-error="Ingrese la fecha de la ultima tenencia">
-
-													<div class="input-group-icon">
-														<i class="fas fa-file-invoice-dollar"></i>
-													</div>
-												</div>
-												<div class="form-group col-sm-2 enlineaform">
-													<input placeholder="Fecha Tenencia" class="form-control"
-														disabled>
-												</div>
-												<!-- calev fin fecha tenencia -->
 												<input type="hidden" th:field="*{id_vehiculo}" />
 												<div id="marcaid">
 													<input type="hidden" th:field="*{vehiculo_marca.id_marca}" />

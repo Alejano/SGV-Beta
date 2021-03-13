@@ -247,6 +247,50 @@
 														<input placeholder="Fecha de Tarjeta" class="form-control"
 															disabled>
 													</div>
+													
+													<div class="form-group col-sm-3 enlineaform"></div>
+													
+													 <!-- vigencia circulacion -->
+
+												<div class="form-group col-sm-3 enlineaform">
+													<div class="help-block with-errors" style="width: 450px;"></div>
+
+													<input th:field="*{vehiculo_detalle.vigencia_circulacion}"
+														id="vigencia_circulacion" min=01/01/1900 max=01/01/2090
+														class="form-control signos" type="date" required
+														data-error="Ingrese la fecha de vigencia de circulacion">
+
+													<div class="input-group-icon">
+														<i class="fas fa-file-invoice-dollar"></i>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 enlineaform">
+													<input placeholder="Vigencia de circulacion"
+														class="form-control" disabled>
+												</div>
+												
+												<div class="form-group col-sm-3 enlineaform"></div>
+												
+												<!-- calev fecha TENENCIA -->
+												<div class="form-group col-sm-3 enlineaform">
+													<div class="help-block with-errors" style="width: 450px;"></div>
+
+													<input th:field="*{fecha_tenencia}" id="fecha_tenencia"
+														min=01/01/1900 max=01/01/2090 class="form-control signos"
+														type="date" required
+														data-error="Ingrese la fecha de la ultima tenencia">
+
+													<div class="input-group-icon">
+														<i class="fas fa-file-invoice-dollar"></i>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 enlineaform">
+													<input placeholder="Fecha Tenencia" class="form-control"
+														disabled>
+												</div>
+												
+												<!-- calev fin fecha tenencia -->
+													
 
 												</div>
 
@@ -428,7 +472,7 @@
 
 												<div class="form-group col-sm-3 enlineaform">
 													<select th:field="*{vehiculo_transmision}"
-														class="form-control" style="height: 34px;" required
+														class="form-control" style="height: 38px;" required
 														data-error="Ingrese la Transmision del vehiculo">
 														<option value="" th:if="${editando} == 'no'">
 															Seleccione la Transmision</option>
@@ -446,14 +490,14 @@
 												</div>
 
 												<div class="form-group col-sm-3 enlineaform">
-													<input placeholder="Transmision del vehiculo"
+													<input placeholder="Transmision"
 														class="form-control" disabled>
 												</div>
 
 
 												<div class="form-group col-sm-3 enlineaform">
 													<select th:field="*{vehiculo_funcion}" class="form-control"
-														style="height: 34px;" required
+														style="height: 38px;" required
 														data-error="Ingrese la Funsion del vehiculo">
 														<option value="" th:if="${editando} == 'no'">
 															Seleccione una funcion</option>
@@ -469,7 +513,7 @@
 													</div>
 												</div>
 												<div class="form-group col-sm-3 enlineaform">
-													<input placeholder="Funcion a desempe&ntilde;ar"
+													<input placeholder="Funcion"
 														class="form-control" disabled>
 												</div>
 
@@ -726,7 +770,7 @@
 												
 												<div class="col-sm-12 enlineaform" th:if="${editando}=='si'">
 													<div th:if="${documento} == 'existe'" class="col-sm-12">
-														<h3 style="wodth: 100%">Documento existente</h3>
+														<h4 style="wodth: 100%">TARJETA DE CIRCULACION</h4>
 
 														<div id="aBtnGroup" class="btn-group">
 															<button type="button" value="D" class="btn btn-default">Documento</button>
@@ -771,44 +815,8 @@
 														</div>
 													</div>
 												</div>
-
-
-												<div class="form-group col-sm-3 enlineaform">
-													<div class="help-block with-errors" style="width: 450px;"></div>
-
-													<input th:field="*{vehiculo_detalle.vigencia_circulacion}"
-														id="vigencia_circulacion" min=01/01/1900 max=01/01/2090
-														class="form-control signos" type="date" required
-														data-error="Ingrese la fecha de vigencia de circulacion">
-
-													<div class="input-group-icon">
-														<i class="fas fa-file-invoice-dollar"></i>
-													</div>
-												</div>
-												<div class="form-group col-sm-3 enlineaform">
-													<input placeholder="Vigencia de circulacion"
-														class="form-control" disabled>
-												</div>
-												<!-- calev fecha TENENCIA -->
-												<div class="form-group col-sm-3 enlineaform">
-													<div class="help-block with-errors" style="width: 450px;"></div>
-
-													<input th:field="*{fecha_tenencia}" id="fecha_tenencia"
-														min=01/01/1900 max=01/01/2090 class="form-control signos"
-														type="date" required
-														data-error="Ingrese la fecha de la ultima tenencia">
-
-													<div class="input-group-icon">
-														<i class="fas fa-file-invoice-dollar"></i>
-													</div>
-												</div>
-												<div class="form-group col-sm-3 enlineaform">
-													<input placeholder="Fecha Tenencia" class="form-control"
-														disabled>
-												</div>
-												
-												<!-- calev fin fecha tenencia -->
-												<input type="hidden" th:field="*{id_vehiculo}" />
+                                                
+                                               	<input type="hidden" th:field="*{id_vehiculo}" />
 												<div id="marcaid">
 													<input type="hidden" th:field="*{vehiculo_marca.id_marca}" />
 												</div>
