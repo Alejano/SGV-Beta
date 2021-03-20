@@ -51,6 +51,9 @@ public interface IVehiculoDao extends PagingAndSortingRepository<Vehiculo,Long >
 	
 	@Query("select v.id_vehiculo from Vehiculo v ")
 	public List<Long> findAllVehi();
+	
+	@Query("select v from Vehiculo v inner join VehiculoEstado e on v.vehiculo_estado.id_estado = e.id_estado where e.id_estado = '1'")
+	public List<Vehiculo> findAllActive();
 
 	//BAJAS 
 	

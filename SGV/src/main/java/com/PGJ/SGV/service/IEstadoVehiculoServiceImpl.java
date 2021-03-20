@@ -12,7 +12,6 @@ import com.PGJ.SGV.models.entity.VehiculoEstado;
 @Service
 public class IEstadoVehiculoServiceImpl implements IEstadoVehiculoService{
 	
-
 	@Autowired
 	private IEstadoVehiculoDao EstadoDao; 
 	

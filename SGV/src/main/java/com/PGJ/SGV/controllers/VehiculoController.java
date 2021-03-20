@@ -1,15 +1,24 @@
 package com.PGJ.SGV.controllers;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.PGJ.SGV.models.entity.Adscripcion;
+import com.PGJ.SGV.models.entity.BajaVehiculo;
 import com.PGJ.SGV.models.entity.Conductor;
 import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.Resguardante;
@@ -33,6 +43,7 @@ import com.PGJ.SGV.models.entity.VehiculoMarca;
 import com.PGJ.SGV.models.entity.VehiculoPlacas;
 import com.PGJ.SGV.models.entity.VehiculoTransmision;
 import com.PGJ.SGV.service.IAdscripcionService;
+import com.PGJ.SGV.service.IBajaVehiculoService;
 import com.PGJ.SGV.service.IConductorService;
 import com.PGJ.SGV.service.IEstadoVehiculoService;
 import com.PGJ.SGV.service.ILogsAuditService;
@@ -49,6 +60,9 @@ import com.PGJ.SGV.service.IVehiculoService;
 import com.PGJ.SGV.util.paginador.PageRender;
 import com.PGJ.SGV.utilities.ObtenHour;
 import com.PGJ.SGV.utilities.SystemDate;
+
+import net.sf.jasperreports.engine.JRException;
+
 //Calev 
 import java.util.*;
 import java.text.ParseException;
@@ -109,6 +123,8 @@ public class VehiculoController {
 	private IVehiculoPlacasService vehiculoplacaService;
 	@Autowired
 	private ITipoValeService tipovaleService;
+	@Autowired
+	private IBajaVehiculoService bajaVehiculoService;
 	
 	
 	@RequestMapping(value = "/Vehiculos", method = RequestMethod.GET)
@@ -1536,6 +1552,8 @@ public class VehiculoController {
 				vehiculoplacas = vehiculoplacaService.findPlaca(vehiculo.getId_vehiculo());
 				vehiculoplaca = vehiculoplacaService.findPlacaAnt(vehiculo.getId_vehiculo());
 				
+				System.err.println("jesus"+vehiculoplaca.size());
+				
 			/*	Page<VehiculoPlacas> PlacasPage = vehiculoplacaService.findPlacas(vehiculo.getId_vehiculo(), pageRequest);
 				PageRender<VehiculoPlacas> PlacasRenderArea = new PageRender<>("/infoPlacas",PlacasPage);
 				model.addAttribute("PageTitulo", "Historico Placas");
@@ -1558,6 +1576,16 @@ public class VehiculoController {
 				return "VehiculoPlacas";
 
 		} //BRENDA
-
-
+		
+		@RequestMapping(value="/download/vehiculo", method = RequestMethod.GET)
+		//@GetMapping(value="/download/vehiculo")  
+	    //public String report(HttpServletResponse response,@RequestParam(name="page", defaultValue = "0") int page) throws Exception,IOException,FileNotFoundException {
+		public ResponseEntity<InputStreamResource> excelReport() throws IOException{
+						
+			ByteArrayInputStream stream = vehiculoService.vehiculotoexcel();
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "attachment; filename=vehiculo.xls");
+			return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+		}	
+		
 }

@@ -1,6 +1,15 @@
 package com.PGJ.SGV.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -297,6 +306,14 @@ public class IVehiculoServiceImpl implements IVehiculoService {
 		// TODO Auto-generated method stub
 		return vehiculoDao.findAllVehi();
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Vehiculo> findAllActive(){
+		// TODO Auto-generated method stub
+		return vehiculoDao.findAllActive();
+	}
+
 
 	//BAJAS
 
@@ -332,5 +349,43 @@ public class IVehiculoServiceImpl implements IVehiculoService {
 		return vehiculoDao.findVehBajaElemAreaPage(id_adscripcion, elemento, pageable);
 		//return null;
 	}
+	
+	@Override
+	public ByteArrayInputStream vehiculotoexcel() throws IOException{
+    
+		String[] columns = {"PLACA","NO INVENTARIO","ADSCRIPCION","FUNCION","VALE","ESTADO"};
+		Workbook workbook = new HSSFWorkbook();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		Sheet sheet = workbook.createSheet("Vehiculos");
+		Row row = sheet.createRow(0);
+		
+		for(int i=0; i<columns.length;i++) 
+		{
+			Cell cell = row.createCell(i);
+			cell.setCellValue(columns[i]);
+		}
+		
+		List<Vehiculo> vehiculos = this.findAllActive();
+	    int initRow = 1;
+				
+		for(Vehiculo vehi:vehiculos) {	
+	    row = sheet.createRow(initRow);		
+		row.createCell(0).setCellValue(vehi.getPlaca());
+		row.createCell(1).setCellValue(vehi.getNo_inventario());
+		row.createCell(2).setCellValue(vehi.getAdscripcion().getNombre_adscripcion());
+		row.createCell(3).setCellValue(vehi.getVehiculo_funcion().getNombre_funcion());
+		row.createCell(4).setCellValue(vehi.getTipo_vale().getDescr_vale());
+		row.createCell(5).setCellValue(vehi.getVehiculo_estado().getNombre_estado());
+		initRow++;
+	    }
+		
+		workbook.write(stream);
+		workbook.close();
+		
+        return new ByteArrayInputStream(stream.toByteArray());
 
+	}
+	
 }
+
+

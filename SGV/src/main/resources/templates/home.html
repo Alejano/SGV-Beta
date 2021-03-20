@@ -55,18 +55,24 @@
 						    <form  th:action="@{/perfil}" style="margin-bottom: 3px; margin-left: 5px;">
 						        <button class="btn btn-menu" type="submit" value="enviar" >Perfil</button>					    	
 						    </form>
-						    					  					   
-						    <form th:action="@{/Adscripciones}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
-						        <button class="btn btn-menu" type="submit" value="enviar" >Adscripciones</button>					    	
-						    </form>
-						    
+						
 						   <!--  <form th:action="@{/Dashboard}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
 						        <button class="btn btn-menu" type="submit" value="enviar">Dashboard</button>					    	
 						    </form> -->
 						    
 						    <form th:action="@{/Seguridad}" th:if="${usuario} == 'ROLE_ADMIN' " style="margin-bottom: 3px; margin-left: 5px;">
-						        <button class="btn btn-menu" type="submit" value="enviar">Seguridad</button>					    	
+						        <button class="btn btn-menu" type="submit" value="enviar">Seguridad</button>	
 						    </form>
+						            
+                           <a class="btn btn-menu" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="width:76%;margin-left:14%;margin-top:6%;margin-bottom:9%;height:41px;" >Catalogos</a>
+                              <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink1">
+                                 <a class="dropdown-item" th:href=@{/Adscripciones}>Adscripciones</a>
+                                 <a class="dropdown-item" href="#">Marcas</a>
+                                 <a class="dropdown-item" href="#">Funcion</a>
+                                 <a class="dropdown-item" href="#">Transmision</a>
+                             </div>
+         	    
 					  </div>
 					</li>								 	
 			   </ul>		        

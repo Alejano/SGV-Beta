@@ -1,5 +1,7 @@
 package com.PGJ.SGV.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -38,49 +40,34 @@ public interface IVehiculoService {
 	public List<String> findallByClase();
 	
 	public VehiculoMarca findMarca(String nombre_marca,String nombre_submarca,String modelo,String tipo,String clase);
-	
 	public Page<Vehiculo> findAllPage(Pageable pageable); 
-	
 	public void save(Vehiculo vehiculo);
-	
 	public Vehiculo findOne(Long id_vehiculo);
-	
 	public void delete(Long id_vehiculo);
-		
 	public List<Vehiculo> findVehiculosArea(Long id_adscripcion);
-	
 	public Page<Vehiculo> findVehiculosAreaPage(Long id_adscripcion,Pageable pageable);
-	
 	public Page<Vehiculo> findVehElemntoPage(String elemento,Pageable pageable);
-	
 	public Page<Vehiculo> findVehElemAreaPage(Long id_adscripcion,String elemento,Pageable pageable);
-	
 	public Long totalVehiculo();
-	
 	public int totalVehiculoArea(Long id_adscripcion);
-		
 	public Page<Vehiculo> findTVehiculo(String vehiculo,Pageable pageable);
-	
 	public Page<Vehiculo> findAdsVehiculo(String vehiculo,Pageable pageable);
-	
 	public int ultimoId();
-	
 	public Vehiculo findByPlaca(String Placa);
-	
 	public String findPlaca(long Placa);
-	
 	public List<Vehiculo> findAllVehiculos();
-	
 	public List<Long> findAllVehi();
+	public List<Vehiculo> findAllActive();
+
 	
 	// BAJAS 
 	
 	public Page<Vehiculo> findVehiculosBajaAreaPage(Long id_adscripcion,Pageable pageable);
-	
 	public Page<Vehiculo> findTBajaVechiulo(String vehiculo,Pageable pageable);
-	
 	public Page<Vehiculo> findVehBajaElemntoPage(String elemento,Pageable pageable);
-	
 	public Page<Vehiculo> findVehBajaElemAreaPage(Long id_adscripcion,String elemento,Pageable pageable);
 	
+	//XLS
+	
+	public ByteArrayInputStream vehiculotoexcel() throws IOException;
 }
