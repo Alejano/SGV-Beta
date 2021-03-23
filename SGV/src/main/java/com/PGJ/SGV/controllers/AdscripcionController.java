@@ -131,7 +131,7 @@ public class AdscripcionController {
 			logsauditService.save(logs);
 		}
 		
-		return "redirect:Adscripciones";
+		return "redirect:/Adscripciones";
 		
 	} 
 		
@@ -146,20 +146,3 @@ public class AdscripcionController {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

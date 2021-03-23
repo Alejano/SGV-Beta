@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Formulario Marca</title>
+<meta charset="utf-8">
+	<head th:replace="/layout/layoutHead :: head"></head>
+<body>
+	<header th:replace="/layout/layoutHead :: header"></header>
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 formfondo" >
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                        <form th:action="@{/formMarca}" th:object="${marca}" method="post" id="formulario"  name="visitas" data-toggle="validator" class="popup-form">
+	                                            <div class="row">
+	                                            
+	                                    
+	                                                    <!--NOMBRE MARCA-->
+	                                                    <div class="form-group col-sm-6">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{nombre_marca}" id="Marca" placeholder="Nombre de Marca" class="form-control Calle" type="text" required data-error="Ingrese el nombre de la Marca"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-car"></i></div>
+	                                                    </div>
+	                                                    
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="MARCA" class="form-control">
+												        </div>
+												     
+												        
+	                                                     <!--NOMBRE SUBMARCA-->
+	                                                    <div class="form-group col-sm-6">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{nombre_submarca}" id="Submarca" placeholder="Nombre de Submarca" class="form-control Calle" type="text" required data-error="Ingrese el nombre de la Submarca"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-car"></i></div>
+	                                                    </div>
+	                                                    
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="SUBMARCA" class="form-control">
+												        </div>
+												        
+	                                              
+	                                                    <!--MODELO-->
+	                                                    <div class="form-group col-sm-6">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{modelo}"  id="Modelo" placeholder="Modelo" class="form-control signos" type="number" required data-error="Ingrese el Modelo"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-car"></i></div>
+	                                                    </div>
+	                                                    
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="MODELO" class="form-control">
+												        </div>
+												        
+	                                                    
+	                                                     <!--NOMBRE TIPO-->
+	                                                    <div class="form-group col-sm-6">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{tipo}" id="Tipo" placeholder="Tipo" class="form-control Calle" type="text" required data-error="Ingrese el tipo"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-car"></i></div>
+	                                                    </div>
+	                                                    
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="TIPO" class="form-control">
+												        </div>
+												        
+	                                                    
+	                                                     <!--NOMBRE CLASE-->
+	                                                    <div class="form-group col-sm-6">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{clase}" id="Clase" placeholder="Clase" class="form-control Calle" type="text" required data-error="Ingrese el nombre de la clase"/>
+	                                                            <div class="input-group-icon"><i class="fas fa-car"></i></div>
+	                                                    </div>
+	                                                    
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="CLASE" class="form-control">
+												        </div>
+												        
+
+	                                                <input type="hidden" th:field="*{id_marca}" />
+	                                                    	                                                    	                                                    													    													    	                                                    									
+	                                                    <!--Boton Guardar-->
+	                                                    <div class="form-group last col-sm-12">
+	                                                            <button type="submit" id="guardar" class="btn btn-custom"><i class='fa fa-envelope'></i> Guardar</button>
+	                                                    </div>
+	                                                    <div class="clearfix"></div>
+	                                            </div>
+	                                        </form>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>
+	<script type="text/javascript">
+	
+	
+	</script>
+	<script src="/assets/js/CambiosEstado.js"></script>	
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+    <script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
+ 
+</body>
+</html>
+

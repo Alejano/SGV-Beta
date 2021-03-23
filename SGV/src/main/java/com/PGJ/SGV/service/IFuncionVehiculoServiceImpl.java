@@ -1,11 +1,13 @@
 package com.PGJ.SGV.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.PGJ.SGV.models.dao.IVehiculoFuncionDao;
-import com.PGJ.SGV.models.entity.VehiculoFuncion;;
+import com.PGJ.SGV.models.entity.VehiculoFuncion;
 
 @Service
 public class IFuncionVehiculoServiceImpl implements IFuncionVehiculoService{
@@ -28,9 +30,21 @@ public class IFuncionVehiculoServiceImpl implements IFuncionVehiculoService{
 	}
 
 	@Override
-	public VehiculoFuncion findAll() {
+	public List<VehiculoFuncion> findAll() {
 		// TODO Auto-generated method stub
-		return (VehiculoFuncion) FuncioDao.findAll();
+		return (List<VehiculoFuncion>) FuncioDao.findAll();
+	}
+	
+	@Override
+	public Long funcionestotales() {
+		return FuncioDao.funcionestotales();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public int ultimoId() {
+		// TODO Auto-generated method stub
+		return FuncioDao.ultimoId();
 	}
 
 

@@ -1,6 +1,8 @@
 package com.PGJ.SGV.service;
 
-import com.PGJ.SGV.models.entity.VehiculoFuncion;;
+import java.util.List;
+
+import com.PGJ.SGV.models.entity.VehiculoFuncion;
 
 public interface IFuncionVehiculoService {
 
@@ -8,6 +10,11 @@ public interface IFuncionVehiculoService {
 	
 	public VehiculoFuncion findOne(Long id_funcion);
 			
-	public VehiculoFuncion findAll();
+	public List<VehiculoFuncion> findAll();
+		
+	public Long funcionestotales();
+	
+	public int ultimoId();
+	
 	
 }

@@ -25,7 +25,6 @@ public class VehiculoMarca implements Serializable{
 	private String clase;
 	
 	
-	
 	public long getId_marca() {
 		return id_marca;
 	}

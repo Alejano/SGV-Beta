@@ -13,5 +13,8 @@ public interface IMarcaVehiculoService {
 	public List<VehiculoMarca> findAll(); 
 	
 	public Long marcastotales();
+	
+	public int ultimoId();
+	
 
 }

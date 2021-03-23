@@ -34,4 +34,8 @@ public interface IVehiculoMarcaDao extends CrudRepository<VehiculoMarca, Long> {
 	
 	@Query("select count(v) from VehiculoMarca v")
 	public Long marcastotales();
+	
+	@Query("select p.id_marca from VehiculoMarca p where p.id_marca = (select max(p.id_marca) from VehiculoMarca p)")
+	public int ultimoId();
+	
 }

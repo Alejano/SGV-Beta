@@ -21,16 +21,27 @@
 	                                                    <!--nombre Adscripcion-->
 	                                                    <div class="form-group col-sm-9">
 	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{nombre_adscripcion}" max=50 id="Nom_Ads" placeholder="Nombre de Adscripcion"  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese el nombre de la Adscripcion"/>
+	                                                            <input th:field="*{nombre_adscripcion}" id="Nom_Ads" placeholder="Nombre de Adscripcion"  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese el nombre de la Adscripcion"/>
 	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
 	                                                    </div>
+	                                                    
+	                                                       
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="ADSCRIPCION" class="form-control">
+												        </div>
+												        
 	                                                    <!--Calle-->
 	
 	                                                    <div class="form-group col-sm-9">
 	                                                            <div class="help-block with-errors"></div>
-	                                                            <input th:field="*{calle}"  id="Calle" placeholder="Calle" max=30  class="form-control Calle" type="text" required data-error="Ingrese su Calle"/>
+	                                                            <input th:field="*{calle}"  id="Calle" placeholder="Calle"  class="form-control Calle" type="text" required data-error="Ingrese su Calle"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-map-marker-alt"></i></div>
 	                                                    </div>
+	                                                    
+	                                                       
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="CALLE" class="form-control">
+												        </div>
 	
 	                                                    <!--Numero-->
 	                                                    <div class="form-group col-sm-9">
@@ -38,6 +49,11 @@
 	                                                            <input th:field="*{numero}"  id="Num" placeholder="Numero" class="form-control signos" type="number" required data-error="Ingrese un Numero Valido"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-hashtag"></i></div>
 	                                                    </div>
+	                                                    
+	                                                       
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="NUMERO" class="form-control">
+												        </div>
 	
 	                                                    <!--Alcaldia-->
 	                                                    <div class="form-group col-sm-9">
@@ -45,6 +61,11 @@
 	                                                            <input th:field="*{alcaldia}"  id="Alc" placeholder="Alcaldia"  onkeypress="return letras(event);" class="form-control" type="text" required data-error="Ingrese Alcaldia Correspondiente"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-thumbtack"></i></div>
 	                                                    </div>
+	                                                    
+	                                                       
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="ALCALDIA" class="form-control">
+												        </div>
 	
 	                                                    <!--Codigo Postal-->
 	                                                    <div class="form-group col-sm-9">
@@ -52,6 +73,11 @@
 	                                                            <input th:field="*{codigo_postal}" min=1 max=99999 onchange="codigo()" id="Co_po" placeholder="Codigo Postal" class="form-control signos" type="number" required data-error="Ingrese Codigo Postal Valido"/>
 	                                                            <div class="input-group-icon"><i class="fas fa-hashtag"></i>	</div>
 	                                                    </div>
+	                                                    
+	                                                       
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="CODIGO POSTAL" class="form-control">
+												        </div>
 	
 	
 	                                                    <!--Entidad -->
@@ -61,6 +87,10 @@
 	                                                            <div class="input-group-icon"><i class="fas fa-atlas"></i></div>
 	                                                    </div>
 	                                                    	    
+	                                                       
+	                                                    <div style="width: 20%; display: inline-block;">
+										                 <input type="text" readonly="readonly" placeholder="ENTIDAD" class="form-control">
+												        </div>
 	                                                    	    
 	                                                <input type="hidden" th:field="*{id_adscripcion}" />
 	                                                    	                                                    	                                                    													    													    	                                                    									

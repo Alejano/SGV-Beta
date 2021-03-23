@@ -42,5 +42,12 @@ public class IMarcaVehiculoServiceImpl implements IMarcaVehiculoService {
 		return MarcaDao.marcastotales();
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public int ultimoId() {
+		// TODO Auto-generated method stub
+		return MarcaDao.ultimoId();
+	}
+
 
 }

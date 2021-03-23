@@ -1,14 +1,10 @@
 package com.PGJ.SGV.controllers;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -18,7 +14,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.PGJ.SGV.models.entity.Adscripcion;
-import com.PGJ.SGV.models.entity.BajaVehiculo;
 import com.PGJ.SGV.models.entity.Conductor;
 import com.PGJ.SGV.models.entity.LogsAudit;
 import com.PGJ.SGV.models.entity.Resguardante;
@@ -60,8 +54,6 @@ import com.PGJ.SGV.service.IVehiculoService;
 import com.PGJ.SGV.util.paginador.PageRender;
 import com.PGJ.SGV.utilities.ObtenHour;
 import com.PGJ.SGV.utilities.SystemDate;
-
-import net.sf.jasperreports.engine.JRException;
 
 //Calev 
 import java.util.*;
@@ -123,8 +115,7 @@ public class VehiculoController {
 	private IVehiculoPlacasService vehiculoplacaService;
 	@Autowired
 	private ITipoValeService tipovaleService;
-	@Autowired
-	private IBajaVehiculoService bajaVehiculoService;
+
 	
 	
 	@RequestMapping(value = "/Vehiculos", method = RequestMethod.GET)
