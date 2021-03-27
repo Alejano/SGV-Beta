@@ -15,7 +15,6 @@ import javax.persistence.Table;
 public class Resguardante implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_resguardante")
 	private long id_resguardante;
 
@@ -25,7 +24,26 @@ public class Resguardante implements Serializable {
 	private String cargo;
 	private String fecha_inicio;
 	private String fecha_fin;
-	//CAlev Extras resguardantes
+	private String ids_adscripcion;//PAra obtener los id del formulario
+	private String no_licencia;
+	private String rfc;
+	private String ine;
+	private String telefono;
+	private String domicilio;
+	private boolean activo;
+
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Adscripcion adscripcion;
+	//fin extras resguardantes
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private TipoResguardante tipo_resguardante;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Vehiculo vehiculo;
+	
+	
 
 	public String getNo_licencia() {
 		return no_licencia;
@@ -84,23 +102,6 @@ public class Resguardante implements Serializable {
 		this.ids_adscripcion = ids_adscripcion;
 	}
 	
-	private String ids_adscripcion;//PAra obtener los id del formulario
-	private String no_licencia;
-	private String rfc;
-	private String ine;
-	private String telefono;
-	private String domicilio;
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Adscripcion adscripcion;
-	//fin extras resguardantes
-	private boolean activo;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	private TipoResguardante tipo_resguardante;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Vehiculo vehiculo;
-
 	public Resguardante() {
 		tipo_resguardante = new TipoResguardante();
 		vehiculo = new Vehiculo();

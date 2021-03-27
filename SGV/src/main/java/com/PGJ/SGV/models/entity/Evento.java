@@ -1,16 +1,10 @@
 package com.PGJ.SGV.models.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-
 
 
 @Entity
@@ -28,6 +22,9 @@ public class Evento implements Serializable {
 	private String start;
 	@Column(name = "fin")
 	private String end;
+	@Column(name ="fin_real")
+	private String end_real;
+
 
 
 	public Long getId_adscripcion() {
@@ -74,5 +71,13 @@ public class Evento implements Serializable {
 		return serialVersionUID;
 	}
 
+	public String getEnd_real() {
+		return end_real;
+	}
+
+	public void setEnd_real(String end_real) {
+		this.end_real = end_real;
+	}
+	
 	private static final long serialVersionUID = 1L;
 }

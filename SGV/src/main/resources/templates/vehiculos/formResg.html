@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Formulario Resguardante</title>
+<meta charset="utf-8">
+	<head th:replace="/layout/layoutHeadMetaData :: head"></head>
+<body>
+	<header th:replace="/layout/layoutHeadMetaData :: header"></header>
+<section>
+	 <div class="tab-content">
+	      <div class="form-group last col-sm-12 formfondo">
+	                <div class="row">
+	                    <div class="tab-content">
+	                        <div class="col-sm-12">
+	                            <div class="item-wrap">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                        <form th:action="@{/formResg}" th:object="${resguardante}" enctype="multipart/form-data" method="post" id="formulario"  name="visitas" data-toggle="validator" class="popup-form">
+	                                    
+	                                  
+	                                            <div class="row">
+	                                            	                    
+	                                            	    <!--TIPO RESG-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{tipo_resguardante.nombre}" name="tipo"  id="tipo" placeholder="Tipo Resguardante" class="form-control Calle" type="text" required data-error="Ingrese El tipo"/>
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                    
+	                                                    <div class="form-group col-sm-8 enlineaform"></div>
+						
+	                                                  <!--NOMBRE-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{nombre}" name="nombre1" id="Nombre" onkeypress="return letras(event);" placeholder="Nombre" class="form-control Letras" type="text" required data-error="Ingrese El Nombre">
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                  
+	                                                 <!--APELLIDO PATERNO-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{apellido1}" onkeypress="return letras(event);" name="apellidoP1" id="A_pa" placeholder="Apellido Paterno" class="form-control Letras" type="text" required data-error="Ingrese El primer Apellido">
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                    
+	                                                 <!--APELLIDO MATERNO-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                            <input th:field="*{apellido2}" onkeypress="return letras(event);" name="apellidoM1" id="A_ma" placeholder="Apellido Materno" class="form-control Letras" type="text" required data-error="Ingrese El segundo Apellido">
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                   
+	                                                 <!--CARGO-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                             <input th:field="*{cargo}" onkeypress="return letras(event);" name="cargo1" id="cargo"  placeholder="Cargo" class="form-control Letras" type="text" required data-error="Ingrese El cargo">
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                    
+	                                                 <!--NO LICENCIA-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                             <input th:field="*{no_licencia}" name="no_licencia1" id="Pno_licencia" placeholder="Numero de licencia" class="form-control Letrasnum" type="text" required data-error="Ingrese El Numero de licencia">
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                    
+	                                                 <!--NO INE-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                             <input th:field="*{ine}" name="ine1" id="Pine"  placeholder="INE" class="form-control Letrasnum" type="text" required data-error="Ingrese El INE">     
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                    
+	                                                 <!--RFC-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                             <input th:field="*{rfc}" name="rfc1" id="Prfc" placeholder="RFC" class="form-control Letrasnum" type="text" required data-error="Ingrese El RFC">
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                    
+	                                                  <!--TELEFONO-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                             <input th:field="*{telefono}" name="telefono1" id="Ptelefono" placeholder="Numero de telefono" class="form-control signos" data-error="Ingrese El eltelefono">
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                    
+	                                                  <!--DOMICILIO-->
+	                                                   
+	                                                    <div class="form-group col-sm-4">
+	                                                            <div class="help-block with-errors"></div>
+	                                                             <input th:field="*{domicilio}"  name="domicilio1" id="Pdomicilio" placeholder="Domicilio" class="form-control Calle" type="text" required data-error="Ingrese El domicilio">
+	                                                            <div class="input-group-icon"><i class="fa fa-user"></i></div>
+	                                                    </div>
+	                                                    
+	                                                 <!--Adscripción-->
+
+													<div class="form-group col-sm-9 enlineaform">
+														<select th:field="*{adscripcion}" class="form-control"
+															style="height: 38px;" required
+															data-error="Ingrese la Adscripcion">
+
+															  <option value="" th:if="${editar} == false">
+																Seleccione una adscripcion</option>
+																
+															<option th:value="${nombre_adscripcion}"
+																th:text="${nombre_adscripcion}"
+																th:if="${editar} == true"></option>
+															<option th:each="adss : ${adslist} "
+																th:value="${adss.id_adscripcion}"
+																th:utext="${adss.nombre_adscripcion}" />
+														</select>
+														<div class="input-group-icon">
+															<i class="far fa-building"></i>
+														</div>
+													</div>
+													
+													<div class="form-group col-sm-2 enlineaform"></div>
+													
+													
+													<!--fecha inicio-->
+														<div class="form-group col-sm-2 enlineaform">
+															<div class="help-block with-errors" style="width: 230px;"></div>
+															<input th:field="*{fecha_inicio}" name="inicio" id="inicio" placeholder="inicio" class="form-control" type="date" required data-error="Ingrese la fecha inicio">
+
+															<div class="input-group-icon">
+																<i class="fa fa-user"></i>
+															</div>
+	
+														</div>
+														
+														 <div style="width: 20%; display: inline-block;">
+										                       <input type="text" readonly="readonly" placeholder="FECHA INICIO" class="form-control">
+												         </div>
+														
+												
+														<!--fecha fin-->
+														<div class="form-group col-sm-2 enlineaform">
+															<div class="help-block with-errors" style="width: 240px;"></div>
+															<input th:field="*{fecha_fin}" name="fin" id="fin" placeholder="fin" class="form-control"  type="date" >
+
+															<div class="input-group-icon"><i class="fa fa-user"></i></div>
+														</div>
+														
+														<div style="width: 20%; display: inline-block;">
+														<input type="text" readonly="readonly" placeholder="FECHA FIN" class="form-control">
+														</div>
+
+													<input type="hidden"  th:field="*{id_resguardante}" />
+													<input type="hidden"  th:field="*{vehiculo.id_vehiculo}" />
+													<input type="hidden"  th:field="*{tipo_resguardante.id}" />
+													<input type="hidden"  th:field="*{activo}" />
+				
+													
+													<div class="form-group last col-sm-12" th:if="${usuario == 'ROLE_ADMIN' or usuario == 'ROLE_SINIESTRO'}" style="text-align: center;">
+	                                                            <button type="submit" id="guardar" class="btn btn-custom btn-stilo"><i class='fa fa-envelope'></i> Guardar</button>
+	                                                    </div>  
+	                                                    <div class="clearfix"></div>
+													<br>
+												    
+												    
+	                                             </div>       
+	                                     </form>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+			</div>
+			
+		</div>
+	</section>	
+	
+
+         
+         <script type="text/javascript" th:inline="javascript">
+ 	
+     
+	</script>
+
+	<script src="/assets/js/CambiosEstado.js"></script>
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+    <!-- SweetAlert-->
+	<script src="/assets/SweetAlert2/sweetalert2.min.js"></script>
+	<!-- fontawesome -->
+	<script th:src="@{/assets/fontawesome/js/all.js}"></script>	
+ 
+</body>
+</html>

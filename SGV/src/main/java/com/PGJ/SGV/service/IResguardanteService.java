@@ -22,11 +22,15 @@ public interface IResguardanteService {
 		
 		public int ultimoId();
 		
-		public List<Resguardante> findActivos();
+		//public List<Resguardante> findActivos();
+		
+		public List<Resguardante> findActivos(Long id_vehiculo);
 		
 		public List<Resguardante> findResg(Long id_vehiculo);
 		
 		public Long resguardantestotales();
-	
+		
+		public Long resguardantespvtotales(Long id_vehiculo);
+
 		
 }

@@ -177,26 +177,33 @@
     		  
     		   	var textdia = info.event.startStr.split("-")[2];
    	  			var textMes = info.event.startStr.split("-")[1];
-   	  				console.log("puesto en calendario ");
-   	  				console.log(info.event.id);
-   	  				console.log(info.event.groupId);
+   	  			
+   	  				console.log("Puesto en calendario ");
+   	  				console.log("evento id"+info.event.id);
+   	  				console.log("adscripcion"+info.event.groupId);
+   	  			
    	  			
 	   	  			if(textMes == month && textdia >= day){	   	  					
 		   	  				cambios = true;
-		   	  				ajaxPost(info.event.id,info.event.groupId,info.event.title,info.event.startStr,"");
+		   	  				//ajaxPost(info.event.id,info.event.groupId,info.event.title,info.event.startStr,"");
+		   	  				ajaxPost(info.event.id,info.event.groupId,info.event.title,info.event.startStr,info.event.endStr);
+
 		   	  				info.draggedEl.parentNode.removeChild(info.draggedEl);	   	  			 			   	  							   	  		
 		   	  				
 	   	  			}else{
 	   	  				if(textMes > month ){
 	   	  				
 	   	  				cambios = true;
-	   	  				ajaxPost(info.event.id,info.event.groupId,info.event.title,info.event.startStr,"");
+	   	  				//ajaxPost(info.event.id,info.event.groupId,info.event.title,info.event.startStr,"");
+	   	  			    ajaxPost(info.event.id,info.event.groupId,info.event.title,info.event.startStr,info.event.endStr);
+
 	   	  				info.draggedEl.parentNode.removeChild(info.draggedEl);	   	  			 			   	  							   	  		
    	  		 				
    	  					}else{
 		   	  			
 		   	  				info.revert();
 		   	  				console.log("es antes"+ textMes +">="+month+" "+ textdia +">="+day);
+
 	   	  				
    	  					}
 	   	  			}
@@ -207,7 +214,7 @@
     	    eventDrop: function(info) {  
     	    	
 	    	    	Swal.fire({
-	  	    		  title: 'Estas seguro que aras este cambio',
+	  	    		  title: 'Estas seguro del cambio a realizar',
 	  	    		  showDenyButton: true,
 	  	    		  showCancelButton: false,
 	  	    		  confirmButtonText: `Aceptar`,
@@ -226,7 +233,7 @@
 	  	    		Swal.fire({
 					  position: 'top-end',
 					  icon: 'success',
-					  title: 'Your work has been saved',
+					  title: 'Cambio guardado',
 					  showConfirmButton: false,
 					  timer: 1500
 					})
@@ -236,7 +243,7 @@
     	    	 
     	    	  
     	    		  Swal.fire({
-	    	    		  title: 'Estas seguro que aras este cambio',
+	    	    		  title: 'Estas seguro del cambio a realizar',
 	    	    		  showDenyButton: true,
 	    	    		  showCancelButton: false,
 	    	    		  confirmButtonText: `Aceptar`,
@@ -256,10 +263,13 @@
     	    		     Swal.fire({
 							  position: 'top-end',
 							  icon: 'success',
-							  title: 'Your work has been saved',
+							  title: 'Cambio guardado',
 							  showConfirmButton: false,
 							  timer: 1500
-							})	    	      	    				    	    			     	                       	    			    	    		      	    		    	   
+							})	 
+							
+	   	    				$("#itemVehi").load("refreshVehi","id="+ info.event.id+"&title="+ info.event.title+"&Fini="+ info.event.startStr+"&Ffin="+ info.event.endStr);
+
     	    	  },
    	    	  eventClick: function(info) {
    	    				
@@ -267,7 +277,9 @@
 		    	    		$('#close').remove();
 		    	    	
    	    				$("#itemVehi").load("refreshVehi","id="+ info.event.id+"&title="+ info.event.title+"&Fini="+ info.event.startStr+"&Ffin="+ info.event.endStr);
-		   	    				   	            				   	       	   	    	        
+		   	    				   	            	
+   	    			
+   	    				
 		   	            $('#fullCalModal').modal();
 		   	       		
 		   	       	var buttondel = '<button id="eliminar" class="btn btn-primary">Borrar evento</button>';

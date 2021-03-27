@@ -52,8 +52,9 @@
 													<th class="celda">Cargo</th>
 													<th class="celda">Fecha inicio</th>
 													<th class="celda">Activo</th>
-													<th class="celda">Tipo de Resguardo</th>	
-													<th style="width:1.4%" id="tamano" th:if="${tamano} == 'mostrar'"></th>													
+													<th class="celda">Tipo de Resguardo</th>
+													<th class="celda"  style="width:250px">Opciones</th>		
+													<th style="width:1.2%" id="tamano" th:if="${tamano} == 'mostrar'"></th>													
 																								
 												</tr>
 											</thead>
@@ -68,14 +69,18 @@
 													<td class="celda" th:text="${vehiculossql.fecha_inicio}"></td>	
 													<td class="celda" th:if="${vehiculossql.activo} == true " th:text="Activo"></td>
 													<td class="celda" th:if="${vehiculossql.activo} == false " th:text="Inactivo"></td>																										
-													<td class="celda" th:text="${vehiculossql.tipo_resguardante.nombre}"></td>																																					 										
+													<td class="celda" th:text="${vehiculossql.tipo_resguardante.nombre}"></td>	
+													<td class="celda" style="width:250px">
+													     <a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario == 'ROLE_USER'}" style="font-size:smaller;" th:href="@{/verResguardante/} +${vehiculossql.id_resguardante}" ><i class="far fa-eye fa-2x"></i></a>
+													     <a class="btn btn-primary btn-xs btn-stilo" th:if="${usuario == 'ROLE_ADMIN'}" style="font-size:smaller;" th:href="@{/formResg/} +${vehiculossql.id_resguardante}" ><i class="fas fa-pencil-alt fa-2x"></i></a>   
+													</td>																																				 										
 												</tr>
 											</tbody>
 										</table>
 										<nav th:replace="paginator-nav :: paginator"></nav>
 										
 											<div class="form-group last col-sm-12" th:if="${usuario == 'ROLE_ADMIN'}">
-											<a th:if="${idestado} == 1" class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/AddResguardo/}+${id_vehiculo}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>											
+											 <a th:if="${idestado} == 1" class="btn btn-primary btn-xs col-sm-2 btn-stilo" th:href="@{/AddResguardo/}+${id_vehiculo}" style="float:right;margin-left: 1%;margin-right: 1%;">Agregar</a>											
 											</div>
 	                                    </div>
 	                                </div>

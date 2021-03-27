@@ -61,6 +61,8 @@ public class ResguardanteController {
 	static int Corddocu = 0;
 	static int Cordtabla = 0;
 	String user;
+	boolean editar;
+	Long id;
 
 	// calev
 	@Autowired
@@ -81,14 +83,11 @@ public class ResguardanteController {
 		placa = vehiculoService.findOne(id_vehiculo);
 		Page<Resguardante> vehiculopage = reguardanteservice.findAllByVehiculo(id_vehiculo, pageRequest);
 		PageRender<Resguardante> pageRender = new PageRender<>("/infoResguardante/{id_vehiculo}", vehiculopage);
-		if (reguardanteservice.resguardantestotales() >= 5) {
-			model.addAttribute("tamano", "mostrar");
-		} else {
-			model.addAttribute("tamano", "no mostrar");
-		}
-		;
+		
+		System.err.println("cacha: " + reguardanteservice.resguardantespvtotales(id_vehiculo));
+		if(reguardanteservice.resguardantespvtotales(id_vehiculo) >= 6) {model.addAttribute("tamano","mostrar");}else{model.addAttribute("tamano","no mostrar");};
+		id=placa.getId_vehiculo();
 
-		System.err.println("berserk" + reguardanteservice.resguardantestotales());
 		model.addAttribute("Placa", placa.getPlaca());
 		model.addAttribute("id_vehiculo", placa.getId_vehiculo());
 		model.addAttribute("Corddocu", Corddocu);
@@ -216,20 +215,23 @@ public class ResguardanteController {
 			id = 0;
 		}
 
-		Presguardante.setId_resguardante(id + 1);
+		
+		
+		Presguardante.setId_resguardante(id + 1);		
 		Presguardante.setFecha_inicio(formateador.format(ahora));
+		Presguardante.setTipo_resguardante_id(tiporesguardoService.findOne((long) 1));
+		Presguardante.setActivo(true);
+
 		Sresguardante.setId_resguardante(Presguardante.getId_resguardante() + 1);
 		Sresguardante.setFecha_inicio(formateador.format(ahora));
-		Presguardante.setTipo_resguardante_id(tiporesguardoService.findOne((long) 1));
 		Sresguardante.setTipo_resguardante_id(tiporesguardoService.findOne((long) 2));
-
-		Presguardante.setActivo(true);
 		Sresguardante.setActivo(true);
 
 		
-		
 		List<Resguardante> res = new ArrayList<Resguardante>();
-		res = reguardanteservice.findActivos();
+		res = reguardanteservice.findActivos(id_vehiculo);
+		
+		System.err.println("zurieñ"+res.size());
 
 		for (Resguardante re : res) {
 			re.setActivo(false);
@@ -239,9 +241,15 @@ public class ResguardanteController {
 		
 		Vehiculo vehi = new Vehiculo();
 		vehi = vehiculoService.findOne(id_vehiculo);
+		
 		Presguardante.setVehiculo(vehi);
 		Sresguardante.setVehiculo(vehi);
 
+		
+		System.err.println("HC: "+Presguardante.getId_resguardante());
+		System.err.println("HC2: "+Sresguardante.getId_resguardante());
+
+		
 		reguardanteservice.save(Presguardante);
 		reguardanteservice.save(Sresguardante);
 
@@ -393,7 +401,7 @@ public class ResguardanteController {
 		Tresguardante.setAdscripcion(resguardante.getAdscripcion());
 
 		List<Resguardante> res = new ArrayList<Resguardante>();
-		res = reguardanteservice.findActivos();
+		res = reguardanteservice.findActivos(id_vehiculo);
 
 		for (Resguardante re : res) {
 			re.setFecha_fin(formateador.format(ahora));
@@ -456,5 +464,91 @@ public class ResguardanteController {
 		return "redirect:/infoResguardante/" + vehi.getId_vehiculo();
 
 	}
+	
+	@RequestMapping(value ="/verResguardante/{id_resguardante}")
+	public String ver(@PathVariable(value = "id_resguardante") Long id_resguardante, Map<String, Object> model) {
+		
+		adscripcionlist = adscripService.findAll();
+		
+		editar=true;
+		user = obuserService.obtenUser();
+		model.put("usuario",user);	
+		Resguardante resguardante = null;
+		
+		if(!id_resguardante.equals(null)) {
+			resguardante = reguardanteservice.findOne(id_resguardante);
+			
+		}else {
+			return "redirect:/infoResguardante/" + resguardante.getVehiculo().getId_vehiculo();
+		}
+		model.put("aux", true);
+		model.put("adslist", adscripcionlist);
+		model.put("resguardante",resguardante);
+		model.put("editar", editar);
+		model.put("PageTitulo", "Información del Resguardante");
+		
+		return "vehiculos/formResg";
 
+	}
+	
+
+	@RequestMapping(value="/formResg/{id_resguardante}")
+	public String editar(@PathVariable(value="id_resguardante") Long id_resguardante,Map<String,Object>model) {
+
+        adscripcionlist = adscripService.findAll();
+		
+		editar=true;
+		user = obuserService.obtenUser();
+		model.put("usuario",user);	
+		//Resguardante Presguardante = null;
+		Resguardante resguardante = null;
+
+		
+		if(!id_resguardante.equals(null)) {
+			resguardante = reguardanteservice.findOne(id_resguardante);
+			
+		}else {
+			return "redirect:/infoResguardante/" + resguardante.getVehiculo().getId_vehiculo();
+		}
+		model.put("aux", true);
+		model.put("adslist", adscripcionlist);
+		model.put("resguardante",resguardante);
+		model.put("editar", editar);
+		model.put("PageTitulo", "Editar del Resguardante");
+		
+		return "vehiculos/formResg";
+
+	}
+	
+	@RequestMapping(value="/formResg",method = RequestMethod.POST)
+	public String guardar(Resguardante resguardante,Map<String, Object> model) 
+	{
+				
+		Resguardante resguardante_old = null;
+		resguardante_old = reguardanteservice.findOne(resguardante.getId_resguardante());
+	    String valor_old = resguardante_old.toString();
+	    
+	    
+		Vehiculo vehiculoselect =new Vehiculo();
+		vehiculoselect = vehiculoService.findOne(resguardante.getVehiculo().getId_vehiculo());	
+		resguardante.setVehiculo(vehiculoselect);
+	    reguardanteservice.save(resguardante);
+	    	   
+		LogsAudit logsp = new LogsAudit();
+
+		logsp.setId_usuario(obuserService.obtenEmpl());
+		logsp.setTipo_role(obuserService.obtenUser());
+		logsp.setFecha(SystemDate.obtenFecha());
+		logsp.setHora(ObtenHour.obtenHour());
+		logsp.setName_table("RESGUARDANTE");
+		logsp.setValor_viejo(valor_old);
+		logsp.setTipo_accion("INSERT");
+
+		logsauditService.save(logsp);
+
+		return "redirect:/infoResguardante/" + resguardante.getVehiculo().getId_vehiculo();
+
+	}
+	
+	
 }

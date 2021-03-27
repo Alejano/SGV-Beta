@@ -23,6 +23,8 @@ import com.PGJ.SGV.service.IEventoService;
 import com.PGJ.SGV.service.IObtenerUserService;
 import com.PGJ.SGV.service.IRevistaService;
 import com.PGJ.SGV.service.IVehiculoService;
+import com.PGJ.SGV.utilities.ObtenMonth;
+import com.PGJ.SGV.utilities.SystemDate;
 
 
 @Controller
@@ -39,7 +41,6 @@ public class RevistaController {
 	private IVehiculoService vehiculoService;
 	@Autowired
 	private IObtenerUserService obuserService;
-
 	@Autowired
 	private IEventoService eventoService;
 
@@ -51,6 +52,9 @@ public class RevistaController {
 	
 	@RequestMapping(value={"/Revista"}, method = RequestMethod.GET)
 	public String HomeBarra(Model model, Authentication authentication,HttpServletRequest request){
+		
+		System.err.println("entro revista");
+ 
 		Long ultimoEvento = (long) 0;		
 		ultimoEvento = eventoService.ultimoid(); 
 		
@@ -86,8 +90,15 @@ public class RevistaController {
 	@RequestMapping(value = "/refreshVehi")
 	public @ResponseBody String refreshVehi(@RequestParam("id") Long id,@RequestParam("title") String title,@RequestParam("Fini") String Fini,@RequestParam("Ffin") String Ffin, Model model) {
 		
-		
 		revistas = revistaService.revistaEvento(id);
+		
+		Evento ev = null;
+		if(id != 0) {ev =eventoService.findOne(id);};
+		ev.setEnd((Ffin=="")?Fini:Ffin);
+		eventoService.save(ev);
+		
+		
+		
 		String html="";			
 		String codigo="";
 		
@@ -144,7 +155,81 @@ public class RevistaController {
 		String fin ="</tbody>					\r\n" + 
 				"				</table>\r\n" + 
 				"            </div><script>"+codigo+"\r\n</script>";
+		
+	    
+		String mes=ev.getStart().substring(5,7);
+		String digito = ev.getEnd().substring(8,10);
+		String digitoc = ev.getEnd().substring(9,10);
+		String fecha = ev.getEnd().substring(0,8);
+		int dia;
+		int max;
+	
+		System.err.println("Digito: "+digito);
+		System.err.println("Digitoc: "+digitoc);
+		
+		if (!digito.equals("0")) {
+            System.err.println("diferente cero");
+            dia = Integer.parseInt(ev.getEnd().substring(8,10))-1;
+            fecha = fecha + dia;
+    		System.err.println("fecha"+fecha);
+
+		}else {
 			
+            System.err.println("igual a cero");
+
+		   if(digitoc.equals("1")) {
+				
+			   if(mes.equals("01")) 
+			   { max = ObtenMonth.numeroDeDiasMes("enero", SystemDate.obtenAnio())-1;
+			     fecha = fecha+max;
+			   }
+			   if(mes.equals("02"))
+			   { max = ObtenMonth.numeroDeDiasMes("febrero", SystemDate.obtenAnio())-1;
+			     fecha = fecha+max;
+			   }
+			   if(mes.equals("03")) 
+			   { max = ObtenMonth.numeroDeDiasMes("marzo", SystemDate.obtenAnio())-1;
+			     fecha = fecha+max;
+			   }
+			   if(mes.equals("04")) 
+			   { max = ObtenMonth.numeroDeDiasMes("abril", SystemDate.obtenAnio())-1;
+			     fecha = fecha+max;
+			   }
+			   if(mes.equals("05")) 
+			   { max = ObtenMonth.numeroDeDiasMes("mayo", SystemDate.obtenAnio())-1;
+			     fecha = fecha+max;
+			   }
+			   if(mes.equals("06")) 
+			   { max = ObtenMonth.numeroDeDiasMes("junio", SystemDate.obtenAnio())-1;
+			     fecha = fecha+max;
+			   }
+			   if(mes.equals("07"))
+			   { max = ObtenMonth.numeroDeDiasMes("julio", SystemDate.obtenAnio())-1;
+			     fecha = fecha+max;
+			   }
+			   if(mes.equals("08"))
+			   { max = ObtenMonth.numeroDeDiasMes("agosto", SystemDate.obtenAnio())-1;
+			     fecha = fecha+max;
+			   }
+			   if(mes.equals("09")) 
+			   { max = ObtenMonth.numeroDeDiasMes("septiembre", SystemDate.obtenAnio())-1;
+			     fecha = fecha+max;
+			   }
+			
+			   System.err.println("fecha"+fecha);
+
+			}else {
+			
+	            System.err.println("sin mes");
+			    dia = Integer.parseInt(ev.getEnd().substring(1,2))-1;
+	            fecha = fecha + dia;
+	    		System.err.println("fecha"+fecha);
+
+		     }
+	}
+		
+		
+       
 	    return ini+html+fin;
 	}	
 	
@@ -161,13 +246,21 @@ public class RevistaController {
 			ve = vehiculoService.findOne(id_vehiculo);
 			
 		}
+	
+
+		
 		
 		Revista rev= null;	
 		Evento ev = null;
 		if(id != 0) {rev =revistaService.findOne(id);};
 		if(idevento != 0) {ev =eventoService.findOne(idevento);};
-		rev.setFecha_inicio(Fini);
-		rev.setFecha_fin((Ffin=="")?Fini:Ffin);
+		
+		ev.setEnd((Ffin=="")?Fini:Ffin);
+	
+		
+		
+		rev.setFecha_inicio(Fini);		
+		rev.setFecha_fin((Ffin=="")?Fini:Ffin);		
 		rev.setVehiculo(ve);
 		rev.setEstado(check);
 		rev.setEvento_id(idevento);
@@ -175,6 +268,7 @@ public class RevistaController {
 		String html="";	
 		
 		revistaService.save(rev);
+		eventoService.save(ev);
 		
 		if(check) {
 
