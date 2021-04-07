@@ -72,7 +72,13 @@ public class IRevistaServiceImpl implements IRevistaService {
 		// TODO Auto-generated method stub
 		return revistaDao.UltimaRevistaVehiculo(id_vehiculo);
 	}
-
 	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Revista> revfin(Long evento) {
+		// TODO Auto-generated method stub
+		return revistaDao.revfin(evento);
+	}
+
 
 }

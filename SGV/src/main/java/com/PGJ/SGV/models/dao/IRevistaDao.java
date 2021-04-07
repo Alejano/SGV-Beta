@@ -1,13 +1,9 @@
 package com.PGJ.SGV.models.dao;
 
-
-
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import com.PGJ.SGV.models.entity.Revista;
-
-
 
 public interface IRevistaDao extends CrudRepository<Revista, Long>{		
 
@@ -23,4 +19,7 @@ public interface IRevistaDao extends CrudRepository<Revista, Long>{
 	@Query("select r from Revista r inner join Vehiculo v on r.vehiculo.id_vehiculo = v.id_vehiculo where v.id_vehiculo = ?1 and evento_id = (select max(evento_id) from Revista where vehiculo_id_vehiculo = ?1)")
 	public Revista UltimaRevistaVehiculo(Long id_vehiculo);
 	
+	@Query("select r from Revista r where r.evento_id = ?1 and r.estado = true")
+	public List<Revista> revfin(Long evento);
+
 }

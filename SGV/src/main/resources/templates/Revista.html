@@ -9,7 +9,7 @@
 	<header th:replace="/layout/layoutHeadCalendary :: header"></header>
 <div class="fondocalenday">
 	
-	<div class="col-md-5 enlineaform" id='external-events' th:if="${usuario} == 'ROLE_ADMIN'">
+	<div class="col-md-5 enlineaform" id='external-events' th:if="${usuario} == 'ROLE_ADMIN'" style="height:506px;">
 
 		<form id="Busqueda" class="col-md-12">										
 			<i class="fas fa-search"></i>	       											       
@@ -61,8 +61,8 @@
 	</section>	
 </div>
 	<script th:if="${usuario} == 'ROLE_ADMIN'">
-
-      document.addEventListener('DOMContentLoaded', function() {
+     
+	 document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
@@ -170,9 +170,10 @@
   	    	        },
     	    	}
     	    },
+    
     	    editable: true,
-    	    droppable: true, // this allows things to be dropped onto the calendar    
-    	    
+    	    droppable: true,// this allows things to be dropped onto the calendar    
+    	   
     	   	eventReceive: function(info) {   
     		  
     		   	var textdia = info.event.startStr.split("-")[2];
@@ -201,10 +202,9 @@
    	  		 				
    	  					}else{
 		   	  			
-		   	  				info.revert();
+		   	  			    info.revert();
 		   	  				console.log("es antes"+ textMes +">="+month+" "+ textdia +">="+day);
 
-	   	  				
    	  					}
 	   	  			}
 	   	  			
@@ -213,35 +213,39 @@
       	      },
     	    eventDrop: function(info) {  
     	    	
-	    	    	Swal.fire({
+    	    	   info.revert();
+	    	    	/*Swal.fire({
 	  	    		  title: 'Estas seguro del cambio a realizar',
 	  	    		  showDenyButton: true,
 	  	    		  showCancelButton: false,
 	  	    		  confirmButtonText: `Aceptar`,
 	  	    		  denyButtonText: `Cancelar`,
-	  	    		}).then((result) => {
+	  	    		}).then((result) => {  */
 	  	    		  /* Read more about isConfirmed, isDenied below */
-	  	    		  if (result.isConfirmed) {
-	  	    			ajaxed(info.event.id,info.event.title,info.event.startStr,info.event.endStr);
+	  	    		/* if (result.isConfirmed) {
+	  	    	     	ajaxed(info.event.id,info.event.title,info.event.startStr,info.event.endStr);
 	  	    		    Swal.fire('Guardado!', '', 'success');
 	  	    		  } else if (result.isDenied) {
 	  	    		    Swal.fire('Cambio no Guardado', '', 'info');
 	  	    		     info.revert();
-	  	    		  }
-	  	    		})
+	  	    		 }
+	  	    		}) */
 	  	    		
 	  	    		Swal.fire({
 					  position: 'top-end',
-					  icon: 'success',
-					  title: 'Cambio guardado',
-					  showConfirmButton: false,
-					  timer: 1500
+					  icon: 'error',
+					  title: 'ERROR',
+					  text:'No se pueden arrastrar los eventos',
+					  showConfirmButton: true,
+					  //timer: 1500
 					})
 
     	      },
-    	      eventResize: function(info) {    	    	  
-    	    	 
+    	      
+    	      eventResize: function(info) {  
     	    	  
+    	    	  console.log("entra prueba");
+
     	    		  Swal.fire({
 	    	    		  title: 'Estas seguro del cambio a realizar',
 	    	    		  showDenyButton: true,
@@ -263,29 +267,36 @@
     	    		     Swal.fire({
 							  position: 'top-end',
 							  icon: 'success',
-							  title: 'Cambio guardado',
+							  title: 'Cambio guardado con éxito',
 							  showConfirmButton: false,
 							  timer: 1500
 							})	 
 							
 	   	    				$("#itemVehi").load("refreshVehi","id="+ info.event.id+"&title="+ info.event.title+"&Fini="+ info.event.startStr+"&Ffin="+ info.event.endStr);
 
+			        	    $("#limpiar").load("limpiarVehi","id="+ info.event.id);
+			        	    location.reload(); 
     	    	  },
+    	    	  
+    	    	  
    	    	  eventClick: function(info) {
    	    				
-   	    					$('#eliminar').remove();
-		    	    		$('#close').remove();
+   	    		$('#eliminar').remove();
+   	    		$('#limpiar').remove();
+		    	$('#close').remove();
 		    	    	
-   	    				$("#itemVehi").load("refreshVehi","id="+ info.event.id+"&title="+ info.event.title+"&Fini="+ info.event.startStr+"&Ffin="+ info.event.endStr);
-		   	    				   	            	
-   	    			
+   	    	    $("#itemVehi").load("refreshVehi","id="+ info.event.id+"&title="+ info.event.title+"&Fini="+ info.event.startStr+"&Ffin="+ info.event.endStr);	
    	    				
-		   	            $('#fullCalModal').modal();
+		   	    $('#fullCalModal').modal();
 		   	       		
-		   	       	var buttondel = '<button id="eliminar" class="btn btn-primary">Borrar evento</button>';
-		   	       	var buttonclose = '<button id="close" type="button" class="btn btn-default">Close</button>';
+		   	    var buttondel = '<button id="eliminar" class="btn btn-primary">Borrar evento</button>';
+		   	    var buttonlimpiar = '<button id="limpiar" class="btn btn-primary">Limpiar</button>';
+		   	    var buttonclose = '<button id="close" type="button" class="btn btn-default">Close</button>';
+		   	    
 		   	     $('.modal-footer').append(buttondel);
+		   	     $('.modal-footer').append(buttonlimpiar);
 		   	  	 $('.modal-footer').append(buttonclose);
+		   	  	 
 		   	     $('#eliminar').click(function() {
 		 	       	
 		  	        	if (confirm("Deseas eliminar este evento?")) {
@@ -301,6 +312,12 @@
 			    	    	}
 		  	        });
 		   	     
+		   	     
+    			 $("#limpiar").click(function() {
+        			    $("#limpiar").load("limpiarVehi","id="+ info.event.id);
+        			    location.reload(); 
+		  	     });
+
 			   	  $('#close').click(function() {		 	       				  	        			  	        				  	        				    	 
 					   		$("#fullCalModal").modal('hide');
 			    	      	$('body').removeClass('modal-open');
@@ -310,21 +327,17 @@
 			    	    	
 		  	        });
 		   	       	
-   	    	    },
+   	    	       },
     	        	    
     	    events: {
-    	        url : '/api/event/all'
+    	        url : '/api/event/all',
     	      }
     	    
     	  });
 
     	  calendar.render();
-    	      	
-    	  
-    	  
-    	  
-  
-		function ajaxPost(idx,ads,infox,startx,endx){
+
+		  function ajaxPost(idx,ads,infox,startx,endx){
 				 
 				  var token = $("meta[name='_csrf']").attr("content");
 				  var header = $("meta[name='_csrf_header']").attr("content");
@@ -599,8 +612,5 @@
 	<script src='/assets/calendario/moment.min.js'></script>
 	<script src='/assets/calendario/fullcalendar.min.js'></script>
 	
-	
-	
- 
 </body>
 </html>

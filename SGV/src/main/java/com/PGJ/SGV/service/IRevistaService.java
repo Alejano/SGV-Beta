@@ -21,5 +21,7 @@ public interface IRevistaService {
 	public void deleteAllbyEvento(Long evento);
 	
 	public Revista UltimaRevistaVehiculo(Long id_vehiculo);
+	
+	public List<Revista> revfin(Long evento);
 
 }
