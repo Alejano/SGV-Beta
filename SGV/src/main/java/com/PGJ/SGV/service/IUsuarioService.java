@@ -1,11 +1,14 @@
 package com.PGJ.SGV.service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.PGJ.SGV.models.entity.Usuario;
+
+import net.sf.jasperreports.engine.JRException;
 
 public interface IUsuarioService {
 	
@@ -48,5 +51,8 @@ public interface IUsuarioService {
 	public Long TotalUVigLic(String fecha1, String fecha2);
 	
 	public Long TotalUVigIne(String fecha1, String fecha2);
+	
+	public String exportReport(String format) throws FileNotFoundException, JRException;
+
 		
 }

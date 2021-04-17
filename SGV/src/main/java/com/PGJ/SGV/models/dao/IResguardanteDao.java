@@ -7,7 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import com.PGJ.SGV.models.entity.Adscripcion;
 import com.PGJ.SGV.models.entity.Resguardante;
+
+import com.PGJ.SGV.models.entity.Vehiculo;
 
 
 
@@ -35,5 +38,18 @@ public interface IResguardanteDao extends PagingAndSortingRepository<Resguardant
 		
 		@Query("select count(r) from Resguardante r where r.vehiculo.id_vehiculo = ?1 ")
 		public Long resguardantespvtotales(Long id_vehiculo);
-
+		
+		@Query("select r from Resguardante r inner join Adscripcion a on r.adscripcion.id_adscripcion = a.id_adscripcion "
+	   			+ "inner join Vehiculo v on r.vehiculo.id_vehiculo=v.id_vehiculo where a.id_adscripcion=?1 order by r.id_resguardante asc")
+		public  List<Resguardante> findResgAll1(Long id_adscripcion);
+		
+		@Query("select r from Resguardante r inner join Adscripcion a on r.adscripcion.id_adscripcion = a.id_adscripcion "
+	   			+ "inner join Vehiculo v on r.vehiculo.id_vehiculo=v.id_vehiculo order by r.id_resguardante asc")
+		public  List<Integer> findResgIds();
+		
+		@Query("select r from Resguardante r inner join Adscripcion a on r.adscripcion.id_adscripcion = a.id_adscripcion "
+	   			+ "inner join Vehiculo v on r.vehiculo.id_vehiculo=v.id_vehiculo where r.id_resguardante= ?1 order by r.id_resguardante asc")
+		public  List<Resguardante> findResgInd(Long id_resguardante);
+		
+		
 }

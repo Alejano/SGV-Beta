@@ -1,13 +1,28 @@
 package com.PGJ.SGV.service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
+
 import com.PGJ.SGV.models.dao.IUsuarioDao;
 import com.PGJ.SGV.models.entity.Usuario;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Service
 public class IUsuarioServiceImpl implements IUsuarioService {
@@ -136,6 +151,28 @@ public class IUsuarioServiceImpl implements IUsuarioService {
 		// TODO Auto-generated method stub
 		return usuarioDao.TotalUVigIne(fecha1,fecha2);
 	}	
+	
+	public String exportReport(String format) throws FileNotFoundException, JRException{
+		
+		List<Usuario> usuarios = (List<Usuario>) usuarioDao.findAll();
+		String ruta = "c://opt//reportes//usuariosformat.pdf";
+		
+		//File destino = new File ("C:/pruebas/archivo.ext");
+
+		File file = ResourceUtils.getFile("classpath:templates/usuarios.jrxml");
+		JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
+		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(usuarios);
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("gain java", "knowledge");
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parameters, ds);
+		
+		if(format.equalsIgnoreCase("pdf")) {
+		JasperExportManager.exportReportToPdfFile(jasperPrint, ruta);		
+		}
+		
+		return "ruta: " + ruta;
+		
+	}
 	
 }
 

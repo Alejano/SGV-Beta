@@ -1,5 +1,6 @@
 package com.PGJ.SGV.controllers;
 
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +31,8 @@ import com.PGJ.SGV.service.IUsuarioService;
 import com.PGJ.SGV.util.paginador.PageRender;
 import com.PGJ.SGV.utilities.ObtenHour;
 import com.PGJ.SGV.utilities.SystemDate;
+
+import net.sf.jasperreports.engine.JRException;
 
 @Controller
 public class UsuarioController {
@@ -412,6 +415,149 @@ public class UsuarioController {
 		 return "redirect:/BajasUsu";
 		 
 	}
+	
+	
+	@RequestMapping(value="/export/reportUsuarios", method=RequestMethod.GET)  
+    //public String report(HttpServletResponse response,@RequestParam(name="page", defaultValue = "0") int page) throws Exception,IOException,FileNotFoundException {
+
+	private String exportReport(@RequestParam(name="page", defaultValue = "0") int page, Model model) throws FileNotFoundException, JRException {
+	
+		String format = "pdf";
+		//return usuarioService.exportReport(format);
+		usuarioService.exportReport(format);
+		
+		model.addAttribute("PageTitulo", "Reporte Usuarios");
+        return "verSeguro";
+        
+	}
+	
+	
+	@RequestMapping(value="/reportUsuarios", method=RequestMethod.GET)  
+	private String verReport(Model model) {
+		
+		model.addAttribute("PageTitulo", "Reporte Usuarios");
+        return "verSeguro";
+        
+	}
+	
+    
+/*
+		FileInputStream inputStream = new FileInputStream(file);
+		byte[] buffer = new byte[8192];
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+		int bytesRead;
+		while ((bytesRead = inputStream.read(buffer)) != -1)
+		{
+		      baos.write(buffer, 0, bytesRead);
+		}
+		response.setHeader("Content-Disposition","inline; filename=\""+file.getName()+"\"");
+		response.setContentType("application/pdf");
+		ServletOutputStream outputStream = response.getOutputStream();
+		baos.writeTo(outputStream);
+		outputStream.flush();*/
+	
+			//response.setHeader("Content-disposition","inline; filename=c://users//brend//usuariosformat.pdf");
+			//response.setContentType("application/pdf");
+
+		//return "redirect:/Usuarios";
+		
+		/*response.setContentType("text/html");
+		response.setHeader("Content-Lenght", String.valueOf(pdf.size()));
+		response.addHeader("Content-Disposition", "inline; filename=usuarios.pdf;");
+		
+
+		
+	}
+	
+	 /*private void createPdfReport() throws JRException {
+		
+			List<Usuario> usuarios = new ArrayList<Usuario>();
+	        final InputStream stream = (InputStream) this.getClass().getResourceAsStream("/usuarios.jrxml");
+	        final JasperReport report = JasperCompileManager.compileReport(stream);
+	 	    final JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(usuarios);
+	 
+	        final Map<String, Object> parameters = new HashMap<>();
+	        parameters.put("createdBy", "javacodegeek.com");
+	        
+	        final JasperPrint print = JasperFillManager.fillReport(report, parameters, source);
+			final String filePath = "\\";
+			JasperExportManager.exportReportToPdfFile(print, filePath + "Usuarios_report.pdf");
+	        
+	        // Export the report to a PDF file.*/
+	    //}
+	
+		
+		
+		
+		
+	/*@RequestMapping(value="/export/reportUsuarios", method = RequestMethod.GET)  
+      public void report(HttpServletResponse response) throws Exception,IOException {
+		  
+		try {
+		
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		
+		usuarios = usuarioService.findAll();
+		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(usuarios);
+		InputStream in = (InputStream) this.getClass().getResourceAsStream("usuarios.jrxml");
+		
+		JasperReport jasper = JasperCompileManager.compileReport(in);
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("gain java", "knowledge");
+
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parameters,ds);
+			
+	/*	JRPdfExporter pdfExporter =  new JRPdfExporter();
+		pdfExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+		ByteArrayOutputStream pdf = new ByteArrayOutputStream();
+		pdfExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(pdf));
+		pdfExporter.exportReport();*/
+		
+	/*	HtmlExporter htmlExporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
+		htmlExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+		htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+		htmlExporter.exportReport();
+
+		
+
+		//response.setContentType("application/pdf");
+		/*response.setContentType("text/html");
+		response.setHeader("Content-Lenght", String.valueOf(pdf.size()));
+		response.addHeader("Content-Disposition", "inline; filename=usuarios.pdf;");
+		
+		OutputStream responseOutput = response.getOutputStream();
+		responseOutput.write(pdf.toByteArray());
+		responseOutput.close();
+		//pdf.close();
+		 
+	  } catch (MalformedURLException e) {
+          e.printStackTrace();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }*/
+
+		/*List<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios = usuarioService.findAll();
+		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(usuarios);
+		InputStream in = (InputStream) this.getClass().getResourceAsStream("usuarios.jrxml");
+		
+		JasperReport jasper = JasperCompileManager.compileReport(in);
+
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, null,ds);
+		HtmlExporter htmlExporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
+		htmlExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+		htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+		htmlExporter.exportReport();
+
+		
+		response.setContentType("application/pdf");
+		response.setHeader("Content-Disposition", "attachment; filename=\""
+                + nombreFichero+ "\"");
+
+		*/
+		
+//	}
 
 		 private static boolean isValidDouble(String s) {
 				final String Digits     = "(\\p{Digit}+)";

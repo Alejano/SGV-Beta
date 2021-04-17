@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Formulario Siniestro</title>
+<meta charset="utf-8">
+	<head th:replace="/layout/layoutHeadMetaData :: head"></head>
+<body>
+	<header th:replace="/layout/layoutHeadMetaData :: header"></header>
+<body>
+
+
+			 <h2 th:text="${PageSubTitulo}" class="titulotabla"></h2>
+			<div  class="card-body d-flex justify-content-center col-sm-12" >
+					<!--<embed th:src="@{/reportes/usuariosformat.pdf}" type="application/pdf" class="col-sm-12" style="height:715px;"/> -->
+				    <embed th:src="@{/reportes/Concentrado.pdf}" type="application/pdf" class="col-sm-12" style="height:715px;"/> 
+			</div>
+		
+	
+	<!-- jQuery Library -->
+	<script src="/assets/js/jquery-3.4.1.min.js"></script>
+	<!-- Popper js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- Form Validator -->
+	<script src="/assets/js/validator.min.js"></script>
+	<!-- Contact Form Js -->
+	<script src="/assets/js/contact-form.js"></script>
+
+</body>
+</html>

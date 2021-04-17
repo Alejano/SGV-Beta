@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vehiculos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="44fff550-09b3-4312-8fda-ee91dbbb8740">
+	<parameter name="fecha" class="java.lang.String"></parameter>
+	<field name="tipo_resguardante.nombre" class="java.lang.String"></field>
+	<field name="nombre" class="java.lang.String"></field>
+	<field name="apellido1" class="java.lang.String"></field>
+    <field name="apellido2" class="java.lang.String"></field>
+	<field name="cargo" class="java.lang.String"></field>
+	<field name="adscripcion.nombre_adscripcion" class="java.lang.String"></field>
+	<field name="vehiculo.placa" class="java.lang.String"></field>	
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="112" splitType="Stretch">
+			<staticText>
+				<reportElement x="104" y="4" width="356" height="75" uuid="bf952bdf-b12e-4a49-a524-286c44a02d6f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OFICIALIA MAYOR
+DIRECCIÓN GENERAL DE RECURSOS MATERIALES Y SERVICIOS GENERALES
+DIRECCIÓN DE CONTROL DE BIENES
+SUBDIRECCIÓN DE CONTROL VEHICULAR
+Resguardo Individual de Vehiculos]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-10" y="14" width="121" height="56" uuid="a4757306-8ee5-4aab-b2c1-5e2fc5fe654a"/>
+				<imageExpression><![CDATA["static/images/log.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="460" y="14" width="100" height="56" uuid="54f33e04-f92a-4103-b42c-b295447feb5f"/>
+				<text><![CDATA[FORMATO                              UNICO DE REVISTA            VEHICULAR                           ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="60" width="100" height="30" uuid="f40ffb64-8959-4b43-b5eb-e4ed5ab9d5fb"/>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="229" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="-10" width="560" height="220" uuid="e794e0a2-f51e-442b-b899-60450eb89941"/>
+				<textField>
+					<reportElement x="60" y="0" width="309" height="30" uuid="144f7128-38e7-4eb0-bc65-9aafb63ed7db"/>
+					<textFieldExpression><![CDATA[$F{adscripcion.nombre_adscripcion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="40" y="20" width="100" height="30" uuid="7339627b-a813-43a9-a00a-f86441d461a5"/>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="190" y="20" width="100" height="30" uuid="f5a9b19f-c739-4672-9ca6-ea01e1480e46"/>
+					<textFieldExpression><![CDATA[$F{apellido1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="340" y="20" width="100" height="30" uuid="1c15a644-070c-4df9-b10e-05c851aae6f7"/>
+					<textFieldExpression><![CDATA[$F{apellido2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="40" y="40" width="100" height="30" uuid="c0d6f8d3-928f-4ee4-8438-ee86a86ed5d4"/>
+					<textFieldExpression><![CDATA[$F{cargo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="140" y="40" width="100" height="30" uuid="15b6f98e-d05a-4d7f-a37a-0698f3bc3ecb"/>
+					<textFieldExpression><![CDATA[$F{vehiculo.placa}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="360" y="40" width="100" height="30" uuid="e32b2139-e492-4c1a-bada-ff47480c1253"/>
+					<textFieldExpression><![CDATA[$F{tipo_resguardante.nombre}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="30" uuid="ddbc03af-bea7-4b7b-b052-eb56d659aad7"/>
+					<text><![CDATA[Adscripción: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="20" width="100" height="30" uuid="aa3f8338-9c0b-4673-ae0f-2fcd773e28a6"/>
+					<text><![CDATA[Nombre: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="110" y="20" width="100" height="30" uuid="01df85dc-6a8f-4f92-87bf-1c8f18c8700d"/>
+					<text><![CDATA[Apellido Paterno:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="260" y="20" width="100" height="30" uuid="b55c421e-1a79-4aef-be51-1d33a7d0c50b"/>
+					<text><![CDATA[Apellido Materno:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="40" width="100" height="23" uuid="388c130e-e08b-497e-8c96-11ea56e4b0db"/>
+					<text><![CDATA[Cargo:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="110" y="40" width="100" height="30" uuid="09095941-bfd0-4a42-a8ce-f19f4aead60e"/>
+					<text><![CDATA[Placa: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="260" y="40" width="100" height="30" uuid="b87d57bb-b1f1-4f2e-b24e-8f3ea3e856a5"/>
+					<text><![CDATA[Tipo Resguardante:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="81" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

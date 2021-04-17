@@ -35,7 +35,6 @@ public class Resguardante implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Adscripcion adscripcion;
-	//fin extras resguardantes
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private TipoResguardante tipo_resguardante;
@@ -43,102 +42,6 @@ public class Resguardante implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Vehiculo vehiculo;
 	
-	
-
-	public String getNo_licencia() {
-		return no_licencia;
-	}
-
-	public void setNo_licencia(String no_licencia) {
-		this.no_licencia = no_licencia;
-	}
-
-	public String getRfc() {
-		return rfc;
-	}
-
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
-
-	public String getIne() {
-		return ine;
-	}
-
-	public void setIne(String ine) {
-		this.ine = ine;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getDomicilio() {
-		return domicilio;
-	}
-
-	public void setDomicilio(String domicilio) {
-		this.domicilio = domicilio;
-	}
-
-	
-	public Adscripcion getAdscripcion() {
-		return adscripcion;
-	}
-
-	public void setAdscripcion(Adscripcion adscripcion) {
-		this.adscripcion = adscripcion;
-	}
-
-	public String getIds_adscripcion() {
-		return ids_adscripcion;
-	}
-
-	public void setIds_adscripcion(String ids_adscripcion) {
-		this.ids_adscripcion = ids_adscripcion;
-	}
-	
-	public Resguardante() {
-		tipo_resguardante = new TipoResguardante();
-		vehiculo = new Vehiculo();
-	}
-
-	public boolean isActivo() {
-		return activo;
-	}
-
-	public void setActivo(boolean activo) {
-		this.activo = activo;
-	}
-
-	public TipoResguardante getTipo_resguardante() {
-		return tipo_resguardante;
-	}
-
-	public void setTipo_resguardante(TipoResguardante tipo_resguardante) {
-		this.tipo_resguardante = tipo_resguardante;
-	}
-
-	public TipoResguardante getTipo_resguardante_id() {
-		return tipo_resguardante;
-	}
-
-	public void setTipo_resguardante_id(TipoResguardante tipo_resguardante_id) {
-		this.tipo_resguardante = tipo_resguardante_id;
-	}
-
-	public Vehiculo getVehiculo() {
-		return vehiculo;
-	}
-
-	public void setVehiculo(Vehiculo vehiculo) {
-		this.vehiculo = vehiculo;
-	}
-
 	public long getId_resguardante() {
 		return id_resguardante;
 	}
@@ -193,6 +96,100 @@ public class Resguardante implements Serializable {
 
 	public void setFecha_fin(String fecha_fin) {
 		this.fecha_fin = fecha_fin;
+	}
+	
+	public String getNo_licencia() {
+		return no_licencia;
+	}
+
+	public void setNo_licencia(String no_licencia) {
+		this.no_licencia = no_licencia;
+	}
+
+	public String getRfc() {
+		return rfc;
+	}
+
+	public void setRfc(String rfc) {
+		this.rfc = rfc;
+	}
+
+	public String getIne() {
+		return ine;
+	}
+
+	public void setIne(String ine) {
+		this.ine = ine;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDomicilio() {
+		return domicilio;
+	}
+
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
+	}
+	
+	public String getIds_adscripcion() {
+		return ids_adscripcion;
+	}
+
+	public void setIds_adscripcion(String ids_adscripcion) {
+		this.ids_adscripcion = ids_adscripcion;
+	}
+	
+	public Adscripcion getAdscripcion() {
+		return adscripcion;
+	}
+
+	public void setAdscripcion(Adscripcion adscripcion) {
+		this.adscripcion = adscripcion;
+	}
+	
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+	
+
+	public Resguardante() {
+		tipo_resguardante = new TipoResguardante();
+		vehiculo = new Vehiculo();
+	}
+
+	public TipoResguardante getTipo_resguardante() {
+		return tipo_resguardante;
+	}
+
+	public void setTipo_resguardante(TipoResguardante tipo_resguardante) {
+		this.tipo_resguardante = tipo_resguardante;
+	}
+
+	public TipoResguardante getTipo_resguardante_id() {
+		return tipo_resguardante;
+	}
+
+	public void setTipo_resguardante_id(TipoResguardante tipo_resguardante_id) {
+		this.tipo_resguardante = tipo_resguardante_id;
+	}
+
+	public Vehiculo getVehiculo() {
+		return vehiculo;
+	}
+
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
 	}
 
 	public static long getSerialversionuid() {

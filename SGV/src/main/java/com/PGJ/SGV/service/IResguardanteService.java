@@ -1,13 +1,19 @@
 package com.PGJ.SGV.service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+
 import com.PGJ.SGV.models.entity.Resguardante;
+
+import net.sf.jasperreports.engine.JRException;
 
 
 public interface IResguardanteService {
+	
 		public List<Resguardante> findAll(); 
 		
 		public Page<Resguardante> findAllByVehiculo(long id_vehiculo, Pageable pageable);
@@ -31,6 +37,14 @@ public interface IResguardanteService {
 		public Long resguardantestotales();
 		
 		public Long resguardantespvtotales(Long id_vehiculo);
-
 		
+		public  List<Resguardante> findResgAll1(Long id_adscripcion);
+		
+		public  List<Integer> findResgIds();
+		
+		public  List<Resguardante> findResgInd(Long id_resguardante);
+		
+		public String exportReport(String format) throws FileNotFoundException, JRException;
+
+
 }

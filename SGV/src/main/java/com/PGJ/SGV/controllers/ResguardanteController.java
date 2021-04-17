@@ -1,18 +1,28 @@
 package com.PGJ.SGV.controllers;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +43,20 @@ import com.PGJ.SGV.service.IVehiculoService;
 import com.PGJ.SGV.util.paginador.PageRender;
 import com.PGJ.SGV.utilities.ObtenHour;
 import com.PGJ.SGV.utilities.SystemDate;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+
 //calev
 import com.PGJ.SGV.models.entity.Adscripcion;
 import com.PGJ.SGV.service.IAdscripcionService;
@@ -549,6 +573,105 @@ public class ResguardanteController {
 		return "redirect:/infoResguardante/" + resguardante.getVehiculo().getId_vehiculo();
 
 	}
+	
+
+	@RequestMapping(value="/export/reportResg", method=RequestMethod.GET)  
+    //public String report(HttpServletResponse response,@RequestParam(name="page", defaultValue = "0") int page) throws Exception,IOException,FileNotFoundException {
+
+	private String exportReport(@RequestParam(name="page", defaultValue = "0") int page, Model model) throws FileNotFoundException, JRException {
+	
+		String format = "pdf";
+		//return usuarioService.exportReport(format);
+		reguardanteservice.exportReport(format);
+		
+		model.addAttribute("PageTitulo", "Reporte Resg");
+        return "verResg";
+        
+	}
+	
+
+	@RequestMapping(value="/export/reportResg2", method=RequestMethod.GET)  
+    public void report(HttpServletResponse response) throws Exception {
+
+	   /* response.setContentType("text/html");
+	    
+	    List<Resguardante> resg = new ArrayList<Resguardante>();
+		resg =  reguardanteservice.findResgAll1(6l);
+		
+		JRBeanCollectionDataSource ds1 = new JRBeanCollectionDataSource(resg);
+		InputStream Input = this.getClass().getResourceAsStream("/templates/resguardantes.jrxml");
+		JasperDesign design = JRXmlLoader.load(Input);
+	    JasperReport jasper = JasperCompileManager.compileReport(design);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, null, ds1);
+		
+		JRPdfExporter pdf = new JRPdfExporter();
+		pdf.setExporterInput(new SimpleExporterInput(jasperPrint));
+		ByteArrayOutputStream streamp = new ByteArrayOutputStream();
+		pdf.setExporterOutput(new SimpleOutputStreamExporterOutput(streamp));
+		pdf.exportReport();
+		
+		response.setContentType("application/pdf");
+		response.setHeader("Content-Leght", String.valueOf(streamp.size()));
+		response.addHeader("Content-Disposition", "inline; filename=jasper.pdf;");
+		
+		OutputStream responseOutputStream = response.getOutputStream();
+		responseOutputStream.write(streamp.toByteArray());
+		responseOutputStream.close();
+		streamp.close();*/
+		
+		int con=0;
+        response.setContentType("text/html");
+	   
+	    List<Resguardante> resg = new ArrayList<Resguardante>();
+		resg =  reguardanteservice.findResgAll1(6l);
+
+		System.err.println("carroo"+resg.size());
+		
+		List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
+		
+		
+        for (int i=0;i<resg.size();i++) {
+			
+			List<Resguardante> individual = new ArrayList<Resguardante>();
+			individual = reguardanteservice.findResgInd(resg.get(i).getId_resguardante());
+			
+			JRBeanCollectionDataSource ds1 = new JRBeanCollectionDataSource(individual);
+			InputStream Input = this.getClass().getResourceAsStream("/templates/resguardantes.jrxml");
+			JasperDesign design = JRXmlLoader.load(Input);
+		    JasperReport jasper = JasperCompileManager.compileReport(design);
+		    Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("fecha", SystemDate.obtenFecha());			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parameters, ds1);
+			jasperPrintList.add(jasperPrint);			
+	        }
+		
+		JRPdfExporter pdf = new JRPdfExporter();
+		pdf.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList));
+		
+		ByteArrayOutputStream streamp = new ByteArrayOutputStream();
+		pdf.setExporterOutput(new SimpleOutputStreamExporterOutput(streamp));
+		pdf.exportReport();
+		
+		response.setContentType("application/pdf");
+		response.setHeader("Content-Leght", String.valueOf(streamp.size()));
+		response.addHeader("Content-Disposition", "inline; filename=Resguardantes.pdf;");
+		
+		OutputStream responseOutputStream = response.getOutputStream();
+		responseOutputStream.write(streamp.toByteArray());
+		responseOutputStream.close();
+		streamp.close();
+
+	}
+	
+	
+	@RequestMapping(value="/export/reportResg3", method=RequestMethod.GET)  
+	private String verReport(Model model) {
+		
+		model.addAttribute("PageTitulo", "Reporte Usuarios");
+        return "verSeguro";
+        
+	}
+	
 	
 	
 }
