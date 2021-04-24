@@ -623,7 +623,7 @@ public class ResguardanteController {
         response.setContentType("text/html");
 	   
 	    List<Resguardante> resg = new ArrayList<Resguardante>();
-		resg =  reguardanteservice.findResgAll1(6l);
+		resg =  reguardanteservice.findResgAll1(64l);
 
 		System.err.println("carroo"+resg.size());
 		
@@ -636,7 +636,7 @@ public class ResguardanteController {
 			individual = reguardanteservice.findResgInd(resg.get(i).getId_resguardante());
 			
 			JRBeanCollectionDataSource ds1 = new JRBeanCollectionDataSource(individual);
-			InputStream Input = this.getClass().getResourceAsStream("/templates/resguardantes.jrxml");
+			InputStream Input = this.getClass().getResourceAsStream("/reportes/ResguardanteIndividual.jrxml");
 			JasperDesign design = JRXmlLoader.load(Input);
 		    JasperReport jasper = JasperCompileManager.compileReport(design);
 		    Map<String, Object> parameters = new HashMap<String, Object>();

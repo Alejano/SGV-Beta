@@ -152,12 +152,13 @@ public class IResguardoServiceImpl implements IResguardanteService {
 		int con=0;
 		
 		List<Resguardante> resg = new ArrayList<Resguardante>();
-		resg = resguardoDao.findResgAll1(6l);
+		resg = resguardoDao.findResgAll1(64l);
+		
+		System.err.println("GOKU"+ resguardoDao.findResgAll1(64l).size());
 		
 		List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
 		       	
 		for (int i=0;i<resg.size();i++) {
-			
 			
 			List<Resguardante> individual = new ArrayList<Resguardante>();
 			individual = resguardoDao.findResgInd(resg.get(i).getId_resguardante());
@@ -165,7 +166,9 @@ public class IResguardoServiceImpl implements IResguardanteService {
 			
 			String rutacompleta = ruta + "//" + nombreUnico + ".pdf";	
 			
-			File file = ResourceUtils.getFile("classpath:templates/resguardantes.jrxml");
+			//File file = ResourceUtils.getFile("classpath:templates/resguardantes.jrxml");
+			File file = ResourceUtils.getFile("classpath:reportes/ResguardanteIndividual.jrxml");
+
 			JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
 			JRBeanCollectionDataSource ds1 = new JRBeanCollectionDataSource(individual);
 			Map<String, Object> parameters = new HashMap<String, Object>();
@@ -182,6 +185,7 @@ public class IResguardoServiceImpl implements IResguardanteService {
 			}
 			
 	        }
+
 		
 		JRPdfExporter exporter = new JRPdfExporter();
 		

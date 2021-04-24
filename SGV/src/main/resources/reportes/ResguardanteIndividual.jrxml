@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ResguardoIndividual" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfb3d668-75fe-4967-af48-fa62f77e6999">
+	<parameter name="fecha" class="java.lang.String"></parameter>
+	<field name="nombre" class="java.lang.String"></field>
+	<field name="apellido1" class="java.lang.String"></field>
+    <field name="apellido2" class="java.lang.String"></field>
+	<field name="cargo" class="java.lang.String"></field>
+	<field name="no_licencia" class="java.lang.String"></field>
+	<field name="rfc" class="java.lang.String"></field>
+	<field name="telefono" class="java.lang.String"></field>
+	<field name="domicilio" class="java.lang.String"></field>
+	<field name="adscripcion.nombre_adscripcion" class="java.lang.String"></field>
+	<field name="vehiculo.placa" class="java.lang.String"></field>	
+	<field name="vehiculo.no_serie" class="java.lang.String"></field>
+	<field name="vehiculo.no_inventario" class="java.lang.String"></field>
+	<field name="vehiculo.vehiculo_marca.nombre_marca" class="java.lang.String"></field>
+	<field name="vehiculo.vehiculo_marca.modelo" class="java.lang.String"></field>
+	<field name="vehiculo.vehiculo_marca.tipo" class="java.lang.String"></field>
+	<field name="vehiculo.vehiculo_detalle.color" class="java.lang.String"></field>
+	<field name="vehiculo.vehiculo_detalle.no_motor" class="java.lang.String"></field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+		<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="-12" y="10" width="121" height="56" uuid="5c9558dd-0c43-4c3a-af34-cee77f5d2773"/>
+				<imageExpression><![CDATA["C:/Users/brenda_sanchez/Desktop/log.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="92" y="2" width="407" height="75" uuid="2b5f3ff1-4eba-4ba9-a653-9fce55d1a742"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OFICIALIA MAYOR
+DIRECCIÓN GENERAL DE RECURSOS MATERIALES Y SERVICIOS GENERALES
+DIRECCIÓN DE CONTROL DE BIENES
+SUBDIRECCIÓN DE CONTROL VEHICULAR
+Resguardo Individual de Vehiculos]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="500" y="26" width="80" height="30" uuid="f14a36d7-fbe7-4814-9cd3-73f037da207c"/>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+<pageHeader>
+		<band height="130" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="5" width="570" height="83" uuid="40899e50-c21f-4d21-a8e2-daa73bc1322c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="40" width="55" height="13" uuid="be0c741d-0a77-469a-b52b-d4b5fd6bc79c"/>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="57" width="55" height="13" uuid="80908627-5b53-4e8d-9a38-7c07f5117438"/>
+				<text><![CDATA[Puesto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="74" width="55" height="13" uuid="24cce976-03ce-4cd4-bd87-f91c621a4135"/>
+				<text><![CDATA[Teléfono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="75" width="55" height="13" uuid="e869ce97-0e9e-4e4e-b076-f8940e8f91e8"/>
+				<text><![CDATA[Domicilio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="40" width="55" height="13" uuid="2c261224-37c4-4f37-8eae-5e10df76a1a5"/>
+				<text><![CDATA[RFC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="41" width="80" height="13" uuid="2eb4ecdd-c75e-49ae-b1ef-63ac553086bd"/>
+				<text><![CDATA[No. Empleado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="55" width="55" height="13" uuid="6ccfa3da-17ad-4e11-8e9b-9eaf2db4617a"/>
+				<text><![CDATA[Licencia:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="129" y="40" width="91" height="15" uuid="3617aa30-6405-4f29-86d2-0f9a802d20ab"/>
+				<textFieldExpression><![CDATA[$F{apellido1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="41" width="96" height="14" uuid="e5a921b4-be8c-4215-8b17-7d847d790d9b"/>
+				<textFieldExpression><![CDATA[$F{apellido2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="476" y="39" width="71" height="13" uuid="c3b8707c-022e-4341-a8a7-95dd4ac316fe"/>
+				<textFieldExpression><![CDATA[$F{rfc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="491" y="55" width="81" height="19" uuid="05188390-b989-4503-ba0d-cdb0359b823e"/>
+				<textFieldExpression><![CDATA[$F{no_licencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="74" width="81" height="13" uuid="4497f38a-66af-44ec-8e74-c59f9fdf8f92"/>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="57" width="68" height="13" uuid="e81dee4b-86d3-437a-b0b8-58e702ffa73b"/>
+				<textFieldExpression><![CDATA[$F{cargo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="0" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+			<band height="159" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="-10" width="570" height="20" uuid="572c6bfe-f4f8-4169-86a5-839d187dac93"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="-126" width="570" height="19" uuid="cfddcf1f-adbf-45b7-8bae-d823b8ffb7ed"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="-123" width="96" height="15" uuid="f2fb991c-2dee-425e-ace1-f203a1df3101"/>
+				<text><![CDATA[Área de Adscripción:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="-108" width="570" height="18" uuid="5f04ebc1-b554-4ceb-b5e0-f04c11d3a844"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="205" y="-105" width="155" height="15" uuid="0dc34bcb-9ee7-484e-860a-abd19433d0ad"/>
+				<text><![CDATA[DATOS DEL RESGUARDANTE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="-10" width="129" height="20" uuid="27eab14e-3885-4fa9-81f0-423c03e5597a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="40" y="-7" width="73" height="19" uuid="795e5cf9-c50b-429e-8014-4e20315ecab3"/>
+				<text><![CDATA[INVENTARIO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="130" y="-10" width="319" height="20" uuid="397e1468-df91-4f8d-9c53-e0b09492177a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="240" y="-6" width="73" height="19" uuid="13577dd4-1d60-46d8-881d-fe61d7ef09b8"/>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="485" y="-7" width="73" height="19" uuid="b558b89f-db7c-4899-9957-38e1133d64d7"/>
+				<text><![CDATA[No. SERIE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="1" y="10" width="570" height="140" uuid="97a5b32b-8da2-44d1-a2a4-18fbf0055e5b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="97" y="-123" width="464" height="15" uuid="d57d51c0-221b-4989-b71e-234ee25649cd"/>
+				<textFieldExpression><![CDATA[$F{adscripcion.nombre_adscripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="46" y="-89" width="80" height="13" uuid="4525825a-e749-4def-a65a-87acf89eaceb"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="14" width="121" height="30" uuid="5028cd2a-b1eb-49f1-86f4-bda2122b59ab"/>
+				<textFieldExpression><![CDATA[$F{vehiculo.no_inventario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="13" width="100" height="30" uuid="d0763ccf-53e0-429a-b022-a1904a55abe5"/>
+				<textFieldExpression><![CDATA[$F{vehiculo.no_serie}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="129" y="-10" width="1" height="159" uuid="20e939d5-41d1-4adc-b742-094d3c273276"/>
+			</line>
+			<line>
+				<reportElement x="450" y="10" width="1" height="140" uuid="35d47204-5905-45aa-b13b-b5e9deca0cff"/>
+			</line>
+			<staticText>
+				<reportElement x="133" y="12" width="100" height="15" uuid="add4a759-087f-4fac-898e-57d439b59579"/>
+				<text><![CDATA[Placa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="29" width="100" height="16" uuid="85d67519-512c-40fd-871e-f59b12a6dc44"/>
+				<text><![CDATA[Marca y Tipo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="46" width="100" height="16" uuid="9ca5e192-1436-45a7-b358-7ae8de781222"/>
+				<text><![CDATA[Modelo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="63" width="100" height="16" uuid="022fa767-c539-463e-8a76-73a0d7c88eae"/>
+				<text><![CDATA[Color:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="81" width="100" height="16" uuid="6727b689-a585-492c-a2e6-a52d32756892"/>
+				<text><![CDATA[Motor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="162" y="12" width="88" height="14" uuid="3654b8ea-f85e-48e5-b021-feb29cdb6f0d"/>
+				<textFieldExpression><![CDATA[$F{vehiculo.placa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="30" width="105" height="13" uuid="796aed54-3d04-4669-871e-ed6d66fc0bcd"/>
+				<textFieldExpression><![CDATA[$F{vehiculo.vehiculo_marca.nombre_marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="30" width="126" height="14" uuid="195178ba-b428-47be-83ad-b4bcf41266de"/>
+				<textFieldExpression><![CDATA[$F{vehiculo.vehiculo_marca.tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="47" width="130" height="15" uuid="736b81da-eb35-4827-bbe2-765685740994"/>
+				<textFieldExpression><![CDATA[$F{vehiculo.vehiculo_marca.modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="82" width="116" height="15" uuid="84ad85a5-799b-4ae2-b28d-701fa646ffb8"/>
+				<textFieldExpression><![CDATA[$F{vehiculo.vehiculo_detalle.no_motor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="64" width="131" height="14" uuid="3908e64c-799c-4e86-90fa-6b4d140c4629"/>
+				<textFieldExpression><![CDATA[$F{vehiculo.vehiculo_detalle.color}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="180" splitType="Stretch">
+			<staticText>
+				<reportElement x="104" y="33" width="100" height="21" uuid="7e68af9a-0137-4911-9235-0250da39a232"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[KM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="33" width="100" height="21" uuid="d6e82601-596d-4ef6-8568-23d658ee330f"/>
+				<text><![CDATA[OBSERVACIONES: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="60" width="521" height="67" uuid="101b029e-468c-462d-82c2-a1e2bbd8d9cf"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[ESTE RESGUARDO NO PODRA SER CANCELADO HASTA QUE EL RESPONSABLE A QUIEN SE ENCUENTRAN CARGADOS LOS RECURSOS DESCRITOS LOS DEVUELVE EN LOS CASOS DE BAJA, PROMOCIÓN, RENUNCIA, O SE LE ASIGNE OTRO RESPONSABLE A SATISFACCIÓN DEL DEPARTAMENTODE INVENTARIOS, CONFORME A LO DISPUESTO EN EL CPAITULO I DEL TITULO TERCERO DE LA LEY FEDERAL DE RESPONSABILIDADES DE LOS SERVIDORES PUBLICOS EN SUS ARTICULOS RELATIVOS.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-7" y="63" width="100" height="21" uuid="4473b9b9-1a18-4434-b334-1ab927cd3730"/>
+				<text><![CDATA[NOTA .-]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="176" splitType="Stretch">
+			<textField>
+				<reportElement x="128" y="119" width="115" height="13" uuid="d1262d18-0d10-480a-9bdf-e83b19ee8a86"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="247" y="119" width="92" height="15" uuid="2bf1690f-dd70-45d5-8260-2707e8914824"/>
+				<textFieldExpression><![CDATA[$F{apellido1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="337" y="119" width="70" height="14" uuid="86c9d8a9-2852-4343-962a-52a9614310cf"/>
+				<textFieldExpression><![CDATA[$F{apellido2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="218" y="40" width="128" height="20" uuid="4b151d39-4e71-4e22-9a82-fba0496125fe"/>
+				<text><![CDATA[PRIMER RESPONSABLE]]></text>
+			</staticText>
+			<line>
+				<reportElement x="180" y="104" width="200" height="1" uuid="bd1ce532-9368-44b4-9694-8d40fd1ac3d3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>
+	

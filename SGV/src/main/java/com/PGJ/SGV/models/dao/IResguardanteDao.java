@@ -47,9 +47,16 @@ public interface IResguardanteDao extends PagingAndSortingRepository<Resguardant
 	   			+ "inner join Vehiculo v on r.vehiculo.id_vehiculo=v.id_vehiculo order by r.id_resguardante asc")
 		public  List<Integer> findResgIds();
 		
-		@Query("select r from Resguardante r inner join Adscripcion a on r.adscripcion.id_adscripcion = a.id_adscripcion "
+		/*@Query("select r from Resguardante r inner join Adscripcion a on r.adscripcion.id_adscripcion = a.id_adscripcion "
 	   			+ "inner join Vehiculo v on r.vehiculo.id_vehiculo=v.id_vehiculo where r.id_resguardante= ?1 order by r.id_resguardante asc")
-		public  List<Resguardante> findResgInd(Long id_resguardante);
+		public  List<Resguardante> findResgInd(Long id_resguardante);*/
 		
+		/*@Query("select r from Resguardante r inner join Adscripcion a on r.adscripcion.id_adscripcion = a.id_adscripcion "
+	   			+ "inner join Vehiculo v on r.vehiculo.id_vehiculo=v.id_vehiculo inner join VehiculoMarca m on v.vehiculo_marca.id_marca = m.id_marca "
+	   			+ "inner join VehiculoDetalle d on Vehiculo v on v.id_vehiculo = d.vehiculo.id_vehiculo where r.id_resguardante= ?1 order by r.id_resguardante asc")*/
+		
+		@Query("select r from Resguardante r inner join Adscripcion a on r.adscripcion.id_adscripcion = a.id_adscripcion "
+	   			+ "inner join Vehiculo v on r.vehiculo.id_vehiculo=v.id_vehiculo  where r.id_resguardante= ?1 order by r.id_resguardante asc")
+		public  List<Resguardante> findResgInd(Long id_resguardante);
 		
 }
